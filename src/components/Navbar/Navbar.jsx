@@ -12,6 +12,7 @@ import {
   MenuIcon,
   CloseIcon
 } from '../icons';
+import Logo from '../../assets/images.png'
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -226,27 +227,27 @@ const Navbar = () => {
         isVisible ? 'translate-y-0' : '-translate-y-full'
       } ${
         isScrolled 
-          ? 'bg-slate-900/95 backdrop-blur-xl shadow-2xl border-b border-white/10' 
-          : 'bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900'
+          ? 'bg-blue-900/95 backdrop-blur-xl shadow-2xl border-b border-white/10' 
+          : 'bg-gradient-to-r from-blue-900 via-blue-800 to-slate-900'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Логотип */}
-          <div className="flex-shrink-0 flex items-center">
+          <div className="flex-shrink-0 flex items-center rounded-2xl">
             <Link 
               to="/" 
               className="group flex items-center space-x-3"
               onClick={closeAllDropdowns}
             >
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center font-bold text-white text-lg shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
-                  A
+              <div className="relative rounded-2xl">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center font-bold text-white text-lg shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
+                  <img src={Logo} alt="" className='rounded-xl' />
                 </div>
                 <div className="absolute -inset-1 bg-blue-500/20 rounded-xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="flex flex-col">
-                <span className="text-white text-lg font-semibold leading-tight">Ассоциация</span>
+                <span className="text-white text-lg font-semibold leading-tight"> «Дордой»</span>
                 <span className="text-slate-300 text-xs font-medium">Business Association</span>
               </div>
             </Link>

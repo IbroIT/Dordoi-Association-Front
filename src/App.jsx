@@ -46,6 +46,7 @@ import ContactsAddress from './components/pages/contacts/ContactsAddress';
 import ContactsInfo from './components/pages/contacts/ContactsInfo';
 import ContactsSocial from './components/pages/contacts/ContactsSocial';
 import ContactsForm from './components/pages/contacts/ContactsForm';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -105,7 +106,9 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
+        <Footer />
       </div>
+
     </Router>
   );
 }
