@@ -32,5 +32,56 @@
     "contacts_info": "Contact Information",
     "contacts_social": "Social Networks",
     "contacts_form": "Online Contact Form"
+  },
+  "leadership": {
+    "badge": "Leadership Team",
+    "title": "Our Leadership",
+    "subtitle": "Meet the visionary leaders driving our success and innovation forward",
+    "achievementsTitle": "Key Achievements",
+    "photoPlaceholder": "Photo",
+    "downloadButton": "Download Full Leadership List (PDF)",
+    "downloadHint": "Complete directory of our management team and specialists",
+    "persons": [
+      {
+        "name": "Askar Salymbekov",
+        "position": "Honorary President",
+        "bio": "Visionary leader with over 20 years of experience in business development and strategic planning. Founded multiple successful enterprises across various industries.",
+        "achievements": [
+          "Founded and scaled 10+ successful companies",
+          "Pioneered innovative business models in Central Asia",
+          "Mentored 100+ young entrepreneurs and business leaders"
+        ]
+      },
+      {
+        "name": "Samarbek Zhaparakunov",
+        "position": "Chief Executive Officer",
+        "bio": "Seasoned executive with expertise in operational excellence and digital transformation. Passionate about building high-performance teams and sustainable business practices.",
+        "achievements": [
+          "Led digital transformation across all business units",
+          "Achieved 40% revenue growth in 2 years",
+          "Implemented ESG initiatives across organization"
+        ]
+      },
+      {
+        "name": "Ainura Askarova",
+        "position": "Chief Financial Officer",
+        "bio": "Financial strategist with 15+ years in corporate finance and investment management. Specialized in financial planning and risk management strategies.",
+        "achievements": [
+          "Secured $50M in strategic investments",
+          "Optimized financial operations saving 15% annually",
+          "Implemented advanced financial control systems"
+        ]
+      },
+      {
+        "name": "Bakyt Zhamankulov",
+        "position": "Chief Technology Officer",
+        "bio": "Technology innovator with background in software engineering and digital infrastructure. Focused on leveraging cutting-edge technologies for business growth.",
+        "achievements": [
+          "Led development of proprietary technology platforms",
+          "Reduced infrastructure costs by 30% through optimization",
+          "Built and scaled engineering team from 10 to 50+ specialists"
+        ]
+      }
+    ]
   }
 }
