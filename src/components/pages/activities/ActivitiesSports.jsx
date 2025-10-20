@@ -10,7 +10,6 @@ const ActivitiesSports = () => {
 
   const tabs = [
     { id: 'dordoi', label: t('sports.tabs.dordoi') },
-    { id: 'kokboru', label: t('sports.tabs.kokboru') },
     { id: 'infrastructure', label: t('sports.tabs.infrastructure') },
     { id: 'cinema', label: t('sports.tabs.cinema') }
   ];

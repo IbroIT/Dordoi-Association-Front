@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from "./components/Navbar/Navbar";
 import './App.css';
@@ -48,7 +48,21 @@ import ContactsSocial from './components/pages/contacts/ContactsSocial';
 import ContactsForm from './components/pages/contacts/ContactsForm';
 import Footer from './components/Footer';
 
+
+import DordoiLoadingAnimation from './components/DordoiLoadingAnimation';
+
 function App() {
+
+  const [showAnimation, setShowAnimation] = useState(true);
+
+  const handleAnimationComplete = () => {
+    setShowAnimation(false);
+  };
+
+  if (showAnimation) {
+    return <DordoiLoadingAnimation onAnimationComplete={handleAnimationComplete} />;
+  }
+
   return (
     <Router>
       <div className="min-h-screen bg-slate-50">

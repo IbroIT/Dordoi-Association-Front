@@ -1,496 +1,380 @@
-import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const PartnersOur = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.2 });
-  const [activeCategory, setActiveCategory] = useState('all');
+const Partners = () => {
   const { t } = useTranslation();
-
-  const categories = [
-    { id: 'all', label: t('partners.categories.all') },
-    { id: 'government', label: t('partners.categories.government') },
-    { id: 'business', label: t('partners.categories.business') },
-    { id: 'international', label: t('partners.categories.international') },
-    { id: 'ngo', label: t('partners.categories.ngo') }
-  ];
+  const [activePartner, setActivePartner] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
   const partners = [
     {
       id: 1,
-      name: t('partners.items.ministryEconomy.name'),
-      description: t('partners.items.ministryEconomy.description'),
-      category: 'government',
-      country: t('partners.countries.kg'),
-      logo: '/api/placeholder/80/80',
-      projects: [
-        t('partners.items.ministryEconomy.projects.0'),
-        t('partners.items.ministryEconomy.projects.1')
-      ],
-      links: [
-        { label: t('partners.links.news'), url: '/news/cooperation-agreement' },
-        { label: t('partners.links.report'), url: '/reports/economic-development' }
-      ],
-      years: '5+',
-      color: 'blue'
+      name: "TechCorp",
+      logo: "🚀",
+      description: "partners.techcorp.description",
+      years: "5+",
+      projects: "50+",
+      employees: "1000+",
+      satisfaction: "98%",
+      location: "partners.techcorp.location",
+      website: "https://techcorp.com",
+      industry: "partners.techcorp.industry",
+      founded: "partners.techcorp.founded",
+      achievements: ["partners.techcorp.achievement1", "partners.techcorp.achievement2", "partners.techcorp.achievement3"],
+      collaboration: "partners.techcorp.collaboration",
+      details: "partners.techcorp.details",
+      services: ["partners.techcorp.service1", "partners.techcorp.service2", "partners.techcorp.service3"],
+      partnershipBenefits: ["partners.techcorp.benefit1", "partners.techcorp.benefit2", "partners.techcorp.benefit3"]
     },
     {
       id: 2,
-      name: t('partners.items.undp.name'),
-      description: t('partners.items.undp.description'),
-      category: 'international',
-      country: t('partners.countries.international'),
-      logo: '/api/placeholder/80/80',
-      projects: [
-        t('partners.items.undp.projects.0'),
-        t('partners.items.undp.projects.1')
-      ],
-      links: [
-        { label: t('partners.links.project'), url: '/projects/sustainable-development' },
-        { label: t('partners.links.news'), url: '/news/undp-partnership' }
-      ],
-      years: '3+',
-      color: 'green'
+      name: "InnovateLab",
+      logo: "🔬",
+      description: "partners.innovatelab.description",
+      years: "3+",
+      projects: "25+",
+      employees: "200+",
+      satisfaction: "95%",
+      location: "partners.innovatelab.location",
+      website: "https://innovatelab.com",
+      industry: "partners.innovatelab.industry",
+      founded: "partners.innovatelab.founded",
+      achievements: ["partners.innovatelab.achievement1", "partners.innovatelab.achievement2", "partners.innovatelab.achievement3"],
+      collaboration: "partners.innovatelab.collaboration",
+      details: "partners.innovatelab.details",
+      services: ["partners.innovatelab.service1", "partners.innovatelab.service2", "partners.innovatelab.service3"],
+      partnershipBenefits: ["partners.innovatelab.benefit1", "partners.innovatelab.benefit2", "partners.innovatelab.benefit3"]
     },
     {
       id: 3,
-      name: t('partners.items.silkroadGroup.name'),
-      description: t('partners.items.silkroadGroup.description'),
-      category: 'business',
-      country: t('partners.countries.kg'),
-      logo: '/api/placeholder/80/80',
-      projects: [
-        t('partners.items.silkroadGroup.projects.0'),
-        t('partners.items.silkroadGroup.projects.1')
-      ],
-      links: [
-        { label: t('partners.links.news'), url: '/news/joint-venture' },
-        { label: t('partners.links.caseStudy'), url: '/cases/logistics-optimization' }
-      ],
-      years: '7+',
-      color: 'orange'
+      name: "GlobalSolutions",
+      logo: "🌍",
+      description: "partners.globalsolutions.description",
+      years: "7+",
+      projects: "80+",
+      employees: "500+",
+      satisfaction: "99%",
+      location: "partners.globalsolutions.location",
+      website: "https://globalsolutions.com",
+      industry: "partners.globalsolutions.industry",
+      founded: "partners.globalsolutions.founded",
+      achievements: ["partners.globalsolutions.achievement1", "partners.globalsolutions.achievement2", "partners.globalsolutions.achievement3"],
+      collaboration: "partners.globalsolutions.collaboration",
+      details: "partners.globalsolutions.details",
+      services: ["partners.globalsolutions.service1", "partners.globalsolutions.service2", "partners.globalsolutions.service3"],
+      partnershipBenefits: ["partners.globalsolutions.benefit1", "partners.globalsolutions.benefit2", "partners.globalsolutions.benefit3"]
     },
     {
       id: 4,
-      name: t('partners.items.greenFuture.name'),
-      description: t('partners.items.greenFuture.description'),
-      category: 'ngo',
-      country: t('partners.countries.kg'),
-      logo: '/api/placeholder/80/80',
-      projects: [
-        t('partners.items.greenFuture.projects.0'),
-        t('partners.items.greenFuture.projects.1')
-      ],
-      links: [
-        { label: t('partners.links.project'), url: '/projects/environmental-protection' },
-        { label: t('partners.links.report'), url: '/reports/eco-initiatives' }
-      ],
-      years: '2+',
-      color: 'green'
-    },
-    {
-      id: 5,
-      name: t('partners.items.europeanUnion.name'),
-      description: t('partners.items.europeanUnion.description'),
-      category: 'international',
-      country: t('partners.countries.eu'),
-      logo: '/api/placeholder/80/80',
-      projects: [
-        t('partners.items.europeanUnion.projects.0'),
-        t('partners.items.europeanUnion.projects.1')
-      ],
-      links: [
-        { label: t('partners.links.project'), url: '/projects/eu-funding' },
-        { label: t('partners.links.news'), url: '/news/eu-partnership' }
-      ],
-      years: '4+',
-      color: 'blue'
-    },
-    {
-      id: 6,
-      name: t('partners.items.techInnovations.name'),
-      description: t('partners.items.techInnovations.description'),
-      category: 'business',
-      country: t('partners.countries.usa'),
-      logo: '/api/placeholder/80/80',
-      projects: [
-        t('partners.items.techInnovations.projects.0'),
-        t('partners.items.techInnovations.projects.1')
-      ],
-      links: [
-        { label: t('partners.links.caseStudy'), url: '/cases/digital-transformation' },
-        { label: t('partners.links.news'), url: '/news/technology-partnership' }
-      ],
-      years: '2+',
-      color: 'purple'
-    },
-    {
-      id: 7,
-      name: t('partners.items.ministryEducation.name'),
-      description: t('partners.items.ministryEducation.description'),
-      category: 'government',
-      country: t('partners.countries.kg'),
-      logo: '/api/placeholder/80/80',
-      projects: [
-        t('partners.items.ministryEducation.projects.0'),
-        t('partners.items.ministryEducation.projects.1')
-      ],
-      links: [
-        { label: t('partners.links.project'), url: '/projects/educational-program' },
-        { label: t('partners.links.news'), url: '/news/education-initiative' }
-      ],
-      years: '6+',
-      color: 'red'
-    },
-    {
-      id: 8,
-      name: t('partners.items.careInternational.name'),
-      description: t('partners.items.careInternational.description'),
-      category: 'ngo',
-      country: t('partners.countries.international'),
-      logo: '/api/placeholder/80/80',
-      projects: [
-        t('partners.items.careInternational.projects.0'),
-        t('partners.items.careInternational.projects.1')
-      ],
-      links: [
-        { label: t('partners.links.project'), url: '/projects/humanitarian-aid' },
-        { label: t('partners.links.report'), url: '/reports/social-impact' }
-      ],
-      years: '3+',
-      color: 'cyan'
+      name: "FutureTech",
+      logo: "💡",
+      description: "partners.futuretech.description",
+      years: "2+",
+      projects: "15+",
+      employees: "150+",
+      satisfaction: "96%",
+      location: "partners.futuretech.location",
+      website: "https://futuretech.com",
+      industry: "partners.futuretech.industry",
+      founded: "partners.futuretech.founded",
+      achievements: ["partners.futuretech.achievement1", "partners.futuretech.achievement2", "partners.futuretech.achievement3"],
+      collaboration: "partners.futuretech.collaboration",
+      details: "partners.futuretech.details",
+      services: ["partners.futuretech.service1", "partners.futuretech.service2", "partners.futuretech.service3"],
+      partnershipBenefits: ["partners.futuretech.benefit1", "partners.futuretech.benefit2", "partners.futuretech.benefit3"]
     }
   ];
 
-  const colorMap = {
-    blue: { light: 'bg-blue-50', dark: 'bg-blue-600', text: 'text-blue-600', border: 'border-blue-200' },
-    green: { light: 'bg-green-50', dark: 'bg-green-600', text: 'text-green-600', border: 'border-green-200' },
-    orange: { light: 'bg-orange-50', dark: 'bg-orange-600', text: 'text-orange-600', border: 'border-orange-200' },
-    purple: { light: 'bg-purple-50', dark: 'bg-purple-600', text: 'text-purple-600', border: 'border-purple-200' },
-    red: { light: 'bg-red-50', dark: 'bg-red-600', text: 'text-red-600', border: 'border-red-200' },
-    cyan: { light: 'bg-cyan-50', dark: 'bg-cyan-600', text: 'text-cyan-600', border: 'border-cyan-200' }
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
-  };
 
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
+    return () => observer.disconnect();
+  }, []);
 
-  const cardVariants = {
-    hidden: { scale: 0.9, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
+  const PartnerStats = ({ partner, isActive }) => (
+    <div className={`grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8 transition-all duration-500 ${isActive ? 'opacity-100' : 'opacity-0'}`}>
+      {[
+        { value: partner.years, label: t('partners.yearsOfCooperation'), color: 'from-blue-500 to-blue-600', icon: '🕒' },
+        { value: partner.projects, label: t('partners.successfulProjects'), color: 'from-purple-500 to-purple-600', icon: '📊' },
+        { value: partner.employees, label: t('partners.employees'), color: 'from-green-500 to-green-600', icon: '👥' },
+        { value: partner.satisfaction, label: t('partners.satisfaction'), color: 'from-yellow-500 to-yellow-600', icon: '⭐' }
+      ].map((stat, index) => (
+        <div
+          key={index}
+          className="relative group"
+        >
+          <div className={`bg-gradient-to-br ${stat.color} rounded-xl p-4 text-white shadow-lg transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl`}>
+            <div className="text-sm mb-1">{stat.icon}</div>
+            <div className="text-xl font-bold mb-1">{stat.value}</div>
+            <div className="text-xs opacity-90 font-medium">{stat.label}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
-  const filteredPartners = activeCategory === 'all' 
-    ? partners 
-    : partners.filter(partner => partner.category === activeCategory);
-
-  const stats = [
-    {
-      value: t('partners.stats.partners.value'),
-      label: t('partners.stats.partners.label'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-      )
-    },
-    {
-      value: t('partners.stats.countries.value'),
-      label: t('partners.stats.countries.label'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      )
-    },
-    {
-      value: t('partners.stats.projects.value'),
-      label: t('partners.stats.projects.label'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-        </svg>
-      )
-    },
-    {
-      value: t('partners.stats.years.value'),
-      label: t('partners.stats.years.label'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      )
-    }
-  ];
+  const WebsiteButton = ({ website, name }) => (
+    <a
+      href={website}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center group justify-center w-full"
+    >
+      <span className="text-base font-medium">{t('partners.visitWebsite')}</span>
+      <span className="ml-2 text-yellow-300 group-hover:translate-x-1 transition-transform duration-300">→</span>
+    </a>
+  );
 
   return (
-    <section ref={ref} className="relative py-20 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="text-center mb-16"
-        >
-          <motion.div 
-            variants={itemVariants}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 mb-6"
-          >
-            <span className="text-blue-600 text-sm font-semibold">{t('partners.badge')}</span>
-          </motion.div>
-          
-          <motion.h2 
-            variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6"
-          >
-            {t('partners.title')}
-          </motion.h2>
-          
-          <motion.div
-            variants={itemVariants}
-            className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mx-auto mb-6"
-          ></motion.div>
-          
-          <motion.p 
-            variants={itemVariants}
-            className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
-          >
-            {t('partners.subtitle')}
-          </motion.p>
-        </motion.div>
+    <section 
+      ref={sectionRef}
+      className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+    >
+      {/* Анимированный фон */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
 
-        {/* Статистика */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              variants={itemVariants}
-              className="bg-slate-50 rounded-2xl p-6 border border-slate-200 text-center group hover:shadow-lg transition-all duration-300"
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-600 transition-colors duration-300">
-                <div className="text-blue-600 group-hover:text-white transition-colors duration-300">
-                  {stat.icon}
-                </div>
-              </div>
-              
-              <div className="text-3xl font-bold text-slate-900 mb-2">
-                {stat.value}
-              </div>
-              
-              <div className="text-slate-600 font-medium">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Фильтры */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-12"
-        >
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {categories.map((category) => (
-              <motion.button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                  activeCategory === category.id
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {category.label}
-              </motion.button>
-            ))}
+      <div className="max-w-7xl mx-auto relative z-10">
+        {/* Заголовок */}
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="inline-flex items-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-2 mb-4">
+            <span className="w-2 h-2 bg-yellow-400 rounded-full mr-2 animate-pulse"></span>
+            <span className="text-yellow-400 text-sm font-medium">{t('partners.badge')}</span>
           </div>
+          <h2 className="text-5xl font-bold text-white mb-4 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+            {t('partners.title')}
+          </h2>
+          <p className="text-lg text-blue-200 max-w-2xl mx-auto leading-relaxed">
+            {t('partners.subtitle')}
+          </p>
+        </div>
 
-          {/* Сетка партнеров */}
-          <motion.div
-            layout
-            className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-          >
-            {filteredPartners.map((partner) => {
-              const colors = colorMap[partner.color];
-              return (
-                <motion.div
-                  key={partner.id}
-                  layout
-                  variants={cardVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="bg-white rounded-2xl border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer overflow-hidden"
-                  whileHover={{ y: -5 }}
-                >
-                  {/* Верхняя часть с логотипом и основной информацией */}
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center space-x-3">
-                        <div className="flex-shrink-0">
-                          <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl flex items-center justify-center">
-                            <div className="text-blue-600 font-bold text-sm">
-                              {partner.name.split(' ').map(word => word[0]).join('').toUpperCase()}
-                            </div>
-                          </div>
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300 line-clamp-1">
-                            {partner.name}
-                          </h3>
-                          <div className="flex items-center space-x-2 mt-1">
-                            <span className={`px-2 py-1 ${colors.light} ${colors.text} text-xs font-medium rounded-full`}>
-                              {partner.country}
-                            </span>
-                            <span className="text-slate-500 text-xs">
-                              {partner.years}
-                            </span>
-                          </div>
-                        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
+          {/* Левая часть - Компактный стек партнеров */}
+          <div className={`lg:col-span-1 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+            <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-4 shadow-2xl border border-white/10">
+              <h3 className="text-base font-semibold text-white mb-4 text-center">
+                {t('partners.ourPartners')}
+              </h3>
+              <div className="space-y-2">
+                {partners.map((partner, index) => (
+                  <div
+                    key={partner.id}
+                    className={`relative p-3 rounded-xl cursor-pointer transition-all duration-300 transform border ${
+                      activePartner === index
+                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-transparent shadow-lg scale-102'
+                        : 'bg-white/5 text-blue-200 border-white/10 hover:border-blue-400/30 hover:bg-white/10'
+                    }`}
+                    onClick={() => setActivePartner(index)}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <div className={`text-xl transition-transform duration-300 ${
+                        activePartner === index ? 'scale-110 rotate-12' : 'scale-100'
+                      }`}>
+                        {partner.logo}
                       </div>
-                    </div>
-
-                    {/* Описание */}
-                    <p className="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-2">
-                      {partner.description}
-                    </p>
-
-                    {/* Проекты */}
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-slate-900 mb-2">
-                        {t('partners.projectsTitle')}:
-                      </h4>
-                      <ul className="space-y-1">
-                        {partner.projects.slice(0, 2).map((project, index) => (
-                          <li key={index} className="text-xs text-slate-600 flex items-start">
-                            <svg className="w-3 h-3 text-green-500 mr-1 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span className="line-clamp-1">{project}</span>
-                          </li>
-                        ))}
-                        {partner.projects.length > 2 && (
-                          <li className="text-xs text-blue-600 font-medium">
-                            +{partner.projects.length - 2} {t('partners.moreProjects')}
-                          </li>
-                        )}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Нижняя часть со ссылками */}
-                  <div className="border-t border-slate-200 bg-slate-50 px-6 py-4">
-                    <div className="flex items-center justify-between">
-                      <span className={`px-2 py-1 ${colors.light} ${colors.text} text-xs font-medium rounded-full`}>
-                        {categories.find(cat => cat.id === partner.category)?.label}
-                      </span>
-                      
-                      <div className="flex space-x-2">
-                        {partner.links.slice(0, 2).map((link, index) => (
-                          <motion.a
-                            key={index}
-                            href={link.url}
-                            className="text-blue-600 hover:text-blue-700 text-xs font-medium transition-colors duration-300"
-                            whileHover={{ scale: 1.05 }}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            {link.label}
-                          </motion.a>
-                        ))}
+                      <div className="flex-1 min-w-0">
+                        <h4 className={`font-semibold text-xs transition-colors duration-300 truncate ${
+                          activePartner === index ? 'text-white' : 'text-blue-100'
+                        }`}>
+                          {partner.name}
+                        </h4>
+                        <div className={`h-1 rounded-full mt-1 transition-all duration-500 ${
+                          activePartner === index 
+                            ? 'bg-yellow-400 w-full' 
+                            : 'bg-blue-400/30 w-3/4'
+                        }`} />
                       </div>
                     </div>
                   </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </motion.div>
-
-        {/* CTA секция */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="text-center"
-        >
-          <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-3xl p-8 md:p-12 border border-blue-200">
-            <motion.h3 
-              variants={itemVariants}
-              className="text-3xl md:text-4xl font-bold text-slate-900 mb-4"
-            >
-              {t('partners.cta.title')}
-            </motion.h3>
-            
-            <motion.p 
-              variants={itemVariants}
-              className="text-lg text-slate-600 max-w-2xl mx-auto mb-8 leading-relaxed"
-            >
-              {t('partners.cta.description')}
-            </motion.p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl inline-flex items-center space-x-3"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <span>{t('partners.cta.becomePartner')}</span>
-              </motion.button>
-              
-              <motion.button
-                className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300 inline-flex items-center space-x-3"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-                <span>{t('partners.cta.contact')}</span>
-              </motion.button>
+                ))}
+              </div>
             </div>
           </div>
-        </motion.div>
+
+          {/* Правая часть - Детальная информация */}
+          <div className="lg:col-span-3">
+            <div className={`bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/20 transition-all duration-1000 delay-500 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}>
+              {/* Основная информация о партнере */}
+              <div className="flex flex-col lg:flex-row lg:items-start gap-6 mb-6">
+                <div className="flex items-start space-x-4 flex-1">
+                  <div className="relative flex-shrink-0">
+                    <div className="text-5xl bg-gradient-to-br from-blue-400 to-purple-500 p-3 rounded-2xl shadow-xl">
+                      {partners[activePartner].logo}
+                    </div>
+                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-slate-900"></div>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-3xl font-bold text-white mb-2">
+                      {partners[activePartner].name}
+                    </h3>
+                    <p className="text-blue-200 text-base leading-relaxed mb-3">
+                      {t(partners[activePartner].description)}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <div className="bg-blue-500/20 rounded-lg px-3 py-1 border border-blue-400/30">
+                        <div className="text-xs text-blue-300 font-medium">{t('partners.industry')}</div>
+                        <div className="text-white text-sm font-semibold">{t(partners[activePartner].industry)}</div>
+                      </div>
+                      <div className="bg-purple-500/20 rounded-lg px-3 py-1 border border-purple-400/30">
+                        <div className="text-xs text-purple-300 font-medium">{t('partners.founded')}</div>
+                        <div className="text-white text-sm font-semibold">{t(partners[activePartner].founded)}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-yellow-400/10 border border-yellow-400/20 rounded-xl px-4 py-3 backdrop-blur-sm flex-shrink-0">
+                  <div className="text-xs text-yellow-400 font-semibold mb-1">
+                    {t('partners.location')}
+                  </div>
+                  <div className="text-yellow-300 text-sm font-medium">
+                    {t(partners[activePartner].location)}
+                  </div>
+                </div>
+              </div>
+
+              {/* Анимированная разделительная линия */}
+              <div className="relative mb-6">
+                <div className="h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent rounded-full opacity-50"></div>
+                <div className="absolute top-0 left-0 h-0.5 bg-yellow-400 rounded-full w-1/3 animate-move"></div>
+              </div>
+
+              {/* Статистика */}
+              <PartnerStats partner={partners[activePartner]} isActive={isVisible} />
+
+              {/* Основной контент - 3 колонки */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                {/* Колонка 1: О компании и услуги */}
+                <div className="space-y-4">
+                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                    <h4 className="text-lg font-semibold text-white mb-3 flex items-center">
+                      <span className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse"></span>
+                      {t('partners.aboutCompany')}
+                    </h4>
+                    <p className="text-blue-200 text-sm leading-relaxed mb-3">
+                      {t(partners[activePartner].details)}
+                    </p>
+                    
+                    <h5 className="text-base font-semibold text-white mb-2 flex items-center">
+                      <span className="text-green-400 mr-1">🛠️</span>
+                      {t('partners.keyServices')}
+                    </h5>
+                    <div className="space-y-1">
+                      {partners[activePartner].services.map((service, index) => (
+                        <div key={index} className="flex items-center space-x-2 text-blue-200 group">
+                          <span className="text-green-400 text-sm">•</span>
+                          <span className="text-sm group-hover:text-white transition-colors duration-300">
+                            {t(service)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Колонка 2: Достижения */}
+                <div className="space-y-4">
+                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 h-full">
+                    <h4 className="text-lg font-semibold text-white mb-3 flex items-center">
+                      <span className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></span>
+                      {t('partners.achievements')}
+                    </h4>
+                    <ul className="space-y-2">
+                      {partners[activePartner].achievements.map((achievement, index) => (
+                        <li 
+                          key={index} 
+                          className="flex items-start space-x-2 group"
+                        >
+                          <span className="text-yellow-400 mt-0.5 text-sm group-hover:scale-110 transition-transform duration-300">🏆</span>
+                          <span className="text-blue-200 text-sm leading-relaxed group-hover:text-white transition-colors duration-300">
+                            {t(achievement)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Колонка 3: Сотрудничество и ссылка */}
+                <div className="space-y-4">
+                  <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-xl p-4 border border-blue-400/20">
+                    <h4 className="text-lg font-semibold text-white mb-3 flex items-center">
+                      <span className="text-purple-400 mr-1">🤝</span>
+                      {t('partners.ourCollaboration')}
+                    </h4>
+                    <p className="text-blue-200 text-sm leading-relaxed mb-4">
+                      {t(partners[activePartner].collaboration)}
+                    </p>
+                    
+                    <div className="space-y-3">
+                      <WebsiteButton 
+                        website={partners[activePartner].website} 
+                        name={partners[activePartner].name} 
+                      />
+                      
+                      <div className="bg-green-500/10 rounded-lg p-3 border border-green-400/20">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <span className="text-green-400 text-lg">✅</span>
+                          <span className="text-white text-sm font-semibold">{t('partners.partnershipStatus')}</span>
+                        </div>
+                        <div className="text-green-300 text-xs">
+                          {t('partners.activeCollaboration')}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Преимущества партнерства */}
+                  <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+                    <h5 className="text-base font-semibold text-white mb-2 flex items-center">
+                      <span className="text-yellow-400 mr-1">💼</span>
+                      {t('partners.partnershipBenefits')}
+                    </h5>
+                    <ul className="space-y-1">
+                      {partners[activePartner].partnershipBenefits.map((benefit, index) => (
+                        <li key={index} className="flex items-center space-x-2 text-blue-200 group">
+                          <span className="text-green-400 text-sm">✓</span>
+                          <span className="text-sm group-hover:text-white transition-colors duration-300">
+                            {t(benefit)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <style jsx>{`
+        @keyframes move {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(400%); }
+        }
+        .animate-move {
+          animation: move 3s linear infinite;
+        }
+      `}</style>
     </section>
   );
 };
 
-export default PartnersOur;
+export default Partners;
