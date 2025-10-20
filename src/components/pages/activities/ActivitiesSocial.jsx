@@ -1,113 +1,169 @@
 import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 const ActivitiesSocial = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.2 });
-  const { t } = useTranslation();
+  const isInView = useInView(ref, { once: true, threshold: 0.1 });
   const [activeTab, setActiveTab] = useState('charity');
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedRegion, setSelectedRegion] = useState(null);
+  const { t } = useTranslation();
 
   const tabs = [
-    { id: 'charity', label: t('social.tabs.charity') },
-    { id: 'religious', label: t('social.tabs.religious') },
-    { id: 'regions', label: t('social.tabs.regions') }
-  ];
-
-  const charityProjects = [
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-        </svg>
-      ),
-      category: t('social.charity.projects.0.category'),
-      amount: t('social.charity.projects.0.amount'),
-      description: t('social.charity.projects.0.description'),
-      color: 'blue'
+    { 
+      id: 'charity', 
+      label: t('social.tabs.charity'),
+      icon: '❤️',
+      description: t('social.tabs.charityDescription', { defaultValue: 'Поддержка социально значимых направлений' })
     },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
-        </svg>
-      ),
-      category: t('social.charity.projects.1.category'),
-      amount: t('social.charity.projects.1.amount'),
-      description: t('social.charity.projects.1.description'),
-      color: 'green'
+    { 
+      id: 'religious', 
+      label: t('social.tabs.religious'),
+      icon: '🕌',
+      description: t('social.tabs.religiousDescription', { defaultValue: 'Духовное развитие и религиозные объекты' })
     },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-        </svg>
-      ),
-      category: t('social.charity.projects.2.category'),
-      amount: t('social.charity.projects.2.amount'),
-      description: t('social.charity.projects.2.description'),
-      color: 'purple'
-    },
-    {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-      ),
-      category: t('social.charity.projects.3.category'),
-      amount: t('social.charity.projects.3.amount'),
-      description: t('social.charity.projects.3.description'),
-      color: 'orange'
+    { 
+      id: 'regions', 
+      label: t('social.tabs.regions'),
+      icon: '🗺️',
+      description: t('social.tabs.regionsDescription', { defaultValue: 'Помощь регионам в кризисных ситуациях' })
     }
   ];
 
-  const religiousProjects = [
+  const stats = [
     {
-      type: t('social.religious.projects.0.type'),
-      count: t('social.religious.projects.0.count'),
-      investment: t('social.religious.projects.0.investment'),
-      description: t('social.religious.projects.0.description')
+      value: t('social.stats.totalAmount.value'),
+      label: t('social.stats.totalAmount.label'),
+      trend: t('social.stats.totalAmount.trend', { defaultValue: '+15%' }),
+      icon: '💰',
+      description: t('social.stats.totalAmount.description', { defaultValue: 'За последние 3 года' })
     },
     {
-      type: t('social.religious.projects.1.type'),
-      count: t('social.religious.projects.1.count'),
-      investment: t('social.religious.projects.1.investment'),
-      description: t('social.religious.projects.1.description')
+      value: t('social.stats.projects.value'),
+      label: t('social.stats.projects.label'),
+      trend: t('social.stats.projects.trend', { defaultValue: '+25' }),
+      icon: '🚀',
+      description: t('social.stats.projects.description', { defaultValue: 'Активных программ' })
     },
     {
-      type: t('social.religious.projects.2.type'),
-      count: t('social.religious.projects.2.count'),
-      investment: t('social.religious.projects.2.investment'),
-      description: t('social.religious.projects.2.description')
+      value: t('social.stats.people.value'),
+      label: t('social.stats.people.label'),
+      trend: t('social.stats.people.trend', { defaultValue: '+10K' }),
+      icon: '👥',
+      description: t('social.stats.people.description', { defaultValue: 'Получили помощь' })
+    },
+    {
+      value: t('social.stats.volunteers.value'),
+      label: t('social.stats.volunteers.label'),
+      trend: t('social.stats.volunteers.trend', { defaultValue: '+200' }),
+      icon: '🤝',
+      description: t('social.stats.volunteers.description', { defaultValue: 'Активных волонтеров' })
     }
   ];
 
-  const regionAid = [
+  const charityProjects = [0, 1, 2, 3].map(index => ({
+    id: index + 1,
+    icon: ['❤️', '🎓', '⚽', '🏛️'][index],
+    category: t(`social.charity.projects.${index}.category`),
+    amount: t(`social.charity.projects.${index}.amount`),
+    description: t(`social.charity.projects.${index}.description`),
+    fullDescription: t(`social.charity.projects.${index}.fullDescription`, { defaultValue: '' }),
+    impact: t(`social.charity.projects.${index}.impact`, { defaultValue: '' }),
+    duration: t(`social.charity.projects.${index}.duration`, { defaultValue: 'Постоянно' }),
+    beneficiaries: t(`social.charity.projects.${index}.beneficiaries`, { defaultValue: '' }),
+    color: ['blue', 'green', 'purple', 'orange'][index],
+    achievements: [
+      t(`social.charity.projects.${index}.achievements.0`, { defaultValue: '' }),
+      t(`social.charity.projects.${index}.achievements.1`, { defaultValue: '' }),
+      t(`social.charity.projects.${index}.achievements.2`, { defaultValue: '' })
+    ].filter(achievement => achievement)
+  }));
+
+  const religiousProjects = [0, 1, 2].map(index => ({
+    id: index + 1,
+    type: t(`social.religious.projects.${index}.type`),
+    count: t(`social.religious.projects.${index}.count`),
+    investment: t(`social.religious.projects.${index}.investment`),
+    description: t(`social.religious.projects.${index}.description`),
+    fullDescription: t(`social.religious.projects.${index}.fullDescription`, { defaultValue: '' }),
+    location: t(`social.religious.projects.${index}.location`, { defaultValue: 'По всему Кыргызстану' }),
+    status: t(`social.religious.projects.${index}.status`, { defaultValue: 'Завершен' }),
+    impact: t(`social.religious.projects.${index}.impact`, { defaultValue: '' }),
+    features: [
+      t(`social.religious.projects.${index}.features.0`, { defaultValue: '' }),
+      t(`social.religious.projects.${index}.features.1`, { defaultValue: '' }),
+      t(`social.religious.projects.${index}.features.2`, { defaultValue: '' })
+    ].filter(feature => feature)
+  }));
+
+  const regionAid = [0, 1, 2].map(index => ({
+    id: index + 1,
+    region: t(`social.regions.aid.${index}.region`),
+    assistance: t(`social.regions.aid.${index}.assistance`),
+    amount: t(`social.regions.aid.${index}.amount`),
+    description: t(`social.regions.aid.${index}.description`),
+    fullDescription: t(`social.regions.aid.${index}.fullDescription`, { defaultValue: '' }),
+    timeline: t(`social.regions.aid.${index}.timeline`, { defaultValue: '2023-2024' }),
+    status: t(`social.regions.aid.${index}.status`, { defaultValue: 'В процессе' }),
+    partners: [
+      t(`social.regions.aid.${index}.partners.0`, { defaultValue: '' }),
+      t(`social.regions.aid.${index}.partners.1`, { defaultValue: '' }),
+      t(`social.regions.aid.${index}.partners.2`, { defaultValue: '' })
+    ].filter(partner => partner),
+    impact: t(`social.regions.aid.${index}.impact`, { defaultValue: '' })
+  }));
+
+  const testimonials = [
     {
-      region: t('social.regions.aid.0.region'),
-      assistance: t('social.regions.aid.0.assistance'),
-      amount: t('social.regions.aid.0.amount'),
-      description: t('social.regions.aid.0.description')
+      id: 1,
+      name: t('social.testimonials.0.name', { defaultValue: 'Айгуль Токтомамбетова' }),
+      role: t('social.testimonials.0.role', { defaultValue: 'Директор школы' }),
+      content: t('social.testimonials.0.content', { defaultValue: 'Благодаря поддержке мы смогли обновить компьютерный класс и закупить новое оборудование для наших учеников.' }),
+      region: t('social.testimonials.0.region', { defaultValue: 'Баткенская область' })
     },
     {
-      region: t('social.regions.aid.1.region'),
-      assistance: t('social.regions.aid.1.assistance'),
-      amount: t('social.regions.aid.1.amount'),
-      description: t('social.regions.aid.1.description')
-    },
-    {
-      region: t('social.regions.aid.2.region'),
-      assistance: t('social.regions.aid.2.assistance'),
-      amount: t('social.regions.aid.2.amount'),
-      description: t('social.regions.aid.2.description')
+      id: 2,
+      name: t('social.testimonials.1.name', { defaultValue: 'Бакыт Жумабаев' }),
+      role: t('social.testimonials.1.role', { defaultValue: 'Имам мечети' }),
+      content: t('social.testimonials.1.content', { defaultValue: 'Строительство новой мечети объединило нашу общину и создало пространство для духовного развития.' }),
+      region: t('social.testimonials.1.region', { defaultValue: 'Ошская область' })
     }
   ];
 
   const colorMap = {
-    blue: { light: 'bg-blue-50', medium: 'bg-blue-100', dark: 'bg-blue-500', text: 'text-blue-600', border: 'border-blue-200' },
-    green: { light: 'bg-green-50', medium: 'bg-green-100', dark: 'bg-green-500', text: 'text-green-600', border: 'border-green-200' },
-    purple: { light: 'bg-purple-50', medium: 'bg-purple-100', dark: 'bg-purple-500', text: 'text-purple-600', border: 'border-purple-200' },
-    orange: { light: 'bg-orange-50', medium: 'bg-orange-100', dark: 'bg-orange-500', text: 'text-orange-600', border: 'border-orange-200' }
+    blue: { 
+      light: 'bg-blue-50', 
+      medium: 'bg-blue-100', 
+      dark: 'bg-blue-600', 
+      text: 'text-blue-600', 
+      border: 'border-blue-200',
+      gradient: 'from-blue-500 to-cyan-500'
+    },
+    green: { 
+      light: 'bg-green-50', 
+      medium: 'bg-green-100', 
+      dark: 'bg-green-600', 
+      text: 'text-green-600', 
+      border: 'border-green-200',
+      gradient: 'from-green-500 to-emerald-500'
+    },
+    purple: { 
+      light: 'bg-purple-50', 
+      medium: 'bg-purple-100', 
+      dark: 'bg-purple-600', 
+      text: 'text-purple-600', 
+      border: 'border-purple-200',
+      gradient: 'from-purple-500 to-pink-500'
+    },
+    orange: { 
+      light: 'bg-orange-50', 
+      medium: 'bg-orange-100', 
+      dark: 'bg-orange-600', 
+      text: 'text-orange-600', 
+      border: 'border-orange-200',
+      gradient: 'from-orange-500 to-red-500'
+    }
   };
 
   const containerVariants = {
@@ -121,61 +177,100 @@ const ActivitiesSocial = () => {
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 40, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.6,
-        ease: "easeOut"
+        duration: 0.7,
+        ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
   };
 
   const cardVariants = {
-    hidden: { scale: 0.9, opacity: 0 },
+    hidden: { scale: 0.95, opacity: 0, y: 20 },
     visible: {
       scale: 1,
       opacity: 1,
+      y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
         ease: "easeOut"
+      }
+    },
+    hover: {
+      y: -8,
+      scale: 1.02,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
       }
     }
   };
 
   const floatingVariants = {
     animate: {
-      y: [0, -15, 0],
+      y: [0, -20, 0],
+      x: [0, 10, 0],
       transition: {
-        duration: 4,
+        duration: 6,
         repeat: Infinity,
         ease: "easeInOut"
       }
     }
   };
 
+  const openProjectModal = (project) => {
+    setSelectedProject(project);
+  };
+
+  const openRegionModal = (region) => {
+    setSelectedRegion(region);
+  };
+
+  const closeModal = () => {
+    setSelectedProject(null);
+    setSelectedRegion(null);
+  };
+
+  const handleDonate = () => {
+    // Логика пожертвования
+    console.log('Donate clicked');
+  };
+
+  const handleVolunteer = () => {
+    // Логика волонтерства
+    console.log('Volunteer clicked');
+  };
+
   return (
-    <section ref={ref} className="relative py-20 bg-white overflow-hidden">
-      {/* Субтлный фон с градиентами */}
-      <div className="absolute inset-0 opacity-5">
+    <section ref={ref} className="relative py-24 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 overflow-hidden">
+      {/* Улучшенный анимированный фон */}
+      <div className="absolute inset-0 opacity-10">
         <motion.div
           variants={floatingVariants}
           animate="animate"
-          className="absolute top-10 left-5 w-32 h-32 bg-indigo-200 rounded-full blur-2xl"
-        />
-        <motion.div
-          variants={floatingVariants}
-          animate="animate"
-          transition={{ delay: 1 }}
-          className="absolute bottom-10 right-5 w-40 h-40 bg-teal-200 rounded-full blur-2xl"
+          className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-full blur-3xl"
         />
         <motion.div
           variants={floatingVariants}
           animate="animate"
           transition={{ delay: 2 }}
-          className="absolute top-1/3 right-1/4 w-24 h-24 bg-amber-200 rounded-full blur-2xl"
+          className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-r from-teal-300 to-emerald-300 rounded-full blur-3xl"
         />
+        <motion.div
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 4 }}
+          className="absolute top-1/2 left-1/4 w-32 h-32 bg-gradient-to-r from-amber-300 to-yellow-300 rounded-full blur-3xl"
+        />
+      </div>
+
+      {/* Декоративные сетки */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#000_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,#000_1px,transparent_1px)] bg-[size:64px_64px]"></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -184,331 +279,648 @@ const ActivitiesSocial = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
           <motion.div 
             variants={itemVariants}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-50 border border-indigo-200 mb-6"
+            className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200/50 mb-6 shadow-sm"
           >
-            <span className="text-indigo-600 text-sm font-semibold">{t('social.badge')}</span>
+            <span className="text-indigo-600 text-sm font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              {t('social.badge')}
+            </span>
           </motion.div>
           
           <motion.h2 
             variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6"
+            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 bg-clip-text text-transparent"
           >
             {t('social.title')}
           </motion.h2>
           
           <motion.div
             variants={itemVariants}
-            className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-teal-500 rounded-full mx-auto mb-6"
-          ></motion.div>
-          
+            className="w-24 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-teal-500 rounded-full mx-auto mb-8 shadow-lg"
+          />
+
           <motion.p 
             variants={itemVariants}
-            className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-light"
           >
             {t('social.subtitle')}
           </motion.p>
         </motion.div>
 
-        {/* Табы для переключения между разделами */}
+        {/* Статистика */}
         <motion.div
-          variants={itemVariants}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
         >
-          {tabs.map((tab) => (
-            <motion.button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                activeTab === tab.id
-                  ? 'bg-indigo-600 text-white shadow-lg'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              variants={itemVariants}
+              className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-500 group"
+              whileHover={{ y: -5, scale: 1.02 }}
             >
-              {tab.label}
-            </motion.button>
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-3xl">{stat.icon}</div>
+                <motion.span 
+                  className="text-sm font-semibold bg-green-100 text-green-700 px-2 py-1 rounded-full"
+                  whileHover={{ scale: 1.1 }}
+                >
+                  {stat.trend}
+                </motion.span>
+              </div>
+              
+              <div className="text-3xl font-bold text-slate-900 mb-2">
+                {stat.value}
+              </div>
+              
+              <div className="text-slate-600 font-medium mb-2">
+                {stat.label}
+              </div>
+
+              <div className="text-sm text-slate-500">
+                {stat.description}
+              </div>
+
+              {/* Анимированная полоса прогресса */}
+              <motion.div 
+                className="w-0 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full mt-3 group-hover:w-full transition-all duration-1000 ease-out"
+                initial={{ width: 0 }}
+                whileInView={{ width: '100%' }}
+                transition={{ duration: 2, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              />
+            </motion.div>
           ))}
         </motion.div>
 
-        {/* Контент табов */}
-        <div className="mb-16">
-          {/* Благотворительность */}
-          {activeTab === 'charity' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="space-y-8"
-            >
-              {/* Основная статистика */}
-              <motion.div
-                variants={cardVariants}
-                className="bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl p-8 text-white"
+        {/* Улучшенные табы для переключения между разделами */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="mb-12"
+        >
+          <div className="grid md:grid-cols-3 gap-4 mb-8">
+            {tabs.map((tab) => (
+              <motion.button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`group relative p-6 rounded-2xl font-semibold transition-all duration-500 text-left ${
+                  activeTab === tab.id
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-2xl shadow-indigo-500/25'
+                    : 'bg-white/80 backdrop-blur-sm text-slate-600 hover:bg-slate-100 border border-slate-200/60'
+                }`}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div>
-                    <h3 className="text-2xl font-bold mb-4">{t('social.charity.title')}</h3>
-                    <p className="text-indigo-50 leading-relaxed">
-                      {t('social.charity.description')}
-                    </p>
-                  </div>
+                <div className="flex items-center space-x-4 mb-3">
+                  <span className="text-2xl">{tab.icon}</span>
+                  <h3 className="text-xl font-bold">{tab.label}</h3>
+                </div>
+                <p className={`text-sm leading-relaxed ${
+                  activeTab === tab.id ? 'text-indigo-100' : 'text-slate-500'
+                }`}>
+                  {tab.description}
+                </p>
+                
+                {/* Индикатор активного таба */}
+                {activeTab === tab.id && (
                   <motion.div 
-                    className="bg-white/20 rounded-xl p-6 text-center backdrop-blur-sm"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="text-3xl font-bold mb-2">{t('social.charity.totalAmount')}</div>
-                    <div className="text-indigo-100">{t('social.charity.period')}</div>
-                  </motion.div>
+                    className="absolute bottom-0 left-0 w-full h-1 bg-white rounded-b-2xl"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.5 }}
+                  />
+                )}
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Контент табов */}
+          <div className="mb-16">
+            {/* Благотворительность */}
+            {activeTab === 'charity' && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-8"
+              >
+                {/* Основная статистика */}
+                <motion.div
+                  variants={cardVariants}
+                  className="bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl p-8 text-white relative overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                  <div className="absolute bottom-0 left-0 w-40 h-40 bg-white/5 rounded-full translate-y-20 -translate-x-20"></div>
+                  
+                  <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                      <h3 className="text-3xl font-bold mb-4">{t('social.charity.title')}</h3>
+                      <p className="text-indigo-100 leading-relaxed text-lg">
+                        {t('social.charity.description')}
+                      </p>
+                    </div>
+                    <motion.div 
+                      className="bg-white/20 rounded-2xl p-6 text-center backdrop-blur-sm border border-white/20"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <div className="text-4xl font-bold mb-2">{t('social.charity.totalAmount')}</div>
+                      <div className="text-indigo-100 text-lg">{t('social.charity.period')}</div>
+                    </motion.div>
+                  </div>
+                </motion.div>
+
+                {/* Проекты благотворительности */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+                  {charityProjects.map((project, index) => {
+                    const colors = colorMap[project.color];
+                    return (
+                      <motion.div
+                        key={project.id}
+                        variants={cardVariants}
+                        className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 border border-slate-200/60 shadow-lg hover:shadow-2xl transition-all duration-500 group cursor-pointer"
+                        whileHover="hover"
+                        onClick={() => openProjectModal(project)}
+                      >
+                        <div className="flex items-start mb-4">
+                          <motion.div 
+                            className={`w-14 h-14 ${colors.medium} rounded-2xl flex items-center justify-center mr-4 group-hover:${colors.light} transition-colors duration-300 shadow-sm`}
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                          >
+                            <span className="text-2xl">{project.icon}</span>
+                          </motion.div>
+                          <div className="flex-1">
+                            <h4 className="text-xl font-bold text-slate-900 mb-2">{project.category}</h4>
+                            <motion.div 
+                              className={`inline-flex px-3 py-1 ${colors.light} ${colors.text} rounded-full text-sm font-medium mb-3`}
+                              whileHover={{ scale: 1.05 }}
+                            >
+                              {project.amount}
+                            </motion.div>
+                          </div>
+                        </div>
+                        
+                        <motion.p 
+                          className="text-slate-600 mb-4 leading-relaxed line-clamp-2"
+                          whileHover={{ x: 3 }}
+                        >
+                          {project.description}
+                        </motion.p>
+
+                        {project.impact && (
+                          <div className="mb-4">
+                            <div className="flex items-center text-sm text-slate-500 mb-2">
+                              <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                              {t('social.impact')}
+                            </div>
+                            <p className="text-slate-700 text-sm">{project.impact}</p>
+                          </div>
+                        )}
+                        
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-slate-500">{project.duration}</span>
+                          <motion.button
+                            className="text-indigo-600 hover:text-indigo-700 font-semibold text-sm inline-flex items-center space-x-1 transition-colors duration-300"
+                            whileHover={{ x: 3 }}
+                          >
+                            <span>{t('social.learnMore')}</span>
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </motion.button>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </motion.div>
+            )}
 
-              {/* Проекты благотворительности */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {charityProjects.map((project, index) => {
-                  const colors = colorMap[project.color];
-                  return (
+            {/* Духовные проекты */}
+            {activeTab === 'religious' && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-8"
+              >
+                <motion.div
+                  variants={cardVariants}
+                  className="grid lg:grid-cols-2 gap-8 items-center"
+                >
+                  <div className="space-y-6">
+                    <h3 className="text-3xl font-bold text-slate-900">{t('social.religious.title')}</h3>
+                    
+                    <motion.p 
+                      className="text-lg text-slate-700 leading-relaxed"
+                      whileHover={{ x: 5 }}
+                    >
+                      {t('social.religious.description')}
+                    </motion.p>
+
                     <motion.div
-                      key={index}
                       variants={cardVariants}
-                      className="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 group"
-                      whileHover={{ y: -5 }}
+                      className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200/60 shadow-lg"
                     >
                       <div className="flex items-center mb-4">
-                        <motion.div 
-                          className={`w-12 h-12 ${colors.medium} rounded-xl flex items-center justify-center mr-3 group-hover:${colors.light} transition-colors duration-300`}
-                          whileHover={{ scale: 1.1, rotate: 5 }}
-                        >
-                          <div className={colors.text}>
-                            {project.icon}
-                          </div>
-                        </motion.div>
-                        <h4 className="text-lg font-bold text-slate-900">{project.category}</h4>
+                        <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl flex items-center justify-center mr-4 shadow-lg">
+                          <span className="text-2xl text-white">🕌</span>
+                        </div>
+                        <h4 className="text-xl font-bold text-slate-900">{t('social.religious.investment.title')}</h4>
                       </div>
-                      
-                      <motion.p 
-                        className="text-slate-600 mb-4 text-sm leading-relaxed"
-                        whileHover={{ x: 3 }}
-                      >
-                        {project.description}
-                      </motion.p>
-                      
-                      <motion.div 
-                        className={`${colors.light} rounded-lg p-3 border ${colors.border}`}
-                        whileHover={{ scale: 1.02 }}
-                      >
-                        <p className={`${colors.text} font-semibold text-sm`}>{project.amount}</p>
-                      </motion.div>
+                      <p className="text-3xl font-bold text-amber-700 mb-2">{t('social.religious.investment.amount')}</p>
+                      <p className="text-slate-600">{t('social.religious.investment.description')}</p>
                     </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Духовные проекты */}
-          {activeTab === 'religious' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="space-y-8"
-            >
-              <motion.div
-                variants={cardVariants}
-                className="grid lg:grid-cols-2 gap-8 items-center"
-              >
-                <div className="space-y-6">
-                  <h3 className="text-3xl font-bold text-slate-900">{t('social.religious.title')}</h3>
-                  
-                  <motion.p 
-                    className="text-lg text-slate-700 leading-relaxed"
-                    whileHover={{ x: 5 }}
-                  >
-                    {t('social.religious.description')}
-                  </motion.p>
+                  </div>
 
                   <motion.div
                     variants={cardVariants}
-                    className="bg-amber-50 rounded-2xl p-6 border border-amber-200"
+                    className="relative"
                   >
-                    <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center mr-4">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <h4 className="text-xl font-bold text-slate-900">{t('social.religious.investment.title')}</h4>
-                    </div>
-                    <p className="text-2xl font-bold text-amber-700">{t('social.religious.investment.amount')}</p>
-                    <p className="text-slate-600 text-sm mt-2">{t('social.religious.investment.description')}</p>
-                  </motion.div>
-                </div>
-
-                <motion.div
-                  variants={cardVariants}
-                  className="relative"
-                >
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                    <div className="aspect-[4/3] bg-gradient-to-br from-amber-50 to-orange-100 relative overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center">
-                          <div className="w-20 h-20 bg-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                            </svg>
+                    <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                      <div className="aspect-[4/3] bg-gradient-to-br from-amber-50 to-orange-100 relative overflow-hidden">
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-center">
+                            <div className="w-20 h-20 bg-gradient-to-r from-amber-600 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                              <span className="text-3xl text-white">🕌</span>
+                            </div>
+                            <p className="text-amber-600 font-semibold">{t('social.religious.imagePlaceholder')}</p>
                           </div>
-                          <p className="text-amber-600 font-semibold">{t('social.religious.imagePlaceholder')}</p>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-
-              <div className="grid md:grid-cols-3 gap-6">
-                {religiousProjects.map((project, index) => (
-                  <motion.div
-                    key={index}
-                    variants={cardVariants}
-                    className="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 group text-center"
-                    whileHover={{ y: -5 }}
-                  >
-                    <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-teal-200 transition-colors duration-300">
-                      <svg className="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                    </div>
-                    
-                    <h4 className="text-lg font-bold text-slate-900 mb-2">{project.type}</h4>
-                    <div className="text-2xl font-bold text-teal-600 mb-2">{project.count}</div>
-                    <div className="bg-teal-50 rounded-lg p-2 mb-3">
-                      <p className="text-teal-700 text-sm font-medium">{project.investment}</p>
-                    </div>
-                    <p className="text-slate-600 text-sm">{project.description}</p>
                   </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
+                </motion.div>
 
-          {/* Помощь регионам */}
-          {activeTab === 'regions' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="space-y-8"
-            >
-              <motion.div
-                variants={cardVariants}
-                className="bg-gradient-to-r from-teal-500 to-green-500 rounded-2xl p-8 text-white"
-              >
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  <div>
-                    <h3 className="text-2xl font-bold mb-4">{t('social.regions.title')}</h3>
-                    <p className="text-teal-50 leading-relaxed">
-                      {t('social.regions.description')}
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <motion.div 
-                      className="bg-white/20 rounded-xl p-4 text-center backdrop-blur-sm"
-                      whileHover={{ scale: 1.05 }}
+                <div className="grid md:grid-cols-3 gap-6">
+                  {religiousProjects.map((project, index) => (
+                    <motion.div
+                      key={project.id}
+                      variants={cardVariants}
+                      className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-500 group text-center cursor-pointer"
+                      whileHover={{ y: -5 }}
+                      onClick={() => openProjectModal(project)}
                     >
-                      <div className="text-2xl font-bold mb-1">{t('social.regions.humanitarianAid')}</div>
-                      <div className="text-teal-100 text-sm">{t('social.regions.humanitarianLabel')}</div>
+                      <div className="w-16 h-16 bg-gradient-to-r from-teal-100 to-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:from-teal-200 group-hover:to-emerald-200 transition-all duration-300 shadow-sm">
+                        <span className="text-2xl">🕌</span>
+                      </div>
+                      
+                      <h4 className="text-lg font-bold text-slate-900 mb-2">{project.type}</h4>
+                      <div className="text-2xl font-bold text-teal-600 mb-2">{project.count}</div>
+                      <div className="bg-teal-50 rounded-lg p-3 mb-3 border border-teal-200">
+                        <p className="text-teal-700 text-sm font-medium">{project.investment}</p>
+                      </div>
+                      <p className="text-slate-600 text-sm mb-4 line-clamp-2">{project.description}</p>
+                      <div className="text-xs text-slate-500">{project.location}</div>
                     </motion.div>
-                    <motion.div 
-                      className="bg-white/20 rounded-xl p-4 text-center backdrop-blur-sm"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <div className="text-2xl font-bold mb-1">{t('social.regions.kindergartenCost')}</div>
-                      <div className="text-teal-100 text-sm">{t('social.regions.kindergartenLabel')}</div>
-                    </motion.div>
-                  </div>
+                  ))}
                 </div>
               </motion.div>
+            )}
 
-              <div className="grid md:grid-cols-3 gap-6">
-                {regionAid.map((aid, index) => (
-                  <motion.div
-                    key={index}
-                    variants={cardVariants}
-                    className="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 group"
-                    whileHover={{ y: -5 }}
-                  >
-                    <div className="flex items-center mb-4">
-                      <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center mr-3 group-hover:bg-green-200 transition-colors duration-300">
-                        <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                      </div>
-                      <h4 className="text-lg font-bold text-slate-900">{aid.region}</h4>
+            {/* Помощь регионам */}
+            {activeTab === 'regions' && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="space-y-8"
+              >
+                <motion.div
+                  variants={cardVariants}
+                  className="bg-gradient-to-r from-teal-500 to-green-500 rounded-3xl p-8 text-white relative overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                  <div className="absolute bottom-0 left-0 w-40 h-40 bg-white/5 rounded-full translate-y-20 -translate-x-20"></div>
+                  
+                  <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                      <h3 className="text-3xl font-bold mb-4">{t('social.regions.title')}</h3>
+                      <p className="text-teal-50 leading-relaxed text-lg">
+                        {t('social.regions.description')}
+                      </p>
                     </div>
-                    
-                    <motion.p 
-                      className="text-slate-600 mb-3 text-sm"
-                      whileHover={{ x: 3 }}
+                    <div className="grid grid-cols-2 gap-4">
+                      <motion.div 
+                        className="bg-white/20 rounded-xl p-4 text-center backdrop-blur-sm border border-white/20"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <div className="text-2xl font-bold mb-1">{t('social.regions.humanitarianAid')}</div>
+                        <div className="text-teal-100 text-sm">{t('social.regions.humanitarianLabel')}</div>
+                      </motion.div>
+                      <motion.div 
+                        className="bg-white/20 rounded-xl p-4 text-center backdrop-blur-sm border border-white/20"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <div className="text-2xl font-bold mb-1">{t('social.regions.kindergartenCost')}</div>
+                        <div className="text-teal-100 text-sm">{t('social.regions.kindergartenLabel')}</div>
+                      </motion.div>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <div className="grid md:grid-cols-3 gap-6">
+                  {regionAid.map((aid, index) => (
+                    <motion.div
+                      key={aid.id}
+                      variants={cardVariants}
+                      className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer"
+                      whileHover={{ y: -5 }}
+                      onClick={() => openRegionModal(aid)}
                     >
-                      {aid.description}
-                    </motion.p>
-                    
-                    <div className="space-y-2">
-                      <div className="bg-green-50 rounded-lg p-3">
-                        <p className="text-green-700 text-sm font-medium">{aid.assistance}</p>
+                      <div className="flex items-center mb-4">
+                        <div className="w-12 h-12 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl flex items-center justify-center mr-3 group-hover:from-green-200 group-hover:to-emerald-200 transition-colors duration-300 shadow-sm">
+                          <span className="text-xl">📍</span>
+                        </div>
+                        <h4 className="text-lg font-bold text-slate-900">{aid.region}</h4>
                       </div>
-                      <div className="bg-orange-50 rounded-lg p-3">
-                        <p className="text-orange-700 text-sm font-medium">{aid.amount}</p>
+                      
+                      <motion.p 
+                        className="text-slate-600 mb-3 text-sm line-clamp-2"
+                        whileHover={{ x: 3 }}
+                      >
+                        {aid.description}
+                      </motion.p>
+                      
+                      <div className="space-y-2 mb-4">
+                        <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+                          <p className="text-green-700 text-sm font-medium">{aid.assistance}</p>
+                        </div>
+                        <div className="bg-orange-50 rounded-lg p-3 border border-orange-200">
+                          <p className="text-orange-700 text-sm font-medium">{aid.amount}</p>
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </div>
+
+                      <div className="flex items-center justify-between text-xs text-slate-500">
+                        <span>{aid.timeline}</span>
+                        <span>{aid.status}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Секция отзывов */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="mb-16"
+        >
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold text-slate-900 mb-4">
+              {t('social.testimonials.title', { defaultValue: 'Истории помощи' })}
+            </h3>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              {t('social.testimonials.subtitle', { defaultValue: 'Реальные истории людей, которым мы смогли помочь' })}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.id}
+                variants={itemVariants}
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-500"
+                whileHover={{ y: -5 }}
+              >
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-4 shadow-lg">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-slate-900">{testimonial.name}</div>
+                    <div className="text-sm text-slate-500">{testimonial.role}</div>
+                    <div className="text-xs text-indigo-600">{testimonial.region}</div>
+                  </div>
+                </div>
+                <p className="text-slate-600 italic mb-4">"{testimonial.content}"</p>
+                <div className="flex space-x-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <motion.span
+                      key={star}
+                      className="text-amber-400"
+                      whileHover={{ scale: 1.2 }}
+                    >
+                      ⭐
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
         {/* CTA блок */}
         <motion.div
-          variants={itemVariants}
-          className="text-center bg-gradient-to-r from-slate-50 to-indigo-50 rounded-2xl p-8 border border-slate-200"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="text-center bg-gradient-to-r from-slate-50 to-indigo-50 rounded-3xl p-12 border border-slate-200/60 relative overflow-hidden"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
-            {t('social.cta.title')}
-          </h3>
-          <p className="text-slate-600 mb-8 max-w-2xl mx-auto">
-            {t('social.cta.description')}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.button
-              className="bg-indigo-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-indigo-700 transition-colors duration-300 shadow-lg hover:shadow-xl inline-flex items-center space-x-3"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-              <span>{t('social.cta.donateButton')}</span>
-            </motion.button>
-            <motion.button
-              className="border-2 border-teal-600 text-teal-600 px-8 py-4 rounded-xl font-semibold hover:bg-teal-600 hover:text-white transition-all duration-300 inline-flex items-center space-x-3"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-              </svg>
-              <span>{t('social.cta.volunteerButton')}</span>
-            </motion.button>
+          {/* Фоновые элементы */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-200/20 rounded-full -translate-y-16 translate-x-16"></div>
+          <div className="absolute bottom-0 left-0 w-40 h-40 bg-teal-200/20 rounded-full translate-y-20 -translate-x-20"></div>
+          
+          <div className="relative z-10">
+            <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              {t('social.cta.title')}
+            </h3>
+            <p className="text-slate-600 mb-8 max-w-2xl mx-auto text-lg">
+              {t('social.cta.description')}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.button
+                onClick={handleDonate}
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold hover:shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 inline-flex items-center space-x-3 shadow-lg"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="text-xl">❤️</span>
+                <span className="text-lg">{t('social.cta.donateButton')}</span>
+              </motion.button>
+              <motion.button
+                onClick={handleVolunteer}
+                className="border-2 border-teal-600 text-teal-600 px-8 py-4 rounded-xl font-semibold hover:bg-teal-600 hover:text-white transition-all duration-300 inline-flex items-center space-x-3 hover:shadow-lg"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="text-xl">🤝</span>
+                <span className="text-lg">{t('social.cta.volunteerButton')}</span>
+              </motion.button>
+            </div>
           </div>
         </motion.div>
       </div>
+
+      {/* Модальное окно проекта */}
+      <AnimatePresence>
+        {(selectedProject || selectedRegion) && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={closeModal}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 25 }}
+              className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative p-8">
+                <button
+                  onClick={closeModal}
+                  className="absolute top-6 right-6 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center transition-colors duration-300 group"
+                >
+                  <svg className="w-5 h-5 text-slate-600 group-hover:text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {selectedProject && (
+                  <div>
+                    <div className="flex items-center mb-6">
+                      <div className={`w-16 h-16 ${colorMap[selectedProject.color]?.medium || 'bg-indigo-100'} rounded-2xl flex items-center justify-center mr-4 shadow-sm`}>
+                        <span className="text-3xl">{selectedProject.icon}</span>
+                      </div>
+                      <div>
+                        <h3 className="text-3xl font-bold text-slate-900">{selectedProject.category || selectedProject.type}</h3>
+                        <p className="text-slate-600">{selectedProject.amount || selectedProject.investment}</p>
+                      </div>
+                    </div>
+
+                    <div className="prose prose-slate max-w-none mb-8">
+                      <p className="text-lg text-slate-700 leading-relaxed">
+                        {selectedProject.fullDescription || selectedProject.description}
+                      </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-8 mb-8">
+                      <div>
+                        <h4 className="text-lg font-semibold text-slate-900 mb-4">{t('social.modal.details', { defaultValue: 'Детали проекта' })}</h4>
+                        <div className="space-y-3">
+                          <div className="flex justify-between">
+                            <span className="text-slate-600">{t('social.modal.duration', { defaultValue: 'Продолжительность' })}:</span>
+                            <span className="font-medium">{selectedProject.duration}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-slate-600">{t('social.modal.status', { defaultValue: 'Статус' })}:</span>
+                            <span className="font-medium">{selectedProject.status}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-slate-600">{t('social.modal.location', { defaultValue: 'Местоположение' })}:</span>
+                            <span className="font-medium">{selectedProject.location}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="text-lg font-semibold text-slate-900 mb-4">{t('social.modal.impact', { defaultValue: 'Влияние' })}</h4>
+                        <p className="text-slate-600">{selectedProject.impact}</p>
+                      </div>
+                    </div>
+
+                    {selectedProject.achievements && selectedProject.achievements.length > 0 && (
+                      <div className="mb-8">
+                        <h4 className="text-lg font-semibold text-slate-900 mb-4">{t('social.modal.achievements', { defaultValue: 'Достижения' })}</h4>
+                        <ul className="space-y-2">
+                          {selectedProject.achievements.map((achievement, index) => (
+                            <li key={index} className="flex items-center text-slate-600">
+                              <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                              {achievement}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {selectedRegion && (
+                  <div>
+                    <div className="flex items-center mb-6">
+                      <div className="w-16 h-16 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center mr-4 shadow-sm">
+                        <span className="text-3xl">📍</span>
+                      </div>
+                      <div>
+                        <h3 className="text-3xl font-bold text-slate-900">{selectedRegion.region}</h3>
+                        <p className="text-slate-600">{selectedRegion.timeline}</p>
+                      </div>
+                    </div>
+
+                    <div className="prose prose-slate max-w-none mb-8">
+                      <p className="text-lg text-slate-700 leading-relaxed">
+                        {selectedRegion.fullDescription || selectedRegion.description}
+                      </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-8 mb-8">
+                      <div>
+                        <h4 className="text-lg font-semibold text-slate-900 mb-4">{t('social.modal.assistance', { defaultValue: 'Помощь' })}</h4>
+                        <div className="space-y-3">
+                          <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                            <p className="text-green-700 font-medium">{selectedRegion.assistance}</p>
+                          </div>
+                          <div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
+                            <p className="text-orange-700 font-medium">{selectedRegion.amount}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="text-lg font-semibold text-slate-900 mb-4">{t('social.modal.partners', { defaultValue: 'Партнеры' })}</h4>
+                        <div className="space-y-2">
+                          {selectedRegion.partners.map((partner, index) => (
+                            <div key={index} className="flex items-center text-slate-600">
+                              <span className="w-2 h-2 bg-indigo-500 rounded-full mr-3"></span>
+                              {partner}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-semibold text-slate-900 mb-4">{t('social.modal.impact', { defaultValue: 'Влияние' })}</h4>
+                      <p className="text-slate-600">{selectedRegion.impact}</p>
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                  <motion.button
+                    className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {t('social.modal.support', { defaultValue: 'Поддержать проект' })}
+                  </motion.button>
+                  <motion.button
+                    className="flex-1 border-2 border-slate-300 text-slate-700 px-6 py-3 rounded-xl font-semibold hover:border-indigo-600 hover:text-indigo-600 transition-all duration-300"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {t('social.modal.share', { defaultValue: 'Поделиться' })}
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

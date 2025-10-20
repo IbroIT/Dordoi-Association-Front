@@ -1,19 +1,21 @@
 import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 const ActivitiesCulture = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.2 });
+  const isInView = useInView(ref, { once: true, threshold: 0.1 });
   const [activeCategory, setActiveCategory] = useState('all');
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [viewMode, setViewMode] = useState('grid'); // grid или list
   const { t } = useTranslation();
 
   const categories = [
-    { id: 'all', label: t('culture.categories.all') },
-    { id: 'events', label: t('culture.categories.events') },
-    { id: 'heritage', label: t('culture.categories.heritage') },
-    { id: 'arts', label: t('culture.categories.arts') },
-    { id: 'publications', label: t('culture.categories.publications') }
+    { id: 'all', label: t('culture.categories.all'), icon: '🌐', count: t('culture.stats.projects.value') },
+    { id: 'events', label: t('culture.categories.events'), icon: '🎪', count: '12' },
+    { id: 'heritage', label: t('culture.categories.heritage'), icon: '🏛️', count: '8' },
+    { id: 'arts', label: t('culture.categories.arts'), icon: '🎨', count: '10' },
+    { id: 'publications', label: t('culture.categories.publications'), icon: '📚', count: '15' }
   ];
 
   const projects = [
@@ -21,61 +23,109 @@ const ActivitiesCulture = () => {
       id: 1,
       title: t('culture.projects.festival.title'),
       description: t('culture.projects.festival.description'),
+      fullDescription: t('culture.projects.festival.fullDescription', { defaultValue: 'Ежегодный фестиваль, объединяющий художников, музыкантов и performers со всего мира для культурного обмена и создания уникальных коллабораций.' }),
       category: 'events',
       image: '/api/placeholder/400/300',
       stats: t('culture.projects.festival.stats'),
       year: '2024',
-      color: 'blue'
+      duration: '3 дня',
+      participants: '100+ участников',
+      location: 'Бишкек, Кыргызстан',
+      status: 'active',
+      color: 'blue',
+      gallery: ['/api/placeholder/400/300', '/api/placeholder/400/300', '/api/placeholder/400/300'],
+      partners: ['UNESCO', 'Министерство культуры', 'Местные сообщества'],
+      impact: t('culture.projects.festival.impact', { defaultValue: 'Укрепление международных культурных связей' })
     },
     {
       id: 2,
       title: t('culture.projects.museum.title'),
       description: t('culture.projects.museum.description'),
+      fullDescription: t('culture.projects.museum.fullDescription', { defaultValue: 'Комплексная реставрация и модернизация регионального музея с созданием интерактивных экспозиций и цифровых решений.' }),
       category: 'heritage',
       image: '/api/placeholder/400/300',
       stats: t('culture.projects.museum.stats'),
       year: '2023',
-      color: 'green'
+      duration: '12 месяцев',
+      participants: '5000+ посетителей',
+      location: 'Ош, Кыргызстан',
+      status: 'completed',
+      color: 'green',
+      gallery: ['/api/placeholder/400/300', '/api/placeholder/400/300'],
+      partners: ['Европейский союз', 'Всемирный банк'],
+      impact: t('culture.projects.museum.impact', { defaultValue: 'Сохранение исторического наследия' })
     },
     {
       id: 3,
       title: t('culture.projects.gallery.title'),
       description: t('culture.projects.gallery.description'),
+      fullDescription: t('culture.projects.gallery.fullDescription', { defaultValue: 'Современное выставочное пространство для молодых художников с образовательными программами и мастер-классами.' }),
       category: 'arts',
       image: '/api/placeholder/400/300',
       stats: t('culture.projects.gallery.stats'),
       year: '2024',
-      color: 'purple'
+      duration: 'Постоянно',
+      participants: '50+ художников',
+      location: 'Бишкек, Кыргызстан',
+      status: 'active',
+      color: 'purple',
+      gallery: ['/api/placeholder/400/300'],
+      partners: ['Фонд Сорос-Кыргызстан', 'Академия художеств'],
+      impact: t('culture.projects.gallery.impact', { defaultValue: 'Поддержка современного искусства' })
     },
     {
       id: 4,
       title: t('culture.projects.library.title'),
       description: t('culture.projects.library.description'),
+      fullDescription: t('culture.projects.library.fullDescription', { defaultValue: 'Создание доступной цифровой платформы для сохранения и распространения культурного наследия через оцифровку редких изданий.' }),
       category: 'publications',
       image: '/api/placeholder/400/300',
       stats: t('culture.projects.library.stats'),
       year: '2023',
-      color: 'orange'
+      duration: '18 месяцев',
+      participants: 'Университеты, исследователи',
+      location: 'Онлайн',
+      status: 'completed',
+      color: 'orange',
+      gallery: ['/api/placeholder/400/300', '/api/placeholder/400/300', '/api/placeholder/400/300'],
+      partners: ['Национальная библиотека', 'Google Arts & Culture'],
+      impact: t('culture.projects.library.impact', { defaultValue: 'Цифровая доступность знаний' })
     },
     {
       id: 5,
       title: t('culture.projects.theater.title'),
       description: t('culture.projects.theater.description'),
+      fullDescription: t('culture.projects.theater.fullDescription', { defaultValue: 'Программа поддержки молодых театральных режиссеров через гранты, мастер-классы и международные резиденции.' }),
       category: 'arts',
       image: '/api/placeholder/400/300',
       stats: t('culture.projects.theater.stats'),
       year: '2024',
-      color: 'red'
+      duration: '9 месяцев',
+      participants: '15 режиссеров',
+      location: 'Бишкек, Каракол, Ош',
+      status: 'active',
+      color: 'red',
+      gallery: ['/api/placeholder/400/300', '/api/placeholder/400/300'],
+      partners: ['Русский драматический театр', 'Фонд Айтматова'],
+      impact: t('culture.projects.theater.impact', { defaultValue: 'Развитие театрального искусства' })
     },
     {
       id: 6,
       title: t('culture.projects.folklore.title'),
       description: t('culture.projects.folklore.description'),
+      fullDescription: t('culture.projects.folklore.fullDescription', { defaultValue: 'Комплексная программа по документированию, сохранению и популяризации народных традиций, музыки и ремесел.' }),
       category: 'heritage',
       image: '/api/placeholder/400/300',
       stats: t('culture.projects.folklore.stats'),
       year: '2023',
-      color: 'cyan'
+      duration: '24 месяца',
+      participants: '8 этнических групп',
+      location: 'По всему Кыргызстану',
+      status: 'completed',
+      color: 'cyan',
+      gallery: ['/api/placeholder/400/300'],
+      partners: ['ЮНЕСКО', 'Национальная академия наук'],
+      impact: t('culture.projects.folklore.impact', { defaultValue: 'Сохранение культурного разнообразия' })
     }
   ];
 
@@ -83,48 +133,93 @@ const ActivitiesCulture = () => {
     {
       value: t('culture.stats.events.value'),
       label: t('culture.stats.events.label'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      )
+      trend: '+12%',
+      icon: '🎭',
+      description: t('culture.stats.events.description', { defaultValue: 'По сравнению с прошлым годом' })
     },
     {
       value: t('culture.stats.participants.value'),
       label: t('culture.stats.participants.label'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-      )
+      trend: '+25%',
+      icon: '👥',
+      description: t('culture.stats.participants.description', { defaultValue: 'Активное вовлечение сообществ' })
     },
     {
       value: t('culture.stats.projects.value'),
       label: t('culture.stats.projects.label'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-        </svg>
-      )
+      trend: '+8',
+      icon: '🚀',
+      description: t('culture.stats.projects.description', { defaultValue: 'Новые инициативы в этом году' })
     },
     {
       value: t('culture.stats.regions.value'),
       label: t('culture.stats.regions.label'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      )
+      trend: '+2',
+      icon: '🗺️',
+      description: t('culture.stats.regions.description', { defaultValue: 'Расширение географического охвата' })
+    }
+  ];
+
+  const testimonials = [
+    {
+      id: 1,
+      name: t('culture.testimonials.0.name', { defaultValue: 'Айгуль Сатыбалдиева' }),
+      role: t('culture.testimonials.0.role', { defaultValue: 'Художница-участница' }),
+      content: t('culture.testimonials.0.content', { defaultValue: 'Благодаря программе поддержки я смогла реализовать свой первый персональный проект и найти международных партнеров.' }),
+      avatar: '/api/placeholder/100/100'
+    },
+    {
+      id: 2,
+      name: t('culture.testimonials.1.name', { defaultValue: 'Марат Жумалиев' }),
+      role: t('culture.testimonials.1.role', { defaultValue: 'Куратор музея' }),
+      content: t('culture.testimonials.1.content', { defaultValue: 'Реставрация музея позволила нам внедрить современные технологии и привлечь молодую аудиторию.' }),
+      avatar: '/api/placeholder/100/100'
     }
   ];
 
   const colorMap = {
-    blue: { light: 'bg-blue-50', dark: 'bg-blue-600', text: 'text-blue-600', border: 'border-blue-200' },
-    green: { light: 'bg-green-50', dark: 'bg-green-600', text: 'text-green-600', border: 'border-green-200' },
-    purple: { light: 'bg-purple-50', dark: 'bg-purple-600', text: 'text-purple-600', border: 'border-purple-200' },
-    orange: { light: 'bg-orange-50', dark: 'bg-orange-600', text: 'text-orange-600', border: 'border-orange-200' },
-    red: { light: 'bg-red-50', dark: 'bg-red-600', text: 'text-red-600', border: 'border-red-200' },
-    cyan: { light: 'bg-cyan-50', dark: 'bg-cyan-600', text: 'text-cyan-600', border: 'border-cyan-200' }
+    blue: { 
+      light: 'bg-blue-50', 
+      dark: 'bg-blue-600', 
+      text: 'text-blue-600', 
+      border: 'border-blue-200',
+      gradient: 'from-blue-500 to-cyan-500'
+    },
+    green: { 
+      light: 'bg-green-50', 
+      dark: 'bg-green-600', 
+      text: 'text-green-600', 
+      border: 'border-green-200',
+      gradient: 'from-green-500 to-emerald-500'
+    },
+    purple: { 
+      light: 'bg-purple-50', 
+      dark: 'bg-purple-600', 
+      text: 'text-purple-600', 
+      border: 'border-purple-200',
+      gradient: 'from-purple-500 to-pink-500'
+    },
+    orange: { 
+      light: 'bg-orange-50', 
+      dark: 'bg-orange-600', 
+      text: 'text-orange-600', 
+      border: 'border-orange-200',
+      gradient: 'from-orange-500 to-red-500'
+    },
+    red: { 
+      light: 'bg-red-50', 
+      dark: 'bg-red-600', 
+      text: 'text-red-600', 
+      border: 'border-red-200',
+      gradient: 'from-red-500 to-pink-500'
+    },
+    cyan: { 
+      light: 'bg-cyan-50', 
+      dark: 'bg-cyan-600', 
+      text: 'text-cyan-600', 
+      border: 'border-cyan-200',
+      gradient: 'from-cyan-500 to-blue-500'
+    }
   };
 
   const containerVariants = {
@@ -138,25 +233,46 @@ const ActivitiesCulture = () => {
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 40, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.6,
-        ease: "easeOut"
+        duration: 0.7,
+        ease: [0.25, 0.46, 0.45, 0.94]
       }
     }
   };
 
   const cardVariants = {
-    hidden: { scale: 0.9, opacity: 0 },
+    hidden: { scale: 0.95, opacity: 0, y: 20 },
     visible: {
       scale: 1,
       opacity: 1,
+      y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
         ease: "easeOut"
+      }
+    },
+    hover: {
+      y: -8,
+      scale: 1.02,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const floatingVariants = {
+    animate: {
+      y: [0, -20, 0],
+      x: [0, 10, 0],
+      transition: {
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut"
       }
     }
   };
@@ -166,43 +282,75 @@ const ActivitiesCulture = () => {
     : projects.filter(project => project.category === activeCategory);
 
   const handleSupportProject = (projectId) => {
-    // Логика поддержки проекта
     console.log('Support project:', projectId);
   };
 
+  const openProjectModal = (project) => {
+    setSelectedProject(project);
+  };
+
+  const closeProjectModal = () => {
+    setSelectedProject(null);
+  };
+
+  const getStatusBadge = (status) => {
+    const statusMap = {
+      active: { label: t('culture.status.active'), color: 'bg-green-100 text-green-800' },
+      completed: { label: t('culture.status.completed'), color: 'bg-blue-100 text-blue-800' },
+      planning: { label: t('culture.status.planning'), color: 'bg-yellow-100 text-yellow-800' }
+    };
+    return statusMap[status] || statusMap.active;
+  };
+
   return (
-    <section ref={ref} className="relative py-20 bg-gradient-to-br from-slate-50 to-purple-50 overflow-hidden">
-      {/* Декоративные элементы фона */}
+    <section ref={ref} className="relative py-24 bg-gradient-to-br from-slate-50 via-white to-purple-50/30 overflow-hidden">
+      {/* Улучшенный анимированный фон */}
       <div className="absolute inset-0 opacity-10">
         <motion.div
-          className="absolute top-10 left-10 w-32 h-32 bg-purple-200 rounded-full blur-3xl"
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          variants={floatingVariants}
+          animate="animate"
+          className="absolute top-20 left-10 w-40 h-40 bg-gradient-to-r from-purple-300 to-pink-300 rounded-full blur-3xl"
         />
         <motion.div
-          className="absolute bottom-10 right-10 w-40 h-40 bg-pink-200 rounded-full blur-3xl"
-          animate={{ y: [0, 20, 0] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 2 }}
+          className="absolute bottom-20 right-10 w-48 h-48 bg-gradient-to-r from-blue-300 to-cyan-300 rounded-full blur-3xl"
+        />
+        <motion.div
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 4 }}
+          className="absolute top-1/2 left-1/4 w-32 h-32 bg-gradient-to-r from-amber-300 to-yellow-300 rounded-full blur-3xl"
         />
       </div>
 
+      {/* Декоративные сетки */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#000_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,#000_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+      </div>
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Заголовок секции */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
           <motion.div 
             variants={itemVariants}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-purple-50 border border-purple-200 mb-6"
+            className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200/50 mb-6 shadow-sm"
           >
-            <span className="text-purple-600 text-sm font-semibold">{t('culture.badge')}</span>
+            <span className="text-purple-600 text-sm font-semibold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              {t('culture.badge')}
+            </span>
           </motion.div>
           
           <motion.h2 
             variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6"
+            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 bg-clip-text text-transparent"
           >
             {t('culture.title')}{' '}
             <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
@@ -212,153 +360,286 @@ const ActivitiesCulture = () => {
           
           <motion.div
             variants={itemVariants}
-            className="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-6"
-          ></motion.div>
-          
+            className="w-24 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-rose-500 rounded-full mx-auto mb-8 shadow-lg"
+          />
+
           <motion.p 
             variants={itemVariants}
-            className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-light"
           >
             {t('culture.lead')}
           </motion.p>
         </motion.div>
 
-        {/* Статистика */}
+        {/* Статистика с улучшенным дизайном */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
         >
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
               variants={itemVariants}
-              className="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg text-center group hover:shadow-xl transition-all duration-300"
+              className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-500 group"
               whileHover={{ y: -5, scale: 1.02 }}
             >
-              <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-600 transition-colors duration-300">
-                <div className="text-purple-600 group-hover:text-white transition-colors duration-300">
-                  {stat.icon}
-                </div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-3xl">{stat.icon}</div>
+                <motion.span 
+                  className="text-sm font-semibold bg-green-100 text-green-700 px-2 py-1 rounded-full"
+                  whileHover={{ scale: 1.1 }}
+                >
+                  {stat.trend}
+                </motion.span>
               </div>
               
               <div className="text-3xl font-bold text-slate-900 mb-2">
                 {stat.value}
               </div>
               
-              <div className="text-slate-600 font-medium">
+              <div className="text-slate-600 font-medium mb-2">
                 {stat.label}
               </div>
+
+              <div className="text-sm text-slate-500">
+                {stat.description}
+              </div>
+
+              {/* Анимированная полоса прогресса */}
+              <motion.div 
+                className="w-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mt-3 group-hover:w-full transition-all duration-1000 ease-out"
+                initial={{ width: 0 }}
+                whileInView={{ width: '100%' }}
+                transition={{ duration: 2, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              />
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Фильтр категорий */}
+        {/* Улучшенный фильтр категорий */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           className="mb-12"
         >
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
-            {categories.map((category) => (
-              <motion.button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                  activeCategory === category.id
-                    ? 'bg-purple-600 text-white shadow-lg'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {category.label}
-              </motion.button>
-            ))}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
+            <div className="flex flex-wrap justify-center gap-3">
+              {categories.map((category) => (
+                <motion.button
+                  key={category.id}
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`group relative px-6 py-4 rounded-2xl font-semibold transition-all duration-300 flex items-center space-x-3 ${
+                    activeCategory === category.id
+                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/25'
+                      : 'bg-white/80 backdrop-blur-sm text-slate-600 hover:bg-slate-100 border border-slate-200/60'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="text-xl">{category.icon}</span>
+                  <span>{category.label}</span>
+                  <span className={`text-sm px-2 py-1 rounded-full ${
+                    activeCategory === category.id 
+                      ? 'bg-white/20 text-white' 
+                      : 'bg-slate-100 text-slate-600'
+                  }`}>
+                    {category.count}
+                  </span>
+                </motion.button>
+              ))}
+            </div>
+
+            {/* Переключение вида */}
+            <div className="flex justify-center">
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-2 border border-slate-200/60 shadow-sm">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-3 rounded-xl transition-all duration-300 ${
+                    viewMode === 'grid' 
+                      ? 'bg-purple-600 text-white shadow-lg' 
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-3 rounded-xl transition-all duration-300 ${
+                    viewMode === 'list' 
+                      ? 'bg-purple-600 text-white shadow-lg' 
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Сетка проектов */}
           <motion.div
             layout
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className={`${
+              viewMode === 'grid' 
+                ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-8' 
+                : 'space-y-6'
+            }`}
           >
-            {filteredProjects.map((project) => {
-              const colors = colorMap[project.color];
-              return (
-                <motion.div
-                  key={project.id}
-                  layout
-                  variants={cardVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer"
-                  whileHover={{ y: -8 }}
-                >
-                  {/* Изображение проекта */}
-                  <div className="relative h-48 bg-gradient-to-br from-purple-100 to-pink-100 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                          <div className={colors.text}>
-                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                            </svg>
+            <AnimatePresence>
+              {filteredProjects.map((project) => {
+                const colors = colorMap[project.color];
+                const statusBadge = getStatusBadge(project.status);
+
+                return (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    variants={cardVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className={`bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/60 shadow-lg hover:shadow-2xl transition-all duration-500 group cursor-pointer overflow-hidden ${
+                      viewMode === 'list' ? 'flex' : ''
+                    }`}
+                    whileHover="hover"
+                    onClick={() => openProjectModal(project)}
+                  >
+                    {/* Изображение проекта */}
+                    <div className={`relative ${
+                      viewMode === 'list' ? 'w-1/3' : 'h-48'
+                    } bg-gradient-to-br from-purple-100 to-pink-100 overflow-hidden`}>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                            <div className={colors.text}>
+                              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                              </svg>
+                            </div>
                           </div>
+                          <p className="text-purple-600 font-semibold">{t('culture.imagePlaceholder')}</p>
                         </div>
-                        <p className="text-purple-600 font-semibold">{t('culture.imagePlaceholder')}</p>
+                      </div>
+                      
+                      {/* Год проекта */}
+                      <div className="absolute top-4 left-4">
+                        <span className={`px-3 py-1 ${colors.light} ${colors.text} text-sm font-medium rounded-full shadow-sm`}>
+                          {project.year}
+                        </span>
+                      </div>
+                      
+                      {/* Статус проекта */}
+                      <div className="absolute top-4 right-4">
+                        <span className={`px-3 py-1 ${statusBadge.color} text-sm font-medium rounded-full shadow-sm`}>
+                          {statusBadge.label}
+                        </span>
+                      </div>
+                      
+                      {/* Статистика */}
+                      <div className="absolute bottom-4 right-4">
+                        <span className="bg-white/90 backdrop-blur-sm px-3 py-1 text-slate-700 text-sm font-medium rounded-full shadow-sm">
+                          {project.stats}
+                        </span>
                       </div>
                     </div>
-                    
-                    {/* Год проекта */}
-                    <div className="absolute top-4 left-4">
-                      <span className={`px-3 py-1 ${colors.light} ${colors.text} text-sm font-medium rounded-full`}>
-                        {project.year}
-                      </span>
-                    </div>
-                    
-                    {/* Статистика */}
-                    <div className="absolute bottom-4 right-4">
-                      <span className="bg-white/90 backdrop-blur-sm px-3 py-1 text-slate-700 text-sm font-medium rounded-full">
-                        {project.stats}
-                      </span>
-                    </div>
-                  </div>
 
-                  {/* Контент проекта */}
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-bold text-slate-900 group-hover:text-purple-600 transition-colors duration-300">
-                        {project.title}
-                      </h3>
-                    </div>
-                    
-                    <p className="text-slate-600 leading-relaxed mb-4">
-                      {project.description}
-                    </p>
-                    
-                    <div className="flex items-center justify-between">
-                      <span className={`px-3 py-1 ${colors.light} ${colors.text} text-sm font-medium rounded-full`}>
-                        {categories.find(cat => cat.id === project.category)?.label}
-                      </span>
+                    {/* Контент проекта */}
+                    <div className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
+                      <div className="flex items-start justify-between mb-3">
+                        <h3 className="text-xl font-bold text-slate-900 group-hover:text-purple-600 transition-colors duration-300">
+                          {project.title}
+                        </h3>
+                      </div>
                       
-                      <motion.button
-                        onClick={() => handleSupportProject(project.id)}
-                        className="text-purple-600 hover:text-purple-700 font-semibold text-sm inline-flex items-center space-x-1 transition-colors duration-300"
-                        whileHover={{ x: 3 }}
-                      >
-                        <span>{t('culture.learnMore')}</span>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </motion.button>
+                      <p className="text-slate-600 leading-relaxed mb-4 line-clamp-2">
+                        {project.description}
+                      </p>
+
+                      {/* Дополнительная информация */}
+                      <div className="flex flex-wrap gap-4 mb-4">
+                        <div className="flex items-center text-sm text-slate-500">
+                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          {project.location}
+                        </div>
+                        <div className="flex items-center text-sm text-slate-500">
+                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {project.duration}
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <span className={`px-3 py-1 ${colors.light} ${colors.text} text-sm font-medium rounded-full shadow-sm`}>
+                          {categories.find(cat => cat.id === project.category)?.label}
+                        </span>
+                        
+                        <motion.button
+                          className="text-purple-600 hover:text-purple-700 font-semibold text-sm inline-flex items-center space-x-1 transition-colors duration-300"
+                          whileHover={{ x: 3 }}
+                        >
+                          <span>{t('culture.learnMore')}</span>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </motion.button>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
           </motion.div>
+        </motion.div>
+
+        {/* Секция отзывов */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="mb-20"
+        >
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold text-slate-900 mb-4">
+              {t('culture.testimonials.title', { defaultValue: 'Отзывы участников' })}
+            </h3>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              {t('culture.testimonials.subtitle', { defaultValue: 'Что говорят люди, вовлеченные в наши культурные проекты' })}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.id}
+                variants={itemVariants}
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-500"
+                whileHover={{ y: -5 }}
+              >
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-slate-900">{testimonial.name}</div>
+                    <div className="text-sm text-slate-500">{testimonial.role}</div>
+                  </div>
+                </div>
+                <p className="text-slate-600 italic">"{testimonial.content}"</p>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* CTA секция */}
@@ -415,6 +696,108 @@ const ActivitiesCulture = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Модальное окно проекта */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={closeProjectModal}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 50 }}
+              transition={{ type: "spring", damping: 25 }}
+              className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative p-8">
+                <button
+                  onClick={closeProjectModal}
+                  className="absolute top-6 right-6 w-10 h-10 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center transition-colors duration-300 group"
+                >
+                  <svg className="w-5 h-5 text-slate-600 group-hover:text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                <div className="mb-6">
+                  <div className="flex flex-wrap items-center gap-3 mb-4">
+                    <span className={`px-3 py-1 ${colorMap[selectedProject.color].light} ${colorMap[selectedProject.color].text} text-sm font-medium rounded-full`}>
+                      {categories.find(cat => cat.id === selectedProject.category)?.label}
+                    </span>
+                    <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm font-medium rounded-full">
+                      {selectedProject.year}
+                    </span>
+                    <span className={`px-3 py-1 ${getStatusBadge(selectedProject.status).color} text-sm font-medium rounded-full`}>
+                      {getStatusBadge(selectedProject.status).label}
+                    </span>
+                  </div>
+
+                  <h3 className="text-3xl font-bold text-slate-900 mb-4">{selectedProject.title}</h3>
+                  
+                  <p className="text-slate-600 text-lg leading-relaxed">
+                    {selectedProject.fullDescription}
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-8 mb-8">
+                  <div>
+                    <h4 className="text-lg font-semibold text-slate-900 mb-4">{t('culture.modal.details', { defaultValue: 'Детали проекта' })}</h4>
+                    <div className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-slate-600">{t('culture.modal.location', { defaultValue: 'Местоположение' })}:</span>
+                        <span className="font-medium">{selectedProject.location}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-600">{t('culture.modal.duration', { defaultValue: 'Продолжительность' })}:</span>
+                        <span className="font-medium">{selectedProject.duration}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-600">{t('culture.modal.participants', { defaultValue: 'Участники' })}:</span>
+                        <span className="font-medium">{selectedProject.participants}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="text-lg font-semibold text-slate-900 mb-4">{t('culture.modal.partners', { defaultValue: 'Партнеры' })}</h4>
+                    <div className="space-y-2">
+                      {selectedProject.partners.map((partner, index) => (
+                        <div key={index} className="flex items-center text-slate-600">
+                          <span className="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                          {partner}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <motion.button
+                    className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {t('culture.modal.supportProject', { defaultValue: 'Поддержать проект' })}
+                  </motion.button>
+                  <motion.button
+                    className="flex-1 border-2 border-slate-300 text-slate-700 px-6 py-3 rounded-xl font-semibold hover:border-purple-600 hover:text-purple-600 transition-all duration-300"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {t('culture.modal.shareProject', { defaultValue: 'Поделиться' })}
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

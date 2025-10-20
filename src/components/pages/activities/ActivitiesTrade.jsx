@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 const ActivitiesTrade = () => {
@@ -7,9 +7,12 @@ const ActivitiesTrade = () => {
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
   const { t } = useTranslation();
   const [activeImage, setActiveImage] = useState(0);
+  const [activeService, setActiveService] = useState(null);
+  const [counterValues, setCounterValues] = useState({});
 
   const infrastructure = [
     {
+      id: 'area',
       icon: (
         <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -17,9 +20,13 @@ const ActivitiesTrade = () => {
       ),
       value: t('trade.infrastructure.items.0.value'),
       label: t('trade.infrastructure.items.0.label'),
+      numericValue: 40,
+      duration: 3000,
+      details: t('trade.infrastructure.items.0.details', { returnObjects: true }),
       color: 'blue'
     },
     {
+      id: 'places',
       icon: (
         <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -27,9 +34,13 @@ const ActivitiesTrade = () => {
       ),
       value: t('trade.infrastructure.items.1.value'),
       label: t('trade.infrastructure.items.1.label'),
+      numericValue: 5000,
+      duration: 3500,
+      details: t('trade.infrastructure.items.1.details', { returnObjects: true }),
       color: 'green'
     },
     {
+      id: 'warehouse',
       icon: (
         <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -37,9 +48,13 @@ const ActivitiesTrade = () => {
       ),
       value: t('trade.infrastructure.items.2.value'),
       label: t('trade.infrastructure.items.2.label'),
+      numericValue: 50000,
+      duration: 4000,
+      details: t('trade.infrastructure.items.2.details', { returnObjects: true }),
       color: 'orange'
     },
     {
+      id: 'service',
       icon: (
         <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
@@ -47,70 +62,164 @@ const ActivitiesTrade = () => {
       ),
       value: t('trade.infrastructure.items.3.value'),
       label: t('trade.infrastructure.items.3.label'),
+      details: t('trade.infrastructure.items.3.details', { returnObjects: true }),
       color: 'purple'
     }
   ];
 
   const logistics = [
     {
+      id: 'customs',
       title: t('trade.logistics.services.0.title'),
       description: t('trade.logistics.services.0.description'),
-      icon: '🛃'
+      icon: '🛃',
+      details: t('trade.logistics.services.0.details', { returnObjects: true }),
+      color: 'blue'
     },
     {
+      id: 'transport',
       title: t('trade.logistics.services.1.title'),
       description: t('trade.logistics.services.1.description'),
-      icon: '🚚'
+      icon: '🚚',
+      details: t('trade.logistics.services.1.details', { returnObjects: true }),
+      color: 'green'
     },
     {
+      id: 'international',
       title: t('trade.logistics.services.2.title'),
       description: t('trade.logistics.services.2.description'),
-      icon: '🌐'
+      icon: '🌐',
+      details: t('trade.logistics.services.2.details', { returnObjects: true }),
+      color: 'orange'
     },
     {
+      id: 'cash',
       title: t('trade.logistics.services.3.title'),
       description: t('trade.logistics.services.3.description'),
-      icon: '💼'
+      icon: '💼',
+      details: t('trade.logistics.services.3.details', { returnObjects: true }),
+      color: 'purple'
     }
   ];
 
   const kpis = [
     {
+      id: 'jobs',
       value: t('trade.kpi.items.0.value'),
       label: t('trade.kpi.items.0.label'),
       change: '+15%',
+      numericValue: 50000,
+      duration: 4000,
+      details: t('trade.kpi.items.0.details', { returnObjects: true }),
       color: 'blue'
     },
     {
+      id: 'tax',
       value: t('trade.kpi.items.1.value'),
       label: t('trade.kpi.items.1.label'),
       change: '+4.5B',
+      details: t('trade.kpi.items.1.details', { returnObjects: true }),
       color: 'green'
     },
     {
+      id: 'businesses',
       value: t('trade.kpi.items.2.value'),
       label: t('trade.kpi.items.2.label'),
       change: '50K+',
+      numericValue: 10000,
+      duration: 3000,
+      details: t('trade.kpi.items.2.details', { returnObjects: true }),
       color: 'orange'
     },
     {
+      id: 'satisfaction',
       value: t('trade.kpi.items.3.value'),
       label: t('trade.kpi.items.3.label'),
       change: '95%',
+      details: t('trade.kpi.items.3.details', { returnObjects: true }),
       color: 'purple'
     }
   ];
 
   const gallery = [1, 2, 3, 4, 5, 6].map(i => ({
     id: i,
-    placeholder: t('trade.gallery.placeholder', { number: i })
+    placeholder: t('trade.gallery.placeholder', { number: i }),
+    caption: t(`trade.gallery.captions.${i-1}`)
   }));
 
+  const advantages = t('trade.advantages.items', { returnObjects: true });
+  const partners = t('trade.partners.items', { returnObjects: true });
+
   const colorMap = {
-    blue: { bg: 'bg-blue-500', text: 'text-blue-600', light: 'bg-blue-50', border: 'border-blue-200' },
-    green: { bg: 'bg-green-500', text: 'text-green-600', light: 'bg-green-50', border: 'border-green-200' },
-    orange: { bg: 'bg-orange-500', text: 'text-orange-600', light: 'bg-orange-50', border: 'border-orange-200' },
-    purple: { bg: 'bg-purple-500', text: 'text-purple-600', light: 'bg-purple-50', border: 'border-purple-200' }
+    blue: { 
+      bg: 'bg-blue-500', 
+      text: 'text-blue-600', 
+      light: 'bg-blue-50', 
+      border: 'border-blue-200',
+      gradient: 'from-blue-500 to-cyan-500'
+    },
+    green: { 
+      bg: 'bg-green-500', 
+      text: 'text-green-600', 
+      light: 'bg-green-50', 
+      border: 'border-green-200',
+      gradient: 'from-green-500 to-emerald-500'
+    },
+    orange: { 
+      bg: 'bg-orange-500', 
+      text: 'text-orange-600', 
+      light: 'bg-orange-50', 
+      border: 'border-orange-200',
+      gradient: 'from-orange-500 to-amber-500'
+    },
+    purple: { 
+      bg: 'bg-purple-500', 
+      text: 'text-purple-600', 
+      light: 'bg-purple-50', 
+      border: 'border-purple-200',
+      gradient: 'from-purple-500 to-violet-500'
+    }
+  };
+
+  // Анимация счетчика
+  const Counter = ({ value, duration, suffix = '', prefix = '' }) => {
+    const [count, setCount] = useState(0);
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+      if (isInView && !isVisible) {
+        setIsVisible(true);
+        let start = 0;
+        const end = typeof value === 'number' ? value : parseFloat(value);
+        const increment = end / (duration / 16);
+        
+        const timer = setInterval(() => {
+          start += increment;
+          if (start >= end) {
+            setCount(end);
+            clearInterval(timer);
+          } else {
+            setCount(Math.ceil(start));
+          }
+        }, 16);
+
+        return () => clearInterval(timer);
+      }
+    }, [isInView, isVisible, value, duration]);
+
+    if (typeof value !== 'number' && isNaN(parseFloat(value))) {
+      return <span>{prefix}{value}{suffix}</span>;
+    }
+
+    return (
+      <motion.span
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {prefix}{Math.floor(count).toLocaleString()}{suffix}
+      </motion.span>
+    );
   };
 
   const containerVariants = {
@@ -118,79 +227,144 @@ const ActivitiesTrade = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.15
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { 
+      y: 40, 
+      opacity: 0,
+      scale: 0.9
+    },
     visible: {
       y: 0,
       opacity: 1,
+      scale: 1,
       transition: {
-        duration: 0.6,
-        ease: "easeOut"
+        duration: 0.7,
+        ease: [0.25, 0.1, 0.25, 1]
       }
     }
   };
 
   const cardVariants = {
-    hidden: { scale: 0.9, opacity: 0 },
+    hidden: { 
+      scale: 0.9, 
+      opacity: 0,
+      rotateX: -10
+    },
     visible: {
       scale: 1,
       opacity: 1,
+      rotateX: 0,
       transition: {
-        duration: 0.4,
+        duration: 0.5,
         ease: "easeOut"
+      }
+    },
+    hover: {
+      y: -8,
+      scale: 1.03,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
       }
     }
   };
 
+  const floatingVariants = {
+    animate: {
+      y: [0, -20, 0],
+      x: [0, 10, 0],
+      transition: {
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const toggleServiceDetails = (serviceId) => {
+    setActiveService(activeService === serviceId ? null : serviceId);
+  };
+
+  const handleRentInquiry = () => {
+    console.log('Rent inquiry');
+  };
+
+  const handleLogisticsRequest = () => {
+    console.log('Logistics request');
+  };
+
   return (
-    <section ref={ref} className="relative py-12 sm:py-16 lg:py-20 bg-white overflow-hidden">
-      {/* Фоновые элементы */}
-      <div className="absolute inset-0 opacity-3 sm:opacity-5">
+    <section ref={ref} className="relative py-16 sm:py-20 lg:py-28 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 overflow-hidden">
+      {/* Улучшенные фоновые элементы */}
+      <div className="absolute inset-0 opacity-10">
         <motion.div
-          className="absolute top-4 left-4 w-32 h-32 sm:w-64 sm:h-64 bg-blue-200 rounded-full blur-2xl sm:blur-3xl"
-          animate={{ y: [0, -15, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          variants={floatingVariants}
+          animate="animate"
+          className="absolute top-10 left-5% w-48 h-48 bg-blue-200 rounded-full blur-4xl"
         />
         <motion.div
-          className="absolute bottom-4 right-4 w-40 h-40 sm:w-80 sm:h-80 bg-green-200 rounded-full blur-2xl sm:blur-3xl"
-          animate={{ y: [0, 15, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 2 }}
+          className="absolute bottom-10 right-5% w-56 h-56 bg-green-200 rounded-full blur-4xl"
+        />
+        <motion.div
+          variants={floatingVariants}
+          animate="animate"
+          transition={{ delay: 1 }}
+          className="absolute top-1/3 left-1/3 w-32 h-32 bg-cyan-200 rounded-full blur-4xl"
         />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок секции */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="text-center mb-8 sm:mb-12 lg:mb-16"
+          className="text-center mb-16 lg:mb-24"
         >
           <motion.div 
             variants={itemVariants}
-            className="inline-flex items-center px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-blue-50 border border-blue-200 mb-4 sm:mb-6"
+            className="inline-flex items-center px-6 py-3 rounded-2xl bg-white/80 backdrop-blur-sm border border-blue-200/50 shadow-lg mb-8"
+            whileHover={{ scale: 1.05, y: -2 }}
           >
-            <span className="text-blue-600 text-xs sm:text-sm font-semibold">{t('trade.badge')}</span>
+            <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
+            <span className="text-blue-700 font-semibold text-sm uppercase tracking-wider">
+              {t('trade.badge')}
+            </span>
           </motion.div>
           
           <motion.h2 
             variants={itemVariants}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 sm:mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-slate-900 mb-6 lg:mb-8 leading-tight"
           >
-            {t('trade.title')}{' '}
+            <span className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 bg-clip-text text-transparent">
+              {t('trade.title')}
+            </span>
+            <br />
             <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
               {t('trade.titleHighlight')}
             </span>
           </motion.h2>
           
+          <motion.div
+            variants={itemVariants}
+            className="flex justify-center items-center space-x-4 mb-6 lg:mb-8"
+          >
+            <div className="w-12 h-1 bg-gradient-to-r from-blue-500 to-green-500 rounded-full"></div>
+            <div className="w-6 h-6 rounded-full border-4 border-blue-200 animate-pulse"></div>
+            <div className="w-12 h-1 bg-gradient-to-r from-green-500 to-blue-500 rounded-full"></div>
+          </motion.div>
+          
           <motion.p 
             variants={itemVariants}
-            className="text-base sm:text-lg text-slate-600 max-w-4xl mx-auto leading-relaxed"
+            className="text-xl lg:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed font-light"
           >
             {t('trade.subtitle')}
           </motion.p>
@@ -201,25 +375,28 @@ const ActivitiesTrade = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mb-12 sm:mb-16 lg:mb-20"
+          className="mb-16 lg:mb-24"
         >
           <motion.div
             variants={cardVariants}
-            className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-blue-200"
+            className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border-2 border-white shadow-2xl relative overflow-hidden"
           >
-            <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 sm:gap-8">
+            {/* Фоновый градиент */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-green-50/50"></div>
+            
+            <div className="relative flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
               <motion.div 
-                className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg"
-                whileHover={{ scale: 1.05, rotate: 5 }}
+                className="flex-shrink-0 w-20 h-20 lg:w-24 lg:h-24 bg-gradient-to-br from-blue-500 to-green-500 rounded-3xl flex items-center justify-center shadow-2xl"
+                whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <span className="text-white text-2xl sm:text-3xl">🏪</span>
+                <span className="text-white text-3xl lg:text-4xl">🏪</span>
               </motion.div>
-              <div className="text-center lg:text-left">
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+              <div className="text-center lg:text-left flex-1">
+                <h3 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-900 mb-6 leading-tight">
                   {t('trade.lead.title')}
                 </h3>
-                <p className="text-lg sm:text-xl text-slate-700 leading-relaxed">
+                <p className="text-xl lg:text-2xl text-slate-700 leading-relaxed font-light">
                   {t('trade.lead.description')}
                 </p>
               </div>
@@ -227,41 +404,92 @@ const ActivitiesTrade = () => {
           </motion.div>
         </motion.div>
 
+        {/* Преимущества */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="mb-16 lg:mb-24"
+        >
+          <motion.div
+            variants={itemVariants}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              {t('trade.advantages.title')}
+            </h3>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              {t('trade.advantages.subtitle')}
+            </p>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {advantages.map((advantage, index) => (
+              <motion.div
+                key={index}
+                variants={cardVariants}
+                className="bg-white/80 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-8 border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-all duration-500 group text-center"
+                whileHover="hover"
+              >
+                <motion.div 
+                  className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4 lg:mb-6 shadow-lg group-hover:shadow-xl transition-all duration-300"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                >
+                  <span className="text-white text-2xl lg:text-3xl">{advantage.icon}</span>
+                </motion.div>
+                <h4 className="text-xl lg:text-2xl font-bold text-slate-900 mb-3 lg:mb-4">
+                  {advantage.title}
+                </h4>
+                <p className="text-slate-600 leading-relaxed text-lg">
+                  {advantage.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
         {/* Описание комплекса */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mb-12 sm:mb-16 lg:mb-20"
+          className="mb-16 lg:mb-24"
         >
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
-            <motion.div variants={itemVariants} className="space-y-6">
-              <h3 className="text-2xl sm:text-3xl font-bold text-slate-900">
-                {t('trade.structure.title')}
-              </h3>
-              <p className="text-slate-600 leading-relaxed">
-                {t('trade.structure.description')}
-              </p>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <motion.div variants={itemVariants} className="space-y-8">
+              <div>
+                <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+                  {t('trade.structure.title')}
+                </h3>
+                <p className="text-xl text-slate-600 leading-relaxed mb-8">
+                  {t('trade.structure.description')}
+                </p>
+              </div>
               
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-6">
                 {['market', 'food', 'auto', 'warehouse'].map((item, index) => (
                   <motion.div
                     key={item}
-                    className="flex items-center space-x-3 p-4 rounded-xl bg-slate-50 border border-slate-200"
-                    whileHover={{ scale: 1.02, y: -2 }}
+                    className="flex items-center space-x-4 p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
+                    whileHover={{ scale: 1.02, y: -5 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <span className="text-blue-600 text-lg">
+                    <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-white text-xl">
                         {item === 'market' && '👕'}
                         {item === 'food' && '🍎'}
                         {item === 'auto' && '🚗'}
                         {item === 'warehouse' && '📦'}
                       </span>
                     </div>
-                    <span className="text-slate-700 font-medium">
-                      {t(`trade.structure.items.${index}`)}
-                    </span>
+                    <div>
+                      <h4 className="text-lg lg:text-xl font-bold text-slate-900 mb-1">
+                        {t(`trade.structure.items.${index}`)}
+                      </h4>
+                      <p className="text-slate-600 text-sm">
+                        {t(`trade.structure.details.${index}`)}
+                      </p>
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -271,12 +499,17 @@ const ActivitiesTrade = () => {
               variants={itemVariants}
               className="relative"
             >
-              <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-8 aspect-[4/3] flex items-center justify-center">
+              <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-3xl p-8 aspect-[4/3] flex items-center justify-center border-2 border-white shadow-2xl">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <span className="text-white text-2xl">🏗️</span>
-                  </div>
-                  <p className="text-blue-600 font-semibold">{t('trade.structure.imagePlaceholder')}</p>
+                  <motion.div 
+                    className="w-20 h-20 bg-gradient-to-br from-blue-600 to-green-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <span className="text-white text-3xl">🏗️</span>
+                  </motion.div>
+                  <p className="text-blue-600 font-semibold text-xl">{t('trade.structure.imagePlaceholder')}</p>
+                  <p className="text-slate-500 mt-2">{t('trade.structure.imageSubtitle')}</p>
                 </div>
               </div>
             </motion.div>
@@ -288,41 +521,114 @@ const ActivitiesTrade = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mb-12 sm:mb-16 lg:mb-20"
+          className="mb-16 lg:mb-24"
         >
           <motion.div
             variants={itemVariants}
-            className="text-center mb-8 sm:mb-12"
+            className="text-center mb-12 lg:mb-16"
           >
-            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+            <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
               {t('trade.infrastructure.title')}
             </h3>
-            <p className="text-slate-600 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
               {t('trade.infrastructure.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {infrastructure.map((item, index) => {
               const colors = colorMap[item.color];
+              const isActive = activeService === item.id;
+              
               return (
                 <motion.div
-                  key={index}
+                  key={item.id}
                   variants={cardVariants}
-                  className="bg-white rounded-xl sm:rounded-2xl p-6 border-2 border-slate-200 hover:border-blue-300 transition-all duration-300 group"
-                  whileHover={{ scale: 1.02, y: -5 }}
+                  className="group relative"
+                  whileHover="hover"
                 >
-                  <div className={`w-12 h-12 ${colors.light} rounded-xl flex items-center justify-center mb-4 group-hover:${colors.bg} transition-colors duration-300`}>
-                    <div className={`${colors.text} group-hover:text-white transition-colors duration-300`}>
-                      {item.icon}
+                  <motion.div
+                    className={`relative bg-white/80 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-8 border-2 ${colors.border} shadow-xl hover:shadow-2xl transition-all duration-500 h-full flex flex-col cursor-pointer overflow-hidden`}
+                    onClick={() => toggleServiceDetails(item.id)}
+                  >
+                    {/* Акцентная градиентная полоса */}
+                    <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`}></div>
+
+                    <div className="flex items-start space-x-4 mb-4 lg:mb-6">
+                      <motion.div 
+                        className={`flex-shrink-0 w-14 h-14 ${colors.light} rounded-2xl flex items-center justify-center group-hover:${colors.bg} transition-all duration-300 shadow-lg`}
+                        whileHover={{ 
+                          scale: 1.1, 
+                          rotate: 5,
+                        }}
+                      >
+                        <div className={`${colors.text} group-hover:text-white transition-colors duration-300`}>
+                          {item.icon}
+                        </div>
+                      </motion.div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <div className="text-3xl lg:text-4xl font-black text-slate-900 mb-2">
+                          {item.numericValue ? (
+                            <Counter 
+                              value={item.numericValue} 
+                              duration={item.duration}
+                              suffix={item.id === 'area' ? ' га' : item.id === 'places' ? '+' : item.id === 'warehouse' ? ' м²' : ''}
+                            />
+                          ) : (
+                            item.value
+                          )}
+                        </div>
+                        <div className="text-slate-600 text-lg font-medium">
+                          {item.label}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
-                    {item.value}
-                  </div>
-                  <div className="text-slate-600 text-sm sm:text-base">
-                    {item.label}
-                  </div>
+
+                    {/* Кнопка для подробностей */}
+                    <div className="flex items-center justify-between mt-auto">
+                      <button className={`flex items-center space-x-2 ${colors.text} font-semibold text-lg hover:underline`}>
+                        <span>{isActive ? t('trade.less') : t('trade.more')}</span>
+                        <motion.svg 
+                          className="w-5 h-5" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                          animate={{ rotate: isActive ? 180 : 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </motion.svg>
+                      </button>
+                    </div>
+
+                    {/* Детальная информация */}
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="mt-6 pt-6 border-t border-slate-200"
+                        >
+                          <div className="space-y-4">
+                            {Array.isArray(item.details) && item.details.map((detail, idx) => (
+                              <motion.div
+                                key={idx}
+                                className="flex items-start space-x-3"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                              >
+                                <div className={`w-2 h-2 rounded-full ${colors.bg} mt-2 flex-shrink-0`}></div>
+                                <p className="text-slate-700 leading-relaxed text-lg">{detail}</p>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
                 </motion.div>
               );
             })}
@@ -334,52 +640,103 @@ const ActivitiesTrade = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mb-12 sm:mb-16 lg:mb-20"
+          className="mb-16 lg:mb-24"
         >
-          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
             <motion.div variants={itemVariants}>
-              <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
+              <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-8">
                 {t('trade.logistics.title')}
               </h3>
-              <div className="space-y-4">
-                {logistics.map((service, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-start space-x-4 p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-blue-300 transition-colors duration-300"
-                    whileHover={{ x: 5 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-lg">
-                      {service.icon}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-slate-900 mb-1">{service.title}</h4>
-                      <p className="text-slate-600 text-sm">{service.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
+              <div className="space-y-6">
+                {logistics.map((service, index) => {
+                  const colors = colorMap[service.color];
+                  const isActive = activeService === service.id;
+                  
+                  return (
+                    <motion.div
+                      key={service.id}
+                      className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer overflow-hidden"
+                      whileHover={{ x: 5, scale: 1.01 }}
+                      onClick={() => toggleServiceDetails(service.id)}
+                    >
+                      <div className="flex items-start space-x-4">
+                        <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                          <span className="text-white text-2xl">{service.icon}</span>
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <h4 className="text-xl font-bold text-slate-900">{service.title}</h4>
+                            <motion.svg 
+                              className="w-5 h-5 text-slate-400" 
+                              fill="none" 
+                              stroke="currentColor" 
+                              viewBox="0 0 24 24"
+                              animate={{ rotate: isActive ? 180 : 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </motion.svg>
+                          </div>
+                          <p className="text-slate-600 text-lg mb-3">{service.description}</p>
+
+                          {/* Детальная информация */}
+                          <AnimatePresence>
+                            {isActive && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="mt-4 pt-4 border-t border-slate-200"
+                              >
+                                <div className="space-y-3">
+                                  {Array.isArray(service.details) && service.details.map((detail, idx) => (
+                                    <motion.div
+                                      key={idx}
+                                      className="flex items-start space-x-3"
+                                      initial={{ opacity: 0, x: -20 }}
+                                      animate={{ opacity: 1, x: 0 }}
+                                      transition={{ delay: idx * 0.1 }}
+                                    >
+                                      <div className={`w-2 h-2 rounded-full ${colors.bg} mt-2 flex-shrink-0`}></div>
+                                      <p className="text-slate-700 leading-relaxed text-lg">{detail}</p>
+                                    </motion.div>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="space-y-6">
-              <h3 className="text-2xl sm:text-3xl font-bold text-slate-900">
-                {t('trade.geography.title')}
-              </h3>
-              <p className="text-slate-600 leading-relaxed">
-                {t('trade.geography.description')}
-              </p>
+            <motion.div variants={itemVariants} className="space-y-8">
+              <div>
+                <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+                  {t('trade.geography.title')}
+                </h3>
+                <p className="text-xl text-slate-600 leading-relaxed mb-8">
+                  {t('trade.geography.description')}
+                </p>
+              </div>
               
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {['KZ', 'UZ', 'TJ', 'RU', 'CN', 'TR'].map((country, index) => (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-6">
+                {['KZ', 'UZ', 'TJ', 'RU', 'CN', 'TR', 'KG', 'KZ2'].map((country, index) => (
                   <motion.div
                     key={country}
-                    className="text-center p-3 rounded-lg bg-blue-50 border border-blue-200"
-                    whileHover={{ scale: 1.05 }}
+                    className="text-center p-4 lg:p-6 rounded-2xl bg-white/80 backdrop-blur-sm border-2 border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300"
+                    whileHover={{ scale: 1.05, y: -3 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <div className="text-2xl mb-1">{getFlagEmoji(country)}</div>
-                    <div className="text-sm font-medium text-slate-700">
+                    <div className="text-3xl lg:text-4xl mb-3">{getFlagEmoji(country)}</div>
+                    <div className="text-lg font-bold text-slate-900">
                       {t(`trade.geography.countries.${index}`)}
+                    </div>
+                    <div className="text-slate-600 text-sm mt-1">
+                      {t(`trade.geography.details.${index}`)}
                     </div>
                   </motion.div>
                 ))}
@@ -393,42 +750,141 @@ const ActivitiesTrade = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mb-12 sm:mb-16 lg:mb-20"
+          className="mb-16 lg:mb-24"
         >
           <motion.div
             variants={itemVariants}
-            className="text-center mb-8 sm:mb-12"
+            className="text-center mb-12 lg:mb-16"
           >
-            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+            <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
               {t('trade.kpi.title')}
             </h3>
-            <p className="text-slate-600 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
               {t('trade.kpi.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {kpis.map((kpi, index) => {
               const colors = colorMap[kpi.color];
+              const isActive = activeService === kpi.id;
+              
               return (
                 <motion.div
-                  key={index}
+                  key={kpi.id}
                   variants={cardVariants}
-                  className="bg-white rounded-xl sm:rounded-2xl p-6 border-2 border-slate-200 hover:shadow-lg transition-all duration-300"
-                  whileHover={{ scale: 1.02, y: -5 }}
+                  className="group relative"
+                  whileHover="hover"
                 >
-                  <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
-                    {kpi.value}
-                  </div>
-                  <div className="text-slate-600 text-sm sm:text-base mb-3">
-                    {kpi.label}
-                  </div>
-                  <div className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold ${colors.light} ${colors.text}`}>
-                    {kpi.change}
-                  </div>
+                  <motion.div
+                    className={`relative bg-white/80 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-8 border-2 ${colors.border} shadow-xl hover:shadow-2xl transition-all duration-500 h-full flex flex-col cursor-pointer overflow-hidden`}
+                    onClick={() => toggleServiceDetails(kpi.id)}
+                  >
+                    {/* Акцентная градиентная полоса */}
+                    <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`}></div>
+
+                    <div className="text-3xl lg:text-4xl font-black text-slate-900 mb-2">
+                      {kpi.numericValue ? (
+                        <Counter 
+                          value={kpi.numericValue} 
+                          duration={kpi.duration}
+                          suffix={kpi.id === 'jobs' ? '+' : kpi.id === 'businesses' ? '+' : ''}
+                        />
+                      ) : (
+                        kpi.value
+                      )}
+                    </div>
+                    <div className="text-slate-600 text-lg font-medium mb-4">
+                      {kpi.label}
+                    </div>
+                    <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-bold ${colors.light} ${colors.text} mb-4`}>
+                      {kpi.change}
+                    </div>
+
+                    {/* Кнопка для подробностей */}
+                    <div className="flex items-center justify-between mt-auto">
+                      <button className={`flex items-center space-x-2 ${colors.text} font-semibold text-lg hover:underline`}>
+                        <span>{isActive ? t('trade.less') : t('trade.more')}</span>
+                        <motion.svg 
+                          className="w-5 h-5" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                          animate={{ rotate: isActive ? 180 : 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </motion.svg>
+                      </button>
+                    </div>
+
+                    {/* Детальная информация */}
+                    <AnimatePresence>
+                      {isActive && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="mt-6 pt-6 border-t border-slate-200"
+                        >
+                          <div className="space-y-4">
+                            {Array.isArray(kpi.details) && kpi.details.map((detail, idx) => (
+                              <motion.div
+                                key={idx}
+                                className="flex items-start space-x-3"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                              >
+                                <div className={`w-2 h-2 rounded-full ${colors.bg} mt-2 flex-shrink-0`}></div>
+                                <p className="text-slate-700 leading-relaxed text-lg">{detail}</p>
+                              </motion.div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
                 </motion.div>
               );
             })}
+          </div>
+        </motion.div>
+
+        {/* Партнеры */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="mb-16 lg:mb-24"
+        >
+          <motion.div
+            variants={itemVariants}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+              {t('trade.partners.title')}
+            </h3>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              {t('trade.partners.subtitle')}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
+            {partners.map((partner, index) => (
+              <motion.div
+                key={index}
+                variants={cardVariants}
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 text-center group"
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-white text-2xl">{partner.icon}</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 mb-2">{partner.name}</h4>
+                <p className="text-slate-600 text-sm">{partner.type}</p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
@@ -437,29 +893,35 @@ const ActivitiesTrade = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mb-12 sm:mb-16 lg:mb-20"
+          className="mb-16 lg:mb-24"
         >
           <motion.div
             variants={cardVariants}
-            className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-blue-200"
+            className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border-2 border-white shadow-2xl relative overflow-hidden"
           >
-            <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 sm:gap-8">
+            {/* Фоновый градиент */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-cyan-50/50"></div>
+            
+            <div className="relative flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
               <motion.div 
-                className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg"
-                whileHover={{ scale: 1.05 }}
+                className="flex-shrink-0 w-20 h-20 lg:w-24 lg:h-24 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-3xl flex items-center justify-center shadow-2xl"
+                whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <span className="text-white text-2xl sm:text-3xl">💼</span>
+                <span className="text-white text-3xl lg:text-4xl">💼</span>
               </motion.div>
-              <div className="text-center lg:text-left">
-                <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4">
+              <div className="text-center lg:text-left flex-1">
+                <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
                   {t('trade.caseStudy.title')}
                 </h3>
-                <blockquote className="text-lg sm:text-xl text-slate-700 leading-relaxed mb-4 italic">
+                <blockquote className="text-xl lg:text-2xl text-slate-700 leading-relaxed mb-6 italic">
                   "{t('trade.caseStudy.quote')}"
                 </blockquote>
-                <div className="text-slate-600">
+                <div className="text-slate-600 text-lg">
                   <strong>{t('trade.caseStudy.author')}</strong>, {t('trade.caseStudy.position')}
+                </div>
+                <div className="mt-4 text-slate-500">
+                  {t('trade.caseStudy.duration')}
                 </div>
               </div>
             </div>
@@ -471,35 +933,39 @@ const ActivitiesTrade = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="mb-12 sm:mb-16 lg:mb-20"
+          className="mb-16 lg:mb-24"
         >
           <motion.div
             variants={itemVariants}
-            className="text-center mb-8 sm:mb-12"
+            className="text-center mb-12 lg:mb-16"
           >
-            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+            <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
               {t('trade.gallery.title')}
             </h3>
-            <p className="text-slate-600 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
               {t('trade.gallery.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-6">
             {gallery.map((item, index) => (
               <motion.div
                 key={item.id}
                 variants={cardVariants}
-                className="aspect-square rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-100 to-green-100 border-2 border-slate-200 overflow-hidden cursor-pointer group"
+                className="group relative aspect-square rounded-2xl lg:rounded-3xl bg-gradient-to-br from-blue-100 to-green-100 border-2 border-slate-200 overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
                 whileHover={{ scale: 1.05 }}
                 onClick={() => setActiveImage(index)}
               >
-                <div className="w-full h-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-full h-full flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                   <div className="text-center">
-                    <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-2 group-hover:rotate-12 transition-transform duration-300">
-                      <span className="text-white text-sm sm:text-lg">📸</span>
-                    </div>
-                    <p className="text-blue-600 text-xs sm:text-sm font-medium">{item.placeholder}</p>
+                    <motion.div 
+                      className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-600 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-3 lg:mb-4 shadow-lg group-hover:rotate-12 transition-transform duration-300"
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <span className="text-white text-lg lg:text-xl">📸</span>
+                    </motion.div>
+                    <p className="text-blue-600 text-sm lg:text-base font-semibold">{item.placeholder}</p>
+                    <p className="text-slate-500 text-xs lg:text-sm mt-1">{item.caption}</p>
                   </div>
                 </div>
               </motion.div>
@@ -516,37 +982,77 @@ const ActivitiesTrade = () => {
         >
           <motion.div
             variants={itemVariants}
-            className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-blue-200 mb-8"
+            className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border-2 border-white shadow-2xl relative overflow-hidden"
           >
-            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
-              {t('trade.cta.title')}
-            </h3>
-            <p className="text-slate-600 text-lg mb-6 max-w-2xl mx-auto">
-              {t('trade.cta.subtitle')}
-            </p>
+            {/* Фоновые декоративные элементы */}
+            <div className="absolute -top-20 -right-20 w-40 h-40 bg-blue-100 rounded-full opacity-50"></div>
+            <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-green-100 rounded-full opacity-50"></div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                className="bg-blue-600 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl inline-flex items-center justify-center space-x-2 text-sm sm:text-base"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span>{t('trade.cta.buttons.rent')}</span>
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </motion.button>
+            <div className="relative z-10">
+              <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
+                <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+                  {t('trade.cta.title')}
+                </span>
+              </h3>
+              <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+                {t('trade.cta.subtitle')}
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
+                <motion.button
+                  onClick={handleRentInquiry}
+                  className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-8 lg:px-12 py-4 lg:py-5 rounded-2xl font-bold hover:from-blue-700 hover:to-green-700 transition-all duration-300 shadow-2xl hover:shadow-3xl inline-flex items-center space-x-3 group relative overflow-hidden"
+                  whileHover={{ 
+                    scale: 1.05, 
+                    y: -3,
+                    boxShadow: "0 20px 40px -10px rgba(37, 99, 235, 0.4)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {/* Эффект блеска */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: '200%' }}
+                    transition={{ duration: 0.8 }}
+                  />
+                  
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  <span className="text-lg lg:text-xl">{t('trade.cta.buttons.rent')}</span>
+                  <motion.div
+                    animate={{ x: [0, 8, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </motion.div>
+                </motion.button>
 
-              <motion.button
-                className="border-2 border-green-600 text-green-600 px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold hover:bg-green-600 hover:text-white transition-all duration-300 inline-flex items-center justify-center space-x-2 text-sm sm:text-base"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                <motion.button
+                  onClick={handleLogisticsRequest}
+                  className="bg-white text-slate-700 px-8 lg:px-12 py-4 lg:py-5 rounded-2xl font-bold border-2 border-slate-200 hover:border-green-600 hover:text-green-600 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center space-x-3 group"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-lg lg:text-xl">{t('trade.cta.buttons.logistics')}</span>
+                </motion.button>
+              </div>
+
+              <motion.p 
+                variants={itemVariants}
+                className="text-sm text-slate-500 flex items-center justify-center space-x-2"
               >
-                <span>{t('trade.cta.buttons.logistics')}</span>
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-              </motion.button>
+                <span>{t('trade.cta.deadline')}</span>
+              </motion.p>
             </div>
           </motion.div>
         </motion.div>
