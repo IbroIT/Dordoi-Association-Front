@@ -9,6 +9,8 @@ const ActivitiesTrade = () => {
   const [activeImage, setActiveImage] = useState(0);
   const [activeService, setActiveService] = useState(null);
   const [counterValues, setCounterValues] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
 
   const infrastructure = [
     {
@@ -180,6 +182,26 @@ const ActivitiesTrade = () => {
       gradient: 'from-purple-500 to-violet-500'
     }
   };
+
+  // Функция для открытия модального окна
+  const openModal = (content, type) => {
+    setModalContent({ ...content, type });
+    setModalOpen(true);
+  };
+
+  // Функция для закрытия модального окна
+  const closeModal = () => {
+    setModalOpen(false);
+    setModalContent(null);
+  };
+
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.keyCode === 27) closeModal();
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, []);
 
   // Анимация счетчика
   const Counter = ({ value, duration, suffix = '', prefix = '' }) => {

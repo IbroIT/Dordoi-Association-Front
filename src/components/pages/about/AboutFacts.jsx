@@ -8,6 +8,8 @@ const AboutFacts = () => {
   const { t, i18n } = useTranslation();
   const [activeFact, setActiveFact] = useState(null);
   const [counterValues, setCounterValues] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedFact, setSelectedFact] = useState(null);
 
   // Факты с расширенной информацией
   const facts = [
@@ -271,27 +273,45 @@ const AboutFacts = () => {
     }
   };
 
-  const detailVariants = {
+  const modalVariants = {
     hidden: {
       opacity: 0,
       scale: 0.8,
-      y: 20
+      y: 50
     },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.4,
         ease: "easeOut"
       }
     },
     exit: {
       opacity: 0,
       scale: 0.8,
-      y: -20,
+      y: -50,
       transition: {
         duration: 0.3
+      }
+    }
+  };
+
+  const overlayVariants = {
+    hidden: {
+      opacity: 0
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.3
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.2
       }
     }
   };
@@ -301,8 +321,14 @@ const AboutFacts = () => {
     console.log('Download brochure');
   };
 
-  const toggleFactDetails = (factId) => {
-    setActiveFact(activeFact === factId ? null : factId);
+  const openModal = (fact) => {
+    setSelectedFact(fact);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedFact(null);
   };
 
   return (
@@ -412,7 +438,6 @@ const AboutFacts = () => {
         >
           {facts.map((fact, index) => {
             const colors = colorMap[fact.color];
-            const isActive = activeFact === fact.id;
             
             return (
               <motion.div
@@ -424,7 +449,7 @@ const AboutFacts = () => {
               >
                 <motion.div
                   className={`relative bg-white/90 backdrop-blur-sm rounded-3xl p-8 border-2 ${colors.border} shadow-2xl shadow-${fact.color}-500/10 hover:shadow-${fact.color}-500/20 transition-all duration-500 h-full flex flex-col cursor-pointer overflow-hidden`}
-                  onClick={() => toggleFactDetails(fact.id)}
+                  onClick={() => openModal(fact)}
                 >
                   {/* Акцентная градиентная полоса */}
                   <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`}></div>
@@ -444,7 +469,6 @@ const AboutFacts = () => {
                     >
                       <motion.div 
                         className={colors.text}
-                        animate={isActive ? { rotate: 360 } : { rotate: 0 }}
                         transition={{ duration: 0.5 }}
                       >
                         {fact.icon}
@@ -484,13 +508,12 @@ const AboutFacts = () => {
                     transition={{ delay: 0.5 }}
                   >
                     <button className={`flex items-center space-x-2 ${colors.text} font-semibold text-sm hover:underline`}>
-                      <span>{isActive ? t('facts.less') : t('facts.more')}</span>
+                      <span>{t('facts.more')}</span>
                       <motion.svg 
                         className="w-4 h-4" 
                         fill="none" 
                         stroke="currentColor" 
                         viewBox="0 0 24 24"
-                        animate={{ rotate: isActive ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -499,42 +522,8 @@ const AboutFacts = () => {
                     
                     <motion.div 
                       className={`w-3 h-3 rounded-full ${colors.medium} group-hover:${colors.dark} transition-colors duration-300`}
-                      animate={isActive ? { scale: [1, 1.5, 1] } : { scale: 1 }}
-                      transition={{ duration: 2, repeat: isActive ? Infinity : 0 }}
                     />
                   </motion.div>
-
-                  {/* Детальная информация */}
-                  <AnimatePresence>
-                    {isActive && (
-                      <motion.div
-                        variants={detailVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        className="mt-6 pt-6 border-t border-slate-200"
-                      >
-                        <div className="space-y-4">
-                          {Array.isArray(fact.details) ? (
-                            fact.details.map((detail, idx) => (
-                              <motion.div
-                                key={idx}
-                                className="flex items-start space-x-3"
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                              >
-                                <div className={`w-2 h-2 rounded-full ${colors.medium} mt-2 flex-shrink-0`}></div>
-                                <p className="text-slate-700 leading-relaxed">{detail}</p>
-                              </motion.div>
-                            ))
-                          ) : (
-                            <p className="text-slate-700 leading-relaxed">{fact.details}</p>
-                          )}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
 
                   {/* Декоративный элемент при наведении */}
                   <motion.div
@@ -656,6 +645,99 @@ const AboutFacts = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Модальное окно */}
+      <AnimatePresence>
+        {modalOpen && selectedFact && (
+          <>
+            <motion.div
+              variants={overlayVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+              onClick={closeModal}
+            >
+              <motion.div
+                variants={modalVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {selectedFact && (
+                  <>
+                    <div className={`relative p-8 border-b-4 ${colorMap[selectedFact.color].border}`}>
+                      <div className="flex items-start space-x-6 mb-6">
+                        <div className={`flex-shrink-0 w-20 h-20 ${colorMap[selectedFact.color].light} rounded-2xl flex items-center justify-center shadow-lg`}>
+                          <div className={colorMap[selectedFact.color].text}>
+                            {selectedFact.icon}
+                          </div>
+                        </div>
+                        
+                        <div className="flex-1">
+                          <h3 className={`text-3xl font-bold mb-3 ${colorMap[selectedFact.color].text}`}>
+                            {selectedFact.title}
+                          </h3>
+                          
+                          <div className="text-5xl font-black text-slate-900 mb-4">
+                            {selectedFact.numericValue.toLocaleString()}{selectedFact.suffix}
+                          </div>
+                          
+                          <p className="text-xl text-slate-600 leading-relaxed">
+                            {selectedFact.description}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      <button
+                        onClick={closeModal}
+                        className="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors duration-200"
+                      >
+                        <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                    
+                    <div className="p-8">
+                      <h4 className="text-2xl font-bold text-slate-900 mb-6">
+                        {t('facts.details')}
+                      </h4>
+                      
+                      <div className="space-y-4">
+                        {Array.isArray(selectedFact.details) ? (
+                          selectedFact.details.map((detail, idx) => (
+                            <div
+                              key={idx}
+                              className="flex items-start space-x-4 p-4 bg-slate-50 rounded-2xl"
+                            >
+                              <div className={`w-3 h-3 rounded-full ${colorMap[selectedFact.color].medium} mt-2 flex-shrink-0`}></div>
+                              <p className="text-slate-700 leading-relaxed text-lg">{detail}</p>
+                            </div>
+                          ))
+                        ) : (
+                          <p className="text-slate-700 leading-relaxed text-lg">{selectedFact.details}</p>
+                        )}
+                      </div>
+                      
+                      <div className="mt-8 pt-6 border-t border-slate-200">
+                        <button
+                          onClick={closeModal}
+                          className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 py-4 rounded-2xl font-bold transition-colors duration-200"
+                        >
+                          {t('facts.close')}
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
