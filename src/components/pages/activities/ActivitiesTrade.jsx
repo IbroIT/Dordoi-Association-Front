@@ -7,7 +7,6 @@ const ActivitiesTrade = () => {
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
   const { t } = useTranslation();
   const [activeImage, setActiveImage] = useState(0);
-  const [activeService, setActiveService] = useState(null);
   const [counterValues, setCounterValues] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
@@ -308,8 +307,23 @@ const ActivitiesTrade = () => {
     }
   };
 
-  const toggleServiceDetails = (serviceId) => {
-    setActiveService(activeService === serviceId ? null : serviceId);
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut"
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.8,
+      transition: {
+        duration: 0.3
+      }
+    }
   };
 
   const handleRentInquiry = () => {
@@ -318,6 +332,70 @@ const ActivitiesTrade = () => {
 
   const handleLogisticsRequest = () => {
     console.log('Logistics request');
+  };
+
+  // Функция для рендеринга содержимого модального окна
+  const renderModalContent = () => {
+    if (!modalContent) return null;
+
+    const colors = colorMap[modalContent.color];
+
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center space-x-4 mb-6">
+          <div className={`w-16 h-16 ${colors.light} rounded-2xl flex items-center justify-center`}>
+            {modalContent.icon && (
+              <div className={colors.text}>
+                {modalContent.icon}
+              </div>
+            )}
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold text-slate-900">
+              {modalContent.title || modalContent.label}
+            </h3>
+            {modalContent.value && (
+              <div className="text-3xl font-black text-slate-900 mt-2">
+                {modalContent.value}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {modalContent.description && (
+          <p className="text-lg text-slate-600 leading-relaxed">
+            {modalContent.description}
+          </p>
+        )}
+
+        {modalContent.details && Array.isArray(modalContent.details) && (
+          <div className="space-y-4">
+            <h4 className="text-xl font-semibold text-slate-900">
+              {t('trade.modal.details')}
+            </h4>
+            <div className="space-y-3">
+              {modalContent.details.map((detail, idx) => (
+                <div key={idx} className="flex items-start space-x-3">
+                  <div className={`w-2 h-2 rounded-full ${colors.bg} mt-2 flex-shrink-0`}></div>
+                  <p className="text-slate-700 leading-relaxed text-lg">{detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {modalContent.change && (
+          <div className="bg-slate-50 rounded-xl p-4">
+            <div className="flex items-center justify-between">
+              <span className="text-slate-600 font-medium">{t('trade.modal.change')}</span>
+              <span className={`px-3 py-1 rounded-full text-sm font-bold ${colors.light} ${colors.text}`}>
+                {modalContent.change}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -560,7 +638,6 @@ const ActivitiesTrade = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {infrastructure.map((item, index) => {
               const colors = colorMap[item.color];
-              const isActive = activeService === item.id;
               
               return (
                 <motion.div
@@ -571,7 +648,6 @@ const ActivitiesTrade = () => {
                 >
                   <motion.div
                     className={`relative bg-white/80 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-8 border-2 ${colors.border} shadow-xl hover:shadow-2xl transition-all duration-500 h-full flex flex-col cursor-pointer overflow-hidden`}
-                    onClick={() => toggleServiceDetails(item.id)}
                   >
                     {/* Акцентная градиентная полоса */}
                     <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`}></div>
@@ -609,47 +685,23 @@ const ActivitiesTrade = () => {
 
                     {/* Кнопка для подробностей */}
                     <div className="flex items-center justify-between mt-auto">
-                      <button className={`flex items-center space-x-2 ${colors.text} font-semibold text-lg hover:underline`}>
-                        <span>{isActive ? t('trade.less') : t('trade.more')}</span>
+                      <button 
+                        onClick={() => openModal(item, 'infrastructure')}
+                        className={`flex items-center space-x-2 ${colors.text} font-semibold text-lg hover:underline`}
+                      >
+                        <span>{t('trade.more')}</span>
                         <motion.svg 
                           className="w-5 h-5" 
                           fill="none" 
                           stroke="currentColor" 
                           viewBox="0 0 24 24"
-                          animate={{ rotate: isActive ? 180 : 0 }}
+                          whileHover={{ x: 3 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </motion.svg>
                       </button>
                     </div>
-
-                    {/* Детальная информация */}
-                    <AnimatePresence>
-                      {isActive && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="mt-6 pt-6 border-t border-slate-200"
-                        >
-                          <div className="space-y-4">
-                            {Array.isArray(item.details) && item.details.map((detail, idx) => (
-                              <motion.div
-                                key={idx}
-                                className="flex items-start space-x-3"
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                              >
-                                <div className={`w-2 h-2 rounded-full ${colors.bg} mt-2 flex-shrink-0`}></div>
-                                <p className="text-slate-700 leading-relaxed text-lg">{detail}</p>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </motion.div>
                 </motion.div>
               );
@@ -672,14 +724,12 @@ const ActivitiesTrade = () => {
               <div className="space-y-6">
                 {logistics.map((service, index) => {
                   const colors = colorMap[service.color];
-                  const isActive = activeService === service.id;
                   
                   return (
                     <motion.div
                       key={service.id}
                       className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border-2 border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer overflow-hidden"
                       whileHover={{ x: 5, scale: 1.01 }}
-                      onClick={() => toggleServiceDetails(service.id)}
                     >
                       <div className="flex items-start space-x-4">
                         <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -688,45 +738,24 @@ const ActivitiesTrade = () => {
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-2">
                             <h4 className="text-xl font-bold text-slate-900">{service.title}</h4>
-                            <motion.svg 
-                              className="w-5 h-5 text-slate-400" 
-                              fill="none" 
-                              stroke="currentColor" 
-                              viewBox="0 0 24 24"
-                              animate={{ rotate: isActive ? 180 : 0 }}
-                              transition={{ duration: 0.3 }}
+                            <button 
+                              onClick={() => openModal(service, 'logistics')}
+                              className={`flex items-center space-x-2 ${colors.text} font-semibold hover:underline`}
                             >
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </motion.svg>
+                              <span>{t('trade.more')}</span>
+                              <motion.svg 
+                                className="w-4 h-4" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                viewBox="0 0 24 24"
+                                whileHover={{ x: 3 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                              </motion.svg>
+                            </button>
                           </div>
                           <p className="text-slate-600 text-lg mb-3">{service.description}</p>
-
-                          {/* Детальная информация */}
-                          <AnimatePresence>
-                            {isActive && (
-                              <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: 'auto' }}
-                                exit={{ opacity: 0, height: 0 }}
-                                className="mt-4 pt-4 border-t border-slate-200"
-                              >
-                                <div className="space-y-3">
-                                  {Array.isArray(service.details) && service.details.map((detail, idx) => (
-                                    <motion.div
-                                      key={idx}
-                                      className="flex items-start space-x-3"
-                                      initial={{ opacity: 0, x: -20 }}
-                                      animate={{ opacity: 1, x: 0 }}
-                                      transition={{ delay: idx * 0.1 }}
-                                    >
-                                      <div className={`w-2 h-2 rounded-full ${colors.bg} mt-2 flex-shrink-0`}></div>
-                                      <p className="text-slate-700 leading-relaxed text-lg">{detail}</p>
-                                    </motion.div>
-                                  ))}
-                                </div>
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
                         </div>
                       </div>
                     </motion.div>
@@ -789,7 +818,6 @@ const ActivitiesTrade = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {kpis.map((kpi, index) => {
               const colors = colorMap[kpi.color];
-              const isActive = activeService === kpi.id;
               
               return (
                 <motion.div
@@ -800,7 +828,6 @@ const ActivitiesTrade = () => {
                 >
                   <motion.div
                     className={`relative bg-white/80 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-8 border-2 ${colors.border} shadow-xl hover:shadow-2xl transition-all duration-500 h-full flex flex-col cursor-pointer overflow-hidden`}
-                    onClick={() => toggleServiceDetails(kpi.id)}
                   >
                     {/* Акцентная градиентная полоса */}
                     <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`}></div>
@@ -825,47 +852,23 @@ const ActivitiesTrade = () => {
 
                     {/* Кнопка для подробностей */}
                     <div className="flex items-center justify-between mt-auto">
-                      <button className={`flex items-center space-x-2 ${colors.text} font-semibold text-lg hover:underline`}>
-                        <span>{isActive ? t('trade.less') : t('trade.more')}</span>
+                      <button 
+                        onClick={() => openModal(kpi, 'kpi')}
+                        className={`flex items-center space-x-2 ${colors.text} font-semibold text-lg hover:underline`}
+                      >
+                        <span>{t('trade.more')}</span>
                         <motion.svg 
                           className="w-5 h-5" 
                           fill="none" 
                           stroke="currentColor" 
                           viewBox="0 0 24 24"
-                          animate={{ rotate: isActive ? 180 : 0 }}
+                          whileHover={{ x: 3 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </motion.svg>
                       </button>
                     </div>
-
-                    {/* Детальная информация */}
-                    <AnimatePresence>
-                      {isActive && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="mt-6 pt-6 border-t border-slate-200"
-                        >
-                          <div className="space-y-4">
-                            {Array.isArray(kpi.details) && kpi.details.map((detail, idx) => (
-                              <motion.div
-                                key={idx}
-                                className="flex items-start space-x-3"
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                              >
-                                <div className={`w-2 h-2 rounded-full ${colors.bg} mt-2 flex-shrink-0`}></div>
-                                <p className="text-slate-700 leading-relaxed text-lg">{detail}</p>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </motion.div>
                 </motion.div>
               );
@@ -1079,6 +1082,63 @@ const ActivitiesTrade = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Модальное окно */}
+      <AnimatePresence>
+        {modalOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            <motion.div
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="bg-white rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="sticky top-0 bg-white border-b border-slate-200 z-10 rounded-t-3xl">
+                <div className="flex justify-between items-center p-6">
+                  <h3 className="text-2xl font-bold text-slate-900">
+                    {modalContent?.type === 'infrastructure' && t('trade.infrastructure.title')}
+                    {modalContent?.type === 'logistics' && t('trade.logistics.title')}
+                    {modalContent?.type === 'kpi' && t('trade.kpi.title')}
+                  </h3>
+                  <button
+                    onClick={closeModal}
+                    className="text-slate-400 hover:text-slate-600 transition-colors duration-200 bg-slate-100 hover:bg-slate-200 rounded-xl p-2"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div className="p-6">
+                {renderModalContent()}
+              </div>
+
+              <div className="sticky bottom-0 bg-white border-t border-slate-200 rounded-b-3xl p-6">
+                <div className="flex justify-end">
+                  <motion.button
+                    onClick={closeModal}
+                    className="bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-green-700 transition-all duration-300"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {t('trade.modal.close')}
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

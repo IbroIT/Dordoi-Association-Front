@@ -6,7 +6,7 @@ const ContactsSocial = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
   const { t } = useTranslation();
-  const [activeNetwork, setActiveNetwork] = useState(null);
+  const [selectedNetwork, setSelectedNetwork] = useState(null);
   const [subscriberCounts, setSubscriberCounts] = useState({});
 
   const socialNetworks = [
@@ -242,8 +242,38 @@ const ContactsSocial = () => {
     }
   };
 
-  const toggleNetworkDetails = (networkId) => {
-    setActiveNetwork(activeNetwork === networkId ? null : networkId);
+  const modalVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+      y: -50
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 300
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.8,
+      y: 50,
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
+
+  const openModal = (network) => {
+    setSelectedNetwork(network);
+  };
+
+  const closeModal = () => {
+    setSelectedNetwork(null);
   };
 
   const handleSocialClick = (url) => {
@@ -377,7 +407,6 @@ const ContactsSocial = () => {
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
             {socialNetworks.map((social) => {
               const colors = colorMap[social.color];
-              const isActive = activeNetwork === social.id;
               
               return (
                 <motion.div
@@ -388,7 +417,6 @@ const ContactsSocial = () => {
                 >
                   <motion.div
                     className={`relative bg-white/80 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 border-2 ${colors.border} shadow-xl hover:shadow-2xl transition-all duration-500 h-full flex flex-col cursor-pointer overflow-hidden`}
-                    onClick={() => toggleNetworkDetails(social.id)}
                   >
                     {/* Акцентная градиентная полоса */}
                     <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`}></div>
@@ -444,65 +472,23 @@ const ContactsSocial = () => {
 
                     {/* Кнопка для подробностей */}
                     <div className="flex items-center justify-center mt-4">
-                      <button className={`flex items-center space-x-2 ${colors.text} font-semibold text-lg hover:underline`}>
-                        <span>{isActive ? t('contactsSocial.less') : t('contactsSocial.more')}</span>
+                      <button 
+                        className={`flex items-center space-x-2 ${colors.text} font-semibold text-lg hover:underline`}
+                        onClick={() => openModal(social)}
+                      >
+                        <span>{t('contactsSocial.more')}</span>
                         <motion.svg 
                           className="w-5 h-5" 
                           fill="none" 
                           stroke="currentColor" 
                           viewBox="0 0 24 24"
-                          animate={{ rotate: isActive ? 180 : 0 }}
-                          transition={{ duration: 0.3 }}
+                          whileHover={{ y: 2 }}
+                          transition={{ duration: 0.2 }}
                         >
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </motion.svg>
                       </button>
                     </div>
-
-                    {/* Детальная информация */}
-                    <AnimatePresence>
-                      {isActive && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="mt-6 pt-6 border-t border-slate-200"
-                        >
-                          <div className="space-y-4">
-                            <p className="text-slate-700 leading-relaxed text-center">
-                              {social.description}
-                            </p>
-                            
-                            <div className="space-y-2">
-                              <h4 className="font-semibold text-slate-900 text-sm">
-                                {t('contactsSocial.features')}:
-                              </h4>
-                              {Array.isArray(social.features) && social.features.map((feature, idx) => (
-                                <motion.div
-                                  key={idx}
-                                  className="flex items-start space-x-2"
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: idx * 0.1 }}
-                                >
-                                  <div className={`w-2 h-2 rounded-full ${colors.dark} mt-2 flex-shrink-0`}></div>
-                                  <p className="text-slate-700 text-sm">{feature}</p>
-                                </motion.div>
-                              ))}
-                            </div>
-
-                            <motion.button
-                              onClick={() => handleSocialClick(social.url)}
-                              className={`w-full bg-gradient-to-r ${colors.gradient} text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all duration-300 mt-4`}
-                              whileHover={{ scale: 1.02, y: -2 }}
-                              whileTap={{ scale: 0.98 }}
-                            >
-                              {t('contactsSocial.followButton')} {social.name}
-                            </motion.button>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </motion.div>
                 </motion.div>
               );
@@ -600,6 +586,109 @@ const ContactsSocial = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Модальное окно для подробной информации */}
+      <AnimatePresence>
+        {selectedNetwork && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            <motion.div
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {selectedNetwork && (
+                <div className="p-8">
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="flex items-center space-x-4">
+                      <div className={`w-12 h-12 ${colorMap[selectedNetwork.color].light} rounded-xl flex items-center justify-center`}>
+                        <div className={colorMap[selectedNetwork.color].text}>
+                          {selectedNetwork.icon}
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-slate-900">
+                          {selectedNetwork.name}
+                        </h3>
+                        <p className="text-slate-600">
+                          {t('contactsSocial.subscribers')}: {selectedNetwork.subscribers.toLocaleString()}+
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={closeModal}
+                      className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors duration-200"
+                    >
+                      <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-lg font-semibold text-slate-900 mb-2">
+                        {t('contactsSocial.aboutNetwork')}
+                      </h4>
+                      <p className="text-slate-700 leading-relaxed">
+                        {selectedNetwork.description}
+                      </p>
+                    </div>
+
+                    <div>
+                      <h4 className="text-lg font-semibold text-slate-900 mb-3">
+                        {t('contactsSocial.features')}
+                      </h4>
+                      <div className="space-y-2">
+                        {Array.isArray(selectedNetwork.features) && selectedNetwork.features.map((feature, idx) => (
+                          <motion.div
+                            key={idx}
+                            className="flex items-start space-x-3"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: idx * 0.1 }}
+                          >
+                            <div className={`w-2 h-2 rounded-full ${colorMap[selectedNetwork.color].dark} mt-2 flex-shrink-0`}></div>
+                            <p className="text-slate-700">{feature}</p>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                      <div className="flex items-center space-x-3">
+                        <div className={`px-3 py-1 rounded-full text-sm font-bold ${colorMap[selectedNetwork.color].light} ${colorMap[selectedNetwork.color].text}`}>
+                          {selectedNetwork.engagement} {t('contactsSocial.engagement')}
+                        </div>
+                        <span className="text-slate-600 text-sm">
+                          {t('contactsSocial.highEngagement')}
+                        </span>
+                      </div>
+                    </div>
+
+                    <motion.button
+                      onClick={() => handleSocialClick(selectedNetwork.url)}
+                      className={`w-full bg-gradient-to-r ${colorMap[selectedNetwork.color].gradient} text-white py-4 rounded-xl font-bold hover:shadow-lg transition-all duration-300`}
+                      whileHover={{ scale: 1.02, y: -2 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {t('contactsSocial.followButton')} {selectedNetwork.name}
+                    </motion.button>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

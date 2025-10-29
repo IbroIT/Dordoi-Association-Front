@@ -10,15 +10,18 @@ const PartnersInternational = () => {
   const [hoveredCountry, setHoveredCountry] = useState(null);
   const [activeFilter, setActiveFilter] = useState('all');
   const [viewMode, setViewMode] = useState('map');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const countries = [
     { 
       code: 'RU', 
       name: t('partnersInternational.countries.RU.name'), 
       region: 'europe', 
-      coordinates: { x: 50, y: 25 },
+      coordinates: { x: 58, y: 25 },
       stats: t('partnersInternational.countries.RU.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.RU.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.RU.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.RU.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.RU.description')
     },
     { 
       code: 'TR', 
@@ -26,7 +29,9 @@ const PartnersInternational = () => {
       region: 'asia', 
       coordinates: { x: 55, y: 35 },
       stats: t('partnersInternational.countries.TR.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.TR.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.TR.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.TR.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.TR.description')
     },
     { 
       code: 'CN', 
@@ -34,7 +39,9 @@ const PartnersInternational = () => {
       region: 'asia', 
       coordinates: { x: 75, y: 35 },
       stats: t('partnersInternational.countries.CN.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.CN.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.CN.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.CN.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.CN.description')
     },
     { 
       code: 'KZ', 
@@ -42,7 +49,9 @@ const PartnersInternational = () => {
       region: 'asia', 
       coordinates: { x: 60, y: 25 },
       stats: t('partnersInternational.countries.KZ.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.KZ.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.KZ.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.KZ.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.KZ.description')
     },
     { 
       code: 'UZ', 
@@ -50,7 +59,9 @@ const PartnersInternational = () => {
       region: 'asia', 
       coordinates: { x: 62, y: 30 },
       stats: t('partnersInternational.countries.UZ.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.UZ.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.UZ.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.UZ.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.UZ.description')
     },
     { 
       code: 'TJ', 
@@ -58,7 +69,9 @@ const PartnersInternational = () => {
       region: 'asia', 
       coordinates: { x: 65, y: 32 },
       stats: t('partnersInternational.countries.TJ.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.TJ.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.TJ.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.TJ.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.TJ.description')
     },
     { 
       code: 'BY', 
@@ -66,7 +79,9 @@ const PartnersInternational = () => {
       region: 'europe', 
       coordinates: { x: 52, y: 22 },
       stats: t('partnersInternational.countries.BY.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.BY.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.BY.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.BY.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.BY.description')
     },
     { 
       code: 'KR', 
@@ -74,7 +89,9 @@ const PartnersInternational = () => {
       region: 'asia', 
       coordinates: { x: 80, y: 32 },
       stats: t('partnersInternational.countries.KR.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.KR.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.KR.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.KR.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.KR.description')
     },
     { 
       code: 'US', 
@@ -82,7 +99,9 @@ const PartnersInternational = () => {
       region: 'america', 
       coordinates: { x: 25, y: 35 },
       stats: t('partnersInternational.countries.US.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.US.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.US.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.US.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.US.description')
     },
     { 
       code: 'BR', 
@@ -90,7 +109,9 @@ const PartnersInternational = () => {
       region: 'america', 
       coordinates: { x: 35, y: 60 },
       stats: t('partnersInternational.countries.BR.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.BR.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.BR.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.BR.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.BR.description')
     },
     { 
       code: 'JP', 
@@ -98,7 +119,9 @@ const PartnersInternational = () => {
       region: 'asia', 
       coordinates: { x: 85, y: 32 },
       stats: t('partnersInternational.countries.JP.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.JP.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.JP.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.JP.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.JP.description')
     },
     { 
       code: 'IN', 
@@ -106,7 +129,9 @@ const PartnersInternational = () => {
       region: 'asia', 
       coordinates: { x: 65, y: 40 },
       stats: t('partnersInternational.countries.IN.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.IN.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.IN.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.IN.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.IN.description')
     },
     { 
       code: 'RS', 
@@ -114,7 +139,9 @@ const PartnersInternational = () => {
       region: 'europe', 
       coordinates: { x: 53, y: 30 },
       stats: t('partnersInternational.countries.RS.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.RS.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.RS.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.RS.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.RS.description')
     },
     { 
       code: 'IT', 
@@ -122,7 +149,9 @@ const PartnersInternational = () => {
       region: 'europe', 
       coordinates: { x: 52, y: 32 },
       stats: t('partnersInternational.countries.IT.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.IT.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.IT.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.IT.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.IT.description')
     },
     { 
       code: 'MY', 
@@ -130,7 +159,9 @@ const PartnersInternational = () => {
       region: 'asia', 
       coordinates: { x: 70, y: 50 },
       stats: t('partnersInternational.countries.MY.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.MY.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.MY.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.MY.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.MY.description')
     },
     { 
       code: 'DE', 
@@ -138,7 +169,9 @@ const PartnersInternational = () => {
       region: 'europe', 
       coordinates: { x: 50, y: 27 },
       stats: t('partnersInternational.countries.DE.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.DE.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.DE.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.DE.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.DE.description')
     },
     { 
       code: 'CH', 
@@ -146,7 +179,9 @@ const PartnersInternational = () => {
       region: 'europe', 
       coordinates: { x: 51, y: 29 },
       stats: t('partnersInternational.countries.CH.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.CH.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.CH.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.CH.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.CH.description')
     },
     { 
       code: 'HU', 
@@ -154,7 +189,9 @@ const PartnersInternational = () => {
       region: 'europe', 
       coordinates: { x: 54, y: 28 },
       stats: t('partnersInternational.countries.HU.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.HU.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.HU.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.HU.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.HU.description')
     },
     { 
       code: 'MN', 
@@ -162,7 +199,9 @@ const PartnersInternational = () => {
       region: 'asia', 
       coordinates: { x: 70, y: 28 },
       stats: t('partnersInternational.countries.MN.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.MN.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.MN.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.MN.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.MN.description')
     },
     { 
       code: 'IL', 
@@ -170,7 +209,9 @@ const PartnersInternational = () => {
       region: 'asia', 
       coordinates: { x: 57, y: 35 },
       stats: t('partnersInternational.countries.IL.stats', { returnObjects: true }),
-      partners: t('partnersInternational.countries.IL.partners', { returnObjects: true })
+      partners: t('partnersInternational.countries.IL.partners', { returnObjects: true }),
+      projects: t('partnersInternational.countries.IL.projects', { returnObjects: true }),
+      description: t('partnersInternational.countries.IL.description')
     }
   ];
 
@@ -195,6 +236,13 @@ const PartnersInternational = () => {
     { key: 'asia', label: t('partnersInternational.regions.asia') },
     { key: 'america', label: t('partnersInternational.regions.america') }
   ];
+
+  // Фильтрация и поиск
+  const filteredCountries = countries.filter(country => {
+    const matchesFilter = activeFilter === 'all' || country.region === activeFilter;
+    const matchesSearch = country.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -289,9 +337,124 @@ const PartnersInternational = () => {
     return String.fromCodePoint(...codePoints);
   };
 
-  const filteredCountries = activeFilter === 'all' 
-    ? countries 
-    : countries.filter(country => country.region === activeFilter);
+  // Улучшенная карта мира с контурами
+  const WorldMap = () => (
+    <div className="relative w-full h-full min-h-[400px] sm:min-h-[500px] bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl overflow-hidden">
+      {/* Упрощенные контуры континентов */}
+      <div className="absolute inset-0">
+        {/* Европа */}
+        <div className="absolute top-[20%] left-[45%] w-[15%] h-[15%] bg-blue-200 rounded-lg opacity-20"></div>
+        {/* Азия */}
+        <div className="absolute top-[25%] left-[55%] w-[25%] h-[20%] bg-green-200 rounded-lg opacity-20"></div>
+        {/* Северная Америка */}
+        <div className="absolute top-[25%] left-[15%] w-[20%] h-[25%] bg-purple-200 rounded-lg opacity-20"></div>
+        {/* Южная Америка */}
+        <div className="absolute top-[50%] left-[25%] w-[12%] h-[25%] bg-purple-200 rounded-lg opacity-20"></div>
+        {/* Африка */}
+        <div className="absolute top-[35%] left-[45%] w-[15%] h-[25%] bg-yellow-200 rounded-lg opacity-20"></div>
+        {/* Австралия */}
+        <div className="absolute top-[60%] left-[75%] w-[18%] h-[15%] bg-red-200 rounded-lg opacity-20"></div>
+      </div>
+
+      {/* Точки стран */}
+      {filteredCountries.map((country) => {
+        const regionColor = regionColors[country.region];
+        return (
+          <motion.div
+            key={country.code}
+            variants={mapDotVariants}
+            initial="hidden"
+            animate="visible"
+            whileHover="hover"
+            className={`absolute cursor-pointer transform -translate-x-1/2 -translate-y-1/2 z-10 ${
+              hoveredCountry === country.code ? 'z-20' : ''
+            }`}
+            style={{
+              left: `${country.coordinates.x}%`,
+              top: `${country.coordinates.y}%`
+            }}
+            onMouseEnter={() => setHoveredCountry(country.code)}
+            onMouseLeave={() => setHoveredCountry(null)}
+            onClick={() => setSelectedCountry(country)}
+          >
+            {/* Анимированная точка */}
+            <motion.div
+              className={`relative w-8 h-8 ${regionColor.dot} rounded-full border-4 border-white shadow-2xl ${
+                selectedCountry?.code === country.code ? 'ring-4 ring-blue-400 ring-opacity-50' : ''
+              }`}
+              animate={{
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            
+            {/* Пульсирующий эффект */}
+            <motion.div
+              className={`absolute inset-0 w-8 h-8 ${regionColor.dot} rounded-full border-4 border-white opacity-40`}
+              animate={{
+                scale: [1, 2, 1],
+                opacity: [0.4, 0, 0.4],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            
+            {/* Всплывающая подсказка */}
+            <AnimatePresence>
+              {hoveredCountry === country.code && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.8 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.8 }}
+                  className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 bg-white rounded-xl shadow-2xl border border-slate-200 p-3 min-w-[160px] text-center z-30"
+                >
+                  <div className="text-2xl mb-2">{getFlagEmoji(country.code)}</div>
+                  <div className="text-base font-bold text-slate-900 mb-1">
+                    {country.name}
+                  </div>
+                  <div className="text-sm text-slate-600 mb-2">
+                    {country.stats.projects} {t('partnersInternational.projects')}
+                  </div>
+                  <div className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                    regionColor.bg
+                  } ${regionColor.text}`}>
+                    {t(`partnersInternational.regions.${country.region}`)}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        );
+      })}
+
+      {/* Легенда карты */}
+      <div className="absolute bottom-4 left-4 bg-white/80 backdrop-blur-sm rounded-xl p-3 shadow-lg border border-slate-200">
+        <div className="text-sm font-semibold text-slate-700 mb-2">{t('partnersInternational.region')}</div>
+        <div className="space-y-1">
+          {Object.entries(regionColors).map(([region, colors]) => (
+            <div key={region} className="flex items-center space-x-2">
+              <div className={`w-3 h-3 ${colors.dot} rounded-full`}></div>
+              <span className="text-xs text-slate-600">
+                {t(`partnersInternational.regions.${region}`)}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Подпись */}
+      <div className="absolute bottom-4 right-4 text-slate-500 text-sm bg-white/80 backdrop-blur-sm px-3 py-1 rounded-lg">
+        {t('partnersInternational.mapCaption')}
+      </div>
+    </div>
+  );
 
   return (
     <section ref={ref} className="relative py-16 sm:py-20 lg:py-28 bg-white overflow-hidden">
@@ -375,7 +538,7 @@ const PartnersInternational = () => {
           </div>
         </motion.div>
 
-        {/* Переключение вида и фильтры */}
+        {/* Переключение вида, фильтры и поиск */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -404,6 +567,20 @@ const PartnersInternational = () => {
                   <span>{view.label}</span>
                 </motion.button>
               ))}
+            </div>
+
+            {/* Поиск */}
+            <div className="relative w-full sm:w-64">
+              <input
+                type="text"
+                placeholder={t('partnersInternational.search.placeholder')}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 pl-10 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">
+                🔍
+              </div>
             </div>
 
             {/* Фильтры */}
@@ -437,89 +614,7 @@ const PartnersInternational = () => {
             className="mb-12 sm:mb-16 lg:mb-20"
           >
             <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-3xl p-6 sm:p-8 border border-blue-200 shadow-xl">
-              {/* Легенда карты */}
-              <motion.div
-                variants={itemVariants}
-                className="flex flex-wrap justify-center gap-4 mb-6 sm:mb-8"
-              >
-                {Object.entries(regionColors).map(([region, colors]) => (
-                  <div key={region} className="flex items-center space-x-2">
-                    <div className={`w-3 h-3 ${colors.dot} rounded-full`}></div>
-                    <span className="text-sm font-medium text-slate-700 capitalize">
-                      {t(`partnersInternational.regions.${region}`)}
-                    </span>
-                  </div>
-                ))}
-              </motion.div>
-
-              {/* Контейнер карты */}
-              <div className="relative bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-slate-200 min-h-[400px] sm:min-h-[500px] shadow-lg">
-                {/* Упрощенная карта мира (фон) */}
-                <div className="absolute inset-4 sm:ins-6 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl border border-slate-200">
-                  {/* Континенты - упрощенные формы */}
-                  <div className="absolute top-4 left-8 w-32 h-20 bg-blue-100 rounded-lg opacity-30"></div>
-                  <div className="absolute top-28 left-16 w-40 h-24 bg-green-100 rounded-lg opacity-30"></div>
-                  <div className="absolute top-12 right-20 w-36 h-28 bg-purple-100 rounded-lg opacity-30"></div>
-                  <div className="absolute bottom-16 left-12 w-28 h-32 bg-blue-100 rounded-lg opacity-30"></div>
-                  <div className="absolute bottom-8 right-16 w-44 h-20 bg-green-100 rounded-lg opacity-30"></div>
-                </div>
-
-                {/* Точки стран на карте */}
-                {filteredCountries.map((country) => {
-                  const regionColor = regionColors[country.region];
-                  return (
-                    <motion.div
-                      key={country.code}
-                      variants={mapDotVariants}
-                      initial="hidden"
-                      animate="visible"
-                      whileHover="hover"
-                      className={`absolute cursor-pointer transform -translate-x-1/2 -translate-y-1/2 z-10 ${
-                        hoveredCountry === country.code ? 'z-20' : ''
-                      }`}
-                      style={{
-                        left: `${country.coordinates.x}%`,
-                        top: `${country.coordinates.y}%`
-                      }}
-                      onMouseEnter={() => setHoveredCountry(country.code)}
-                      onMouseLeave={() => setHoveredCountry(null)}
-                      onClick={() => setSelectedCountry(country)}
-                    >
-                      {/* Точка на карте */}
-                      <motion.div
-                        className={`w-6 h-6 ${regionColor.dot} rounded-full border-4 border-white shadow-2xl ${
-                          selectedCountry?.code === country.code ? 'ring-4 ring-blue-400 ring-opacity-50' : ''
-                        }`}
-                      />
-                      
-                      {/* Всплывающая подсказка при наведении */}
-                      <AnimatePresence>
-                        {hoveredCountry === country.code && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 10, scale: 0.8 }}
-                            className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 bg-white rounded-xl shadow-2xl border border-slate-200 p-3 min-w-[140px] text-center"
-                          >
-                            <div className="text-2xl mb-2">{getFlagEmoji(country.code)}</div>
-                            <div className="text-base font-bold text-slate-900 mb-1">
-                              {country.name}
-                            </div>
-                            <div className="text-sm text-slate-600">
-                              {country.stats.projects} {t('partnersInternational.projects')}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.div>
-                  );
-                })}
-
-                {/* Подпись карты */}
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-slate-500 text-sm">
-                  {t('partnersInternational.mapCaption')}
-                </div>
-              </div>
+              <WorldMap />
             </div>
           </motion.div>
         ) : (
@@ -530,73 +625,88 @@ const PartnersInternational = () => {
             animate={isInView ? "visible" : "hidden"}
             className="mb-12 sm:mb-16 lg:mb-20"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredCountries.map((country) => {
-                const regionColor = regionColors[country.region];
-                return (
-                  <motion.div
-                    key={country.code}
-                    variants={cardVariants}
-                    className={`bg-white rounded-2xl p-6 border-2 ${
-                      selectedCountry?.code === country.code 
-                        ? `${regionColor.border} shadow-2xl` 
-                        : 'border-slate-200 hover:border-slate-300 shadow-lg'
-                    } transition-all duration-300 cursor-pointer group`}
-                    whileHover="hover"
-                    onClick={() => setSelectedCountry(country)}
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center space-x-3">
-                        <span className="text-3xl">{getFlagEmoji(country.code)}</span>
-                        <div>
-                          <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300">
-                            {country.name}
-                          </h3>
-                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                            regionColor.bg
-                          } ${regionColor.text}`}>
-                            {t(`partnersInternational.regions.${country.region}`)}
-                          </span>
+            {filteredCountries.length === 0 ? (
+              <motion.div
+                variants={itemVariants}
+                className="text-center py-12"
+              >
+                <div className="text-6xl mb-4">🔍</div>
+                <h3 className="text-xl font-semibold text-slate-700 mb-2">
+                  {t('partnersInternational.search.noResults')}
+                </h3>
+                <p className="text-slate-500">
+                  {t('partnersInternational.search.tryDifferent')}
+                </p>
+              </motion.div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredCountries.map((country) => {
+                  const regionColor = regionColors[country.region];
+                  return (
+                    <motion.div
+                      key={country.code}
+                      variants={cardVariants}
+                      className={`bg-white rounded-2xl p-6 border-2 ${
+                        selectedCountry?.code === country.code 
+                          ? `${regionColor.border} shadow-2xl` 
+                          : 'border-slate-200 hover:border-slate-300 shadow-lg'
+                      } transition-all duration-300 cursor-pointer group`}
+                      whileHover="hover"
+                      onClick={() => setSelectedCountry(country)}
+                    >
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center space-x-3">
+                          <span className="text-3xl">{getFlagEmoji(country.code)}</span>
+                          <div>
+                            <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300">
+                              {country.name}
+                            </h3>
+                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                              regionColor.bg
+                            } ${regionColor.text}`}>
+                              {t(`partnersInternational.regions.${country.region}`)}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <motion.div
-                        className="text-right"
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        <div className="text-2xl font-bold text-slate-900">
-                          {country.stats.projects}
-                        </div>
-                        <div className="text-sm text-slate-600">
-                          {t('partnersInternational.projects')}
-                        </div>
-                      </motion.div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                      <div className="text-center p-3 bg-slate-50 rounded-xl">
-                        <div className="text-lg font-bold text-slate-900">{country.stats.tradeVolume}</div>
-                        <div className="text-sm text-slate-600">{t('partnersInternational.tradeVolume')}</div>
-                      </div>
-                      <div className="text-center p-3 bg-slate-50 rounded-xl">
-                        <div className="text-lg font-bold text-slate-900">{country.stats.since}</div>
-                        <div className="text-sm text-slate-600">{t('partnersInternational.since')}</div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      {cooperationTypes.slice(0, 3).map((type, index) => (
-                        <span
-                          key={index}
-                          className="inline-flex items-center px-2 py-1 bg-blue-50 text-blue-600 rounded-lg text-sm"
+                        <motion.div
+                          className="text-right"
+                          whileHover={{ scale: 1.1 }}
                         >
-                          {type.icon} {type.label}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+                          <div className="text-2xl font-bold text-slate-900">
+                            {country.stats.projects}
+                          </div>
+                          <div className="text-sm text-slate-600">
+                            {t('partnersInternational.projects')}
+                          </div>
+                        </motion.div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4 mb-4">
+                        <div className="text-center p-3 bg-slate-50 rounded-xl">
+                          <div className="text-lg font-bold text-slate-900">{country.stats.tradeVolume}</div>
+                          <div className="text-sm text-slate-600">{t('partnersInternational.tradeVolume')}</div>
+                        </div>
+                        <div className="text-center p-3 bg-slate-50 rounded-xl">
+                          <div className="text-lg font-bold text-slate-900">{country.stats.since}</div>
+                          <div className="text-sm text-slate-600">{t('partnersInternational.since')}</div>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        {cooperationTypes.slice(0, 3).map((type, index) => (
+                          <span
+                            key={index}
+                            className="inline-flex items-center px-2 py-1 bg-blue-50 text-blue-600 rounded-lg text-sm"
+                          >
+                            {type.icon} {type.label}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            )}
           </motion.div>
         )}
 
@@ -729,15 +839,19 @@ const PartnersInternational = () => {
                       {t('partnersInternational.modal.keyPartners')}
                     </h3>
                     <div className="space-y-3">
-                      {selectedCountry.partners.map((partner, index) => (
-                        <div
-                          key={index}
-                          className="p-3 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl border border-blue-200"
-                        >
-                          <h4 className="font-semibold text-slate-900 mb-1">{partner.name}</h4>
-                          <p className="text-slate-600 text-sm">{partner.description}</p>
-                        </div>
-                      ))}
+                      {selectedCountry.partners && selectedCountry.partners.length > 0 ? (
+                        selectedCountry.partners.map((partner, index) => (
+                          <div
+                            key={index}
+                            className="p-3 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl border border-blue-200"
+                          >
+                            <h4 className="font-semibold text-slate-900 mb-1">{partner.name}</h4>
+                            <p className="text-slate-600 text-sm">{partner.description}</p>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-slate-500 text-sm">{t('partnersInternational.noData')}</p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -751,20 +865,26 @@ const PartnersInternational = () => {
                     {t('partnersInternational.modal.projects')}
                   </h3>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {[0, 1, 2].map((index) => (
-                      <motion.div
-                        key={index}
-                        className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300"
-                        whileHover={{ y: -2 }}
-                      >
-                        <h4 className="font-bold text-slate-900 mb-2">
-                          {t(`partnersInternational.countries.${selectedCountry.code}.projects.${index}.title`)}
-                        </h4>
-                        <p className="text-slate-600 text-sm leading-relaxed">
-                          {t(`partnersInternational.countries.${selectedCountry.code}.projects.${index}.description`)}
-                        </p>
-                      </motion.div>
-                    ))}
+                    {selectedCountry.projects && selectedCountry.projects.length > 0 ? (
+                      selectedCountry.projects.map((project, index) => (
+                        <motion.div
+                          key={index}
+                          className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300"
+                          whileHover={{ y: -2 }}
+                        >
+                          <h4 className="font-bold text-slate-900 mb-2">
+                            {project.title}
+                          </h4>
+                          <p className="text-slate-600 text-sm leading-relaxed">
+                            {project.description}
+                          </p>
+                        </motion.div>
+                      ))
+                    ) : (
+                      <div className="col-span-3 text-center py-8">
+                        <p className="text-slate-500">{t('partnersInternational.noData')}</p>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
 
@@ -777,7 +897,7 @@ const PartnersInternational = () => {
                     {t('partnersInternational.modal.additionalInfo')}
                   </h3>
                   <p className="text-slate-600 leading-relaxed">
-                    {t(`partnersInternational.countries.${selectedCountry.code}.description`)}
+                    {selectedCountry.description}
                   </p>
                 </motion.div>
               </div>

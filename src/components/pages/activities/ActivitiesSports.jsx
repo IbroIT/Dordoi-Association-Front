@@ -7,7 +7,8 @@ const ActivitiesSports = () => {
   const isInView = useInView(ref, { once: true, threshold: 0.2 });
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('dordoi');
-  const [expandedItem, setExpandedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [modalType, setModalType] = useState(null); // 'achievement', 'stadium', 'cinema'
 
   const tabs = [
     { id: 'dordoi', label: t('sports.tabs.dordoi'), icon: '⚽' },
@@ -163,6 +164,204 @@ const ActivitiesSports = () => {
         duration: 0.5,
         ease: "easeOut"
       }
+    }
+  };
+
+  const modalVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+      y: -50
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 300
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.8,
+      y: 50,
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
+
+  const openModal = (type, item) => {
+    setModalType(type);
+    setSelectedItem(item);
+  };
+
+  const closeModal = () => {
+    setModalType(null);
+    setSelectedItem(null);
+  };
+
+  const renderModalContent = () => {
+    if (!selectedItem) return null;
+
+    switch (modalType) {
+      case 'achievement':
+        return (
+          <div className="space-y-6">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-red-600 mb-2">{selectedItem.year}</div>
+              <h3 className="text-2xl font-bold text-slate-900">{selectedItem.title}</h3>
+            </div>
+            <div className="bg-red-50 rounded-xl p-4">
+              <p className="text-slate-700 leading-relaxed text-lg">{selectedItem.description}</p>
+            </div>
+            <div className="flex justify-center">
+              <motion.button
+                onClick={closeModal}
+                className="bg-red-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-red-700 transition-colors duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {t('sports.buttons.close')}
+              </motion.button>
+            </div>
+          </div>
+        );
+
+      case 'stadium':
+        return (
+          <div className="space-y-6">
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                <span className="text-orange-600 text-xl">🏟️</span>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900">{selectedItem.name}</h3>
+                <p className="text-orange-600 font-medium">{selectedItem.capacity}</p>
+              </div>
+            </div>
+
+            <div className="bg-orange-50 rounded-xl p-4 mb-4">
+              <p className="text-slate-700 font-medium">{selectedItem.stats}</p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-lg font-semibold text-slate-900 mb-3">
+                  {t('sports.infrastructure.featuresTitle')}
+                </h4>
+                <div className="space-y-2">
+                  {selectedItem.features.map((feature, index) => (
+                    <motion.div
+                      key={index}
+                      className="flex items-center space-x-3"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <div className="w-2 h-2 bg-orange-500 rounded-full flex-shrink-0"></div>
+                      <p className="text-slate-700">{feature}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-lg font-semibold text-slate-900 mb-2">
+                  {t('sports.infrastructure.historyTitle')}
+                </h4>
+                <p className="text-slate-600 leading-relaxed">{selectedItem.history}</p>
+              </div>
+            </div>
+
+            <div className="flex justify-center space-x-4 pt-4">
+              <motion.button
+                onClick={closeModal}
+                className="bg-orange-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-700 transition-colors duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {t('sports.buttons.close')}
+              </motion.button>
+              <motion.button
+                className="border-2 border-orange-600 text-orange-600 px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 hover:text-white transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {t('sports.buttons.visit')}
+              </motion.button>
+            </div>
+          </div>
+        );
+
+      case 'cinema':
+        return (
+          <div className="space-y-6">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-purple-600 text-2xl">🎭</span>
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900">{selectedItem.name}</h3>
+              <p className="text-purple-600 font-medium">{selectedItem.location}</p>
+            </div>
+
+            <div className="bg-purple-50 rounded-xl p-4 mb-4 text-center">
+              <p className="text-purple-700 font-medium text-lg">{selectedItem.capacity}</p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-lg font-semibold text-slate-900 mb-3">
+                  {t('sports.cinema.featuresTitle')}
+                </h4>
+                <div className="space-y-2">
+                  {selectedItem.features.map((feature, index) => (
+                    <motion.div
+                      key={index}
+                      className="flex items-center space-x-3"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <div className="w-2 h-2 bg-purple-500 rounded-full flex-shrink-0"></div>
+                      <p className="text-slate-700">{feature}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-lg font-semibold text-slate-900 mb-2">
+                  {t('sports.cinema.technologyTitle')}
+                </h4>
+                <p className="text-slate-600 leading-relaxed">{selectedItem.technology}</p>
+              </div>
+            </div>
+
+            <div className="flex justify-center space-x-4 pt-4">
+              <motion.button
+                onClick={closeModal}
+                className="bg-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-purple-700 transition-colors duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {t('sports.buttons.close')}
+              </motion.button>
+              <motion.button
+                className="border-2 border-purple-600 text-purple-600 px-6 py-3 rounded-xl font-semibold hover:bg-purple-600 hover:text-white transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {t('sports.buttons.buyTickets')}
+              </motion.button>
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
     }
   };
 
@@ -411,29 +610,17 @@ const ActivitiesSports = () => {
                       <motion.div
                         key={index}
                         variants={cardVariants}
-                        className="bg-white rounded-2xl p-6 border border-slate-200 hover:shadow-xl transition-all duration-300 text-center"
+                        className="bg-white rounded-2xl p-6 border border-slate-200 hover:shadow-xl transition-all duration-300 text-center cursor-pointer"
                         whileHover="hover"
-                        onClick={() => setExpandedItem(expandedItem === index ? null : index)}
+                        onClick={() => openModal('achievement', achievement)}
                       >
                         <div className="text-3xl font-bold text-red-600 mb-2">{achievement.year}</div>
                         <h5 className="font-bold text-slate-900 mb-3">{achievement.title}</h5>
-                        <AnimatePresence>
-                          {expandedItem === index && (
-                            <motion.p
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: 'auto' }}
-                              exit={{ opacity: 0, height: 0 }}
-                              className="text-slate-600 text-sm"
-                            >
-                              {achievement.description}
-                            </motion.p>
-                          )}
-                        </AnimatePresence>
                         <motion.button
                           className="mt-4 text-red-600 text-sm font-semibold hover:text-red-700 transition-colors duration-300"
                           whileHover={{ scale: 1.05 }}
                         >
-                          {expandedItem === index ? t('sports.buttons.less') : t('sports.buttons.more')}
+                          {t('sports.buttons.more')}
                         </motion.button>
                       </motion.div>
                     ))}
@@ -480,7 +667,7 @@ const ActivitiesSports = () => {
                       variants={cardVariants}
                       className="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer"
                       whileHover="hover"
-                      onClick={() => setExpandedItem(expandedItem === index ? null : index)}
+                      onClick={() => openModal('stadium', stadium)}
                     >
                       <div className="flex items-center mb-4">
                         <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center mr-3 group-hover:bg-orange-200 transition-colors duration-300">
@@ -500,35 +687,11 @@ const ActivitiesSports = () => {
                         <p className="text-slate-700 text-sm font-medium">{stadium.stats}</p>
                       </div>
 
-                      <AnimatePresence>
-                        {expandedItem === index && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="space-y-2 mb-4">
-                              <h5 className="font-semibold text-slate-800 text-sm">
-                                {t('sports.infrastructure.featuresTitle')}
-                              </h5>
-                              {stadium.features.map((feature, featureIndex) => (
-                                <div key={featureIndex} className="flex items-center text-sm text-slate-600">
-                                  <div className="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
-                                  {feature}
-                                </div>
-                              ))}
-                            </div>
-                            <p className="text-slate-600 text-sm">{stadium.history}</p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
                       <motion.button
                         className="mt-4 text-orange-600 text-sm font-semibold hover:text-orange-700 transition-colors duration-300"
                         whileHover={{ scale: 1.05 }}
                       >
-                        {expandedItem === index ? t('sports.buttons.less') : t('sports.buttons.more')}
+                        {t('sports.buttons.more')}
                       </motion.button>
                     </motion.div>
                   ))}
@@ -607,7 +770,7 @@ const ActivitiesSports = () => {
                       variants={cardVariants}
                       className="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer"
                       whileHover="hover"
-                      onClick={() => setExpandedItem(expandedItem === index ? null : index)}
+                      onClick={() => openModal('cinema', cinema)}
                     >
                       <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors duration-300">
                         <span className="text-purple-600 text-xl">🎭</span>
@@ -619,36 +782,12 @@ const ActivitiesSports = () => {
                         <p className="text-purple-700 text-sm font-medium">{cinema.capacity}</p>
                       </div>
 
-                      <AnimatePresence>
-                        {expandedItem === index && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="space-y-2 mb-3">
-                              <h5 className="font-semibold text-slate-800 text-sm">
-                                {t('sports.cinema.featuresTitle')}
-                              </h5>
-                              {cinema.features.map((feature, featureIndex) => (
-                                <div key={featureIndex} className="flex items-center text-sm text-slate-600">
-                                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                                  {feature}
-                                </div>
-                              ))}
-                            </div>
-                            <p className="text-slate-600 text-sm mb-3">{cinema.technology}</p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
                       <motion.button
                         className="w-full mt-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        {t('sports.buttons.visit')}
+                        {t('sports.buttons.more')}
                       </motion.button>
                     </motion.div>
                   ))}
@@ -719,6 +858,45 @@ const ActivitiesSports = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Модальное окно */}
+      <AnimatePresence>
+        {modalType && selectedItem && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeModal}
+          >
+            <motion.div
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-8">
+                <div className="flex justify-between items-start mb-6">
+                  <div className="flex-1">
+                    {/* Заголовок будет внутри renderModalContent */}
+                  </div>
+                  <button
+                    onClick={closeModal}
+                    className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors duration-200 flex-shrink-0 ml-4"
+                  >
+                    <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                {renderModalContent()}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

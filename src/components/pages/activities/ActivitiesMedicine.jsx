@@ -7,7 +7,7 @@ const ActivitiesMedicine = () => {
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('centers');
-  const [expandedProgram, setExpandedProgram] = useState(null);
+  const [modalData, setModalData] = useState(null);
 
   const medicalCenters = [
     {
@@ -17,7 +17,8 @@ const ActivitiesMedicine = () => {
       color: 'blue',
       stats: t('medicine.centers.0.stats'),
       features: t('medicine.centers.0.features', { returnObjects: true }),
-      image: '/images/medical-center-1.jpg'
+      image: '/images/medical-center-1.jpg',
+      description: t('medicine.centers.0.description', '')
     },
     {
       name: t('medicine.centers.1.name'),
@@ -26,7 +27,8 @@ const ActivitiesMedicine = () => {
       color: 'green',
       stats: t('medicine.centers.1.stats'),
       features: t('medicine.centers.1.features', { returnObjects: true }),
-      image: '/images/family-medicine.jpg'
+      image: '/images/family-medicine.jpg',
+      description: t('medicine.centers.1.description', '')
     },
     {
       name: t('medicine.centers.2.name'),
@@ -35,7 +37,8 @@ const ActivitiesMedicine = () => {
       color: 'purple',
       stats: t('medicine.centers.2.stats'),
       features: t('medicine.centers.2.features', { returnObjects: true }),
-      image: '/images/dental-center.jpg'
+      image: '/images/dental-center.jpg',
+      description: t('medicine.centers.2.description', '')
     },
     {
       name: t('medicine.centers.3.name'),
@@ -44,7 +47,8 @@ const ActivitiesMedicine = () => {
       color: 'orange',
       stats: t('medicine.centers.3.stats'),
       features: t('medicine.centers.3.features', { returnObjects: true }),
-      image: '/images/diagnostic-center.jpg'
+      image: '/images/diagnostic-center.jpg',
+      description: t('medicine.centers.3.description', '')
     }
   ];
 
@@ -55,7 +59,8 @@ const ActivitiesMedicine = () => {
       icon: '💰',
       color: 'red',
       impact: t('medicine.pandemic.actions.0.impact'),
-      timeline: t('medicine.pandemic.actions.0.timeline')
+      timeline: t('medicine.pandemic.actions.0.timeline'),
+      details: t('medicine.pandemic.actions.0.details', '')
     },
     {
       amount: t('medicine.pandemic.actions.1.amount'),
@@ -63,7 +68,8 @@ const ActivitiesMedicine = () => {
       icon: '🔄',
       color: 'blue',
       impact: t('medicine.pandemic.actions.1.impact'),
-      timeline: t('medicine.pandemic.actions.1.timeline')
+      timeline: t('medicine.pandemic.actions.1.timeline'),
+      details: t('medicine.pandemic.actions.1.details', '')
     },
     {
       amount: t('medicine.pandemic.actions.2.amount'),
@@ -71,7 +77,8 @@ const ActivitiesMedicine = () => {
       icon: '🏨',
       color: 'green',
       impact: t('medicine.pandemic.actions.2.impact'),
-      timeline: t('medicine.pandemic.actions.2.timeline')
+      timeline: t('medicine.pandemic.actions.2.timeline'),
+      details: t('medicine.pandemic.actions.2.details', '')
     },
     {
       amount: t('medicine.pandemic.actions.3.amount'),
@@ -79,7 +86,8 @@ const ActivitiesMedicine = () => {
       icon: '🏫',
       color: 'purple',
       impact: t('medicine.pandemic.actions.3.impact'),
-      timeline: t('medicine.pandemic.actions.3.timeline')
+      timeline: t('medicine.pandemic.actions.3.timeline'),
+      details: t('medicine.pandemic.actions.3.details', '')
     }
   ];
 
@@ -123,7 +131,8 @@ const ActivitiesMedicine = () => {
       icon: '🔬',
       progress: t('medicine.research.0.progress'),
       partners: t('medicine.research.0.partners', { returnObjects: true }),
-      color: 'blue'
+      color: 'blue',
+      details: t('medicine.research.0.details', '')
     },
     {
       title: t('medicine.research.1.title'),
@@ -131,7 +140,8 @@ const ActivitiesMedicine = () => {
       icon: '🧬',
       progress: t('medicine.research.1.progress'),
       partners: t('medicine.research.1.partners', { returnObjects: true }),
-      color: 'green'
+      color: 'green',
+      details: t('medicine.research.1.details', '')
     },
     {
       title: t('medicine.research.2.title'),
@@ -139,7 +149,8 @@ const ActivitiesMedicine = () => {
       icon: '🧠',
       progress: t('medicine.research.2.progress'),
       partners: t('medicine.research.2.partners', { returnObjects: true }),
-      color: 'purple'
+      color: 'purple',
+      details: t('medicine.research.2.details', '')
     }
   ];
 
@@ -252,12 +263,316 @@ const ActivitiesMedicine = () => {
     }
   };
 
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut"
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.8,
+      transition: {
+        duration: 0.3,
+        ease: "easeIn"
+      }
+    }
+  };
+
+  const overlayVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.4
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
+
   const tabs = [
     { id: 'centers', label: t('medicine.tabs.centers') },
     { id: 'pandemic', label: t('medicine.tabs.pandemic') },
     { id: 'social', label: t('medicine.tabs.social') },
     { id: 'research', label: t('medicine.tabs.research') }
   ];
+
+  const openModal = (data, type) => {
+    setModalData({ ...data, type });
+  };
+
+  const closeModal = () => {
+    setModalData(null);
+  };
+
+  const ModalContent = () => {
+    if (!modalData) return null;
+
+    const colors = colorMap[modalData.color];
+
+    switch (modalData.type) {
+      case 'centers':
+        return (
+          <div className="max-w-4xl mx-auto bg-white rounded-3xl overflow-hidden">
+            <div className={`h-48 ${colors.bg} relative`}>
+              <div className="absolute top-4 right-4">
+                <button
+                  onClick={closeModal}
+                  className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="absolute bottom-6 left-6 flex items-center space-x-4">
+                <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                  <span className="text-4xl">{modalData.icon}</span>
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold text-white mb-2">{modalData.name}</h2>
+                  <div className="text-white/90 text-lg">{modalData.stats}</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-4">{t('medicine.modal.services')}</h3>
+                  <ul className="space-y-3">
+                    {modalData.services.map((service, index) => (
+                      <li key={index} className="flex items-center text-slate-700">
+                        <svg className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        {service}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-4">{t('medicine.modal.features')}</h3>
+                  <div className="space-y-2">
+                    {modalData.features.map((feature, index) => (
+                      <div key={index} className="flex items-center text-slate-700">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {modalData.description && (
+                <div className="mt-8 p-6 bg-slate-50 rounded-2xl">
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">{t('medicine.modal.about')}</h3>
+                  <p className="text-slate-700 leading-relaxed">{modalData.description}</p>
+                </div>
+              )}
+
+              <div className="mt-8 flex space-x-4">
+                <button className={`flex-1 py-4 bg-gradient-to-r ${colors.gradient} text-white rounded-xl font-semibold text-lg`}>
+                  {t('medicine.modal.apply')}
+                </button>
+                <button className="flex-1 py-4 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold text-lg hover:border-slate-400 transition-colors">
+                  {t('medicine.modal.more')}
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'social':
+        return (
+          <div className="max-w-2xl mx-auto bg-white rounded-3xl overflow-hidden">
+            <div className={`h-32 ${colors.bg} relative`}>
+              <div className="absolute top-4 right-4">
+                <button
+                  onClick={closeModal}
+                  className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="absolute bottom-6 left-6 flex items-center space-x-4">
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                  <span className="text-3xl">{modalData.icon}</span>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">{modalData.title}</h2>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className={`inline-flex items-center px-4 py-2 rounded-full ${colors.light} ${colors.text} font-semibold`}>
+                  {modalData.beneficiaries}
+                </div>
+                <div className="text-slate-500">{modalData.duration}</div>
+              </div>
+
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900 mb-3">{t('medicine.modal.about')}</h3>
+                  <p className="text-slate-700 leading-relaxed">{modalData.detailed}</p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900 mb-3">{t('medicine.achievements')}</h3>
+                  <div className="space-y-2">
+                    {modalData.achievements.map((achievement, index) => (
+                      <div key={index} className="flex items-center text-slate-700">
+                        <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                        {achievement}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <button className={`w-full mt-8 py-4 bg-gradient-to-r ${colors.gradient} text-white rounded-xl font-semibold text-lg`}>
+                {t('medicine.modal.support')}
+              </button>
+            </div>
+          </div>
+        );
+
+      case 'research':
+        return (
+          <div className="max-w-2xl mx-auto bg-white rounded-3xl overflow-hidden">
+            <div className={`h-32 ${colors.bg} relative`}>
+              <div className="absolute top-4 right-4">
+                <button
+                  onClick={closeModal}
+                  className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="absolute bottom-6 left-6 flex items-center space-x-4">
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                  <span className="text-3xl">{modalData.icon}</span>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">{modalData.title}</h2>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8">
+              <p className="text-slate-700 text-lg leading-relaxed mb-6">{modalData.description}</p>
+
+              {modalData.details && (
+                <div className="mb-6 p-4 bg-slate-50 rounded-xl">
+                  <p className="text-slate-700">{modalData.details}</p>
+                </div>
+              )}
+
+              <div className="mb-6">
+                <div className="flex justify-between text-sm text-slate-600 mb-2">
+                  <span>{t('medicine.research_progress')}</span>
+                  <span>{modalData.progress}</span>
+                </div>
+                <div className="w-full bg-slate-200 rounded-full h-3">
+                  <motion.div
+                    className={`h-3 rounded-full ${colors.bg}`}
+                    initial={{ width: 0 }}
+                    animate={{ width: modalData.progress }}
+                    transition={{ duration: 1, delay: 0.2 }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-bold text-slate-900 mb-3">{t('medicine.partners')}</h3>
+                <div className="space-y-2">
+                  {modalData.partners.map((partner, index) => (
+                    <div key={index} className="flex items-center text-slate-700">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                      {partner}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button className={`w-full mt-8 py-4 bg-gradient-to-r ${colors.gradient} text-white rounded-xl font-semibold text-lg`}>
+                {t('medicine.modal.details')}
+              </button>
+            </div>
+          </div>
+        );
+
+      case 'pandemic':
+        return (
+          <div className="max-w-2xl mx-auto bg-white rounded-3xl overflow-hidden">
+            <div className={`h-32 ${colors.bg} relative`}>
+              <div className="absolute top-4 right-4">
+                <button
+                  onClick={closeModal}
+                  className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="absolute bottom-6 left-6 flex items-center space-x-4">
+                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                  <span className="text-3xl">{modalData.icon}</span>
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">{modalData.amount}</h2>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8">
+              <p className="text-slate-700 text-lg leading-relaxed mb-6">{modalData.description}</p>
+
+              {modalData.details && (
+                <div className="mb-6 p-4 bg-slate-50 rounded-xl">
+                  <p className="text-slate-700">{modalData.details}</p>
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="text-center p-4 bg-slate-50 rounded-xl">
+                  <div className="text-sm text-slate-600 mb-1">{t('medicine.timeline')}</div>
+                  <div className="font-semibold text-slate-900">{modalData.timeline}</div>
+                </div>
+                <div className="text-center p-4 bg-slate-50 rounded-xl">
+                  <div className="text-sm text-slate-600 mb-1">{t('medicine.impact')}</div>
+                  <div className="font-semibold text-slate-900">{modalData.impact}</div>
+                </div>
+              </div>
+
+              <button className={`w-full py-4 bg-gradient-to-r ${colors.gradient} text-white rounded-xl font-semibold text-lg`}>
+                Узнать подробности
+              </button>
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
 
   return (
     <section ref={ref} className="relative py-16 sm:py-20 lg:py-28 bg-white overflow-hidden">
@@ -412,7 +727,6 @@ const ActivitiesMedicine = () => {
                       variants={cardVariants}
                       className="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:shadow-2xl transition-all duration-300 group cursor-pointer"
                       whileHover="hover"
-                      onClick={() => setExpandedProgram(expandedProgram === index ? null : index)}
                     >
                       <div className={`w-16 h-16 ${colors.light} rounded-2xl flex items-center justify-center mb-4 group-hover:${colors.bg} transition-colors duration-300 mx-auto`}>
                         <span className={`text-3xl group-hover:text-white transition-colors duration-300`}>
@@ -450,32 +764,8 @@ const ActivitiesMedicine = () => {
                         ))}
                       </ul>
 
-                      <AnimatePresence>
-                        {expandedProgram === index && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="pt-4 border-t border-slate-200">
-                              <h5 className="font-semibold text-slate-800 mb-3">
-                                {t('medicine.centers.featuresTitle')}
-                              </h5>
-                              <div className="space-y-2">
-                                {center.features.map((feature, featureIndex) => (
-                                  <div key={featureIndex} className="flex items-center text-sm text-slate-600">
-                                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                                    {feature}
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
                       <motion.button
+                        onClick={() => openModal(center, 'centers')}
                         className={`w-full mt-4 py-3 bg-gradient-to-r ${colors.gradient} ${colors.hover} text-white rounded-xl font-semibold transition-all duration-300`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -504,8 +794,9 @@ const ActivitiesMedicine = () => {
                       <motion.div
                         key={index}
                         variants={cardVariants}
-                        className="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:shadow-2xl transition-all duration-300 group"
+                        className="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:shadow-2xl transition-all duration-300 group cursor-pointer"
                         whileHover="hover"
+                        onClick={() => openModal(action, 'pandemic')}
                       >
                         <div className="flex items-start space-x-4">
                           <div className={`flex-shrink-0 w-16 h-16 ${colors.light} rounded-2xl flex items-center justify-center group-hover:${colors.bg} transition-colors duration-300`}>
@@ -584,7 +875,6 @@ const ActivitiesMedicine = () => {
               >
                 {socialPrograms.map((program, index) => {
                   const colors = colorMap[program.color];
-                  const isExpanded = expandedProgram === index;
                   
                   return (
                     <motion.div
@@ -592,7 +882,7 @@ const ActivitiesMedicine = () => {
                       variants={cardVariants}
                       className="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:shadow-2xl transition-all duration-300 group cursor-pointer"
                       whileHover="hover"
-                      onClick={() => setExpandedProgram(isExpanded ? null : index)}
+                      onClick={() => openModal(program, 'social')}
                     >
                       <div className="flex items-start space-x-4 mb-4">
                         <div className={`flex-shrink-0 w-16 h-16 ${colors.light} rounded-2xl flex items-center justify-center group-hover:${colors.bg} transition-colors duration-300`}>
@@ -619,36 +909,11 @@ const ActivitiesMedicine = () => {
                         </div>
                       </div>
 
-                      <AnimatePresence>
-                        {isExpanded && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="pt-4 border-t border-slate-200">
-                              <p className="text-slate-700 mb-4">
-                                {program.detailed}
-                              </p>
-                              
-                              <div className="space-y-2">
-                                <h5 className="font-semibold text-slate-800 text-sm">
-                                  {t('medicine.achievements')}
-                                </h5>
-                                {program.achievements.map((achievement, achievementIndex) => (
-                                  <div key={achievementIndex} className="flex items-center text-sm text-slate-600">
-                                    <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                                    {achievement}
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
                       <motion.button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openModal(program, 'social');
+                        }}
                         className={`w-full mt-4 py-3 bg-gradient-to-r ${colors.gradient} ${colors.hover} text-white rounded-xl font-semibold transition-all duration-300`}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -686,8 +951,9 @@ const ActivitiesMedicine = () => {
                       <motion.div
                         key={index}
                         variants={cardVariants}
-                        className="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:shadow-2xl transition-all duration-300 group"
+                        className="bg-white rounded-2xl p-6 border-2 border-slate-200 hover:shadow-2xl transition-all duration-300 group cursor-pointer"
                         whileHover="hover"
+                        onClick={() => openModal(project, 'research')}
                       >
                         <div className={`w-16 h-16 ${colors.light} rounded-2xl flex items-center justify-center mb-4 group-hover:${colors.bg} transition-colors duration-300`}>
                           <span className={`text-3xl group-hover:text-white transition-colors duration-300`}>
@@ -802,6 +1068,34 @@ const ActivitiesMedicine = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Модальное окно */}
+      <AnimatePresence>
+        {modalData && (
+          <>
+            <motion.div
+              variants={overlayVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
+              onClick={closeModal}
+            />
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <motion.div
+                variants={modalVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="w-full max-w-4xl max-h-[90vh] overflow-y-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <ModalContent />
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

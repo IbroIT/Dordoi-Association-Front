@@ -9,7 +9,7 @@
     "about_facts": "Interesting Facts",
     "activities": "Activities",
     "activities_trade": "Trade and Logistics",
-    "activities_finance": "Finance and Production",
+    "activities_finance": "Finance and Manufacturing",
     "activities_education": "Education and Science",
     "activities_medicine": "Medicine and Healthcare",
     "activities_sports": "Sports",
@@ -30,58 +30,5054 @@
     "contacts": "Contacts",
     "contacts_address": "Address and Map",
     "contacts_info": "Contact Information",
-    "contacts_social": "Social Networks",
+    "contacts_social": "Social Media",
     "contacts_form": "Online Contact Form"
   },
+  "hero": {
+    "contactButton": "Contact Us",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "goToSlide": "Go to slide {{number}}",
+    "slides": [
+      {
+        "title": "Business Development Association",
+        "subtitle": "Uniting efforts for the prosperity of the region",
+        "description": "Creating favorable conditions for the development of business, culture, and social sphere through effective partnership",
+        "buttonText": "Join"
+      },
+      {
+        "title": "International Cooperation",
+        "subtitle": "Expanding horizons of opportunities",
+        "description": "Establishing partnerships with leading international organizations for mutual development",
+        "buttonText": "Our Partners"
+      },
+      {
+        "title": "Innovative Projects",
+        "subtitle": "Creating the future today",
+        "description": "Implementing promising projects in education, technology, and social development",
+        "buttonText": "Our Projects"
+      },
+      {
+        "title": "Social Responsibility",
+        "subtitle": "Developing the community together",
+        "description": "Actively participating in social and cultural initiatives to create a favorable environment",
+        "buttonText": "Learn More"
+      }
+    ]
+  },
+  "mission": {
+    "badge": "Our Philosophy",
+    "title": "Mission and",
+    "titleHighlight": "Values",
+    "subtitle": "Principles that guide every decision and action on the path to creating a better future",
+    "missionTitle": "Our Mission",
+    "missionText": {
+      "0": {
+        "highlight": "Promote the development of individuals and society",
+        "rest": " through quality education, innovation, and cooperation."
+      },
+      "1": {
+        "prefix": "We strive to shape ",
+        "highlight": "professionals capable of critical thinking, acting responsibly",
+        "suffix": " and benefiting their community and country."
+      }
+    },
+    "strategy": {
+      "title": "Strategic Approach",
+      "description": "Combining proven methods and advanced technologies to achieve sustainable development and maximum impact"
+    },
+    "valuesTitle": "Our Values",
+    "valuesSubtitle": "Fundamental principles defining our path to excellence",
+    "values": [
+      {
+        "title": "Responsibility",
+        "description": "We are aware of the consequences of our decisions and actions"
+      },
+      {
+        "title": "Professionalism",
+        "description": "We strive for high standards in everything we do"
+      },
+      {
+        "title": "Innovation",
+        "description": "We support new ideas, technologies, and approaches"
+      },
+      {
+        "title": "Partnership",
+        "description": "We value cooperation and mutual respect"
+      },
+      {
+        "title": "Development",
+        "description": "We continuously learn and improve"
+      }
+    ]
+  },
+  "achievements": {
+    "badge": "Our Results",
+    "title": "Our Achievements",
+    "subtitle": "We actively develop cooperation and create opportunities for professional and economic growth",
+    "items": [
+      {
+        "title": "Jobs",
+        "suffix": "+",
+        "description": "new vacancies for specialists"
+      },
+      {
+        "title": "Investments",
+        "suffix": " million $",
+        "description": "attracted for project development"
+      },
+      {
+        "title": "Partner Countries",
+        "suffix": "+",
+        "description": "connections established worldwide"
+      }
+    ]
+  },
+  "about": {
+    "badge": "About Our Organization",
+    "title": "About Us",
+    "imagePlaceholder": "Team image",
+    "stats": {
+      "projects": "50+",
+      "projectsLabel": "Projects",
+      "specialists": "100+",
+      "specialistsLabel": "Specialists"
+    },
+    "description": {
+      "0": {
+        "highlight": "Our association unites specialists and like-minded people",
+        "rest": " to develop cooperation, exchange experience, and promote common interests."
+      },
+      "1": {
+        "prefix": "We strive to ",
+        "highlight": "strengthen the professional community",
+        "suffix": " and create conditions for sustainable development in our field."
+      }
+    },
+    "advantages": [
+      "Professional Community",
+      "Experience Exchange",
+      "Cooperation Development",
+      "Sustainable Development"
+    ],
+    "buttons": {
+      "join": "Join",
+      "learnMore": "Learn More"
+    }
+  },
+  "activities": {
+    "badge": "Areas of Work",
+    "title": "Areas of Activity",
+    "subtitle": "Key areas where the Dordoi Association implements projects and contributes to the development of Kyrgyzstan",
+    "learnMore": "Learn More",
+    "items": [
+      {
+        "title": "Trade and Logistics",
+        "description": "The largest trade and logistics complex in Central Asia - an engine of the national economy and a symbol of Kyrgyz entrepreneurship."
+      },
+      {
+        "title": "Finance and Manufacturing",
+        "description": "The economic backbone of the Association: microfinance, insurance, and investment companies creating jobs."
+      },
+      {
+        "title": "Education and Science",
+        "description": "Investing in the future: supporting schools, universities, and educational centers, scholarship and grant programs."
+      },
+      {
+        "title": "Medicine and Healthcare",
+        "description": "Caring for the nation's health: modern clinics, medical centers, and social projects to support the population."
+      },
+      {
+        "title": "Sports",
+        "description": "A symbol of strength and national pride: the Dordoi football club, support for national sports and youth."
+      },
+      {
+        "title": "Culture and Tourism",
+        "description": "Spiritual and cultural revival: supporting the film industry, theaters, cultural centers, and festivals."
+      },
+      {
+        "title": "Social Responsibility",
+        "description": "Caring for people: building mosques, schools, sports complexes, helping those in need, and spiritual development."
+      }
+    ]
+  },
+  "news": {
+    "badge": "Current Events",
+    "title": "News and Important Events",
+    "subtitle": "Current achievements, initiatives, and projects of the Dordoi Association",
+    "learnMore": "Learn More",
+    "categories": {
+      "all": "All News",
+      "sport": "Sports",
+      "education": "Education",
+      "international": "International",
+      "social": "Social",
+      "anniversary": "Anniversaries",
+      "culture": "Culture"
+    },
+    "items": [
+      {
+        "title": "FC Dordoi becomes champion of Kyrgyzstan 2025",
+        "description": "The team won the national title for the 11th time, confirming its status as the country's strongest club in an exciting final match.",
+        "date": "December 15, 2024"
+      },
+      {
+        "title": "The Association opened a new educational center in Osh region",
+        "description": "The modern center is equipped with advanced equipment and will serve as a platform for developing talented youth in the region.",
+        "date": "December 10, 2024"
+      },
+      {
+        "title": "Dordoi and business partners from Turkey signed a memorandum of cooperation",
+        "description": "The document will strengthen economic ties between the countries and create new opportunities for mutual investment and development.",
+        "date": "December 5, 2024"
+      },
+      {
+        "title": "Charity event in Batken: assistance to more than 500 families",
+        "description": "The Association provided humanitarian support and essential goods to the affected regions.",
+        "date": "December 1, 2024"
+      },
+      {
+        "title": "Anniversary celebrations: 30 years of the Dordoi Association",
+        "description": "Large-scale events dedicated to the organization's thirtieth anniversary brought together thousands of partners and friends.",
+        "date": "November 28, 2024"
+      },
+      {
+        "title": "Premiere of a national film in the Cinematika cinema network",
+        "description": "The screening of the new Kyrgyz film attracted a record number of viewers and received rave reviews from critics.",
+        "date": "November 25, 2024"
+      }
+    ]
+  },
+  "history": {
+    "badge": "Our History",
+    "title": "Development",
+    "titleHighlight": "History",
+    "subtitle": "Key milestones of our journey from foundation to the present day",
+    "timelineContinues": "History continues",
+    "futureAhead": "New achievements ahead",
+    "milestones": [
+      {
+        "title": "Foundation of the Market",
+        "description": "In December 1991, the legendary Dordoi market was founded, marking the beginning of a new era of entrepreneurship in Kyrgyzstan. This became the starting point for the development of private business in the country.",
+        "stats": "December 1991"
+      },
+      {
+        "title": "Formation of the Entrepreneurial Class",
+        "description": "In the 1990s, Dordoi became a real 'business school' for thousands of Kyrgyzstanis. The first entrepreneurs were formed here, the basics of a market economy were mastered, and business traditions were laid.",
+        "stats": "1990s"
+      },
+      {
+        "title": "Revival of Cinemas",
+        "description": "The launch of the Cinematika network marked a new era in the country's cultural life. Modern cinemas were opened: 'Oktyabr', 'Ala-Too', 'Vefa', 'Cosmopark', 'Bishkek Park', 'Dordoi Plaza', and others.",
+        "stats": "Cinema Network"
+      },
+      {
+        "title": "World Bank Statistics",
+        "description": "According to World Bank data, about 50,000 people were directly employed at Dordoi. This confirmed the significant contribution to the economy and employment.",
+        "stats": "~50,000 employed"
+      },
+      {
+        "title": "Investment in Development",
+        "description": "From 2010 to 2020, large-scale investments were made in various spheres: sports, education, medicine. This contributed to the socio-economic development of the regions.",
+        "stats": "2010-2020"
+      },
+      {
+        "title": "Fight against COVID-19",
+        "description": "During the difficult period of the pandemic, a significant contribution was made to the fight against coronavirus: 1 million soms in funds and 7.5 million soms in food and protective equipment.",
+        "stats": "8.5 million soms aid"
+      },
+      {
+        "title": "Assistance to Batken",
+        "description": "Large-scale assistance was provided to the Batken region: 20 tons of humanitarian aid were delivered and a kindergarten for 100 children was built.",
+        "stats": "20 tons of aid"
+      },
+      {
+        "title": "Publication of the book 'Dordoi - 30 Years'",
+        "description": "In honor of the 30th anniversary, the book 'Dordoi - 30 Years' was published, becoming a valuable archival material and chronicle of achievements. The book contains unique photographs and memories.",
+        "stats": "Anniversary Edition"
+      }
+    ]
+  },
+  "structure": {
+    "badge": "Structure",
+    "title": "Our Structure",
+    "subtitle": "A comprehensive organization uniting key areas for maximum efficiency",
+    "achievements": "Key Achievements",
+    "divisionDetails": "About the Division",
+    "teamSize": "Team Size",
+    "performance": "Performance Indicators",
+    "buttons": {
+      "contactDivision": "Contact the Division"
+    },
+    "divisions": {
+      "trade": {
+        "name": "Trade",
+        "description": "International trade and distribution",
+        "detailed": "Our trade division specializes in the international distribution of premium quality goods. We have built a strong supply chain network ensuring efficient delivery and optimal conditions for our partners.",
+        "stats": "150+ projects, 25 countries",
+        "achievements": [
+          "Leader in B2B trade segment",
+          "International quality certification",
+          "Optimized logistics chain",
+          "Partnerships with global brands"
+        ],
+        "team": "120+ specialists"
+      },
+      "logistics": {
+        "name": "Logistics",
+        "description": "Comprehensive logistics solutions",
+        "detailed": "The logistics division provides a full range of supply chain management services, including multimodal transport, warehouse logistics, and customs clearance.",
+        "stats": "500+ routes, 99.8% reliability",
+        "achievements": [
+          "Automated tracking system",
+          "Own vehicle fleet and warehouses",
+          "24/7 customer support service",
+          "ISO 9001 Certification"
+        ],
+        "team": "80+ logisticians"
+      },
+      "finance": {
+        "name": "Finance",
+        "description": "Investments and financial services",
+        "detailed": "The finance division deals with asset management, investment projects, and providing comprehensive financial solutions for businesses and private clients.",
+        "stats": "$50M+ managed assets",
+        "achievements": [
+          "Stable investment returns",
+          "Diversified portfolio",
+          "Compliance with international standards",
+          "Transparent reporting"
+        ],
+        "team": "45+ finance professionals"
+      },
+      "education": {
+        "name": "Education",
+        "description": "Educational programs and courses",
+        "detailed": "The education division develops and implements innovative training programs, professional development courses, and retraining programs.",
+        "stats": "10,000+ graduates",
+        "achievements": [
+          "Accredited programs",
+          "Partnerships with universities",
+          "Innovative teaching methods",
+          "High employment rate"
+        ],
+        "team": "60+ teachers"
+      },
+      "medicine": {
+        "name": "Medicine",
+        "description": "Medical services and innovations",
+        "detailed": "The medical division combines modern clinics, research centers, and innovative projects in healthcare and medical technology.",
+        "stats": "50,000+ patients per year",
+        "achievements": [
+          "Modern diagnostic equipment",
+          "Qualified specialists",
+          "Research grants",
+          "International medical standards"
+        ],
+        "team": "200+ medical workers"
+      },
+      "sport": {
+        "name": "Sports",
+        "description": "Sports events and development",
+        "detailed": "The sports division organizes large-scale events, develops sports infrastructure, and supports professional athletes.",
+        "stats": "100+ events annually",
+        "achievements": [
+          "Organization of international tournaments",
+          "Development of youth sports",
+          "Modern sports facilities",
+          "Support for Olympic teams"
+        ],
+        "team": "35+ organizers"
+      },
+      "culture": {
+        "name": "Culture",
+        "description": "Cultural projects and initiatives",
+        "detailed": "The culture division implements projects in art, cultural heritage preservation, and supports creative initiatives.",
+        "stats": "200+ cultural events",
+        "achievements": [
+          "Restoration of historical sites",
+          "Support for young artists",
+          "International cultural exchanges",
+          "Educational programs in art"
+        ],
+        "team": "25+ curators"
+      }
+    },
+    "subsidiaries": {
+      "title": "Subsidiaries",
+      "subtitle": "Explore the profiles of our subsidiaries and their specializations",
+      "learnMore": "Learn More",
+      "viewAll": "All Companies",
+      "trade": {
+        "description": "International trade and distribution of premium quality goods"
+      },
+      "logistics": {
+        "description": "Logistics solutions for businesses of any scale"
+      },
+      "finance": {
+        "description": "Financial services and investment solutions"
+      },
+      "education": {
+        "description": "Educational programs and professional development courses"
+      },
+      "medicine": {
+        "description": "Medical services and innovative healthcare solutions"
+      },
+      "sport": {
+        "description": "Sports events and fitness programs"
+      },
+      "culture": {
+        "description": "Cultural projects and art initiatives"
+      }
+    }
+  },
   "leadership": {
-    "badge": "Leadership Team",
-    "title": "Our Leadership",
-    "subtitle": "Meet the visionary leaders driving our success and innovation forward",
+    "downloadPDF": "Download Leadership List",
+    "badge": "Leadership",
+    "title": "Our Team",
+    "subtitle": "Meet our leaders who drive the company to success and innovation",
     "achievementsTitle": "Key Achievements",
     "photoPlaceholder": "Photo",
     "downloadButton": "Download Full Leadership List (PDF)",
-    "downloadHint": "Complete directory of our management team and specialists",
+    "downloadHint": "Full catalog of our management and specialists",
+    "viewDetails": "More Details",
+    "education": "Education",
+    "tabs": {
+      "leadership": "Leadership",
+      "achievements": "Achievements"
+    },
+    "stats": {
+      "experience": {
+        "value": "15+ years",
+        "label": "Combined Experience"
+      },
+      "projects": {
+        "value": "200+",
+        "label": "Successful Projects"
+      },
+      "teams": {
+        "value": "50+",
+        "label": "Team Members"
+      },
+      "awards": {
+        "value": "25+",
+        "label": "Professional Awards"
+      }
+    },
+    "achievements": {
+      "items": [
+        {
+          "title": "International Recognition",
+          "description": "Our team received international awards for business innovation"
+        },
+        {
+          "title": "Exponential Growth",
+          "description": "Increased company revenue by 300% over the last 3 years"
+        },
+        {
+          "title": "Technological Innovation",
+          "description": "Developed and implemented proprietary technology platforms"
+        },
+        {
+          "title": "Sustainable Development",
+          "description": "Implemented ESG standards across the organization"
+        },
+        {
+          "title": "Talent Development",
+          "description": "Created training programs for over 500 employees"
+        },
+        {
+          "title": "International Partnership",
+          "description": "Established strategic partnerships with companies from 15 countries"
+        }
+      ]
+    },
     "persons": [
       {
         "name": "Askar Salymbekov",
-        "position": "Honorary President",
-        "bio": "Visionary leader with over 20 years of experience in business development and strategic planning. Founded multiple successful enterprises across various industries.",
+        "position": "President of the Association",
+        "bio": "Visionary leader with over 20 years of experience in business development and strategic planning. Founded numerous successful enterprises in various industries.",
+        "fullBio": "Askar Salymbekov is a recognized leader in the business community with over 20 years of management experience. Under his leadership, the company has achieved significant growth and international recognition. He is the author of several innovative business models that have become industry standards in Central Asia.",
+        "experience": "20+ years",
+        "education": "MBA Harvard Business School, Master of Economics KNU",
+        "contact": "askar.salymbekov@company.kg",
         "achievements": [
-          "Founded and scaled 10+ successful companies",
-          "Pioneered innovative business models in Central Asia",
-          "Mentored 100+ young entrepreneurs and business leaders"
+          "Founded and scaled over 10 successful companies",
+          "Pioneer of innovative business models in Central Asia",
+          "Mentor to over 100 young entrepreneurs and business leaders",
+          "Awarded the national 'Business Leader of the Year' prize",
+          "Attracted over $100 million in investments to the region"
+        ],
+        "specialties": [
+          "Strategic Planning",
+          "Investments",
+          "International Relations"
         ]
       },
       {
         "name": "Samarbek Zhaparakunov",
-        "position": "Chief Executive Officer",
-        "bio": "Seasoned executive with expertise in operational excellence and digital transformation. Passionate about building high-performance teams and sustainable business practices.",
+        "position": "General Director",
+        "bio": "Experienced executive with expertise in operational excellence and digital transformation. Passionate about building high-performing teams and sustainable business practices.",
+        "fullBio": "Samarbek Zhaparakunov possesses deep knowledge in operational management and digital transformation. Under his leadership, the company underwent complete digitalization of business processes, leading to significant efficiency improvements and cost reductions.",
+        "experience": "15+ years",
+        "education": "Master of Business Management, London Business School",
+        "contact": "samarbek.japarakunov@company.kg",
         "achievements": [
-          "Led digital transformation across all business units",
+          "Executed digital transformation of all business units",
           "Achieved 40% revenue growth in 2 years",
-          "Implemented ESG initiatives across organization"
+          "Implemented ESG initiatives across the organization",
+          "Reduced operational costs by 25%",
+          "Created a performance management system"
+        ],
+        "specialties": [
+          "Operational Management",
+          "Digital Transformation",
+          "Performance Management"
         ]
       },
       {
         "name": "Ainura Askarova",
         "position": "Chief Financial Officer",
-        "bio": "Financial strategist with 15+ years in corporate finance and investment management. Specialized in financial planning and risk management strategies.",
+        "bio": "Financial strategist with 15+ years of experience in corporate finance and investment management. Specializes in financial planning and risk management strategies.",
+        "fullBio": "Ainura Askarova is a certified financial analyst with international experience at leading financial institutions. Her strategic vision and deep understanding of capital markets helped the company attract significant investments and optimize its financial structure.",
+        "experience": "15+ years",
+        "education": "CFA, Master of Finance New York University",
+        "contact": "ainura.askarova@company.kg",
         "achievements": [
-          "Secured $50M in strategic investments",
-          "Optimized financial operations saving 15% annually",
-          "Implemented advanced financial control systems"
+          "Attracted $50 million in strategic investments",
+          "Optimized financial operations, saving 15% annually",
+          "Implemented advanced financial control systems",
+          "Developed risk management strategy",
+          "Restructured company debt obligations"
+        ],
+        "specialties": [
+          "Corporate Finance",
+          "Investment Management",
+          "Financial Analysis"
         ]
       },
       {
-        "name": "Bakyt Zhamankulov",
+        "name": "Bakit Zhamankulov",
         "position": "Chief Technology Officer",
-        "bio": "Technology innovator with background in software engineering and digital infrastructure. Focused on leveraging cutting-edge technologies for business growth.",
+        "bio": "Technology innovator with experience in software development and digital infrastructure. Focused on leveraging cutting-edge technologies for business growth.",
+        "fullBio": "Bakit Zhamankulov is an expert in technology and digital infrastructure. Under his technical leadership, the company developed proprietary technology platforms that became a competitive advantage in the market. He actively implements advanced technologies, including AI and machine learning.",
+        "experience": "12+ years",
+        "education": "Master of Computer Science, MIT",
+        "contact": "bakit.zhamankulov@company.kg",
         "achievements": [
           "Led development of proprietary technology platforms",
           "Reduced infrastructure costs by 30% through optimization",
-          "Built and scaled engineering team from 10 to 50+ specialists"
+          "Built and scaled engineering team from 10 to 50+ specialists",
+          "Implemented artificial intelligence systems",
+          "Secured 5 technology patents"
+        ],
+        "specialties": [
+          "Software Development",
+          "Digital Infrastructure",
+          "Artificial Intelligence"
         ]
       }
     ]
+  },
+  "facts": {
+    "details": "Details",
+    "close": "Close",
+    "badge": "Facts",
+    "title": "Numbers",
+    "titleHighlight": "and Achievements",
+    "subtitle": "Key indicators demonstrating our contribution to the economy and development",
+    "more": "More",
+    "less": "Collapse",
+    "items": {
+      "forbes": {
+        "title": "Forbes",
+        "description": "Recognition by the international business community and leading business publications",
+        "value": "Forbes",
+        "details": [
+          "Inclusion in Forbes Global 2000 ranking",
+          "Recognition in 'Best Employer' nomination",
+          "'Sustainable Development' award from international jury",
+          "Publications in leading world business publications"
+        ]
+      },
+      "smokeless": {
+        "title": "Eco-friendly Production",
+        "description": "Modern technologies eliminating harmful emissions into the atmosphere",
+        "value": "0% emissions",
+        "details": [
+          "Closed-loop water supply system",
+          "Solar panels with 5 MW capacity",
+          "95% waste recycling system",
+          "ISO 14001 certification"
+        ]
+      },
+      "tax": {
+        "title": "Tax Revenues",
+        "description": "Annual contribution to the state budget through tax payments",
+        "value": "₸ 2.5 billion",
+        "details": [
+          "VAT: 1.2 billion tenge",
+          "Income tax: 800 million tenge",
+          "Social contributions: 500 million tenge",
+          "15% annual growth"
+        ]
+      },
+      "export": {
+        "title": "Clothing Export",
+        "description": "Share in the country's total export of garment products to international markets",
+        "value": "25%",
+        "details": [
+          "Export to 15 countries worldwide",
+          "Main markets: Russia, EU, USA",
+          "Annual export volume: $120 million",
+          "Premium brands in portfolio"
+        ]
+      },
+      "employment": {
+        "title": "Jobs",
+        "description": "Number of employees providing stable income to families",
+        "value": "5000+",
+        "details": [
+          "5000+ employees across Kazakhstan",
+          "70% women in workforce",
+          "Average salary above industry average",
+          "Professional training programs"
+        ]
+      },
+      "infrastructure": {
+        "title": "Production Facilities",
+        "description": "Modern factories and enterprises throughout the country",
+        "value": "15+ facilities",
+        "details": [
+          "5 full-cycle garment factories",
+          "3 textile plants",
+          "7 logistics centers",
+          "Total area: 150,000 m²"
+        ]
+      }
+    },
+    "cta": {
+      "title": "Learn more about our history",
+      "description": "Download the detailed brochure to review complete information about our achievements over 30 years of work",
+      "button": "Download 30 Years Brochure",
+      "contact": "Contact Us",
+      "fileInfo": "PDF, 15 MB"
+    }
+  },
+  "trade": {
+    "badge": "Trade",
+    "title": "Trade and Market",
+    "titleHighlight": "Complex",
+    "subtitle": "Largest trade turnover hub in Central Asia",
+    "more": "More",
+    "less": "Collapse",
+    "modal": {
+      "details": "Details",
+      "close": "Close",
+      "change": "Change"
+    },
+    "lead": {
+      "title": "Dordoi - Central Asia's Trade Hub",
+      "description": "Largest trade turnover hub in Central Asia, providing wholesale and retail trade, warehousing, and transit"
+    },
+    "advantages": {
+      "title": "Key Advantages",
+      "subtitle": "Why entrepreneurs choose our trade complex",
+      "items": [
+        {
+          "icon": "🏪",
+          "title": "Strategic Location",
+          "description": "Strategic location at the intersection of trade routes"
+        },
+        {
+          "icon": "💰",
+          "title": "Competitive Prices",
+          "description": "Competitive rental terms and low operational costs"
+        },
+        {
+          "icon": "🛡️",
+          "title": "Security",
+          "description": "24/7 security and modern security systems"
+        },
+        {
+          "icon": "🚚",
+          "title": "Logistics",
+          "description": "Full range of logistics services for your business"
+        }
+      ]
+    },
+    "structure": {
+      "title": "Complex Structure",
+      "description": "Multifunctional trade complex uniting various directions for full-cycle trade operations",
+      "items": [
+        "Clothing Market",
+        "Food Market",
+        "Auto Parts",
+        "Warehouse Facilities"
+      ],
+      "details": [
+        "Clothing, footwear, accessories",
+        "Food and beverages",
+        "Auto parts and accessories",
+        "Storage and warehousing"
+      ],
+      "imagePlaceholder": "Trade complex structure",
+      "imageSubtitle": "Interactive complex map"
+    },
+    "infrastructure": {
+      "title": "Infrastructure",
+      "subtitle": "Modern infrastructure for efficient trade",
+      "items": [
+        {
+          "value": "40+ ha",
+          "label": "Total Area",
+          "color": "blue",
+          "details": [
+            "Territory for further expansion",
+            "Developed infrastructure",
+            "Green zones and parking",
+            "Access roads for freight transport"
+          ]
+        },
+        {
+          "value": "5,000+",
+          "label": "Trading Places",
+          "color": "green",
+          "details": [
+            "Individual trading pavilions",
+            "Exhibition halls and demonstration zones",
+            "Modern trading equipment",
+            "Flexible rental terms"
+          ]
+        },
+        {
+          "value": "50,000 m²",
+          "label": "Warehouse Space",
+          "color": "orange",
+          "details": [
+            "Modern warehouse complexes",
+            "Climate control systems",
+            "Automated accounting system",
+            "24/7 access"
+          ]
+        },
+        {
+          "value": "24/7",
+          "label": "Round-the-clock Service",
+          "color": "purple",
+          "details": [
+            "24/7 security and safety",
+            "Technical support 24/7",
+            "Operation without days off or holidays",
+            "Emergency services on site"
+          ]
+        }
+      ]
+    },
+    "logistics": {
+      "title": "Logistics Services",
+      "services": [
+        {
+          "title": "Customs Clearance",
+          "description": "Full range of customs services for international trade",
+          "icon": "🛃",
+          "details": [
+            "Express document processing",
+            "Customs declaration",
+            "Product certification",
+            "International trade consultations"
+          ],
+          "color": "blue"
+        },
+        {
+          "title": "Transport Logistics",
+          "description": "Organization of cargo transportation on international routes",
+          "icon": "🚚",
+          "details": [
+            "International cargo transportation",
+            "Multimodal transport",
+            "Online cargo tracking",
+            "Cargo insurance"
+          ],
+          "color": "green"
+        },
+        {
+          "title": "International Routes",
+          "description": "Transport connections with Central Asian countries",
+          "icon": "🌐",
+          "details": [
+            "Regular flights to China and Russia",
+            "Logistics to EAEU countries",
+            "Route optimization",
+            "Reduced logistics costs"
+          ],
+          "color": "orange"
+        },
+        {
+          "title": "Cash Collection",
+          "description": "Secure settlements and cash collection",
+          "icon": "💼",
+          "details": [
+            "Secure cash transportation",
+            "Banking services on site",
+            "Electronic payment systems",
+            "Financial monitoring"
+          ],
+          "color": "purple"
+        }
+      ]
+    },
+    "geography": {
+      "title": "Customer Geography",
+      "description": "Goods from Dordoi are supplied to Central Asian and CIS countries",
+      "countries": [
+        "Kazakhstan",
+        "Uzbekistan",
+        "Tajikistan",
+        "Russia",
+        "China",
+        "Turkey",
+        "Kyrgyzstan",
+        "Kazakhstan (regions)"
+      ],
+      "details": [
+        "Main sales market",
+        "Largest trading partner",
+        "Stable supplies",
+        "International cooperation",
+        "Key importer",
+        "Strategic partnership",
+        "Regional cooperation",
+        "Development of regional trade"
+      ]
+    },
+    "kpi": {
+      "title": "KPI & Impact",
+      "subtitle": "Key performance indicators and socio-economic impact",
+      "items": [
+        {
+          "value": "50,000+",
+          "label": "Jobs",
+          "color": "blue",
+          "details": [
+            "Direct employment at the complex",
+            "Indirect employment in related industries",
+            "Support for small and medium businesses",
+            "Professional training programs"
+          ]
+        },
+        {
+          "value": "4.5 billion",
+          "label": "Tax Revenues",
+          "color": "green",
+          "details": [
+            "Annual tax payments",
+            "Contribution to local budget",
+            "Support for social programs",
+            "Development of regional infrastructure"
+          ]
+        },
+        {
+          "value": "10,000+",
+          "label": "Small Enterprises",
+          "color": "orange",
+          "details": [
+            "Entrepreneurship support",
+            "Startup incubator",
+            "Microcredit programs",
+            "Business consultations and training"
+          ]
+        },
+        {
+          "value": "98%",
+          "label": "Customer Satisfaction",
+          "color": "purple",
+          "details": [
+            "High service quality",
+            "Quick issue resolution",
+            "Modern infrastructure",
+            "Continuous service improvement"
+          ]
+        }
+      ]
+    },
+    "partners": {
+      "title": "Our Partners",
+      "subtitle": "Major companies trusting our complex",
+      "items": [
+        {
+          "icon": "🏪",
+          "name": "Globus",
+          "type": "Retail Network"
+        },
+        {
+          "icon": "🚚",
+          "name": "DHL",
+          "type": "Logistics"
+        },
+        {
+          "icon": "🏦",
+          "name": "Kazkommertsbank",
+          "type": "Banking Services"
+        },
+        {
+          "icon": "🛡️",
+          "name": "Alfa-Insurance",
+          "type": "Insurance"
+        },
+        {
+          "icon": "📦",
+          "name": "FedEx",
+          "type": "Courier Services"
+        },
+        {
+          "icon": "🏢",
+          "name": "EMA",
+          "type": "Commercial Real Estate"
+        },
+        {
+          "icon": "🌐",
+          "name": "Alibaba",
+          "type": "International Trade"
+        },
+        {
+          "icon": "💳",
+          "name": "Visa",
+          "type": "Payment Systems"
+        }
+      ]
+    },
+    "caseStudy": {
+      "title": "Success Story",
+      "quote": "Started with one stall at Dordoi 15 years ago. Today I have a network of 5 stores and my own warehouse. Dordoi became a real business school!",
+      "author": "Aibek Tashmatov",
+      "position": "Founder of 'Style House' retail network",
+      "duration": "Successful partner since 2008"
+    },
+    "gallery": {
+      "title": "Gallery",
+      "subtitle": "Photos of the trade complex and infrastructure",
+      "placeholder": "Photo {{number}}",
+      "captions": [
+        "Main entrance to the trade complex",
+        "Internal market infrastructure",
+        "Modern warehouse facilities",
+        "Logistics center",
+        "Trading rows and pavilions",
+        "Business center and office premises"
+      ]
+    },
+    "cta": {
+      "title": "Start Working With Us",
+      "subtitle": "Join the largest trade hub in Central Asia",
+      "buttons": {
+        "rent": "Rent Space",
+        "logistics": "Request Logistics"
+      },
+      "deadline": "Special conditions for new tenants until December 31, 2024"
+    }
+  },
+  "education": {
+    "modal": {
+      "close": "Close",
+      "about": "About Program",
+      "details": "Full Description",
+      "apply": "Apply"
+    },
+    "badge": "Education and Science",
+    "title": "Education and Science",
+    "lead": "Investments in human capital - training centers, scholarships, projects for young scientists",
+    "more": "More",
+    "less": "Collapse",
+    "tabs": {
+      "programs": "Programs",
+      "scholarships": "Scholarships",
+      "publications": "Publications",
+      "cases": "Cases"
+    },
+    "programs": {
+      "akylTirek": {
+        "title": "Akyl-Tirek",
+        "fullDescription": "Comprehensive program for supporting gifted children and youth, including educational grants, mentorship, and internships",
+        "description": "Comprehensive program for supporting gifted children and youth, including educational grants and mentorship",
+        "stats": "500+ participants",
+        "details": [
+          "Educational grants for gifted children",
+          "Mentorship from leading industry specialists",
+          "Internships at international companies",
+          "Annual educational camps and seminars",
+          "Support for projects and research work"
+        ]
+      },
+      "grants": {
+        "title": "Grants for Scientists",
+        "fullDescription": "Grant support program for young scientists and researchers in various fields of science",
+        "description": "Support for young scientists and research initiatives in various fields of science",
+        "stats": "250 initiatives",
+        "details": [
+          "Funding for scientific research",
+          "Grants for equipment and materials",
+          "Support for participation in international conferences",
+          "Publication of results in peer-reviewed journals",
+          "Creation of research groups"
+        ]
+      },
+      "centers": {
+        "title": "Educational Centers",
+        "fullDescription": "Creation and development of modern educational centers throughout the republic to improve education quality",
+        "description": "Modern educational centers throughout the republic, equipped with advanced equipment",
+        "stats": "10 centers",
+        "details": [
+          "Centers in 8 regions of Kazakhstan",
+          "Latest generation equipment",
+          "Additional education programs",
+          "Professional development courses",
+          "Laboratories and research platforms"
+        ]
+      }
+    },
+    "scholarships": {
+      "undergraduate": {
+        "title": "Undergraduate",
+        "amount": "₸ 50,000",
+        "recipients": "150 students",
+        "total": "₸ 45 million",
+        "description": "Monthly scholarship for undergraduate students at leading national universities",
+        "features": [
+          "Monthly payments during the academic year",
+          "Support for technical specialty students",
+          "Required GPA of 3.5 or higher",
+          "Participation in scientific and public events"
+        ]
+      },
+      "masters": {
+        "title": "Master's",
+        "amount": "₸ 75,000",
+        "recipients": "80 students",
+        "total": "₸ 36 million",
+        "description": "Scholarship for master's students engaged in scientific research",
+        "features": [
+          "Support for research projects",
+          "Publication of scientific articles",
+          "Participation in international conferences",
+          "Mentorship from experienced scientists"
+        ]
+      },
+      "phd": {
+        "title": "PhD",
+        "amount": "₸ 100,000",
+        "recipients": "30 scientists",
+        "total": "₸ 36 million",
+        "description": "Support for young scientists in doctoral programs",
+        "features": [
+          "Funding for dissertation research",
+          "Internships at leading scientific centers",
+          "Patent registration for inventions",
+          "Startup creation based on research"
+        ]
+      },
+      "amountLabel": "Amount per month",
+      "recipientsLabel": "Recipients",
+      "totalLabel": "Total Amount"
+    },
+    "publications": {
+      "book1": {
+        "title": "Innovations in Education",
+        "author": "Collective of authors",
+        "year": "2023",
+        "type": "Monograph",
+        "pages": "320 pages",
+        "description": "Fundamental research on modern trends in education and innovative teaching methods",
+        "download": "Download PDF"
+      },
+      "book2": {
+        "title": "Sustainable Development of Regions",
+        "author": "A.I. Ivanov",
+        "year": "2022",
+        "type": "Scientific Publication",
+        "pages": "280 pages",
+        "description": "Analysis of sustainable development practices and their implementation in Kazakhstan's regional economy",
+        "download": "Download PDF"
+      },
+      "book3": {
+        "title": "Technologies of the Future",
+        "author": "S.P. Petrova",
+        "year": "2023",
+        "type": "Research",
+        "pages": "195 pages",
+        "description": "Forecast of technology development and its impact on various economic sectors and society",
+        "download": "Download PDF"
+      },
+      "book4": {
+        "title": "Corporate Social Responsibility",
+        "author": "M.K. Sidorov",
+        "year": "2021",
+        "type": "Monograph",
+        "pages": "350 pages",
+        "description": "Comprehensive analysis of social responsibility models and their implementation in Kazakh companies",
+        "download": "Download PDF"
+      }
+    },
+    "cases": {
+      "graduate1": {
+        "name": "Aigul Satymova",
+        "position": "Research Engineer",
+        "story": "Thanks to the 'Akyl-Tirek' program, she got the opportunity to study at a leading technical university and now works on innovative projects in robotics.",
+        "quote": "The educational program gave me not only knowledge but also confidence in my abilities to implement ambitious projects.",
+        "achievements": [
+          "Development of automation systems for industry",
+          "Patent for invention in robotics",
+          "Publications in international scientific journals",
+          "Winner of national innovation competitions"
+        ]
+      },
+      "graduate2": {
+        "name": "Arman Zhumabayev",
+        "position": "Research Fellow",
+        "story": "Received a grant for research in biotechnology, the results of which were published in international scientific journals.",
+        "quote": "The foundation's support allowed me to focus on research and achieve significant scientific results.",
+        "achievements": [
+          "Research in biotechnology",
+          "Publications in Nature Biotechnology",
+          "Participation in international scientific symposia",
+          "Development of a new DNA analysis method"
+        ]
+      },
+      "school1": {
+        "name": "Center for Innovative Education",
+        "location": "Almaty",
+        "students": "200+",
+        "achievements": "15 projects",
+        "description": "Modern educational center equipped with advanced equipment and offering additional education programs for schoolchildren and students.",
+        "programs": [
+          "Programming and Robotics",
+          "Biotechnology and Genetic Engineering",
+          "Digital Technologies and AI",
+          "Entrepreneurship and Innovation",
+          "Research Projects"
+        ]
+      },
+      "locationLabel": "Location",
+      "studentsLabel": "Students",
+      "achievementsLabel": "Implemented Projects",
+      "programsLabel": "Programs",
+      "programsTitle": "Educational Programs of the Center"
+    },
+    "cta": {
+      "title": "Become Part of Our Educational Program",
+      "description": "Apply to participate in support programs and get the opportunity to realize your potential",
+      "button": "Apply for Grant / Educational Program",
+      "contact": "Contact Us",
+      "deadline": "Application deadline: December 15, 2024"
+    }
+  },
+  "finance": {
+    "completion": "Completion in %",
+    "capacity": "Capacity",
+    "contactForDetails": "Contact us for details",
+    "keyMetrics": "Key Metrics",
+    "detailedInfo": "Detailed Information",
+    "badge": "Finance and Production",
+    "title": "Finance and Production",
+    "subtitle": "Supporting entrepreneurship through finance, microloans, and industrial capacity development",
+    "more": "Learn More",
+    "less": "Collapse",
+    "progress": "Implementation Progress",
+    "tabs": {
+      "finance": "Financial Structures",
+      "production": "Production Assets",
+      "investment": "Investment Projects"
+    },
+    "financialStructures": [
+      {
+        "title": "Microfinance",
+        "description": "Accessible credit products for small and medium businesses with flexible terms and minimal requirements",
+        "stats": "Over 5,000 microloans issued totaling more than $50 million",
+        "details": [
+          "Loans from $1,000 to $50,000",
+          "Loan term from 6 to 36 months",
+          "Interest rate from 8% per annum",
+          "Fast application processing - up to 3 business days",
+          "Support for startups and existing businesses"
+        ]
+      },
+      {
+        "title": "Insurance",
+        "description": "Comprehensive insurance solutions for business, protecting against financial risks and unforeseen circumstances",
+        "stats": "Coverage of over 2,000 enterprises nationwide",
+        "details": [
+          "Commercial real estate insurance",
+          "Protection against business risks",
+          "Cargo and logistics insurance",
+          "Cyber insurance for IT companies",
+          "Custom insurance programs"
+        ]
+      },
+      {
+        "title": "Credit Unions",
+        "description": "Local financial institutions providing quick loans for local entrepreneurship development",
+        "stats": "Network of 50+ credit unions in regions",
+        "details": [
+          "Microloans up to $5,000",
+          "Processing within 24 hours",
+          "Minimal documentation required",
+          "Support for rural entrepreneurship",
+          "Financial literacy educational programs"
+        ]
+      }
+    ],
+    "productionAssets": [
+      {
+        "title": "Textile Factories",
+        "description": "Modern sewing productions manufacturing quality products for domestic market and export",
+        "capacity": "Production capacity: 5 million units per year",
+        "details": [
+          "Automated production lines",
+          "Quality control at every stage",
+          "Certification according to international standards",
+          "Eco-friendly production",
+          "Support for local designers"
+        ]
+      },
+      {
+        "title": "Food Processing Enterprises",
+        "description": "Processing plants specializing in food production from local raw materials",
+        "capacity": "Processing 100+ tons of agricultural products daily",
+        "details": [
+          "Meat and dairy processing",
+          "Grocery production",
+          "Canning facilities",
+          "Quality control laboratories",
+          "Modern storage systems"
+        ]
+      },
+      {
+        "title": "Agricultural Production",
+        "description": "Agricultural complexes ensuring food security and export potential",
+        "capacity": "Cultivation of 10,000+ hectares of farmland",
+        "details": [
+          "Grains and oilseeds",
+          "Greenhouse vegetable growing",
+          "Horticulture and viticulture",
+          "Livestock complexes",
+          "Drip irrigation and modern machinery"
+        ]
+      }
+    ],
+    "exportData": {
+      "title": "Export Achievements",
+      "description": "Significant contribution to light industry exports and job creation across the country",
+      "source": "According to USAID 2020",
+      "exportValue": "$150 million",
+      "exportLabel": "Garment exports",
+      "employees": "40k",
+      "employeesLabel": "Employed in the industry"
+    },
+    "investmentProjects": [
+      {
+        "title": "Textile Factory Modernization",
+        "description": "Technical re-equipment of production lines to increase productivity and product quality",
+        "amount": "$25 million",
+        "timeline": "2024-2026",
+        "details": [
+          "Purchase of German equipment",
+          "Implementation of automation systems",
+          "Staff training in new technologies",
+          "EU standard certification",
+          "Creation of 300 new jobs"
+        ]
+      },
+      {
+        "title": "Logistics Center Construction",
+        "description": "Creation of modern distribution hub to optimize supplies and reduce logistics costs",
+        "amount": "$15 million",
+        "timeline": "2024-2025",
+        "details": [
+          "10,000 m² warehouse facilities",
+          "Automatic sorting systems",
+          "On-site customs post",
+          "Refrigerated chambers for products",
+          "Creation of 150 new jobs"
+        ]
+      },
+      {
+        "title": "Agro-Cluster Development",
+        "description": "Integration of agricultural productions with processing enterprises to create full cycle",
+        "amount": "$30 million",
+        "timeline": "2024-2027",
+        "details": [
+          "Construction of processing plant",
+          "Infrastructure development",
+          "Implementation of precision farming",
+          "Creation of cooperatives",
+          "Creation of 500 new jobs"
+        ]
+      }
+    ],
+    "investmentAmount": "Investment Volume",
+    "timeline": "Implementation Timeline",
+    "expansionPlans": {
+      "title": "Expansion Plans",
+      "description": "Strategic development of production capacities and entry into new markets",
+      "timeline": "2024-2028",
+      "newFactories": "5+",
+      "factoriesLabel": "New Factories",
+      "jobs": "2000+",
+      "jobsLabel": "New Jobs"
+    },
+    "cta": {
+      "title": "Start Investing in the Future",
+      "description": "Join our investment projects and get access to promising growth areas",
+      "investmentButton": "Investment Proposals",
+      "financingButton": "Project Financing",
+      "deadline": "Applications accepted until December 31, 2024"
+    }
+  },
+  "medicine": {
+    "research_progress": "Research Progress",
+    "partners": "Partners",
+    "timeline": "Development Milestones",
+    "impact": "Impact",
+    "badge": "Medicine",
+    "title": "Medical",
+    "titleHighlight": "Initiatives",
+    "subtitle": "Creating clinics and medical initiatives to strengthen public health",
+    "modal": {
+      "services": "Services",
+      "features": "Features",
+      "apply": "Apply",
+      "more": "Learn More",
+      "close": "Close",
+      "about": "About Program",
+      "details": "Full Description",
+      "support": "Support Program"
+    },
+    "tabs": {
+      "centers": "Medical Centers",
+      "pandemic": "Pandemic",
+      "social": "Social Programs",
+      "research": "Research"
+    },
+    "buttons": {
+      "learnMore": "Learn More",
+      "supportProgram": "Support Program"
+    },
+    "achievements": "Achievements",
+    "lead": {
+      "title": "Nation's Health - Our Priority",
+      "description": "Creating clinics and medical initiatives to strengthen public health; emergency assistance - pandemic and emergencies",
+      "stats": [
+        {
+          "value": "10,000+",
+          "label": "patients annually"
+        },
+        {
+          "value": "50+",
+          "label": "medical programs"
+        },
+        {
+          "value": "200+",
+          "label": "specialists"
+        },
+        {
+          "value": "15+",
+          "label": "years of experience"
+        }
+      ]
+    },
+    "centers": {
+      "title": "Network of Medical Centers",
+      "subtitle": "Modern medical facilities with full range of services",
+      "statsLabel": "Serve annually",
+      "featuresTitle": "Center Features",
+      "0": {
+        "name": "Multidisciplinary Clinic",
+        "services": [
+          "Therapy and Diagnostics",
+          "Surgical Operations",
+          "Laboratory Research",
+          "Inpatient Treatment"
+        ],
+        "stats": "5,000+ patients",
+        "features": [
+          "Modern equipment",
+          "Qualified specialists",
+          "24/7 assistance",
+          "International standards"
+        ]
+      },
+      "1": {
+        "name": "Family Medicine",
+        "services": [
+          "Preventive check-ups",
+          "Vaccination",
+          "Pediatrics",
+          "Geriatrics"
+        ],
+        "stats": "3,000+ families",
+        "features": [
+          "Individual approach",
+          "Preventive programs",
+          "Family consultations",
+          "Medical examination"
+        ]
+      },
+      "2": {
+        "name": "Dental Center",
+        "services": [
+          "Therapeutic Dentistry",
+          "Orthodontics",
+          "Prosthetics",
+          "Implantation"
+        ],
+        "stats": "2,500+ patients",
+        "features": [
+          "Digital diagnostics",
+          "Painless treatment",
+          "Aesthetic dentistry",
+          "Work guarantee"
+        ]
+      },
+      "3": {
+        "name": "Diagnostic Center",
+        "services": [
+          "Ultrasound and MRI",
+          "Endoscopy",
+          "Cardio diagnostics",
+          "Neurological studies"
+        ],
+        "stats": "8,000+ examinations",
+        "features": [
+          "Accurate diagnostics",
+          "Fast results",
+          "Experienced diagnosticians",
+          "Modern equipment"
+        ]
+      }
+    },
+    "pandemic": {
+      "title": "Actions During Pandemic",
+      "subtitle": "Operational assistance in fighting COVID-19",
+      "actions": [
+        {
+          "amount": "1 million soms",
+          "description": "Financial assistance to COVID-19 response headquarters",
+          "impact": "High priority",
+          "timeline": "2020-2021",
+          "icon": "💰",
+          "color": "red"
+        },
+        {
+          "amount": "7.5 million soms",
+          "description": "Medical equipment and protective supplies",
+          "impact": "Critical importance",
+          "timeline": "2020-2022",
+          "icon": "🔄",
+          "color": "blue"
+        },
+        {
+          "amount": "150 beds",
+          "description": "Yntymak inpatient facility for patient treatment",
+          "impact": "Life-saving",
+          "timeline": "2020-2021",
+          "icon": "🏨",
+          "color": "green"
+        },
+        {
+          "amount": "50 beds",
+          "description": "School #94 inpatient facility for mild cases",
+          "impact": "System support",
+          "timeline": "2020-2021",
+          "icon": "🏫",
+          "color": "purple"
+        }
+      ],
+      "hospitals": [
+        {
+          "title": "'Yntymak' Inpatient Facility",
+          "description": "Modern 150-bed inpatient facility for COVID-19 patients, equipped with oxygen points and resuscitation equipment",
+          "features": [
+            "150 beds",
+            "Oxygen points",
+            "Resuscitation",
+            "Qualified staff"
+          ]
+        },
+        {
+          "title": "School #94 Inpatient Facility",
+          "description": "Temporary 50-bed facility for patients with mild illness, organized in cooperation with city authorities",
+          "features": [
+            "50 beds",
+            "Mobile staff",
+            "Basic equipment",
+            "Coordination with authorities"
+          ]
+        }
+      ]
+    },
+    "socialPrograms": {
+      "title": "Social Programs",
+      "subtitle": "Support programs for vulnerable population groups",
+      "0": {
+        "title": "Medicine Supply",
+        "description": "Free medicine distribution for socially vulnerable citizens",
+        "detailed": "The program ensures regular supply of vital medicines for patients with chronic diseases who cannot afford expensive treatment. We cooperate with pharmaceutical companies and charitable organizations.",
+        "beneficiaries": "5,000+ patients per year",
+        "duration": "Since 2018",
+        "achievements": [
+          "Provision of 50+ medicine types",
+          "Partnership with 10+ pharmaceutical companies",
+          "Coverage of all country regions",
+          "Effectiveness monitoring system"
+        ],
+        "color": "blue"
+      },
+      "1": {
+        "title": "Mobile Clinics",
+        "description": "Mobile medical teams for remote regions",
+        "detailed": "Mobile medical teams provide access to quality healthcare in remote and hard-to-reach regions. Each team is equipped with modern diagnostic equipment and necessary medications.",
+        "beneficiaries": "20+ settlements",
+        "duration": "Since 2019",
+        "achievements": [
+          "Over 100 trips annually",
+          "Examination of 15,000+ patients",
+          "Training of local medical workers",
+          "Creation of telemedicine system"
+        ],
+        "color": "green"
+      },
+      "2": {
+        "title": "Program for Elderly",
+        "description": "Specialized medical care for senior citizens",
+        "detailed": "Comprehensive program for supporting elderly health includes regular medical check-ups, rehabilitation activities, psychological support and social accompaniment.",
+        "beneficiaries": "2,000+ pensioners",
+        "duration": "Since 2017",
+        "achievements": [
+          "40% reduction in morbidity",
+          "Improved quality of life",
+          "Social adaptation",
+          "Family support"
+        ],
+        "color": "purple"
+      }
+    },
+    "research": {
+      "title": "Scientific Research",
+      "subtitle": "Innovative projects and medical research",
+      "progress": "Project Progress",
+      "partners": "Project Partners",
+      "0": {
+        "title": "Genetic Research",
+        "description": "Studying population genetic characteristics to develop personalized treatment methods",
+        "progress": "75%",
+        "partners": [
+          "National Academy of Sciences",
+          "International Genetic Center",
+          "University of Medicine"
+        ],
+        "color": "blue"
+      },
+      "1": {
+        "title": "Telemedicine Technologies",
+        "description": "Development and implementation of remote medical consultation and monitoring systems",
+        "progress": "60%",
+        "partners": [
+          "Technological University",
+          "IT partner companies",
+          "Ministry of Health"
+        ],
+        "color": "green"
+      },
+      "2": {
+        "title": "Rehabilitation Medicine",
+        "description": "Research of new rehabilitation methods for patients after serious illnesses and injuries",
+        "progress": "45%",
+        "partners": [
+          "Center for Restorative Medicine",
+          "International experts",
+          "Sports medical centers"
+        ],
+        "color": "purple"
+      }
+    },
+    "cta": {
+      "title": "Get Medical Assistance",
+      "subtitle": "Schedule an appointment or propose a medical project for cooperation",
+      "buttons": {
+        "appointment": "Schedule Appointment",
+        "project": "Medical Project"
+      }
+    },
+    "footer": {
+      "stats": [
+        {
+          "value": "24/7",
+          "label": "Round-the-clock support"
+        },
+        {
+          "value": "100%",
+          "label": "Service quality"
+        },
+        {
+          "value": "5000+",
+          "label": "Satisfied patients"
+        }
+      ]
+    }
+  },
+  "sports": {
+    "badge": "Sports and Culture",
+    "title": "Sports and Culture",
+    "subtitle": "Supporting sports as a tool for education and national pride; development of cinema and cultural infrastructure",
+    "buttons": {
+      "close": "Close",
+      "about": "About Program",
+      "more": "Learn More",
+      "less": "Collapse",
+      "visit": "Visit",
+      "buyTickets": "Buy Tickets"
+    },
+    "tabs": {
+      "dordoi": "FC «Dordoi»",
+      "kokboru": "Kök-börü",
+      "infrastructure": "Infrastructure",
+      "cinema": "Cinema and Culture"
+    },
+    "dordoi": {
+      "title": "Football Club «Dordoi»",
+      "stadiumImage": "«Dordoi» Stadium",
+      "trophies": "20+",
+      "trophiesLabel": "Trophies",
+      "history": "Legendary club with rich history, founded in 1997. One of the most successful football clubs in Kyrgyzstan, multiple national champion.",
+      "achievements": "The club has repeatedly represented Kyrgyzstan internationally, participating in prestigious Asian tournaments and demonstrating high level of play.",
+      "achievementsTitle": "Key Achievements",
+      "stats": {
+        "title": "Club Statistics",
+        "items": [
+          {
+            "value": "13",
+            "label": "Championships"
+          },
+          {
+            "value": "8",
+            "label": "Cups"
+          },
+          {
+            "value": "250+",
+            "label": "International matches"
+          },
+          {
+            "value": "50+",
+            "label": "Academy graduates"
+          }
+        ]
+      },
+      "academy": {
+        "title": "Football Academy",
+        "description": "Professional system for training young footballers, ensuring generational continuity and talent development",
+        "groups": "18",
+        "groupsLabel": "Training groups",
+        "children": "360",
+        "childrenLabel": "Young footballers"
+      },
+      "supportedClubs": {
+        "title": "Supported Clubs",
+        "description": "3 clubs at professional level, ensuring football development at all career stages",
+        "list": [
+          "FC «Dordoi» (main team)",
+          "FC «Dordoi-2» (youth team)",
+          "FC «Dordoi-Zhashtyk» (junior team)"
+        ]
+      },
+      "achievementsList": [
+        {
+          "year": "2004",
+          "title": "First entry to AFC Cup group stage",
+          "description": "Historic achievement for Kyrgyz football - first entry to international tournament group stage"
+        },
+        {
+          "year": "2006-2009",
+          "title": "Four consecutive championships",
+          "description": "Setting record for consecutive championships in Kyrgyzstan Premier League"
+        },
+        {
+          "year": "2011",
+          "title": "Football academy creation",
+          "description": "Opening of modern academy for systematic training of young footballers"
+        },
+        {
+          "year": "2019",
+          "title": "Stadium reconstruction",
+          "description": "Large-scale reconstruction of home arena with pitch heating system installation"
+        }
+      ]
+    },
+    "infrastructure": {
+      "historyTitle": "Sports Infrastructure Development History",
+      "title": "Sports Infrastructure",
+      "description": "Construction and modernization of sports complexes, swimming pools and stadiums for mass sports development",
+      "investment": ">130 million soms",
+      "investmentLabel": "Invested in sports facilities",
+      "featuresTitle": "Main Features",
+      "stadiums": [
+        {
+          "name": "«Dordoi» Sports Complex",
+          "capacity": "Capacity: 10,000 spectators",
+          "stats": "15+ international matches per year",
+          "history": "Built in 2012, reconstructed in 2019 with pitch heating system and modern lighting installation",
+          "features": [
+            "Football pitch with heating",
+            "Modern running tracks",
+            "Gym facilities",
+            "European-level locker rooms"
+          ]
+        },
+        {
+          "name": "«Ala-Too» Swimming Pool",
+          "capacity": "Olympic standard 50m",
+          "stats": "5000+ visitors monthly",
+          "history": "Opened in 2015 as first indoor Olympic pool in the country",
+          "features": [
+            "8 Olympic standard lanes",
+            "Children's pool with slides",
+            "500-seat stands",
+            "Modern filtration system"
+          ]
+        },
+        {
+          "name": "«Spartak» Stadium",
+          "capacity": "Capacity: 23,000 spectators",
+          "stats": "Main arena of Kyrgyzstan national team",
+          "history": "Historic stadium, completely reconstructed in 2018 for international competitions",
+          "features": [
+            "Country's main sports arena",
+            "Athletics complex",
+            "VIP boxes and press center",
+            "Video surveillance system"
+          ]
+        }
+      ]
+    },
+    "cinema": {
+      "technologyTitle": "Modern Cinema Technologies",
+      "title": "Cinema and Culture",
+      "imagePlaceholder": "Cinema Network",
+      "description": "Development of film industry and cultural infrastructure to ensure accessibility of quality leisure for population.",
+      "featuresTitle": "Services and Equipment",
+      "network": {
+        "title": "«Cinematika» Network",
+        "description": "6+ modern cinemas nationwide, equipped with latest generation equipment",
+        "stats": [
+          {
+            "value": "25+",
+            "label": "Screens"
+          },
+          {
+            "value": "4000+",
+            "label": "Seats"
+          },
+          {
+            "value": "1.5 million",
+            "label": "Viewers annually"
+          },
+          {
+            "value": "50+",
+            "label": "Employees"
+          }
+        ]
+      },
+      "theaters": [
+        {
+          "name": "«Cinematika 1»",
+          "location": "Bishkek, center",
+          "capacity": "8 halls, 1200 seats",
+          "technology": "IMAX and Dolby Atmos system, 4K projection",
+          "features": [
+            "IMAX hall",
+            "Dolby Atmos sound",
+            "VIP halls with leather seats",
+            "Cafe and lounge zones"
+          ]
+        },
+        {
+          "name": "«Cinematika 2»",
+          "location": "Osh city",
+          "capacity": "6 halls, 800 seats",
+          "technology": "Laser projection, 7.1 surround sound",
+          "features": [
+            "Laser projectors",
+            "7.1 surround sound",
+            "Children's play areas",
+            "Conference hall"
+          ]
+        },
+        {
+          "name": "«Cinematika 3»",
+          "location": "Jalal-Abad city",
+          "capacity": "4 halls, 500 seats",
+          "technology": "4K projection, modern seats",
+          "features": [
+            "4K projection",
+            "Comfortable seats",
+            "Cafeteria",
+            "Parking"
+          ]
+        },
+        {
+          "name": "«Cinematika 4»",
+          "location": "Kara-Balta city",
+          "capacity": "3 halls, 400 seats",
+          "technology": "Full HD projection, digital sound",
+          "features": [
+            "Full HD quality",
+            "Digital sound",
+            "Popcorn bar",
+            "Accessible environment"
+          ]
+        }
+      ],
+      "festivals": {
+        "title": "Cultural Projects and Festivals",
+        "description": "Organization of international film festivals, cultural events and educational programs for creative potential development",
+        "events": [
+          {
+            "name": "International Film Festival",
+            "description": "Annual festival with participation of directors from 20+ countries"
+          },
+          {
+            "name": "National Film Festival",
+            "description": "Support and promotion of Kyrgyz filmmakers"
+          },
+          {
+            "name": "Educational Programs",
+            "description": "Master classes and courses for young filmmakers"
+          }
+        ]
+      }
+    },
+    "cta": {
+      "title": "Become Part of Our Team",
+      "description": "Support sports and culture development in Kyrgyzstan - invest in future generations",
+      "supportButton": "Support Academy",
+      "ticketsButton": "Buy Ticket",
+      "sponsorshipButton": "Apply for Sponsorship"
+    }
+  },
+  "culture": {
+    "badge": "Culture",
+    "title": "Cultural",
+    "titleHighlight": "Initiatives",
+    "lead": "Preserving cultural heritage and supporting contemporary artistic practices for developing nation's creative potential",
+    "categories": {
+      "all": "All Projects",
+      "events": "Events",
+      "heritage": "Heritage",
+      "arts": "Arts",
+      "publications": "Publications"
+    },
+    "stats": {
+      "events": {
+        "value": "50+",
+        "label": "Cultural events annually",
+        "description": "Compared to previous year"
+      },
+      "participants": {
+        "value": "10,000+",
+        "label": "Program participants",
+        "description": "Active community engagement"
+      },
+      "projects": {
+        "value": "25+",
+        "label": "Implemented projects",
+        "description": "New initiatives this year"
+      },
+      "regions": {
+        "value": "7",
+        "label": "Regions covered",
+        "description": "Expanding geographical coverage"
+      }
+    },
+    "status": {
+      "active": "Active",
+      "completed": "Completed",
+      "planning": "Planned"
+    },
+    "projects": {
+      "festival": {
+        "title": "International Arts Festival",
+        "description": "Annual festival uniting artists, musicians and performers from around the world for cultural exchange",
+        "fullDescription": "Annual festival uniting artists, musicians and performers from around the world for cultural exchange and creation of unique collaborations.",
+        "stats": "3 days, 100+ participants",
+        "impact": "Strengthening international cultural ties"
+      },
+      "museum": {
+        "title": "Historical Museum Restoration",
+        "description": "Comprehensive restoration and modernization of regional museum with creation of interactive exhibitions",
+        "fullDescription": "Comprehensive restoration and modernization of regional museum with creation of interactive exhibitions and digital solutions.",
+        "stats": "5000+ exhibits",
+        "impact": "Preserving historical heritage"
+      },
+      "gallery": {
+        "title": "Contemporary Art Gallery",
+        "description": "Space for contemporary artists' exhibitions and art educational programs",
+        "fullDescription": "Modern exhibition space for young artists with educational programs and master classes.",
+        "stats": "12 exhibitions per year",
+        "impact": "Supporting contemporary art"
+      },
+      "library": {
+        "title": "Digital Library",
+        "description": "Digitization of rare editions and creation of accessible online cultural heritage library",
+        "fullDescription": "Creating accessible digital platform for preserving and disseminating cultural heritage through digitization of rare editions.",
+        "stats": "10,000+ digitized books",
+        "impact": "Digital knowledge accessibility"
+      },
+      "theater": {
+        "title": "Support for Young Directors",
+        "description": "Grant program and residencies for beginning theater directors and playwrights",
+        "fullDescription": "Program supporting young theater directors through grants, master classes and international residencies.",
+        "stats": "15 staged performances",
+        "impact": "Developing theater art"
+      },
+      "folklore": {
+        "title": "Preserving Folklore Traditions",
+        "description": "Documenting and popularizing folk crafts, music and dance traditions",
+        "fullDescription": "Comprehensive program for documenting, preserving and popularizing folk traditions, music and crafts.",
+        "stats": "8 ethnic groups",
+        "impact": "Preserving cultural diversity"
+      }
+    },
+    "testimonials": {
+      "title": "Participant Testimonials",
+      "subtitle": "What people involved in our cultural projects say",
+      "0": {
+        "name": "Aigul Satybaldieva",
+        "role": "Participating Artist",
+        "content": "Thanks to the support program, I was able to realize my first personal project and find international partners."
+      },
+      "1": {
+        "name": "Marat Zhumaliev",
+        "role": "Museum Curator",
+        "content": "Museum restoration allowed us to implement modern technologies and attract young audience."
+      }
+    },
+    "modal": {
+      "details": "Project Details",
+      "location": "Location",
+      "duration": "Duration",
+      "participants": "Participants",
+      "partners": "Partners",
+      "supportProject": "Support Project",
+      "shareProject": "Share"
+    },
+    "imagePlaceholder": "Cultural Project",
+    "learnMore": "Learn More",
+    "cta": {
+      "title": "Become Part of Our Cultural Programs",
+      "description": "Join our initiatives or propose your own project for cultural development support",
+      "contact": "Contact Us",
+      "brochure": "Download Brochure"
+    }
+  },
+  "missionAbout": {
+    "badge": "Our Mission",
+    "title": "Company",
+    "titleHighlight": "Values",
+    "subtitle": "Foundational principles that guide our activities",
+    "missionTitle": "Our Mission",
+    "missionStatement": "We create conditions for mature entrepreneurial environment and invest in country's human potential",
+    "missionHighlights": [
+      "Entrepreneurship development",
+      "Investment in human capital",
+      "Support for innovation",
+      "Sustainable development"
+    ],
+    "stats": [
+      {
+        "value": "10+",
+        "label": "years of experience"
+      },
+      {
+        "value": "500+",
+        "label": "implemented projects"
+      },
+      {
+        "value": "50+",
+        "label": "partners"
+      },
+      {
+        "value": "1000+",
+        "label": "satisfied clients"
+      }
+    ],
+    "commitment": {
+      "title": "Our Commitment",
+      "description": "Every day we work to bring these values to life through our projects and initiatives",
+      "items": [
+        {
+          "title": "Quality",
+          "description": "Strict quality standards in all our projects and services"
+        },
+        {
+          "title": "Innovation",
+          "description": "Continuous implementation of new technologies and working methods"
+        },
+        {
+          "title": "Support",
+          "description": "Comprehensive support for clients and partners at every stage"
+        },
+        {
+          "title": "Development",
+          "description": "Continuous learning and professional team growth"
+        }
+      ]
+    },
+    "buttons": {
+      "join": "Join the Team",
+      "learnMore": "Learn More",
+      "explore": "Explore"
+    },
+    "featuresTitle": "Key Aspects",
+    "footerText": "Join our mission and become part of the changes",
+    "values": [
+      {
+        "title": "Hard Work",
+        "description": "Value hard work and persistence as foundation of any achievement and success",
+        "detailed": "We believe that constant improvement and diligence are the engine of progress. Every team member contributes to the common cause, and we are proud of our work ethic.",
+        "stats": "95% projects completed on time",
+        "features": [
+          "High productivity",
+          "Discipline and order",
+          "Professional development"
+        ]
+      },
+      {
+        "title": "Unity",
+        "description": "Work as one team, supporting each other and achieving common goals together",
+        "detailed": "Team cohesion is our key asset. We create environment where everyone feels supported and can maximize their potential.",
+        "stats": "98% employees recommend us",
+        "features": [
+          "Team spirit",
+          "Mutual assistance",
+          "Common goals"
+        ]
+      },
+      {
+        "title": "Creation",
+        "description": "Create projects that change people's lives for better and develop country's economy",
+        "detailed": "Our work aims to create long-term value. We build not just projects, but foundation for society's future development.",
+        "stats": "200+ social projects",
+        "features": [
+          "Sustainable development",
+          "Social responsibility",
+          "Innovative solutions"
+        ]
+      },
+      {
+        "title": "Responsibility",
+        "description": "Acknowledge our responsibility to society, partners and future generations",
+        "detailed": "We take responsibility for every decision made and its consequences. Our reputation is built on reliability and transparency.",
+        "stats": "100% commitment fulfillment",
+        "features": [
+          "Reliability",
+          "Transparency",
+          "Accountability"
+        ]
+      },
+      {
+        "title": "Community Support",
+        "description": "Actively participate in social projects and support local communities",
+        "detailed": "We invest in local community development, support educational initiatives and contribute to job creation.",
+        "stats": "50+ supported communities",
+        "features": [
+          "Social programs",
+          "Educational initiatives",
+          "Local development"
+        ]
+      },
+      {
+        "title": "Innovation",
+        "description": "Constantly seek new approaches and technologies to improve our activities",
+        "detailed": "Innovation is not just a word for us, but a mindset. We constantly research new technologies and methods to improve our processes.",
+        "stats": "15+ patented technologies",
+        "features": [
+          "Technological leadership",
+          "Research and development",
+          "Digital transformation"
+        ]
+      }
+    ]
+  },
+  "social": {
+    "badge": "Social Programs",
+    "title": "Social Programs",
+    "subtitle": "Charity, religious projects and crisis assistance",
+    "learnMore": "Learn More",
+    "impact": "Impact",
+    "tabs": {
+      "charity": "Charity",
+      "religious": "Spiritual Projects",
+      "regions": "Regional Assistance",
+      "charityDescription": "Support for socially important areas",
+      "religiousDescription": "Spiritual development and religious facilities",
+      "regionsDescription": "Assistance to regions in crisis situations"
+    },
+    "stats": {
+      "totalAmount": {
+        "value": "500 million soms",
+        "label": "Total assistance volume",
+        "trend": "+15%",
+        "description": "Over last 3 years"
+      },
+      "projects": {
+        "value": "50+",
+        "label": "Projects implemented",
+        "trend": "+25",
+        "description": "Active programs"
+      },
+      "people": {
+        "value": "50,000+",
+        "label": "People received assistance",
+        "trend": "+10K",
+        "description": "Received assistance"
+      },
+      "volunteers": {
+        "value": "500+",
+        "label": "Volunteers",
+        "trend": "+200",
+        "description": "Active volunteers"
+      }
+    },
+    "charity": {
+      "title": "Charitable Activities",
+      "description": "Systemic support for socially important areas for sustainable society development",
+      "totalAmount": "500 million soms",
+      "period": "Over 10 years of activity",
+      "projects": [
+        {
+          "category": "Sports",
+          "amount": "150 million soms",
+          "description": "Support for sports clubs, stadium construction and children's sports development",
+          "fullDescription": "Comprehensive program supporting sports infrastructure, including construction and reconstruction of sports facilities, equipping sports clubs and organizing children's sports sections throughout Kyrgyzstan.",
+          "impact": "40% increase in children covered by sports programs",
+          "duration": "2015-2024",
+          "beneficiaries": "10,000+ children and teenagers",
+          "achievements": [
+            "5 new stadiums built",
+            "20 sports clubs equipped",
+            "100+ sports sections organized"
+          ]
+        },
+        {
+          "category": "Culture",
+          "amount": "120 million soms",
+          "description": "Funding cultural events, festivals and supporting creative groups",
+          "fullDescription": "Program supporting cultural heritage and contemporary artistic practices through festival funding, exhibitions and creative groups.",
+          "impact": "Preservation and development of cultural diversity",
+          "duration": "Ongoing",
+          "beneficiaries": "Creative groups and cultural institutions",
+          "achievements": [
+            "50+ festivals conducted",
+            "30 creative groups supported",
+            "200+ exhibitions organized"
+          ]
+        },
+        {
+          "category": "Education",
+          "amount": "130 million soms",
+          "description": "School construction, educational institution equipment and additional education programs",
+          "fullDescription": "Large-scale educational infrastructure development program, including new school construction, equipping educational institutions with modern equipment and implementing additional education programs.",
+          "impact": "Improved learning conditions for 15,000 students",
+          "duration": "2018-2024",
+          "beneficiaries": "Students and teachers",
+          "achievements": [
+            "3 new schools built",
+            "50 classrooms equipped",
+            "20 educational programs implemented"
+          ]
+        },
+        {
+          "category": "Social Protection",
+          "amount": "100 million soms",
+          "description": "Assistance to vulnerable population groups, support for elderly and people with disabilities",
+          "fullDescription": "Comprehensive social support program aimed at helping most vulnerable population categories, including elderly, people with disabilities and low-income families.",
+          "impact": "Improved quality of life for 5,000 people",
+          "duration": "Ongoing",
+          "beneficiaries": "Vulnerable population groups",
+          "achievements": [
+            "Assistance provided to 2,000 families",
+            "10 support centers organized",
+            "50 charity events conducted"
+          ]
+        }
+      ]
+    },
+    "religious": {
+      "title": "Spiritual Projects",
+      "imagePlaceholder": "Mosques and Madrasas",
+      "description": "Support for religious institutions and spiritual society development",
+      "investment": {
+        "title": "Total Investments",
+        "amount": ">30 million soms",
+        "description": "For construction and reconstruction of religious facilities"
+      },
+      "projects": [
+        {
+          "type": "Mosques",
+          "count": "9 facilities",
+          "investment": "Direct financing",
+          "description": "Fully built and equipped mosques",
+          "fullDescription": "Program for mosque construction and reconstruction, ensuring creation of modern, comfortable and functional spaces for Muslim community spiritual life.",
+          "location": "Throughout Kyrgyzstan",
+          "status": "Completed",
+          "impact": "Creating conditions for spiritual development of 50,000 believers",
+          "features": [
+            "Modern architectural solutions",
+            "Energy-efficient technologies",
+            "Accessible environment for people with disabilities"
+          ]
+        },
+        {
+          "type": "Madrasas",
+          "count": "3 educational institutions",
+          "investment": "Educational support",
+          "description": "Religious educational institutions for spiritual education",
+          "fullDescription": "Creation and support of religious educational institutions providing quality spiritual education according to modern standards.",
+          "location": "Major cities of Kyrgyzstan",
+          "status": "Active",
+          "impact": "Education of 500+ students annually",
+          "features": [
+            "Modern educational programs",
+            "Qualified teachers",
+            "Libraries and educational resources"
+          ]
+        },
+        {
+          "type": "Regional Mosques",
+          "count": "30+ facilities",
+          "investment": "Construction assistance",
+          "description": "Support for mosque construction across all country regions",
+          "fullDescription": "Program supporting local communities in mosque construction and reconstruction, ensuring religious infrastructure development in regions.",
+          "location": "All regions of Kyrgyzstan",
+          "status": "In process",
+          "impact": "Coverage of 100,000+ believers in regions",
+          "features": [
+            "Support for local communities",
+            "Technical accompaniment",
+            "Financial assistance"
+          ]
+        }
+      ]
+    },
+    "regions": {
+      "title": "Regional Assistance",
+      "description": "Targeted support for regions in crisis situations and social infrastructure development",
+      "humanitarianAid": "20 tons",
+      "humanitarianLabel": "Humanitarian aid",
+      "kindergartenCost": "32-35 million soms",
+      "kindergartenLabel": "Kindergarten cost",
+      "aid": [
+        {
+          "region": "Batken Region",
+          "assistance": "20 tons humanitarian aid",
+          "amount": "32-35 million soms for kindergarten",
+          "description": "Comprehensive region support: humanitarian aid and kindergarten construction for 100 children",
+          "fullDescription": "Large-scale Batken Region support program, including emergency humanitarian aid for population and strategic social infrastructure development through modern kindergarten construction.",
+          "timeline": "2023-2024",
+          "status": "In process",
+          "partners": [
+            "Local administrations",
+            "Ministry of Education",
+            "International donors"
+          ],
+          "impact": "Improved conditions for 500 families and 100 preschool children"
+        },
+        {
+          "region": "Osh Region",
+          "assistance": "Medical equipment",
+          "amount": "15 million soms",
+          "description": "Equipping district hospitals with modern medical equipment and medicines",
+          "fullDescription": "Osh Region medical infrastructure modernization program aimed at improving medical service quality through hospital equipment with modern equipment and necessary medicines.",
+          "timeline": "2022-2023",
+          "status": "Completed",
+          "partners": [
+            "Ministry of Health",
+            "Local hospitals",
+            "Pharmaceutical companies"
+          ],
+          "impact": "Improved medical services for 50,000 residents"
+        },
+        {
+          "region": "Naryn Region",
+          "assistance": "School supplies",
+          "amount": "8 million soms",
+          "description": "Providing schools with educational materials and supporting educational programs",
+          "fullDescription": "Comprehensive education support program in Naryn Region, including providing schools with necessary educational materials, books and equipment, and implementing additional educational programs for students.",
+          "timeline": "2023",
+          "status": "Completed",
+          "partners": [
+            "Ministry of Education",
+            "Local schools",
+            "Educational funds"
+          ],
+          "impact": "Support for 5,000 students and 200 teachers"
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "Assistance Stories",
+      "subtitle": "Real stories of people we were able to help",
+      "0": {
+        "name": "Aigul Toktomambetova",
+        "role": "School Director",
+        "content": "Thanks to the support, we were able to update the computer class and purchase new equipment for our students.",
+        "region": "Batken Region"
+      },
+      "1": {
+        "name": "Bakyt Zhumabaev",
+        "role": "Mosque Imam",
+        "content": "Construction of the new mosque united our community and created space for spiritual development.",
+        "region": "Osh Region"
+      }
+    },
+    "modal": {
+      "details": "Project Details",
+      "assistance": "Assistance",
+      "duration": "Duration",
+      "status": "Status",
+      "location": "Location",
+      "impact": "Impact",
+      "achievements": "Achievements",
+      "partners": "Partners",
+      "support": "Support Project",
+      "share": "Share"
+    },
+    "cta": {
+      "title": "Join Our Mission",
+      "description": "Your support will help us continue providing assistance to those who need it most",
+      "donateButton": "Donate",
+      "volunteerButton": "Become Volunteer"
+    }
+  },
+  "media": {
+    "badge": "Media",
+    "title": "Photo Gallery",
+    "subtitle": "Archive of photos from our events, projects, and important occasions throughout all years of operation",
+    "stats": {
+      "totalGalleries": "Total Galleries",
+      "totalPhotos": "Photos",
+      "totalVideos": "Videos",
+      "totalDownloads": "Downloads"
+    },
+    "searchPlaceholder": "Search galleries...",
+    "allYears": "All years",
+    "sort": {
+      "newest": "Newest first",
+      "oldest": "Oldest first",
+      "popular": "By popularity",
+      "name": "By name"
+    },
+    "categories": {
+      "all": "All galleries",
+      "anniversary": "30th Anniversary",
+      "sports": "Sports Events",
+      "international": "International Visits",
+      "social": "Social Projects",
+      "business": "Business Events",
+      "infrastructure": "Infrastructure"
+    },
+    "galleries": {
+      "anniversary": {
+        "title": "30th Anniversary Celebrations",
+        "description": "Events dedicated to the company anniversary with participation of partners and employees",
+        "images": {
+          "0": {
+            "title": "Grand Opening",
+            "description": "Opening ceremony of anniversary events at the company's main office",
+            "photographer": "Ivan Petrov"
+          },
+          "1": {
+            "title": "Veteran Awards",
+            "description": "Award ceremony for employees with over 20 years of service",
+            "photographer": "Maria Sidorova"
+          }
+        },
+        "videos": {
+          "0": {
+            "title": "Congratulations from Partners"
+          }
+        }
+      },
+      "sports": {
+        "title": "Corporate Sports Games",
+        "description": "Annual sports competitions between company departments",
+        "images": {
+          "0": {
+            "title": "Football Match",
+            "description": "Championship final of corporate football tournament",
+            "photographer": "Alexey Kozlov"
+          }
+        }
+      },
+      "international": {
+        "title": "Foreign Delegation Visit",
+        "description": "Working visit of European partners and signing of cooperation agreements",
+        "images": {
+          "0": {
+            "title": "Memorandum Signing",
+            "description": "Ceremony of strategic partnership agreement signing",
+            "photographer": "Elena Vasnetsova"
+          }
+        }
+      },
+      "social": {
+        "title": "Charity Event",
+        "description": "Annual charity event for children from low-income families",
+        "images": {
+          "0": {
+            "title": "Gift Distribution",
+            "description": "Company employees distributing gifts to children during New Year campaign",
+            "photographer": "Dmitry Orlov"
+          }
+        }
+      },
+      "business": {
+        "title": "Business Forum 2024",
+        "description": "Annual business forum with key partners and clients"
+      },
+      "infrastructure": {
+        "title": "New Logistics Center Opening",
+        "description": "Grand opening of modern logistics complex"
+      }
+    },
+    "images": "images",
+    "videos": "videos",
+    "photos": "photos",
+    "viewGallery": "View Gallery",
+    "imagePlaceholder": "Gallery image",
+    "download": "Download",
+    "downloadGallery": "Download Gallery",
+    "highRes": "HD version",
+    "highResRequest": "Request High Resolution",
+    "downloadRequestMessage": "High resolution download request for: {{title}}",
+    "downloadGalleryMessage": "Request to download entire gallery: {{title}}",
+    "linkCopied": "Link copied to clipboard",
+    "featured": "Featured",
+    "views": "views",
+    "description": "Description",
+    "tags": "Tags",
+    "license": "License",
+    "resolution": "Resolution",
+    "photographer": "Photographer",
+    "cta": {
+      "title": "Need high-quality photos?",
+      "description": "Contact us for professional high-resolution photos for publications and media materials",
+      "requestPhotos": "Request Photos",
+      "contact": "Contact PR Department",
+      "mediaKit": "Media Kit",
+      "note": "All materials available for editorial use with attribution"
+    }
+  },
+  "press": {
+    "searchPlaceholder": "Search news...",
+    "featured": "Featured News",
+    "featuredBadge": "Featured",
+    "views": "views",
+    "likes": "likes",
+    "shares": "shares",
+    "like": "Like",
+    "share": "Share",
+    "related": "Related News",
+    "noNews": {
+      "title": "No News Found",
+      "description": "Try changing search parameters or select another category",
+      "reset": "Show All News"
+    },
+    "authors": [
+      "Press Service",
+      "Marketing Department",
+      "Technical Department",
+      "Legal Department",
+      "Environmental Department",
+      "HR Department",
+      "Innovation Department",
+      "Research Center"
+    ],
+    "modal": {
+      "tabs": {
+        "text": "Text",
+        "gallery": "Gallery",
+        "files": "Files",
+        "video": "Video"
+      },
+      "gallery": "Image Gallery",
+      "files": "Downloadable Files",
+      "video": "Video Materials",
+      "image": "Image",
+      "videoPlayer": "Video Player",
+      "noFiles": "No downloadable files available",
+      "noVideo": "No video materials available"
+    },
+    "badge": "Press Center",
+    "title": "News and",
+    "titleHighlight": "Publications",
+    "subtitle": "Current news, events and official company announcements",
+    "categories": {
+      "all": "All News",
+      "official": "Official Announcements",
+      "event": "Events",
+      "opening": "Facility Openings",
+      "memorandum": "Memorandums"
+    },
+    "readMore": "Read More",
+    "showLess": "Collapse",
+    "fullStory": "Full Text",
+    "loadMore": "Load More",
+    "files": "Downloadable Files",
+    "gallery": "Gallery",
+    "video": "Video",
+    "image": "Image",
+    "videoPlaceholder": "Video Player",
+    "videoPlayer": "Video Player will be here",
+    "downloads": "Downloadable Materials",
+    "news": [
+      {
+        "title": "New Sustainable Development Project",
+        "date": "12/20/2023",
+        "lead": "Launch of eco-friendly production using solar energy",
+        "fullText": "The company announces the launch of a new environmental project aimed at reducing carbon footprint and implementing sustainable practices in the production process.\n\nThe project includes installation of 5 MW solar panels, water recycling system and transition to biodegradable materials. This is expected to reduce CO2 emissions by 40% within the next year.",
+        "files": [
+          "Environmental Report.pdf",
+          "Project Presentation.pptx"
+        ],
+        "tags": ["ecology", "sustainable development", "innovations"]
+      },
+      {
+        "title": "Technological Partnership with University",
+        "date": "12/18/2023",
+        "lead": "Signing agreement for joint research in artificial intelligence",
+        "fullText": "The company has concluded a strategic partnership with a leading technical university for joint work on projects in artificial intelligence and machine learning.\n\nWithin the framework of cooperation, a research center will be established where students and company employees will work on innovative projects. The first joint project will be development of a demand forecasting system using neural networks.",
+        "files": [
+          "Partnership Agreement.pdf",
+          "Project Presentation.pdf"
+        ],
+        "tags": ["technology", "education", "AI"]
+      },
+      {
+        "title": "New Trade Complex Opening",
+        "date": "12/15/2023",
+        "lead": "Grand opening of modern trade complex with participation of city administration representatives",
+        "fullText": "December 15, 2023 marked a significant event for our city - the opening of a new 10,000 m² trade complex. The opening ceremony was attended by the city mayor, business community representatives and local residents.\n\nThe complex includes 150 trading spaces, modern parking for 300 cars and visitor recreation areas. The project was implemented considering the latest retail trends and will create over 500 new jobs.",
+        "files": [
+          "Press Release.pdf",
+          "Project Presentation.doc"
+        ],
+        "tags": ["opening", "trade", "investments"]
+      },
+      {
+        "title": "Charity Marathon for Children",
+        "date": "12/10/2023",
+        "lead": "Company organized annual charity marathon in support of orphanages",
+        "fullText": "On December 10, 2023, the annual charity marathon organized with support from our company took place. The event gathered over 1000 participants and helped raise funds for orphanage children.\n\nAll collected funds will be directed towards facility repairs, purchase of educational materials and organization of developmental activities for children.",
+        "files": [
+          "Event Report.pdf"
+        ],
+        "tags": ["charity", "children", "sports"]
+      },
+      {
+        "title": "Logistics Center Launch",
+        "date": "12/05/2023",
+        "lead": "Modern logistics center with automated management system commissioned",
+        "fullText": "On December 5, 2023, a new logistics center equipped with modern equipment and automated warehouse management system was launched.\n\nThe 15,000 m² center will optimize inventory turnover and reduce delivery times for our partners. Implementation of modern technologies will increase efficiency of logistics operations by 40%.",
+        "files": [
+          "Technical Specifications.pdf",
+          "Development Plan.pdf"
+        ],
+        "tags": ["logistics", "technology", "innovations"]
+      },
+      {
+        "title": "Cooperation Memorandum Signing",
+        "date": "12/01/2023",
+        "lead": "Strategic partnership concluded with leading national university",
+        "fullText": "On December 1, 2023, a cooperation memorandum was signed between our company and the National University. The document provides for joint work in personnel training, scientific research and implementation of educational programs.\n\nWithin the cooperation framework, internship programs for students, joint research and professional courses are planned.",
+        "files": [
+          "Cooperation Memorandum.pdf",
+          "Partnership Presentation.pptx"
+        ],
+        "tags": ["education", "partnership", "personnel"]
+      },
+      {
+        "title": "Corporate Policy Update",
+        "date": "11/25/2023",
+        "lead": "New company environmental policy approved",
+        "fullText": "On November 25, 2023, the updated company environmental policy was approved, aimed at reducing carbon footprint and implementing sustainable business practices.\n\nMain policy directions include transition to renewable energy sources, implementation of waste recycling system and resource consumption reduction. The company plans to achieve carbon neutrality by 2030.",
+        "files": [],
+        "tags": ["ecology", "sustainable development", "policy"]
+      },
+      {
+        "title": "Corporate Employee Celebration",
+        "date": "11/20/2023",
+        "lead": "Annual corporate celebration dedicated to company anniversary held",
+        "fullText": "On November 20, 2023, the annual corporate celebration dedicated to the company's 32nd anniversary took place. The event gathered over 2000 employees and their families.\n\nThe celebration program included concerts, sports competitions, contests and awards for best employees. Special attention was given to company veterans who made significant contributions to organization development.",
+        "files": [
+          "Event Program.pdf",
+          "Photo Gallery.pdf"
+        ],
+        "tags": ["corporate", "celebration", "employees"]
+      }
+    ]
+  },
+  "pressReleases": {
+    "searchPlaceholder": "Search documents...",
+    "featured": "Featured Documents",
+    "featuredBadge": "Featured",
+    "viewDetails": "More Details",
+    "pages": "p.",
+    "loadMore": "Load More",
+    "related": "Related Documents",
+    "sort": {
+      "date": "By Date",
+      "title": "By Title",
+      "size": "By Size",
+      "popularity": "By Popularity"
+    },
+    "languages": {
+      "ru": "Russian",
+      "en": "English",
+      "multi": "Multilingual"
+    },
+    "tags": {
+      "official": "Official",
+      "logistics": "Logistics",
+      "financial": "Financial",
+      "annual": "Annual",
+      "quarterly": "Quarterly",
+      "investment": "Investment",
+      "strategy": "Strategy",
+      "partnership": "Partnership",
+      "sustainability": "Sustainable Development",
+      "esg": "ESG"
+    },
+    "stats": {
+      "totalDocuments": "Total Documents",
+      "totalDownloads": "Total Downloads",
+      "avgSize": "Average Size",
+      "languages": "Languages"
+    },
+    "badge": "Documents",
+    "title": "Press Releases and",
+    "titleHighlight": "Reports",
+    "subtitle": "Archive of official documents, press releases, annual reports and financial summaries",
+    "search": {
+      "placeholder": "Search documents..."
+    },
+    "modal": {
+      "description": "Description",
+      "preview": "Preview",
+      "tags": "Tags",
+      "details": "Document Details",
+      "size": "File Size",
+      "pages": "Number of Pages",
+      "language": "Language",
+      "downloads": "Downloads",
+      "year": "Publication Year",
+      "download": "Download Document",
+      "share": "Share"
+    },
+    "filters": {
+      "type": "Document Type",
+      "sustainability": "Sustainable Development",
+      "year": "Year",
+      "all": "All Documents",
+      "pressReleases": "Press Releases",
+      "annualReports": "Annual Reports",
+      "financial": "Financial Summaries",
+      "presentations": "Presentations",
+      "allYears": "All Years"
+    },
+    "results": {
+      "showing": "Showing",
+      "of": "of",
+      "documents": "documents"
+    },
+    "download": "Download PDF",
+    "year": "year",
+    "noResults": {
+      "title": "No Documents Found",
+      "reset": "Reset Filters",
+      "description": "Try changing filter parameters or search query"
+    },
+    "documents": [
+      {
+        "title": "Sustainable Development Report 2023",
+        "date": "03/30/2024",
+        "description": "Comprehensive report on implementation of company environmental and social initiatives",
+        "preview": "Detailed report on achievements in sustainable development, environmental initiatives and social responsibility."
+      },
+      {
+        "title": "Press Release on New Logistics Center Opening",
+        "date": "01/15/2024",
+        "description": "Official press release on launch of modern logistics center with automated management system"
+      },
+      {
+        "title": "Annual Report 2023",
+        "date": "02/28/2024",
+        "description": "Full annual report on company activities for 2023, including financial indicators and key achievements"
+      },
+      {
+        "title": "Financial Summary Q1 2024",
+        "date": "04/10/2024",
+        "description": "Quarterly financial reporting for first quarter 2024 with analysis of key performance indicators"
+      },
+      {
+        "title": "Investor Presentation 2024",
+        "date": "03/05/2024",
+        "description": "Strategic presentation for investors with overview of current projects and company development plans"
+      },
+      {
+        "title": "Press Release on University Partnership",
+        "date": "11/20/2023",
+        "description": "Information on signing cooperation memorandum in education and scientific research"
+      },
+      {
+        "title": "Annual Report 2022",
+        "date": "03/15/2023",
+        "description": "Annual report on company activities for 2022 with financial reporting and achievements overview"
+      },
+      {
+        "title": "Financial Summary Q4 2023",
+        "date": "01/25/2024",
+        "description": "Financial reporting for fourth quarter 2023 with annual activity results"
+      },
+      {
+        "title": "Investment Presentation 2023",
+        "date": "09/10/2023",
+        "description": "Presentation material for potential investors with market analysis and development prospects"
+      }
+    ],
+    "cta": {
+      "title": "Contact Press Service",
+      "subtitle": "Need additional information or want to schedule an interview? Our press service is always ready to help",
+      "buttons": {
+        "interview": "Request Interview",
+        "contact": "Contact Press Service"
+      }
+    },
+    "contact": {
+      "phone": "+996 (312) 123-456",
+      "hoursDetail": "Mon-Fri: 9:00-18:00",
+      "email": "press@dordoi.kg",
+      "hours": "Mon-Fri: 9:00-18:00"
+    }
+  },
+  "publications": {
+    "badge": "Publications",
+    "title": "Media Publications",
+    "subtitle": "Archive of articles, research and publications in local and international editions",
+    
+    "stats": {
+      "total": "24",
+      "publications": "50+",
+      "publicationsLabel": "Publications",
+      "countries": "15+",
+      "countriesLabel": "Countries",
+      "languages": "5+",
+      "languagesLabel": "Languages",
+      "downloads": "10K+",
+      "downloadsLabel": "Downloads"
+    },
+    
+    "filters": {
+      "all": "All Publications",
+      "international": "International",
+      "local": "Local Editions",
+      "research": "Research",
+      "interviews": "Interviews",
+      "reports": "Reports"
+    },
+    
+    "sort": {
+      "newest": "Newest First",
+      "oldest": "Oldest First",
+      "title": "By Title",
+      "publisher": "By Publisher"
+    },
+    
+    "search": {
+      "placeholder": "Search publications..."
+    },
+    
+    "language": {
+      "en": "EN",
+      "ru": "RU",
+      "local": "KG"
+    },
+    
+    "pages": "p.",
+    "readMore": "More Details",
+    "download": "Download",
+    "downloadPDF": "Download PDF",
+    "comment": "Comment",
+    "requestAccreditation": "Accreditation",
+    "like": "Like",
+    "liked": "Liked",
+    "likes": "likes",
+    "views": "views",
+    
+    "featured": {
+      "title": "Featured Publications",
+      "badge": "Featured"
+    },
+    
+    "related": {
+      "title": "Related Publications"
+    },
+    
+    "noResults": {
+      "title": "No Publications Found",
+      "description": "Try changing search parameters or filters"
+    },
+    
+    "items": {
+      "forbes": {
+        "title": "Leadership in Central Asia: 30 Years of Sustainable Growth",
+        "description": "Exclusive interview with company leadership about development strategy and international expansion",
+        "fullDescription": "In-depth analytical interview with the company CEO, dedicated to the organization's 30th anniversary. The material reveals key strategic decisions, stages of international expansion and plans for further business development in Central Asia.",
+        "citation": "Forbes International, 2024. 'Leadership in Central Asia: 30 Years of Sustainable Growth'. January 2024, pp. 24-26",
+        "publisher": "Forbes",
+        "author": "John Smith"
+      },
+      "worldBank": {
+        "title": "Private Sector Contribution to Regional Sustainable Development",
+        "description": "World Bank research on business role in achieving sustainable development goals",
+        "fullDescription": "Comprehensive research conducted by World Bank experts analyzes the impact of corporate initiatives on achieving UN Sustainable Development Goals in Central Asia. Special attention is given to social responsibility programs and environmental initiatives.",
+        "citation": "World Bank Research Paper, 2023. 'Private Sector Contribution to Regional Sustainable Development'. November 2023",
+        "publisher": "World Bank",
+        "author": "Dr. Maria Petrova"
+      },
+      "usaid": {
+        "title": "Innovations in Corporate Social Responsibility",
+        "description": "Analysis of best CSR practices using examples of leading regional companies",
+        "fullDescription": "USAID report presents detailed analysis of modern approaches to corporate social responsibility. Using case studies of leading regional companies, effective models of social investments and their impact on local communities are demonstrated.",
+        "citation": "USAID Report, 2023. 'Innovations in Corporate Social Responsibility'. September 2023",
+        "publisher": "USAID",
+        "author": "Robert Johnson"
+      },
+      "localNews": {
+        "title": "Company Invests in Future: New Educational Programs",
+        "description": "Report on launch of new educational initiatives for youth",
+        "fullDescription": "Comprehensive report on launch of large-scale educational program for youth, including scholarships, internships and professional training. The program aims to prepare the next generation of specialists and develop human capital in the region.",
+        "citation": "Daily News, 2024. 'Company Invests in Future'. February 2024, p. 5",
+        "publisher": "Daily News",
+        "author": "Aigul Satybaldieva"
+      },
+      "businessMag": {
+        "title": "Export Achievements: New Markets, New Opportunities",
+        "description": "Analysis of company export strategy and entry into new international markets",
+        "fullDescription": "Analytical article dedicated to successful export strategy of the company and its entry into new international markets. Challenges faced by the company and innovative approaches to overcoming them are examined.",
+        "citation": "Business Magazine, 2023. 'Export Achievements'. December 2023, pp. 12-16",
+        "publisher": "Business Magazine",
+        "author": "Michael Chen"
+      },
+      "economicReview": {
+        "title": "Impact of Corporate Investments on Regional Economy",
+        "description": "Economic analysis of investment activity impact on regional development",
+        "fullDescription": "Scientific publication examining macroeconomic impact of major corporate investments on regional development. The article contains unique data and forecasts regarding further economic growth.",
+        "citation": "Economic Review, 2023. 'Impact of Corporate Investments'. October 2023, pp. 8-22",
+        "publisher": "Economic Review",
+        "author": "Prof. Alexander Ivanov"
+      },
+      "techCrunch": {
+        "title": "Digital Transformation of Traditional Business",
+        "description": "How the company implements innovative technologies to improve efficiency",
+        "fullDescription": "TechCrunch article discusses large-scale digital transformation of the company, including implementation of artificial intelligence, blockchain technologies and business process automation. Special attention is given to results and lessons learned.",
+        "citation": "TechCrunch, 2024. 'Digital Transformation of Traditional Business'. January 2024",
+        "publisher": "TechCrunch",
+        "author": "Sarah Williams"
+      },
+      "unReport": {
+        "title": "Sustainable Development and Corporate Responsibility",
+        "description": "UN report on business contribution to achieving global sustainable development goals",
+        "fullDescription": "Official United Nations report dedicated to analysis of private sector contribution to achieving Sustainable Development Goals. The company is presented as an example of successful integration of sustainable development principles into business model.",
+        "citation": "United Nations Report, 2023. 'Sustainable Development and Corporate Responsibility'. August 2023",
+        "publisher": "United Nations",
+        "author": "Dr. Ahmed Al-Fassi"
+      }
+    },
+    
+    "tags": {
+      "leadership": "Leadership",
+      "strategy": "Strategy",
+      "innovation": "Innovation",
+      "research": "Research",
+      "development": "Development",
+      "sustainability": "Sustainability",
+      "csr": "CSR",
+      "social": "Social",
+      "community": "Community",
+      "education": "Education",
+      "youth": "Youth",
+      "investment": "Investment",
+      "export": "Export",
+      "trade": "Trade",
+      "growth": "Growth",
+      "economics": "Economics",
+      "regional": "Regional",
+      "technology": "Technology",
+      "digital": "Digitalization",
+      "climate": "Climate"
+    },
+    
+    "details": {
+      "description": "Description",
+      "fullDescription": "Full Description",
+      "citation": "Citation",
+      "type": "Type",
+      "language": "Language",
+      "pages": "Pages",
+      "size": "Size",
+      "views": "Views",
+      "authors": "Authors",
+      "publicationDetails": "Publication Details",
+      "actions": "Actions"
+    },
+    
+    "forms": {
+      "cancel": "Cancel",
+      "comment": {
+        "title": "Leave Comment",
+        "description": "Share your opinion about the publication",
+        "name": "Your Name",
+        "namePlaceholder": "Enter your name",
+        "email": "Email",
+        "emailPlaceholder": "your@email.com",
+        "comment": "Comment",
+        "commentPlaceholder": "Write your comment here...",
+        "submit": "Submit Comment"
+      },
+      "accreditation": {
+        "title": "Accreditation Request",
+        "description": "Fill out the form to receive accreditation for events",
+        "media": "Media",
+        "mediaPlaceholder": "Your media outlet name",
+        "name": "Full Name",
+        "namePlaceholder": "Enter your full name",
+        "email": "Email",
+        "emailPlaceholder": "your@email.com",
+        "event": "Event",
+        "eventPlaceholder": "Which event requires accreditation?",
+        "submit": "Request Accreditation"
+      }
+    },
+    
+    "cta": {
+      "title": "Have questions or want to collaborate?",
+      "description": "Contact us for comments or accreditation requests for events",
+      "comment": "Leave Comment",
+      "accreditation": "Request Accreditation"
+    }
+  },
+  "pressEvents": {
+    "searchPlaceholder": "Search events...",
+    "badge": "Events",
+    "title": "Events Calendar",
+    "subtitle": "Upcoming events and archive of past events",
+    "tabs": {
+      "upcoming": "Upcoming",
+      "archive": "Archive"
+    },
+    "eventImage": "Event Image",
+    "eventTypes": {
+      "conference": "Conference",
+      "workshop": "Workshop",
+      "exhibition": "Exhibition",
+      "seminar": "Seminar",
+      "forum": "Forum"
+    },
+    "actions": {
+      "register": "Registration",
+      "view": "View"
+    },
+    "loadMore": "Load More",
+    "partners": [
+      "Partner 1",
+      "Partner 2",
+      "Partner 3",
+      "Partner 4",
+      "Partner 5",
+      "Partner 6",
+      "Partner 7",
+      "Partner 8",
+      "Venture Fund"
+    ],
+    "events": {
+      "upcoming": [
+        {
+          "title": "Business Forum 'Innovations 2024'",
+          "location": "Bishkek, Ala-Too Business Center",
+          "description": "Largest business event of the year, uniting industry leaders, investors and innovators to discuss economic future",
+          "program": [
+            "09:00 - 10:00: Registration and welcome coffee",
+            "10:00 - 12:30: Plenary session 'Trends 2024'",
+            "14:00 - 16:00: Industry-specific workshops"
+          ]
+        },
+        {
+          "title": "Digital Transformation Masterclass",
+          "location": "Osh, Osh Technopark",
+          "description": "Practical workshop on implementing digital technologies in business processes for small and medium business representatives",
+          "program": [
+            "14:00 - 15:30: Basics of business digitalization",
+            "15:30 - 17:00: Successful implementation case studies",
+            "17:00 - 18:00: Q&A session"
+          ]
+        },
+        {
+          "title": "Kyrgyzstan Industry Exhibition",
+          "location": "Bishkek, KyrgyzExpo",
+          "description": "Annual exhibition of industrial sector achievements with participation of leading enterprises and latest technologies",
+          "program": [
+            "09:00 - 11:00: Grand opening",
+            "11:00 - 18:00: Exhibition operation",
+            "16:00 - 17:00: Investment projects presentation"
+          ]
+        }
+      ],
+      "archive": [
+        {
+          "title": "Sustainable Development Conference",
+          "location": "Bishkek, Hyatt Hotel",
+          "description": "International conference dedicated to sustainable development issues and environmental initiatives in business"
+        },
+        {
+          "title": "Financial Literacy Seminar",
+          "location": "Jalal-Abad, Business Incubator",
+          "description": "Educational seminar for entrepreneurs on basics of financial planning and cash flow management"
+        },
+        {
+          "title": "Investment Forum 'Regions 2023'",
+          "location": "Kara-Balta, Industrial Zone",
+          "description": "Forum aimed at attracting investments to regional projects and infrastructure development"
+        }
+      ]
+    },
+    "stats": {
+      "upcomingEvents": "Upcoming Events",
+      "archivedEvents": "Past Events",
+      "totalEvents": "Total Events",
+      "participants": "Participants",
+      "partners": "Partners",
+      "cities": "Cities"
+    },
+    
+    "filters": {
+      "all": "All"
+    },
+    
+    "speakers": {
+      "0": {
+        "name": "Aidarbek Aliev",
+        "position": "Company General Director"
+      },
+      "1": {
+        "name": "Maria Ivanova",
+        "position": "Innovation Department Head"
+      },
+      "2": {
+        "name": "Nurlan Sadykov",
+        "position": "Technical Director"
+      },
+      "3": {
+        "name": "Elena Petrova",
+        "position": "Digital Transformation Expert"
+      },
+      "4": {
+        "name": "Alexey Kim",
+        "position": "Senior Consultant"
+      },
+      "5": {
+        "name": "Bakyt Zhumabayev",
+        "position": "Minister of Industry"
+      },
+      "6": {
+        "name": "Gulnara Asanova",
+        "position": "Exhibition Director"
+      },
+      "7": {
+        "name": "Aigerim Toktosunova",
+        "position": "Managing Partner of Fund"
+      },
+      "8": {
+        "name": "Mars Sarybaev",
+        "position": "Minister of Ecology"
+      },
+      "9": {
+        "name": "Altynay Osmonova",
+        "position": "Financial Consultant"
+      },
+      "10": {
+        "name": "Nurlan Toktomambetov",
+        "position": "Regional Head"
+      }
+    },
+    
+    "tags": {
+      "innovation": "Innovation",
+      "business": "Business",
+      "networking": "Networking",
+      "digital": "Digitalization",
+      "workshop": "Workshop",
+      "practical": "Practical",
+      "industry": "Industry",
+      "exhibition": "Exhibition",
+      "investment": "Investment",
+      "startup": "Startups",
+      "finance": "Finance",
+      "sustainability": "Sustainable Development",
+      "environment": "Ecology",
+      "conference": "Conference",
+      "education": "Education",
+      "seminar": "Seminar",
+      "regional": "Regional Development",
+      "infrastructure": "Infrastructure"
+    },
+    
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "all": "All Levels"
+    },
+    
+    "languages": {
+      "ru": "Russian",
+      "multi": "Multiple Languages"
+    },
+    
+    "pricing": {
+      "free": "Free",
+      "paid": "Paid"
+    },
+    
+    "registration": {
+      "progress": "Registration"
+    },
+    
+    "noEvents": {
+      "title": "No Events Found",
+      "description": "Try changing search parameters or filters"
+    },
+    "materials": {
+      "presentation": "Presentation",
+      "video": "Video Recording",
+      "report": "Report"
+    },
+    "modal": {
+      "description": "Event Description",
+      "program": "Program",
+      "partners": "Partners",
+      "photos": "Event Photos",
+      "registerButton": "Register",
+      "speakers": "Speakers",
+      "eventDetails": "Event Details",
+      "duration": "Duration",
+      "language": "Language",
+      "level": "Level",
+      "seats": "Seats",
+      "eventStats": "Event Statistics",
+      "attendees": "Attendees",
+      "feedback": "Rating",
+      "materials": "Materials",
+      "photo": "Photo",
+      "registered": "registered",
+      "seatsAvailable": "seats available",
+      "share": "Share"
+    }
+  },
+  "partners": {
+    "badge": "Strategic Partnerships",
+    "title": "Our Partners",
+    "subtitle": "Collaborating with industry pioneers to drive innovation and create exceptional digital experiences",
+    "ourPartners": "Our Partners",
+    "location": "Headquarters",
+    "industry": "Industry",
+    "founded": "Founded",
+    "yearsOfCooperation": "Years Together",
+    "successfulProjects": "Projects",
+    "employees": "Team",
+    "satisfaction": "Satisfaction",
+    "aboutCompany": "About Company",
+    "keyServices": "Key Services",
+    "achievements": "Key Achievements",
+    "ourCollaboration": "Our Collaboration",
+    "visitWebsite": "Visit Official Website",
+    "partnershipStatus": "Partnership Status",
+    "activeCollaboration": "Active collaboration since 2020",
+    "partnershipBenefits": "Partnership Benefits",
+    "jointProjects": "Joint project development and implementation",
+    "technicalSupport": "Priority technical support and consulting",
+    "knowledgeSharing": "Regular knowledge sharing sessions",
+    "marketingSupport": "Joint marketing and promotional activities",
+    "techcorp": {
+      "benefit1": "Joint innovative projects",
+      "benefit2": "Access to cutting-edge technologies",
+      "benefit3": "Exclusive training programs",
+      "description": "Leading technology company providing advanced software solutions and digital transformation services to enterprises worldwide.",
+      "location": "Silicon Valley, USA",
+      "industry": "Enterprise Software and Cloud Solutions",
+      "founded": "2012",
+      "achievement1": "Recognized as Top Innovator 2023 by TechReview",
+      "achievement2": "Serves 50+ Fortune 500 companies",
+      "achievement3": "Global expansion to 15+ countries with local offices",
+      "collaboration": "Strategic partnership focused on enterprise digital transformation and cloud migration for our mutual clients.",
+      "details": "TechCorp is a global leader in enterprise software solutions with over a decade of experience in digital transformation. They specialize in creating scalable, secure, and innovative technology solutions that drive business growth and operational efficiency across various industries including finance, healthcare, and manufacturing.",
+      "service1": "Enterprise Software Development",
+      "service2": "Cloud Migration and Infrastructure",
+      "service3": "Digital Transformation Consulting"
+    },
+    "innovatelab": {
+      "benefit1": "Access to advanced research and development",
+      "benefit2": "Joint innovation initiatives",
+      "benefit3": "Knowledge sharing and technical expertise",
+      "description": "Pioneering research institution focused on breakthrough technologies and scientific achievements shaping the future.",
+      "location": "Boston, USA",
+      "industry": "Research and Development",
+      "founded": "2018",
+      "achievement1": "Filed 15+ patents in AI and machine learning in 2023",
+      "achievement2": "Established partnerships with 5 leading universities",
+      "achievement3": "Received AI Research Excellence Award 2023",
+      "collaboration": "Joint R&D initiatives in artificial intelligence and next-generation technology prototypes for innovative product development.",
+      "details": "InnovateLab is at the forefront of technological research and development, bridging academic research with practical applications. Their team of scientists and engineers works on cutting-edge projects that redefine industry standards in AI, robotics, and sustainable technologies.",
+      "service1": "AI and Machine Learning Research",
+      "service2": "Technology Prototyping and Testing",
+      "service3": "Academia-Industry Partnerships"
+    },
+    "globalsolutions": {
+      "benefit1": "Global expertise and localized strategies",
+      "benefit2": "Access to international markets",
+      "benefit3": "Comprehensive consulting services",
+      "description": "Powerful consulting company helping businesses navigate complex global markets and digital transformation.",
+      "location": "London, UK",
+      "industry": "Business Consulting",
+      "founded": "2010",
+      "achievement1": "Trusted by 30+ Fortune 500 companies",
+      "achievement2": "Successful global expansion projects in 25+ countries",
+      "achievement3": "Digital Transformation Excellence Award 2023",
+      "collaboration": "Global expansion strategies and digital transformation consulting services for international business growth.",
+      "details": "GlobalSolutions provides comprehensive consulting services for businesses seeking international expansion and digital transformation. With offices in 12 countries, they offer localized expertise with global perspective, helping clients navigate cultural, regulatory, and market challenges.",
+      "service1": "International Market Expansion",
+      "service2": "Digital Business Transformation",
+      "service3": "Strategic Business Consulting"
+    },
+    "futuretech": {
+      "benefit1": "Access to advanced AI and automation technologies",
+      "benefit2": "Joint development and solution implementation",
+      "benefit3": "Technical support and training",
+      "description": "Promising company at the forefront of AI and automation technologies, creating intelligent solutions for tomorrow's challenges.",
+      "location": "Berlin, Germany",
+      "industry": "AI and Automation",
+      "founded": "2019",
+      "achievement1": "AI Innovation Award 2023 for industrial automation",
+      "achievement2": "Industry 4.0 solutions implemented at 50+ factories",
+      "achievement3": "Smart factory solutions deployed across Europe",
+      "collaboration": "AI-based automation solutions and smart system implementation for industrial clients and manufacturing partners.",
+      "details": "FutureTech specializes in artificial intelligence and automation technologies that revolutionize industrial processes. Their solutions help businesses achieve unprecedented levels of efficiency and innovation through smart technology integration, IoT implementation, and predictive maintenance systems.",
+      "service1": "AI-based Industrial Solutions",
+      "service2": "Smart Factory Implementation",
+      "service3": "Automation System Integration"
+    }
+  },
+  "partnersProjects": {
+    "badge": "Partnerships and Projects",
+    "title": "Partnerships and Projects",
+    "subtitle": "Strategic cooperation with international partners for sustainable development and economic growth",
+    
+    "stats": {
+      "totalProjects": "24 projects",
+      "totalInvestment": "$180M+",
+      "investmentLabel": "Total investment volume",
+      "countries": "15+",
+      "partnerCountries": "Partner countries",
+      "jobsCreated": "5,000+",
+      "jobsLabel": "Jobs created",
+      "successRate": "98%",
+      "successLabel": "Successful projects"
+    },
+    
+    "categories": {
+      "all": "All projects",
+      "memorandums": "Memorandums",
+      "education": "Educational exchanges",
+      "investments": "Joint investments",
+      "infrastructure": "Infrastructure",
+      "technology": "Technology"
+    },
+    
+    "types": {
+      "memorandums": "Memorandum",
+      "education": "Education",
+      "investments": "Investments",
+      "infrastructure": "Infrastructure",
+      "technology": "Technology"
+    },
+    
+    "status": {
+      "completed": "Completed",
+      "ongoing": "In progress",
+      "upcoming": "Planned"
+    },
+    
+    "achievements": "Key Achievements",
+    "duration": "Implementation timeline",
+    "investment": "Investment volume",
+    
+    "details": {
+      "projectOverview": "Project Overview",
+      "projectDetails": "Project Details",
+      "location": "Location",
+      "impact": "Social Impact",
+      "visitWebsite": "Visit Website",
+      "learnMore": "Learn More"
+    },
+    
+    "projects": [
+      {
+        "title": "Joint Industrial Zone with Turkey",
+        "description": "Creation of modern industrial zone for production potential development and export capacity",
+        "fullDescription": "Large-scale project to create a modern industrial zone including production facilities, logistics centers and research laboratories. The project aims to develop export potential and create high-tech jobs. Partnership with leading Turkish companies allows implementation of advanced technologies and international management standards.",
+        "achievements": [
+          "500+ jobs created",
+          "$50 million direct investments attracted",
+          "Export supplies established to 15 countries",
+          "10 production facilities built",
+          "200+ local specialists trained"
+        ],
+        "duration": "2020-2024",
+        "investment": "$50 million",
+        "location": "Bishkek, Kyrgyzstan",
+        "impact": "Creation of 500+ jobs, export potential development",
+        "contact": "project-turkey@example.com"
+      },
+      {
+        "title": "Textile Industry Investments with China",
+        "description": "Modern textile factories with full production cycle and export orientation",
+        "fullDescription": "Joint investment project to create modern textile enterprises with full production cycle. Implementation of advanced technologies and international quality standards. The project includes construction of spinning, weaving and sewing factories, as well as a training center.",
+        "achievements": [
+          "3 modern factories built",
+          "1000+ specialists trained",
+          "40% export increase",
+          "Eco-friendly technologies implemented",
+          "Value-added chain created"
+        ],
+        "duration": "2019-2023",
+        "investment": "$75 million",
+        "location": "Osh Region",
+        "impact": "40% export growth, creation of sustainable textile industry",
+        "contact": "textile-china@example.com"
+      },
+      {
+        "title": "Vocational Education Program with GIZ",
+        "description": "Development of vocational education system and training qualified personnel for industry",
+        "fullDescription": "Comprehensive program for modernization of vocational education system in cooperation with German Society for International Cooperation (GIZ). Includes updating curricula, equipping workshops with modern equipment and teacher training.",
+        "achievements": [
+          "2000+ students trained",
+          "10 training centers equipped",
+          "85% graduates employed",
+          "15 new curricula developed",
+          "50+ master classes conducted"
+        ],
+        "duration": "2021-2025",
+        "investment": "$15 million",
+        "location": "Countrywide",
+        "impact": "Improving vocational education quality, reducing youth unemployment",
+        "contact": "education-giz@example.com"
+      },
+      {
+        "title": "Educational Exchanges with KOICA",
+        "description": "Academic mobility program and experience exchange between Kyrgyzstan and South Korea",
+        "fullDescription": "Large-scale educational exchange and academic mobility program implemented with support of Korea International Cooperation Agency (KOICA). The program covers students, graduate students and teachers, facilitating knowledge and technology transfer.",
+        "achievements": [
+          "150+ students completed training",
+          "20 teachers upgraded qualifications",
+          "5 joint programs created",
+          "8 partnership agreements with universities signed",
+          "Online courses developed"
+        ],
+        "duration": "2022-2026",
+        "investment": "$8 million",
+        "location": "South Korea and Kyrgyzstan",
+        "impact": "Strengthening academic ties, improving higher education quality",
+        "contact": "exchange-koica@example.com"
+      },
+      {
+        "title": "SME Development with USAID",
+        "description": "Comprehensive support for small and medium businesses through access to financing and consultations",
+        "fullDescription": "Small and medium business support program implemented with technical assistance from USAID. Includes providing microloans, business consultations, trainings and mentor support. Special attention to women entrepreneurs and startups.",
+        "achievements": [
+          "500+ enterprises supported",
+          "2000+ jobs created",
+          "$25 million investments attracted",
+          "100+ business trainings conducted",
+          "50+ startups launched"
+        ],
+        "duration": "2020-2024",
+        "investment": "$30 million",
+        "location": "All regions of Kyrgyzstan",
+        "impact": "Economic diversification, entrepreneurship support, job creation",
+        "contact": "msb-usaid@example.com"
+      },
+      {
+        "title": "Turkish-Kyrgyz Educational Center",
+        "description": "Modern educational center for training specialists in IT and engineering",
+        "fullDescription": "Joint project to create multifunctional educational center specializing in IT specialists and engineers training. The center is equipped with modern computer classes, laboratories and coworking zones for project work.",
+        "achievements": [
+          "300+ specialists graduated",
+          "10 training programs developed",
+          "Partnership with 5 universities",
+          "20 startup projects launched",
+          "30 hackathons conducted"
+        ],
+        "duration": "2021-2025",
+        "investment": "$12 million",
+        "location": "Bishkek",
+        "impact": "IT ecosystem development, training highly qualified personnel for digital economy",
+        "contact": "it-center@example.com"
+      },
+      {
+        "title": "Solar Power Plant Construction with EBRD",
+        "description": "Largest solar power plant in Central Asia with 100 MW capacity",
+        "fullDescription": "Ambitious project to build solar power plant in partnership with European Bank for Reconstruction and Development. The station uses advanced technologies and contributes to diversification of country's energy sector.",
+        "achievements": [
+          "100 MW installed capacity",
+          "Supplying 50,000 households",
+          "75,000 tons CO2 emissions reduction annually",
+          "150 jobs created",
+          "50 local engineers trained"
+        ],
+        "duration": "2022-2025",
+        "investment": "$80 million",
+        "location": "Issyk-Kul Region",
+        "impact": "Sustainable energy supply, reducing dependence on imported electricity",
+        "contact": "solar-ebrd@example.com"
+      },
+      {
+        "title": "Irrigation Systems Modernization with ADB",
+        "description": "Comprehensive modernization of water supply and irrigation systems in rural regions",
+        "fullDescription": "Asian Development Bank project for irrigation infrastructure modernization, including construction of new canals, installation of modern irrigation systems and training farmers in water-saving technologies.",
+        "achievements": [
+          "500 km canals modernized",
+          "10,000 hectares covered",
+          "Up to 40% water savings",
+          "25% yield increase",
+          "2000 farmers trained"
+        ],
+        "duration": "2020-2024",
+        "investment": "$45 million",
+        "location": "Chuy and Talas Regions",
+        "impact": "Improving water use efficiency, sustainable agricultural development",
+        "contact": "irrigation-adb@example.com"
+      }
+    ],
+    
+    "cta": {
+      "title": "Become Our Partner",
+      "description": "Join our strategic initiatives and create the future together with us",
+      "becomePartner": "Become Partner",
+      "suggestProject": "Suggest Project",
+      "downloadBrochure": "Download Brochure",
+      "scheduleMeeting": "Schedule Meeting"
+    },
+    
+    "filters": {
+      "viewGrid": "Grid",
+      "viewList": "List",
+      "sortBy": "Sort by",
+      "search": "Search projects...",
+      "results": "Projects found",
+      "showMore": "Show more",
+      "reset": "Reset filters"
+    },
+    
+    "metrics": {
+      "jobs": "Jobs",
+      "graduates": "Graduates",
+      "investmentVolume": "Investment volume",
+      "partnerships": "Partnerships",
+      "regions": "Regions",
+      "duration": "Duration"
+    },
+    
+    "testimonials": {
+      "title": "Partner Testimonials",
+      "subtitle": "What our international partners say about cooperation"
+    }
+  },
+  "partnersInternational": {
+    "region": "Regions:",
+    "badge": "Partners",
+    "title": "International",
+    "titleHighlight": "Cooperation",
+    "subtitle": "Global network of partners and joint projects worldwide",
+    "mapCaption": "Click on country for cooperation information",
+    "projects": "projects",
+    "tradeVolume": "Trade volume",
+    "since": "Cooperating since",
+    "cooperatingSince": "Cooperating since",
+    "filters": {
+      "all": "All countries"
+    },
+    "view": {
+      "map": "Map",
+      "list": "List"
+    },
+    "stats": {
+      "title": "Global Statistics",
+      "items": [
+        {
+          "value": "20+",
+          "label": "Partner countries"
+        },
+        {
+          "value": "150+",
+          "label": "Joint projects"
+        },
+        {
+          "value": "$500M+",
+          "label": "Investment volume"
+        },
+        {
+          "value": "25+",
+          "label": "Years of experience"
+        }
+      ],
+      "projects": "Projects",
+      "tradeVolume": "Trade volume",
+      "since": "Start year",
+      "partners": "Partners"
+    },
+    "regions": {
+      "europe": "Europe",
+      "asia": "Asia",
+      "america": "America"
+    },
+    "countriesList": {
+      "title": "Partner Countries",
+      "subtitle": "20 countries worldwide we cooperate with"
+    },
+    "cooperation": {
+      "title": "Cooperation Areas",
+      "trade": "Trade",
+      "education": "Education",
+      "culture": "Culture",
+      "industry": "Industry",
+      "logistics": "Logistics",
+      "innovation": "Innovation"
+    },
+    "modal": {
+      "cooperationAreas": "Main cooperation areas",
+      "keyPartners": "Key partners",
+      "projects": "Joint project examples",
+      "additionalInfo": "Additional information",
+      "close": "Close"
+    },
+    "noData": "No data available",
+    "loading": "Loading...",
+    "error": "Loading error",
+    "search": {
+      "placeholder": "Search countries...",
+      "noResults": "Countries not found",
+      "tryDifferent": "Try changing search parameters or filters"
+    },
+    "sort": {
+      "name": "By name",
+      "projects": "By project count",
+      "trade": "By trade volume",
+      "date": "By start date"
+    },
+    "export": {
+      "title": "Data Export",
+      "csv": "CSV",
+      "pdf": "PDF",
+      "excel": "Excel"
+    },
+    "details": {
+      "viewDetails": "More details",
+      "hideDetails": "Hide",
+      "readMore": "Read more",
+      "collapse": "Collapse"
+    },
+    "navigation": {
+      "previous": "Back",
+      "next": "Forward",
+      "first": "First",
+      "last": "Last"
+    },
+    "status": {
+      "active": "Active",
+      "completed": "Completed",
+      "planned": "Planned",
+      "suspended": "Suspended"
+    },
+    "countries": {
+      "RU": {
+        "name": "Russia",
+        "description": "Long-term strategic partnership in trade, logistics and cultural exchange. Joint projects in education and innovative technologies.",
+        "stats": {
+          "projects": "25+",
+          "tradeVolume": "$150M",
+          "since": "1995",
+          "partners": "50+"
+        },
+        "partners": [
+          {
+            "name": "Gazprom",
+            "description": "Energy cooperation and investments"
+          },
+          {
+            "name": "Sberbank",
+            "description": "Financial services and banking"
+          },
+          {
+            "name": "Russian Railways",
+            "description": "Logistics and transport corridors"
+          }
+        ],
+        "projects": [
+          {
+            "title": "Moscow-Bishkek Trade Corridor",
+            "description": "Organization of regular goods supplies and logistics infrastructure development"
+          },
+          {
+            "title": "Joint Educational Program",
+            "description": "Specialist training in leading Russian universities"
+          },
+          {
+            "title": "Cultural Exchange",
+            "description": "Organization of exhibitions, festivals and cultural events"
+          }
+        ]
+      },
+      "TR": {
+        "name": "Turkey",
+        "description": "Active cooperation in textile industry, construction and tourism. Joint investment projects and cultural initiatives.",
+        "stats": {
+          "projects": "18+",
+          "tradeVolume": "$80M",
+          "since": "2000",
+          "partners": "30+"
+        },
+        "partners": [
+          {
+            "name": "Turkish Airlines",
+            "description": "Air transportation and logistics"
+          },
+          {
+            "name": "Yıldız Holding",
+            "description": "Food industry"
+          }
+        ],
+        "projects": [
+          {
+            "title": "Textile Cluster",
+            "description": "Joint production and distribution of textile products"
+          },
+          {
+            "title": "Construction Projects",
+            "description": "Implementation of infrastructure projects with Turkish companies"
+          }
+        ]
+      },
+      "CN": {
+        "name": "China",
+        "description": "Key partner in investments, technologies and trade. Implementation of large-scale infrastructure projects.",
+        "stats": {
+          "projects": "35+",
+          "tradeVolume": "$200M",
+          "since": "2002",
+          "partners": "40+"
+        },
+        "partners": [
+          {
+            "name": "Huawei",
+            "description": "Technologies and telecommunications"
+          },
+          {
+            "name": "China Road and Bridge Corporation",
+            "description": "Infrastructure construction"
+          }
+        ],
+        "projects": [
+          {
+            "title": "Investment Fund",
+            "description": "Joint investments in promising Central Asian projects"
+          }
+        ]
+      },
+      "KZ": {
+        "name": "Kazakhstan",
+        "description": "Strategic partnership in energy, transport and agriculture.",
+        "stats": {
+          "projects": "15+",
+          "tradeVolume": "$120M",
+          "since": "1998",
+          "partners": "25+"
+        },
+        "partners": [
+          {
+            "name": "KazMunayGas",
+            "description": "Energy and oil & gas sector"
+          }
+        ],
+        "projects": [
+          {
+            "title": "Transport Corridor",
+            "description": "Development of logistics routes through Kazakhstan"
+          }
+        ]
+      },
+      "UZ": {
+        "name": "Uzbekistan",
+        "description": "Cooperation in textile industry, agriculture and education.",
+        "stats": {
+          "projects": "12+",
+          "tradeVolume": "$60M",
+          "since": "2005",
+          "partners": "20+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "TJ": {
+        "name": "Tajikistan",
+        "description": "Partnership in hydropower and mining industry.",
+        "stats": {
+          "projects": "8+",
+          "tradeVolume": "$40M",
+          "since": "2007",
+          "partners": "15+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "BY": {
+        "name": "Belarus",
+        "description": "Cooperation in mechanical engineering, agriculture and IT technologies.",
+        "stats": {
+          "projects": "10+",
+          "tradeVolume": "$70M",
+          "since": "2001",
+          "partners": "18+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "KR": {
+        "name": "South Korea",
+        "description": "Technological partnership in IT, electronics and automotive industry.",
+        "stats": {
+          "projects": "20+",
+          "tradeVolume": "$90M",
+          "since": "2003",
+          "partners": "22+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "US": {
+        "name": "USA",
+        "description": "Cooperation in high technologies, finance and education.",
+        "stats": {
+          "projects": "25+",
+          "tradeVolume": "$180M",
+          "since": "1999",
+          "partners": "35+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "BR": {
+        "name": "Brazil",
+        "description": "Partnership in agriculture, renewable energy and sports.",
+        "stats": {
+          "projects": "7+",
+          "tradeVolume": "$50M",
+          "since": "2010",
+          "partners": "12+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "JP": {
+        "name": "Japan",
+        "description": "Technological cooperation in robotics, automotive industry and innovations.",
+        "stats": {
+          "projects": "18+",
+          "tradeVolume": "$110M",
+          "since": "2004",
+          "partners": "28+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "IN": {
+        "name": "India",
+        "description": "Partnership in IT, pharmaceuticals and cultural exchange.",
+        "stats": {
+          "projects": "14+",
+          "tradeVolume": "$75M",
+          "since": "2006",
+          "partners": "24+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "RS": {
+        "name": "Serbia",
+        "description": "Cooperation in agriculture, food industry and tourism.",
+        "stats": {
+          "projects": "6+",
+          "tradeVolume": "$35M",
+          "since": "2012",
+          "partners": "10+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "IT": {
+        "name": "Italy",
+        "description": "Partnership in fashion industry, design and mechanical engineering.",
+        "stats": {
+          "projects": "16+",
+          "tradeVolume": "$85M",
+          "since": "2008",
+          "partners": "20+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "MY": {
+        "name": "Malaysia",
+        "description": "Cooperation in tourism, education and Islamic finance.",
+        "stats": {
+          "projects": "9+",
+          "tradeVolume": "$45M",
+          "since": "2011",
+          "partners": "14+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "DE": {
+        "name": "Germany",
+        "description": "Technological partnership in mechanical engineering, automotive industry and innovations.",
+        "stats": {
+          "projects": "22+",
+          "tradeVolume": "$130M",
+          "since": "2000",
+          "partners": "30+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "CH": {
+        "name": "Switzerland",
+        "description": "Cooperation in finance, pharmaceuticals and precision engineering.",
+        "stats": {
+          "projects": "11+",
+          "tradeVolume": "$95M",
+          "since": "2009",
+          "partners": "16+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "HU": {
+        "name": "Hungary",
+        "description": "Partnership in agriculture, pharmaceuticals and IT.",
+        "stats": {
+          "projects": "8+",
+          "tradeVolume": "$40M",
+          "since": "2013",
+          "partners": "12+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "MN": {
+        "name": "Mongolia",
+        "description": "Cooperation in mining industry and livestock breeding.",
+        "stats": {
+          "projects": "5+",
+          "tradeVolume": "$30M",
+          "since": "2014",
+          "partners": "8+"
+        },
+        "partners": [],
+        "projects": []
+      },
+      "IL": {
+        "name": "Israel",
+        "description": "Innovation partnership in agrotechnologies, IT and medicine.",
+        "stats": {
+          "projects": "13+",
+          "tradeVolume": "$65M",
+          "since": "2007",
+          "partners": "18+"
+        },
+        "partners": [],
+        "projects": []
+      }
+    }
+  },
+  "role": {
+    "badge": "Regional Role",
+    "title": "Dordoi - Bridge Between Asia and Europe",
+    "subtitle": "Key hub of trade flows and catalyst for Central Asian economic integration",
+    "stats": {
+      "tradeVolume": {
+        "value": "$5 billion+",
+        "label": "Annual trade turnover",
+        "description": "Trade volume through Dordoi annually",
+        "period": "for 2024",
+        "trend": "+12%"
+      },
+      "jobs": {
+        "value": "50,000+",
+        "label": "Jobs",
+        "description": "Created thanks to market activities",
+        "period": "annually",
+        "trend": "+8%"
+      },
+      "countries": {
+        "value": "15+",
+        "label": "Partner countries",
+        "description": "Regular trade relations",
+        "period": "active partners",
+        "trend": "+3"
+      },
+      "growth": {
+        "value": "12%",
+        "label": "Average growth",
+        "description": "Annual turnover growth",
+        "period": "per year",
+        "trend": "+2.5%"
+      },
+      "enterprises": {
+        "value": "10,000+",
+        "label": "Enterprises",
+        "description": "Companies operating in the market",
+        "period": "active companies",
+        "trend": "+15%"
+      },
+      "investment": {
+        "value": "$200 million+",
+        "label": "Investments",
+        "description": "Volume of attracted investments",
+        "period": "over 5 years",
+        "trend": "+25%"
+      }
+    },
+
+    "analytics": {
+      "title": "Analytical Overview",
+      "text": {
+        "0": {
+          "highlight": "Dordoi plays a key role in Central Asian economic integration, ",
+          "rest": "serving as the main trade hub between China, CIS countries and Europe. Daily, goods from more than 15 countries pass through the market."
+        },
+        "1": {
+          "prefix": "Thanks to strategic location in the center of the region, ",
+          "highlight": "Dordoi reduces logistics costs by 30-40%",
+          "suffix": " compared to alternative routes, making trade more efficient.",
+          "rest": ""
+        },
+        "2": {
+          "prefix": "The market promotes small and medium business development, ",
+          "highlight": "providing access to international markets",
+          "suffix": " for thousands of entrepreneurs from Central Asia.",
+          "rest": ""
+        }
+      },
+      "metrics": {
+        "industries": "industrial sectors",
+        "visitorsDaily": "visitors daily"
+      }
+    },
+
+    "impactTitle": "Impact on Regional Integration",
+
+    "impacts": {
+      "economic": {
+        "title": "Economic Development",
+        "description": "Stimulating regional trade and creating new economic opportunities",
+        "metrics": "+15% to regional GDP",
+        "details": "Creating value-added chains in the region",
+        "color": "blue"
+      },
+      "logistics": {
+        "title": "Logistics Infrastructure",
+        "description": "Development of transport corridors and logistics centers in Central Asia",
+        "metrics": "30% delivery time reduction",
+        "details": "Optimization of multimodal transportation",
+        "color": "green"
+      },
+      "cultural": {
+        "title": "Cultural Exchange",
+        "description": "Strengthening intercultural ties and business relations between countries",
+        "metrics": "1000+ international delegations annually",
+        "details": "Intercultural educational programs",
+        "color": "orange"
+      },
+      "innovation": {
+        "title": "Technological Innovation",
+        "description": "Implementation of digital platforms and modern trading technologies",
+        "metrics": "Digitalization of 80% trade operations",
+        "details": "Blockchain and AI in logistics",
+        "color": "purple"
+      },
+      "environmental": {
+        "title": "Environmental Sustainability",
+        "description": "Implementation of green technologies and sustainable practices in trade",
+        "metrics": "40% carbon footprint reduction",
+        "details": "Solar energy and waste recycling",
+        "color": "cyan"
+      },
+      "education": {
+        "title": "Education and Development",
+        "description": "Personnel training and entrepreneurial skills development",
+        "metrics": "5000+ trained specialists",
+        "details": "International educational programs",
+        "color": "pink"
+      }
+    },
+
+    "infographic": {
+      "title": "Trade Flows Through Dordoi",
+      "asia": "Asia",
+      "europe": "Europe",
+      "dordoi": "Dordoi",
+      "bridge": "Trade Bridge"
+    },
+
+    "routes": {
+      "title": "Key Trade Routes",
+      "active": "Active",
+      "duration": "Delivery time",
+      "mainGoods": "Main goods",
+      "challenges": "Challenges",
+      "chinaEurope": {
+        "name": "China — Europe",
+        "description": "Main route for goods supply from East Asia to Europe through Central Asia",
+        "volume": "60% of total volume",
+        "duration": "15-20 days",
+        "growth": "+18%",
+        "goods": "Electronics, textiles, equipment",
+        "challenges": "Customs procedures, infrastructure limitations"
+      },
+      "middleEast": {
+        "name": "Middle East",
+        "description": "Trade corridor with Gulf countries and Turkey",
+        "volume": "25% of total volume",
+        "duration": "10-15 days",
+        "growth": "+22%",
+        "goods": "Petroleum products, construction materials, food",
+        "challenges": "Geopolitical instability, currency restrictions"
+      },
+      "southAsia": {
+        "name": "South Asia",
+        "description": "Route connecting India, Pakistan with Central Asian region",
+        "volume": "15% of total volume",
+        "duration": "12-18 days",
+        "growth": "+15%",
+        "goods": "Medicines, tea, spices, handicrafts",
+        "challenges": "High mountain passes, seasonal limitations"
+      },
+      "caRegional": {
+        "name": "Central Asia",
+        "description": "Regional trade between Central Asian countries",
+        "volume": "35% of total volume",
+        "duration": "3-7 days",
+        "growth": "+30%",
+        "goods": "Agricultural products, construction materials, consumer goods",
+        "challenges": "Customs barriers, differences in standards"
+      }
+    },
+
+    "futureProjects": {
+      "title": "Future Projects and Initiatives",
+      "subtitle": "Strategic development to strengthen Dordoi's role in the region",
+      "timeline": "Implementation timeline",
+      "investment": "Investments"
+    },
+    "projects" : {
+      "digitalHub": {
+        "name": "Digital Trade Hub",
+        "description": "Creation of comprehensive digital platform for international trade",
+        "timeline": "2024-2026",
+        "investment": "$50 million"
+      },
+      "logisticsCenter": {
+        "name": "Multimodal Logistics Center",
+        "description": "Construction of modern logistics complex with customs terminal",
+        "timeline": "2025-2027",
+        "investment": "$120 million"
+      },
+      "tradeAcademy": {
+        "name": "International Trade Academy",
+        "description": "Educational center for training specialists in international trade",
+        "timeline": "2024-2025",
+        "investment": "$15 million"
+      }
+    },
+    "cta": {
+      "title": "Become Part of Our Success",
+      "description": "Join the largest trade hub of Central Asia. Download detailed analytical report about opportunities for your business.",
+      "downloadReport": "Download PDF Report",
+      "learnMore": "Consultation",
+      "watchVideo": "Watch Video",
+      "note": "All data is current for 2024 and regularly updated"
+    }
+  },
+  "partnersConferences": {
+    "badge": "Partnership Conferences",
+    "title": "Conferences with Partners",
+    "subtitle": "International and regional conferences held jointly with our strategic partners",
+    "tabs": {
+      "upcoming": "Upcoming",
+      "archive": "Archive"
+    },
+    "types": {
+      "international": "International",
+      "regional": "Regional",
+      "business": "Business Conference"
+    },
+    "partnerTypes": {
+      "organizer": "Organizer",
+      "partner": "Partner",
+      "sponsor": "Sponsor"
+    },
+    "theme": "Conference Theme",
+    "partnersTitle": "Partners",
+    "conferenceImage": "Conference Image",
+    "actions": {
+      "register": "Registration",
+      "view": "View"
+    },
+    "filters": {
+      "all": "All Conferences",
+      "international": "International",
+      "regional": "Regional",
+      "business": "Business"
+    },
+    "search": {
+      "placeholder": "Search conferences..."
+    },
+    "stats": {
+      "conferences": {
+        "value": "50+",
+        "label": "Conferences Held",
+        "description": "Over the past 5 years"
+      },
+      "participants": "Participants",
+      "countries": "Countries",
+      "partnerships": {
+        "value": "100+",
+        "label": "Partnership Agreements",
+        "description": "Signed at events"
+      }
+    },
+    "countdown": {
+      "startsIn": "Starts in:",
+      "days": "days",
+      "hours": "hours",
+      "minutes": "minutes",
+      "seconds": "seconds"
+    },
+    "partners": [
+      "Turkish Business Association",
+      "Chinese Chamber of Commerce",
+      "GIZ Germany",
+      "KOICA Korea",
+      "USAID USA",
+      "Eurasian Development Bank",
+      "Industrialists Federation",
+      "Exporters Association"
+    ],
+    "conferences": {
+      "upcoming": [
+        {
+          "title": "International Economic Forum 2024",
+          "location": "Bishkek, Hyatt Regency Hotel",
+          "theme": "Digital Transformation and Sustainable Economic Development",
+          "description": "The largest international conference bringing together business leaders, government officials and experts to discuss the future of Central Asian economy",
+          "fullDescription": "International Economic Forum 2024 will gather leading experts, policymakers and business leaders to discuss key trends in digital transformation and sustainable development. The program includes: panel discussions, workshops and B2B meetings with international partners.",
+          "speakers": [
+            "John Smith - Digital Transformation Expert",
+            "Maria Ivanova - Minister of Economy",
+            "Ahmet Yılmaz - President of Turkish Business Association"
+          ],
+          "program": [
+            "09:00-10:30 - Plenary Session: Global Economic Trends",
+            "11:00-13:00 - Panel Discussion: Industrial Digitalization",
+            "14:30-16:30 - Workshops: Business Innovations"
+          ],
+          "partners": [
+            { "name": "Turkish Business Association", "type": "organizer" },
+            { "name": "Chinese Chamber of Commerce", "type": "partner" },
+            { "name": "GIZ Germany", "type": "sponsor" }
+          ],
+          "participantsCount": "300+",
+          "countriesCount": "15+",
+          "price": "Free",
+          "language": "Russian, English",
+          "format": "Offline + Online",
+          "benefits": [
+            "Networking with international partners",
+            "Access to exclusive research",
+            "Participation in B2B meetings"
+          ],
+          "targetAudience": [
+            "Business leaders",
+            "Government officials",
+            "Investors"
+          ]
+        },
+        {
+          "title": "Regional Business Dialogue \"Silk Road\"",
+          "location": "Osh, Osh Business Center",
+          "theme": "Development of trade and economic cooperation in the region",
+          "description": "Dialogue platform for business community of Central Asian countries on trade development and investment cooperation",
+          "fullDescription": "Silk Road Business Dialogue aims to strengthen economic ties between Central Asian countries. The event includes sessions on trade, investments and logistics, as well as practical workshops.",
+          "speakers": [
+            "Li Chen - Director of Chinese Chamber of Commerce",
+            "Samira Aliyeva - International Trade Expert",
+            "Timur Suleymanov - USAID Representative"
+          ],
+          "program": [
+            "10:00-11:30 - Opening and welcome speeches",
+            "12:00-14:00 - Business sessions by industry",
+            "15:00-17:00 - B2B meetings and networking"
+          ],
+          "partners": [
+            { "name": "KOICA Korea", "type": "organizer" },
+            { "name": "USAID USA", "type": "partner" }
+          ],
+          "participantsCount": "150+",
+          "countriesCount": "8+",
+          "price": "Free",
+          "language": "Russian, Kyrgyz",
+          "format": "Offline",
+          "benefits": [
+            "Direct contacts with regional partners",
+            "Information about new markets",
+            "Expert consultations"
+          ],
+          "targetAudience": [
+            "Exporters",
+            "Logistics companies",
+            "Small and medium businesses"
+          ]
+        },
+        {
+          "title": "Business Conference \"Investments in Industry\"",
+          "location": "Bishkek, KyrgyzExpo",
+          "theme": "Attracting investments to Kyrgyzstan's industrial sector",
+          "description": "Specialized conference dedicated to presentation of investment projects and establishing partnership links between investors and industrial enterprises",
+          "fullDescription": "Investments in Industry conference provides unique opportunity for industrial enterprises to present their projects to potential investors. The program includes: pitch sessions, individual consultations and meetings with international investment funds.",
+          "speakers": [
+            "Robert Johnson - USAID Representative",
+            "Elena Petrova - Eurasian Development Bank",
+            "Kanat Aliyev - Industrialists Federation"
+          ],
+          "program": [
+            "09:30-11:00 - Presentation of investment projects",
+            "11:30-13:30 - Investment sessions",
+            "14:30-16:00 - Individual consultations"
+          ],
+          "partners": [
+            { "name": "Eurasian Development Bank", "type": "organizer" },
+            { "name": "Industrialists Federation", "type": "partner" },
+            { "name": "Exporters Association", "type": "sponsor" }
+          ],
+          "participantsCount": "200+",
+          "countriesCount": "10+",
+          "price": "5000 soms",
+          "language": "Russian, English",
+          "format": "Offline + Online",
+          "benefits": [
+            "Direct access to investors",
+            "Professional project assessment",
+            "Preparation of investment proposals"
+          ],
+          "targetAudience": [
+            "Industrial enterprises",
+            "Investors",
+            "Financial consultants"
+          ]
+        }
+      ],
+      "archive": [
+        {
+          "title": "International Conference on Sustainable Development 2023",
+          "location": "Bishkek, Plaza Hotel",
+          "theme": "Green economy and environmental initiatives in business",
+          "description": "Conference dedicated to implementation of sustainable development principles in business processes and environmental innovations",
+          "fullDescription": "The conference gathered sustainable development experts to discuss green technologies, environmental standards and corporate social responsibility. Participants received practical tools for implementing ESG principles.",
+          "speakers": [
+            "Dr. Anna Müller - GIZ Expert",
+            "Prof. Kim Sung - KOICA Representative"
+          ],
+          "partners": [
+            { "name": "GIZ Germany", "type": "organizer" },
+            { "name": "KOICA Korea", "type": "partner" }
+          ],
+          "participantsCount": "180+",
+          "countriesCount": "12+",
+          "outcomes": [
+            "15 memorandums of cooperation signed",
+            "5 pilot projects on green technologies launched",
+            "Sustainable development roadmap developed"
+          ],
+          "testimonials": [
+            "Excellent organization and high level of speakers. Lots of useful information for our business.",
+            "The conference helped us find partners for implementing solar panels at our production."
+          ]
+        },
+        {
+          "title": "Regional Small and Medium Business Forum",
+          "location": "Jalal-Abad, Business Incubator",
+          "theme": "Support and development of SMEs in Kyrgyzstan's regions",
+          "description": "Forum aimed at discussing problems and prospects of small and medium business development in the country's regions",
+          "fullDescription": "SME Forum became a platform for dialogue between entrepreneurs, government agencies and international donors. Main topics: access to financing, marketing and export opportunities.",
+          "speakers": [
+            "Aigul Satybaldieva - Ministry of Economy",
+            "Marat Beyshenaliev - Exporters Association",
+            "Svetlana Orlova - USAID Consultant"
+          ],
+          "partners": [
+            { "name": "USAID USA", "type": "organizer" },
+            { "name": "Exporters Association", "type": "partner" }
+          ],
+          "participantsCount": "120+",
+          "countriesCount": "6+",
+          "outcomes": [
+            "50+ entrepreneurs received consultations",
+            "20 preliminary agreements signed",
+            "Mentoring program for SMEs launched"
+          ],
+          "testimonials": [
+            "Very useful event for regional business. Learned about new support programs.",
+            "Found suppliers from neighboring regions. Great opportunities for cooperation."
+          ]
+        },
+        {
+          "title": "Business Conference \"Export Opportunities\"",
+          "location": "Bishkek, Chamber of Commerce and Industry of Kyrgyzstan",
+          "theme": "Expanding export potential of Kyrgyz enterprises",
+          "description": "Specialized conference on issues of Kyrgyz companies entering international markets and developing export activities",
+          "fullDescription": "Export Opportunities conference provided Kyrgyz companies with information about international market requirements, certification procedures and logistics solutions. Special attention was paid to EAEU and Chinese markets.",
+          "speakers": [
+            "Alexander Volkov - International Trade Expert",
+            "Gulnara Abdraimova - Chamber of Commerce and Industry"
+          ],
+          "partners": [
+            { "name": "Chamber of Commerce and Industry", "type": "organizer" },
+            { "name": "Exporters Association", "type": "partner" }
+          ],
+          "participantsCount": "150+",
+          "countriesCount": "8+",
+          "outcomes": [
+            "20 companies started export activities",
+            "Agreements signed with 5 international buyers",
+            "Export proposals database created"
+          ],
+          "testimonials": [
+            "The conference opened new horizons for our business. Already negotiating with partners from Kazakhstan.",
+            "Professional consultations on product certification. Very useful for exporters."
+          ]
+        }
+      ]
+    },
+    "modal": {
+      "theme": "Conference Theme",
+      "description": "Description",
+      "partners": "Conference Partners",
+      "speakers": "Key Speakers",
+      "program": "Event Program",
+      "photos": "Conference Photos",
+      "materials": "Conference Materials",
+      "download": "Download",
+      "registerButton": "Register",
+      "language": "Languages",
+      "format": "Format",
+      "benefits": "Participation Benefits",
+      "targetAudience": "Target Audience",
+      "outcomes": "Key Outcomes",
+      "testimonials": "Participants' Feedback"
+    },
+    "testimonials": {
+      "title": "Participants' Feedback",
+      "subtitle": "What our participants say about conferences",
+      "0": {
+        "name": "Alexey Petrov",
+        "company": "Trade Company \"Vostok\"",
+        "role": "General Director",
+        "content": "Participation in the conference allowed us to find new partners from Turkey and China. Very professional organization!",
+        "conference": "International Economic Forum 2023"
+      },
+      "1": {
+        "name": "Maria Ivanova",
+        "company": "Exporters Association",
+        "role": "President",
+        "content": "Excellent platform for establishing business contacts. B2B meetings with foreign partners are especially valuable.",
+        "conference": "Silk Road Business Dialogue"
+      }
+    },
+    "cta": {
+      "title": "Participate in Our Conferences",
+      "description": "Become part of the professional community and get access to exclusive knowledge and contacts",
+      "suggestTopic": "Suggest Topic",
+      "becomeSpeaker": "Become Speaker",
+      "register": "Register"
+    }
+  },
+  "contacts": {
+    "badge": "Contacts",
+    "title": "Contact",
+    "titleHighlight": "Information",
+    "subtitle": "Contact us for cooperation, questions and suggestions",
+    "copyAddress": "Copy Address",
+    "copied": "Copied!",
+    "copiedNotification": "Text copied to clipboard",
+    "viewOnMap": "On Map",
+    "address": {
+      "title": "Head Office",
+      "value": "Bishkek, Akhunbaeva St., 170",
+      "description": "Dordoi company central office",
+      "details": "Central office with conference halls and meeting rooms"
+    },
+    "phones": {
+      "title": "Phones",
+      "general": {
+        "title": "General Phone",
+        "number": "+996 (312) 123-456",
+        "description": "For general questions",
+        "department": "General Department"
+      },
+      "reception": {
+        "title": "Reception",
+        "number": "+996 (312) 123-457",
+        "description": "Directorate reception",
+        "department": "Reception"
+      },
+      "press": {
+        "title": "Press Service",
+        "number": "+996 (312) 123-458",
+        "description": "For media and journalists",
+        "department": "Press Service"
+      },
+      "partnership": {
+        "title": "Partnership Department",
+        "number": "+996 (312) 123-459",
+        "description": "Cooperation questions",
+        "department": "Partnership Department"
+      }
+    },
+    "emails": {
+      "title": "Email",
+      "info": {
+        "title": "General Email",
+        "address": "info@dordoi.kg",
+        "description": "For general questions",
+        "response": "Response within 24 hours"
+      },
+      "press": {
+        "title": "Press Service",
+        "address": "press@dordoi.kg",
+        "description": "For media and journalists",
+        "response": "Response within 2 hours"
+      },
+      "partnership": {
+        "title": "Partnerships",
+        "address": "partnership@dordoi.kg",
+        "description": "Cooperation questions",
+        "response": "Response within 48 hours"
+      }
+    },
+    "hours": {
+      "title": "Working Hours",
+      "weekdays": {
+        "days": "Monday - Friday",
+        "time": "9:00 - 18:00",
+        "note": "Lunch 13:00-14:00"
+      },
+      "weekends": {
+        "days": "Saturday",
+        "time": "10:00 - 16:00",
+        "note": "By appointment"
+      },
+      "holidays": {
+        "days": "Sunday",
+        "time": "Day off",
+        "note": "Emergency contacts available"
+      },
+      "notice": "Time indicated for local time zone"
+    },
+    "social": {
+      "title": "We are on Social Media",
+      "facebook": {
+        "handle": "@dordoi"
+      },
+      "instagram": {
+        "handle": "@dordoi"
+      },
+      "telegram": {
+        "handle": "@dordoi"
+      },
+      "youtube": {
+        "handle": "Dordoi"
+      }
+    },
+    "map": {
+      "title": "We are on the Map",
+      "partnersTitle": "Partners on the Map",
+      "placeholder": "Interactive Map",
+      "description": "Google Maps or Yandex.Maps will be embedded here",
+      "legend": "Legend",
+      "loading": "Loading map...",
+      "retry": "Try Again",
+      "amenities": "Amenities",
+      "locationDetails": "Location Details",
+      "coordinates": "Coordinates",
+      "types": {
+        "office": "Office",
+        "warehouse": "Warehouse",
+        "commercial": "Commercial Complex"
+      },
+      "buttons": {
+        "directions": "Get Directions",
+        "details": "Details",
+        "getDirections": "Get Directions",
+        "share": "Share",
+        "fullscreen": "Full Screen"
+      },
+      "tabs": {
+        "locations": "Our Locations",
+        "partners": "Partners"
+      },
+      "stats": {
+        "locations": "Locations",
+        "partners": "Partners",
+        "types": "Object Types",
+        "categories": "Categories",
+        "availability": "Availability",
+        "experience": "Years of Cooperation",
+        "coverage": "Coverage",
+        "satisfaction": "Satisfaction"
+      },
+      "shareLocation": "Check out our location: {name} at address: {address}",
+      "locations": {
+        "office": {
+          "title": "Head Office",
+          "description": "Main administrative building",
+          "details": "5-story building with parking and security",
+          "amenities": [
+            "Parking",
+            "Conference Halls",
+            "Cafe"
+          ]
+        },
+        "tradeComplex": {
+          "title": "Trade Complex",
+          "description": "Main trading platform",
+          "details": "Largest trade complex in Central Asia",
+          "amenities": [
+            "5000+ shops",
+            "Restaurants",
+            "Banks"
+          ]
+        },
+        "warehouse": {
+          "title": "Warehouse Complex",
+          "description": "Logistics center",
+          "details": "Modern warehouse complex with climate control",
+          "amenities": [
+            "Climate Control",
+            "24/7 Security",
+            "Loading Ramps"
+          ]
+        }
+      }
+    },
+    "partners": {
+      "error": "Error loading partner data",
+      "types": {
+        "clinical": "Clinical Base",
+        "university": "University",
+        "organization": "Organization",
+        "business": "Business Partner",
+        "academic": "Academic Partner",
+        "research": "Research Center",
+        "medical": "Medical Institution",
+        "educational": "Educational Institution",
+        "corporate": "Corporate Partner",
+        "general": "Partner"
+      },
+      "filters": {
+        "all": "All Partners",
+        "clinical": "Clinical",
+        "university": "Universities",
+        "research": "Research",
+        "business": "Business"
+      },
+      "search": {
+        "placeholder": "Search partners..."
+      },
+      "cooperation": "Cooperation",
+      "contactInfo": "Contact Information",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "established": "Established",
+      "cooperationSince": "Cooperating since",
+      "website": "Website",
+      "visitWebsite": "Visit Website",
+      "viewDetails": "Details",
+      "share": "Share",
+      "shareMessage": "Check out our partner: {name}",
+      "list": [
+        {
+          "name": "National Hospital",
+          "country": "Kyrgyzstan",
+          "city": "Bishkek",
+          "description": "Leading medical institution of the country",
+          "address": "Bishkek, Medical St., 1",
+          "cooperation": [
+            "Medical Research",
+            "Specialist Training",
+            "Clinical Trials"
+          ]
+        },
+        {
+          "name": "Kyrgyz State University",
+          "country": "Kyrgyzstan",
+          "city": "Bishkek",
+          "description": "Largest educational center",
+          "address": "Bishkek, University St., 5",
+          "cooperation": [
+            "Scientific Research",
+            "Educational Programs",
+            "Internships"
+          ]
+        },
+        {
+          "name": "Research Institute",
+          "country": "Kyrgyzstan",
+          "city": "Bishkek",
+          "description": "Advanced research center",
+          "address": "Bishkek, Science St., 10",
+          "cooperation": [
+            "Innovation Projects",
+            "Technology Development"
+          ]
+        }
+      ]
+    },
+    "additionalInfo": {
+      "title": "Additional Information",
+      "parking": {
+        "title": "Parking",
+        "description": "Free parking for visitors with 200 spaces",
+        "tags": [
+          "Free",
+          "Guarded",
+          "200+ spaces"
+        ]
+      },
+      "transport": {
+        "title": "Public Transport",
+        "description": "Bus stops № 5, 12, 25, 35 near the office",
+        "routes": [
+          "Bus №5",
+          "Bus №12",
+          "Bus №25",
+          "Bus №35"
+        ]
+      },
+      "accessibility": {
+        "title": "Accessible Environment",
+        "description": "Ramps and elevators for people with limited mobility",
+        "features": [
+          "Ramps",
+          "Elevators",
+          "Special Parking"
+        ]
+      }
+    }
+  },
+  "contactsSocial": {
+    "highEngagement": "High Engagement",
+    "aboutNetwork": "About Our Social Networks",
+    "badge": "Social Media",
+    "title": "We are on Social Media",
+    "subtitle": "Follow our social media to stay updated with the latest news and events",
+    "more": "More",
+    "less": "Collapse",
+    "subscribers": "subscribers",
+    "engagement": "engagement",
+    "features": "Features",
+    "followButton": "Follow on",
+    "followTitle": "Join Our Community",
+    "followDescription": "Be the first to learn about new projects, events and cooperation opportunities",
+    "benefits": {
+      "title": "Subscription Benefits",
+      "subtitle": "Why you should follow our social media",
+      "items": [
+        {
+          "icon": "🚀",
+          "title": "Exclusive Content",
+          "description": "Be the first to get access to exclusive materials and announcements"
+        },
+        {
+          "icon": "💼",
+          "title": "Business Opportunities",
+          "description": "Learn about new projects and cooperation opportunities"
+        },
+        {
+          "icon": "📊",
+          "title": "Analytics and Insights",
+          "description": "Get market analytics and expert opinions from our specialists"
+        },
+        {
+          "icon": "🤝",
+          "title": "Networking",
+          "description": "Communicate with partners and like-minded people in our communities"
+        }
+      ]
+    },
+    "socialNetworks": {
+      "facebook": {
+        "name": "Facebook",
+        "description": "Main platform for business news and corporate updates",
+        "features": [
+          "Exclusive business cases",
+          "Live event broadcasts",
+          "Interviews with management",
+          "Career opportunities"
+        ]
+      },
+      "instagram": {
+        "name": "Instagram",
+        "description": "Visual content about our activities and corporate life",
+        "features": [
+          "Photos and videos from events",
+          "Behind-the-scenes materials",
+          "Employee success stories",
+          "Corporate culture"
+        ]
+      },
+      "youtube": {
+        "name": "YouTube",
+        "description": "Video content: interviews, documentaries, educational materials",
+        "features": [
+          "Exclusive interviews",
+          "Educational content",
+          "Documentary projects",
+          "Presentations and webinars"
+        ]
+      },
+      "linkedin": {
+        "name": "LinkedIn",
+        "description": "Professional network for business contacts and career opportunities",
+        "features": [
+          "Business analytics",
+          "Career opportunities",
+          "Professional articles",
+          "Networking events"
+        ]
+      },
+      "twitter": {
+        "name": "Twitter",
+        "description": "Operational news and quick updates about our activities",
+        "features": [
+          "Instant updates",
+          "Short news",
+          "Interactive polls",
+          "Trending discussions"
+        ]
+      },
+      "telegram": {
+        "name": "Telegram",
+        "description": "Quick notifications and exclusive materials for subscribers",
+        "features": [
+          "Exclusive announcements",
+          "Quick notifications",
+          "Private channels",
+          "Direct communication"
+        ]
+      }
+    },
+    "statistics": {
+      "title": "Our Audience in Numbers",
+      "subtitle": "Engagement and reach statistics of our social media",
+      "items": [
+        {
+          "value": "125K+",
+          "title": "Total Audience",
+          "description": "Total number of subscribers across all social media"
+        },
+        {
+          "value": "87%",
+          "title": "Engagement",
+          "description": "Average audience engagement rate across all platforms"
+        },
+        {
+          "value": "2.5M+",
+          "title": "Monthly Reach",
+          "description": "Total number of our content impressions per month"
+        },
+        {
+          "value": "95%",
+          "title": "Positive Feedback",
+          "description": "Share of positive reactions and comments from our audience"
+        }
+      ]
+    },
+    "qrTitle": "Quick Access to All Platforms",
+    "qrText": "Point your camera to go to the main page",
+    "qrSubtext": "Available for iOS and Android",
+    "socialLinks": {
+      "facebook": "https://facebook.com/salymbekovfoundation",
+      "instagram": "https://instagram.com/salymbekovfoundation",
+      "youtube": "https://youtube.com/salymbekovfoundation",
+      "linkedin": "https://linkedin.com/company/salymbekovfoundation",
+      "twitter": "https://twitter.com/salymbekovfund",
+      "telegram": "https://t.me/salymbekovfoundation"
+    }
+  },
+  "contactsInfo": {
+    "badge": "Contacts",
+    "title": "Contact Information",
+    "subtitle": "Contact the right department to solve your questions",
+    "contactInformation": "Contact Information",
+    "responseTime": "Response Time",
+    "quickContact": "Quick Contact",
+    "copied": "Copied",
+    "copiedNotification": "Contact information copied to clipboard",
+    "additionalInfo": {
+      "title": "Additional Information"
+    },
+    "services": {
+      "title": "Main Services"
+    },
+    "stats": {
+      "title": "Appeals Statistics",
+      "items": [
+        {
+          "label": "Average Response Time",
+          "value": "2-4 hours"
+        },
+        {
+          "label": "Customer Satisfaction",
+          "value": "98%"
+        },
+        {
+          "label": "Online Consultations",
+          "value": "24/7"
+        },
+        {
+          "label": "Support Languages",
+          "value": "3 languages"
+        }
+      ]
+    },
+    "types": {
+      "email": "Email",
+      "phone": "Phone",
+      "contactPerson": "Contact Person",
+      "workingHours": "Working Hours",
+      "emergency": "Emergency Contact",
+      "location": "Location",
+      "careers": "Careers"
+    },
+    "departments": {
+      "press": {
+        "name": "Press Service",
+        "description": "For media, information requests and interviews",
+        "detailed": "Our press service provides prompt interaction with mass media, provides current data about company activities and organizes events for journalists.",
+        "contacts": {
+          "email": "press@dordoi.kg",
+          "phone": "+996 (312) 54-30-01",
+          "contactPerson": "Aigul Tashtambaeva",
+          "workingHours": "Mon-Fri: 9:00-18:00"
+        },
+        "additionalInfo": "For journalist accreditation, send request to email indicating media and visit purposes. We provide press kits and photo/video materials.",
+        "services": [
+          "Journalist Accreditation",
+          "Press Releases and Announcements",
+          "Interview Organization",
+          "Press Conferences",
+          "Media Partnership"
+        ],
+        "responseTime": "1-2 hours"
+      },
+      "investments": {
+        "name": "Investments and Partnerships",
+        "description": "Investment questions and strategic partnership",
+        "detailed": "Investments and Partnerships Department develops business through attracting strategic investors and establishing long-term partnership relations.",
+        "contacts": {
+          "email": "invest@dordoi.kg",
+          "phone": "+996 (312) 54-30-02",
+          "contactPerson": "Marat Isaev",
+          "workingHours": "Mon-Fri: 9:00-18:00"
+        },
+        "additionalInfo": "We provide detailed information about investment opportunities and partnership conditions. We organize meetings with company management.",
+        "services": [
+          "Investment Projects",
+          "Strategic Partnership",
+          "Business Planning",
+          "Financial Analysis",
+          "Due Diligence"
+        ],
+        "responseTime": "24 hours"
+      },
+      "hr": {
+        "name": "HR / Vacancies",
+        "description": "Employment and career opportunities",
+        "detailed": "HR Department deals with selection of qualified specialists, development of corporate culture and creation of favorable conditions for professional growth of employees.",
+        "contacts": {
+          "email": "hr@dordoi.kg",
+          "phone": "+996 (312) 54-30-03",
+          "workingHours": "Mon-Fri: 9:00-18:00",
+          "careers": "https://careers.dordoi.kg"
+        },
+        "additionalInfo": "Current vacancies and employment conditions available on our career portal. We conduct interviews in person and online.",
+        "services": [
+          "Employment",
+          "Career Growth",
+          "Training and Development",
+          "Corporate Culture",
+          "Social Programs"
+        ],
+        "responseTime": "2-3 working days"
+      },
+      "commercial": {
+        "name": "Commercial Service",
+        "description": "Retail space rental and commercial questions",
+        "detailed": "Commercial Service deals with management of commercial real estate, conclusion of rental agreements and development of trade complex infrastructure.",
+        "contacts": {
+          "email": "rent@dordoi.kg",
+          "phone": "+996 (312) 54-30-04",
+          "contactPerson": "Altynai Sulaymanova",
+          "workingHours": "Mon-Sat: 8:00-20:00"
+        },
+        "additionalInfo": "Consultations on rental of retail spaces, warehouses and office premises on market territory. We provide complete document package.",
+        "services": [
+          "Retail Space Rental",
+          "Commercial Real Estate",
+          "Contract Work",
+          "Infrastructure",
+          "Logistics Services"
+        ],
+        "responseTime": "1 working day"
+      },
+      "medical": {
+        "name": "Medical Center",
+        "description": "Medical assistance and consultations",
+        "detailed": "Medical Center provides comprehensive medical services for employees and visitors, including emergency assistance, preventive examinations and diagnostics.",
+        "contacts": {
+          "phone": "+996 (312) 54-30-05",
+          "emergency": "+996 (312) 54-30-15",
+          "workingHours": "24/7",
+          "location": "Central Alley, Building 12"
+        },
+        "additionalInfo": "We provide first medical assistance, conduct preventive examinations and vaccinations. We work with voluntary medical insurance policies.",
+        "services": [
+          "Emergency Assistance",
+          "Preventive Examinations",
+          "Diagnostics",
+          "Vaccination",
+          "Medical Consultations"
+        ],
+        "responseTime": "Immediately"
+      },
+      "sports": {
+        "name": "Sports Complex",
+        "description": "Sports events and activities",
+        "detailed": "Sports Complex offers modern conditions for various sports activities, organization of corporate events and development of sports infrastructure.",
+        "contacts": {
+          "phone": "+996 (312) 54-30-06",
+          "email": "sports@dordoi.kg",
+          "workingHours": "Mon-Sun: 6:00-22:00",
+          "location": "Northern Part, Building 8"
+        },
+        "additionalInfo": "Fitness halls, sports sections and events for employees and partners. We offer subscriptions and single visits.",
+        "services": [
+          "Fitness Programs",
+          "Sports Sections",
+          "Corporate Events",
+          "Venue Rental",
+          "Training Programs"
+        ],
+        "responseTime": "2-4 hours"
+      }
+    },
+    "cta": {
+      "title": "Need Help Choosing Department?",
+      "description": "Our operators will help direct your request to the right department and ensure prompt solution of your questions",
+      "call": "Call Operator",
+      "email": "Write to Us",
+      "visit": "Visit Office"
+    }
+  },
+  "contactsForm": {
+    "badge": "Feedback Form",
+    "title": "Contact Us",
+    "subtitle": "Leave a request and we will contact you shortly",
+    "info": {
+      "title": "Contact Information",
+      "emailTitle": "Email",
+      "email": "info@salymbekov.kg",
+      "phoneTitle": "Phone",
+      "phone": "+996 (312) 54-05-55",
+      "addressTitle": "Address",
+      "address": "Bishkek, Akhunbaeva St. 119a",
+      "responseTime": "We respond to all requests within 24 hours"
+    },
+    "labels": {
+      "name": "Name",
+      "contact": "Email or phone",
+      "subject": "Request Subject",
+      "message": "Message",
+      "file": "Attach File"
+    },
+    "placeholders": {
+      "name": "Enter your name",
+      "contact": "example@email.com or +996 XXX XXX XXX",
+      "subject": "Select request subject",
+      "message": "Describe your question or suggestion...",
+      "file": "Drag file or click to upload"
+    },
+    "subjects": {
+      "partnership": "Partnership",
+      "press": "Press",
+      "social": "Social Project",
+      "rent": "Rental",
+      "other": "Other"
+    },
+    "errors": {
+      "nameRequired": "Please enter your name",
+      "contactRequired": "Please enter email or phone",
+      "contactInvalid": "Please enter valid email or phone",
+      "subjectRequired": "Please select request subject",
+      "messageRequired": "Please enter message",
+      "messageTooShort": "Message must contain at least 10 characters"
+    },
+    "submit": "Send Request",
+    "sending": "Sending...",
+    "requiredFields": "* Required fields",
+    "success": {
+      "title": "Request Successfully Sent!",
+      "description": "We received your message and will contact you shortly. Confirmation sent to your email.",
+      "sendAnother": "Send Another Request"
+    }
   }
 }
