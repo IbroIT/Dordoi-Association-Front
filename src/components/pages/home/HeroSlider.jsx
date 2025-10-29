@@ -71,7 +71,7 @@ const HeroSlider = () => {
   };
 
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative h-screen bg-gradient-to-r from-blue-900 via-blue-800 to-slate-900 overflow-hidden">
       {/* Слайды */}
       {slides.map((slide, index) => (
         <div
