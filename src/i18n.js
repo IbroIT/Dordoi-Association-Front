@@ -24,7 +24,8 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'ru',
+    lng: 'ru', // Устанавливаем русский как язык по умолчанию
+    fallbackLng: 'ru', // Используем русский как fallback
     debug: false,
     detection: {
       order: ['localStorage', 'sessionStorage', 'navigator', 'htmlTag'],
@@ -37,5 +38,17 @@ i18n
       escapeValue: false
     }
   });
+
+// Проверка и установка языка по умолчанию
+if (typeof window !== 'undefined') {
+  const savedLang = localStorage.getItem('i18nextLng');
+  const supportedLanguages = ['en', 'ru', 'kg'];
+  
+  // Если сохранённый язык не поддерживается, устанавливаем русский
+  if (!savedLang || !supportedLanguages.includes(savedLang)) {
+    localStorage.setItem('i18nextLng', 'ru');
+    sessionStorage.setItem('i18nextLng', 'ru');
+  }
+}
 
 export default i18n;

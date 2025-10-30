@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -19,14 +21,7 @@ const Footer = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const quickLinks = [
-    { name: 'Главная', path: '/' },
-    { name: 'О нас', path: '/about' },
-    { name: 'Деятельность', path: '/activities' },
-    { name: 'Пресс-центр', path: '/press' },
-    { name: 'Партнёры', path: '/partners' },
-    { name: 'Контакты', path: '/contacts' }
-  ];
+  const quickLinks = t('footer.quickLinks', { returnObjects: true });
 
   const socialLinks = [
     {
@@ -125,8 +120,7 @@ const Footer = () => {
             </Link>
             
             <p className="text-slate-300 leading-relaxed mb-6">
-              Крупнейшее объединение предпринимателей Кыргызстана, работающая в сфере торговли, 
-              образования, спорта, культуры и благотворительности.
+              {t('footer.description')}
             </p>
 
             {/* Эмблема 30-летия */}
@@ -140,8 +134,8 @@ const Footer = () => {
                   30
                 </div>
                 <div>
-                  <div className="text-yellow-400 font-semibold text-sm">30 лет созидания</div>
-                  <div className="text-slate-300 text-xs">труда и единства</div>
+                  <div className="text-yellow-400 font-semibold text-sm">{t('footer.anniversary.title')}</div>
+                  <div className="text-slate-300 text-xs">{t('footer.anniversary.subtitle')}</div>
                 </div>
               </div>
             </motion.div>
@@ -150,7 +144,7 @@ const Footer = () => {
           {/* Колонка 2: Быстрые ссылки */}
           <motion.div variants={itemVariants} className="lg:col-span-1">
             <h3 className="text-lg font-bold text-white mb-6 flex items-center">
-              <span>Навигация</span>
+              <span>{t('footer.navigation.title')}</span>
               <div className="ml-3 w-8 h-0.5 bg-yellow-400 rounded-full"></div>
             </h3>
             <div className="grid grid-cols-2 gap-2">
@@ -174,7 +168,7 @@ const Footer = () => {
           {/* Колонка 3: Контакты */}
           <motion.div variants={itemVariants} className="lg:col-span-1">
             <h3 className="text-lg font-bold text-white mb-6 flex items-center">
-              <span>Контакты</span>
+              <span>{t('footer.contacts.title')}</span>
               <div className="ml-3 w-8 h-0.5 bg-yellow-400 rounded-full"></div>
             </h3>
             <div className="space-y-4">
@@ -190,7 +184,7 @@ const Footer = () => {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-sm">г. Бишкек, ул. Ахунбаева, 170</div>
+                  <div className="text-sm">{t('footer.contacts.address')}</div>
                 </div>
               </motion.div>
 
@@ -204,7 +198,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <div className="text-sm">+996 (312) 00-00-00</div>
+                <div className="text-sm">{t('footer.contacts.phone')}</div>
               </motion.div>
 
               <motion.div 
@@ -217,7 +211,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <div className="text-sm">info@dordoi.kg</div>
+                <div className="text-sm">{t('footer.contacts.email')}</div>
               </motion.div>
 
               <motion.div 
@@ -230,7 +224,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <div className="text-sm">Пн–Пт, 09:00–18:00</div>
+                <div className="text-sm">{t('footer.contacts.hours')}</div>
               </motion.div>
             </div>
           </motion.div>
@@ -238,7 +232,7 @@ const Footer = () => {
           {/* Колонка 4: Социальные сети и форма */}
           <motion.div variants={itemVariants} className="lg:col-span-1">
             <h3 className="text-lg font-bold text-white mb-6 flex items-center">
-              <span>Мы в соцсетях</span>
+              <span>{t('footer.social.title')}</span>
               <div className="ml-3 w-8 h-0.5 bg-yellow-400 rounded-full"></div>
             </h3>
             
@@ -264,11 +258,11 @@ const Footer = () => {
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <h4 className="text-white font-semibold mb-3 text-sm">Оставить сообщение</h4>
+              <h4 className="text-white font-semibold mb-3 text-sm">{t('footer.social.messageForm.title')}</h4>
               <div className="space-y-3">
                 <input
                   type="email"
-                  placeholder="Ваш email"
+                  placeholder={t('footer.social.messageForm.placeholder')}
                   className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 text-sm focus:outline-none focus:border-yellow-400 transition-colors"
                 />
                 <motion.button
@@ -276,7 +270,7 @@ const Footer = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Отправить
+                  {t('footer.social.messageForm.button')}
                 </motion.button>
               </div>
             </motion.div>
@@ -298,20 +292,20 @@ const Footer = () => {
             variants={itemVariants}
             className="text-slate-400 text-sm text-center md:text-left"
           >
-            © {currentYear} Ассоциация «Дордой». Все права защищены.
+            {t('footer.copyright', { year: currentYear })}
           </motion.div>
 
           <motion.div
             variants={itemVariants}
             className="flex items-center space-x-2 text-slate-400 text-sm"
           >
-            <span>Разработка сайта —</span>
+            <span>{t('footer.developedBy')}</span>
             <motion.span
               className="text-yellow-400 font-semibold"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              SU Solutions
+              {t('footer.company')}
             </motion.span>
           </motion.div>
         </motion.div>
@@ -325,7 +319,7 @@ const Footer = () => {
         onClick={scrollToTop}
         whileHover={{ scale: 1.1, y: -2 }}
         whileTap={{ scale: 0.9 }}
-        title="Наверх"
+        title={t('footer.scrollToTop')}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />

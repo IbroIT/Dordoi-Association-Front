@@ -5079,5 +5079,42 @@
       "description": "We received your message and will contact you shortly. Confirmation sent to your email.",
       "sendAnother": "Send Another Request"
     }
+  },
+  "footer": {
+    "description": "The largest association of entrepreneurs in Kyrgyzstan, operating in trade, education, sports, culture, and charity.",
+    "anniversary": {
+      "title": "30 years of creation",
+      "subtitle": "work and unity"
+    },
+    "navigation": {
+      "title": "Navigation"
+    },
+    "contacts": {
+      "title": "Contacts",
+      "address": "Bishkek, Akhunbaev str., 170",
+      "phone": "+996 (312) 00-00-00",
+      "email": "info@dordoi.kg",
+      "hours": "Mon–Fri, 09:00–18:00"
+    },
+    "social": {
+      "title": "Follow Us",
+      "messageForm": {
+        "title": "Send Message",
+        "placeholder": "Your email",
+        "button": "Send"
+      }
+    },
+    "quickLinks": [
+      { "name": "Home", "path": "/" },
+      { "name": "About", "path": "/about" },
+      { "name": "Activities", "path": "/activities" },
+      { "name": "Press", "path": "/press" },
+      { "name": "Partners", "path": "/partners" },
+      { "name": "Contacts", "path": "/contacts" }
+    ],
+    "copyright": "© {{year}} Dordoi Association. All rights reserved.",
+    "developedBy": "Website development —",
+    "company": "SU Solutions",
+    "scrollToTop": "Back to top"
   }
 }

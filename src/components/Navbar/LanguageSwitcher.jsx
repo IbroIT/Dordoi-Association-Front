@@ -6,8 +6,9 @@ const LanguageSwitcher = ({ mobile = false }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const languages = [
+    { code: 'en', name: 'English', nativeName: 'English' },
     { code: 'ru', name: 'Русский', nativeName: 'Русский' },
-    { code: 'en', name: 'English', nativeName: 'English' }
+    { code: 'kg', name: 'Кыргызча', nativeName: 'Кыргызча' }
   ];
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];

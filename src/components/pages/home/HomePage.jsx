@@ -16,7 +16,7 @@ function HomePage() {
         <AchievementsSection />
         <ActivitiesSection />
         <NewsAndEventsSection />
-        <InternationalPartnersSection />
+        {/* <InternationalPartnersSection /> */}
     </div>
   )
 }
