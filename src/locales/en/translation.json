@@ -979,195 +979,218 @@
   "education": {
     "modal": {
       "close": "Close",
-      "about": "About Program",
+      "about": "About Program", 
       "details": "Full Description",
-      "apply": "Apply"
+      "apply": "Apply",
+      "requirements": "Requirements",
+      "benefits": "Benefits",
+      "achievements": "Achievements"
     },
     "badge": "Education and Science",
     "title": "Education and Science",
-    "lead": "Investments in human capital - training centers, scholarships, projects for young scientists",
+    "lead": "The Dordoi Association plays a key role in the development of education and science in Kyrgyzstan. For many years, the organization has been supporting projects that help young people grow, develop, and find new opportunities for the future.",
     "more": "More",
     "less": "Collapse",
     "tabs": {
-      "programs": "Programs",
-      "scholarships": "Scholarships",
-      "publications": "Publications",
-      "cases": "Cases"
+      "education": "Education",
+      "science": "Science",
+      "talents": "Talents", 
+      "centers": "Centers"
     },
-    "programs": {
-      "akylTirek": {
-        "title": "Akyl-Tirek",
-        "fullDescription": "Comprehensive program for supporting gifted children and youth, including educational grants, mentorship, and internships",
-        "description": "Comprehensive program for supporting gifted children and youth, including educational grants and mentorship",
-        "stats": "500+ participants",
-        "details": [
-          "Educational grants for gifted children",
-          "Mentorship from leading industry specialists",
-          "Internships at international companies",
-          "Annual educational camps and seminars",
-          "Support for projects and research work"
-        ]
+    "sections": {
+      "education": {
+        "title": "Education Support",
+        "description": "The association promotes the development of educational institutions throughout the country. It helps schools and educational centers strengthen their material base, improve learning conditions, and modernize the educational process. Thanks to such initiatives, young people gain access to quality and modern education."
       },
-      "grants": {
-        "title": "Grants for Scientists",
-        "fullDescription": "Grant support program for young scientists and researchers in various fields of science",
-        "description": "Support for young scientists and research initiatives in various fields of science",
-        "stats": "250 initiatives",
-        "details": [
-          "Funding for scientific research",
-          "Grants for equipment and materials",
-          "Support for participation in international conferences",
-          "Publication of results in peer-reviewed journals",
-          "Creation of research groups"
-        ]
+      "science": {
+        "title": "Scientific Projects and Research",
+        "description": "With the support of the association, books, monographs, and scientific research are published. This expands access to knowledge, strengthens the country's scientific potential, and creates conditions for the development of research culture."
+      },
+      "talents": {
+        "title": "Talent Development", 
+        "description": "The association pays great attention to young talents. It supports initiatives aimed at personal growth, leadership, and professional development. Young people from all regions participate in educational programs, projects, and trainings that help them unlock their potential and move forward confidently."
       },
       "centers": {
-        "title": "Educational Centers",
-        "fullDescription": "Creation and development of modern educational centers throughout the republic to improve education quality",
-        "description": "Modern educational centers throughout the republic, equipped with advanced equipment",
-        "stats": "10 centers",
+        "title": "Educational Centers Creation",
+        "description": "On the initiative of the association, modern educational centers are opening, making quality knowledge accessible in different regions of the country. These centers become platforms for learning, meetings, and intellectual growth of youth."
+      }
+    },
+    "programs": {
+      "educationSupport": {
+        "title": "Education Support",
+        "description": "Development of educational institutions and improvement of learning conditions throughout the country",
+        "stats": "150+ educational institutions", 
+        "fullDescription": "The program aims to strengthen the material base of schools and educational centers, modernize the educational process, and ensure access to quality education for young people from all regions of Kyrgyzstan.",
+        "achievements": [
+          "Equipping schools with modern equipment",
+          "Repair and modernization of educational premises",
+          "Training and retraining of teachers",
+          "Implementation of digital educational technologies", 
+          "Creation of libraries and resource centers"
+        ],
         "details": [
-          "Centers in 8 regions of Kazakhstan",
-          "Latest generation equipment",
+          "Support for schools in 7 regions of Kyrgyzstan",
+          "Equipment with computer classes and laboratories",
+          "Teacher professional development programs",
+          "Implementation of interactive teaching methods",
+          "Creating conditions for inclusive education"
+        ]
+      },
+      "scienceProjects": {
+        "title": "Scientific Projects",
+        "description": "Support for scientific research and publication of scientific works",
+        "stats": "50+ research projects",
+        "fullDescription": "The program supports scientific initiatives, research projects, and developments of scientists. Thanks to such support, an active scientific community is being formed that can solve current problems and move the country forward.",
+        "achievements": [
+          "Publication of scientific monographs and collections",
+          "Support for participation in international conferences",
+          "Funding of research projects",
+          "Creation of scientific laboratories", 
+          "Publication of results in peer-reviewed journals"
+        ],
+        "details": [
+          "Grants for young scientists",
+          "Support for scientific expeditions",
+          "Organization of scientific seminars and symposia",
+          "Cooperation with international scientific centers",
+          "Popularization of science among youth"
+        ]
+      },
+      "talentDevelopment": {
+        "title": "Talent Development",
+        "description": "Support for young talents and leadership initiatives", 
+        "stats": "5000+ participants",
+        "fullDescription": "The program is aimed at identifying and supporting gifted youth, developing leadership qualities and professional skills. Participants get the opportunity to participate in educational programs, projects, and trainings throughout the country.",
+        "achievements": [
+          "Educational grants for gifted youth",
+          "Leadership programs and trainings",
+          "International internships and exchanges",
+          "Support for youth projects and startups",
+          "Professional mentoring"
+        ],
+        "details": [
+          "Programs for schoolchildren and students",
+          "Regional educational camps",
+          "Competitions and olympiads in various fields",
+          "Career guidance events",
+          "Support for creative and sports talents"
+        ]
+      },
+      "educationCenters": {
+        "title": "Educational Centers",
+        "description": "Creation of modern educational centers in regions",
+        "stats": "25+ centers",
+        "fullDescription": "The program provides for the creation and development of a network of modern educational centers in different regions of Kyrgyzstan. These centers become platforms for learning, intellectual growth, and professional development of youth.",
+        "achievements": [
+          "Centers in 6 regions of the country",
+          "Equipment with advanced technology",
           "Additional education programs",
-          "Professional development courses",
-          "Laboratories and research platforms"
+          "Professional retraining courses",
+          "Research and project laboratories"
+        ],
+        "details": [
+          "IT centers and programming",
+          "Robotics and engineering centers", 
+          "Language and cultural centers",
+          "Entrepreneurial incubators",
+          "Soft skills development centers"
         ]
       }
     },
-    "scholarships": {
-      "undergraduate": {
-        "title": "Undergraduate",
-        "amount": "₸ 50,000",
-        "recipients": "150 students",
-        "total": "₸ 45 million",
-        "description": "Monthly scholarship for undergraduate students at leading national universities",
-        "features": [
-          "Monthly payments during the academic year",
-          "Support for technical specialty students",
-          "Required GPA of 3.5 or higher",
-          "Participation in scientific and public events"
-        ]
-      },
-      "masters": {
-        "title": "Master's",
-        "amount": "₸ 75,000",
-        "recipients": "80 students",
-        "total": "₸ 36 million",
-        "description": "Scholarship for master's students engaged in scientific research",
-        "features": [
-          "Support for research projects",
-          "Publication of scientific articles",
-          "Participation in international conferences",
-          "Mentorship from experienced scientists"
-        ]
-      },
-      "phd": {
-        "title": "PhD",
-        "amount": "₸ 100,000",
-        "recipients": "30 scientists",
-        "total": "₸ 36 million",
-        "description": "Support for young scientists in doctoral programs",
-        "features": [
-          "Funding for dissertation research",
-          "Internships at leading scientific centers",
-          "Patent registration for inventions",
-          "Startup creation based on research"
-        ]
-      },
-      "amountLabel": "Amount per month",
-      "recipientsLabel": "Recipients",
-      "totalLabel": "Total Amount"
-    },
     "publications": {
-      "book1": {
-        "title": "Innovations in Education",
+      "title": "Scientific Publications",
+      "research1": {
+        "title": "Innovations in Education of Kyrgyzstan",
         "author": "Collective of authors",
         "year": "2023",
         "type": "Monograph",
-        "pages": "320 pages",
-        "description": "Fundamental research on modern trends in education and innovative teaching methods",
+        "pages": "280 pages", 
+        "description": "Comprehensive study of modern trends and innovative approaches in the education system of Kyrgyzstan",
         "download": "Download PDF"
       },
-      "book2": {
-        "title": "Sustainable Development of Regions",
-        "author": "A.I. Ivanov",
+      "monograph1": {
+        "title": "Sustainable Development of Kyrgyzstan's Regions",
+        "author": "A.K. Aliev",
         "year": "2022",
-        "type": "Scientific Publication",
-        "pages": "280 pages",
-        "description": "Analysis of sustainable development practices and their implementation in Kazakhstan's regional economy",
+        "type": "Scientific Monograph",
+        "pages": "320 pages",
+        "description": "Analysis of sustainable development practices and their adaptation to the conditions of Kyrgyzstan's regions",
         "download": "Download PDF"
       },
-      "book3": {
-        "title": "Technologies of the Future",
-        "author": "S.P. Petrova",
+      "book1": {
+        "title": "Future Technologies for Kyrgyzstan", 
+        "author": "S.M. Mamatov",
         "year": "2023",
         "type": "Research",
-        "pages": "195 pages",
-        "description": "Forecast of technology development and its impact on various economic sectors and society",
+        "pages": "215 pages",
+        "description": "Technology development forecast and recommendations for their implementation in various sectors of Kyrgyzstan's economy",
         "download": "Download PDF"
       },
-      "book4": {
-        "title": "Corporate Social Responsibility",
-        "author": "M.K. Sidorov",
+      "research2": {
+        "title": "Social Entrepreneurship in Kyrgyzstan",
+        "author": "M.Zh. Zhusupov",
         "year": "2021",
-        "type": "Monograph",
-        "pages": "350 pages",
-        "description": "Comprehensive analysis of social responsibility models and their implementation in Kazakh companies",
+        "type": "Scientific Research",
+        "pages": "190 pages",
+        "description": "Study of social entrepreneurship models and their potential for solving social problems in Kyrgyzstan",
         "download": "Download PDF"
       }
     },
-    "cases": {
-      "graduate1": {
-        "name": "Aigul Satymova",
-        "position": "Research Engineer",
-        "story": "Thanks to the 'Akyl-Tirek' program, she got the opportunity to study at a leading technical university and now works on innovative projects in robotics.",
-        "quote": "The educational program gave me not only knowledge but also confidence in my abilities to implement ambitious projects.",
-        "achievements": [
-          "Development of automation systems for industry",
-          "Patent for invention in robotics",
-          "Publications in international scientific journals",
-          "Winner of national innovation competitions"
-        ]
-      },
-      "graduate2": {
-        "name": "Arman Zhumabayev",
-        "position": "Research Fellow",
-        "story": "Received a grant for research in biotechnology, the results of which were published in international scientific journals.",
-        "quote": "The foundation's support allowed me to focus on research and achieve significant scientific results.",
-        "achievements": [
-          "Research in biotechnology",
-          "Publications in Nature Biotechnology",
-          "Participation in international scientific symposia",
-          "Development of a new DNA analysis method"
-        ]
-      },
-      "school1": {
-        "name": "Center for Innovative Education",
-        "location": "Almaty",
-        "students": "200+",
-        "achievements": "15 projects",
-        "description": "Modern educational center equipped with advanced equipment and offering additional education programs for schoolchildren and students.",
-        "programs": [
-          "Programming and Robotics",
-          "Biotechnology and Genetic Engineering",
-          "Digital Technologies and AI",
-          "Entrepreneurship and Innovation",
-          "Research Projects"
-        ]
-      },
+    "stories": {
+      "title": "Success Stories",
+      "centersTitle": "Educational Centers", 
       "locationLabel": "Location",
       "studentsLabel": "Students",
-      "achievementsLabel": "Implemented Projects",
-      "programsLabel": "Programs",
-      "programsTitle": "Educational Programs of the Center"
+      "achievementsLabel": "Achievements",
+      "improvementsLabel": "Improvements",
+      "improvementsTitle": "Implemented Improvements",
+      "school1": {
+        "name": "Bilim Innovative Education Center",
+        "location": "Bishkek",
+        "students": "500+",
+        "achievements": "30+ projects", 
+        "description": "Modern educational center equipped with advanced equipment and offering additional education programs for schoolchildren and students from all over Kyrgyzstan.",
+        "improvements": [
+          "Digital laboratories and computer classes",
+          "Interactive educational platforms",
+          "Programming and artificial intelligence",
+          "Robotics and engineering",
+          "Language courses and cross-cultural communications"
+        ]
+      },
+      "scientist1": {
+        "name": "Dr. Aigul Satymova",
+        "position": "Leading Research Fellow",
+        "story": "Thanks to the association's support, she was able to conduct fundamental research in the field of biotechnology, the results of which were published in international scientific journals.",
+        "quote": "The association's support allowed me to implement an ambitious scientific project and contribute to the development of biotechnology in Kyrgyzstan.",
+        "achievements": [
+          "Publications in international scientific journals",
+          "Development of new analysis methods",
+          "Participation in international scientific conferences",
+          "Patents for scientific developments",
+          "Creation of a research group"
+        ]
+      },
+      "student1": {
+        "name": "Aibek Tashiev",
+        "position": "Student Programmer",
+        "story": "Participant in the talent development program, received an educational grant and completed an internship at a leading IT company. Currently developing his own startup in the field of educational technologies.",
+        "quote": "The program gave me not only knowledge but also confidence in my abilities. Now I can implement projects that truly change people's lives.",
+        "achievements": [
+          "Development of an educational application",
+          "Winning a national startup competition",
+          "Internship at an international IT company",
+          "Participation in hackathons and IT events",
+          "Mentoring for younger students"
+        ]
+      }
     },
     "cta": {
-      "title": "Become Part of Our Educational Program",
-      "description": "Apply to participate in support programs and get the opportunity to realize your potential",
-      "button": "Apply for Grant / Educational Program",
+      "title": "Become Part of Our Educational Programs",
+      "description": "Join our initiatives and get the opportunity to realize your potential in education and science",
+      "button": "Apply for Participation", 
       "contact": "Contact Us",
-      "deadline": "Application deadline: December 15, 2024"
+      "deadline": "Applications accepted year-round"
     }
   },
   "finance": {
@@ -3511,6 +3534,12 @@
     }
   },
   "partnersInternational": {
+    "map": {
+      "title": "Map of International Partners",
+      "subtitle": "Click on markers for information about partner countries"
+    },
+    "mapLoading": "Loading map...",
+    "mapHint": "Click on markers for more information",
     "region": "Regions:",
     "badge": "Partners",
     "title": "International",
