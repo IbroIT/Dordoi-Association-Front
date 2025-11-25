@@ -302,13 +302,6 @@ const AboutLeadership = () => {
                             transition={{ duration: 2, repeat: Infinity }}
                           />
                         </div>
-
-                        {/* Опыт работы */}
-                        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-slate-200/60 shadow-sm">
-                          <span className="text-xs font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                            {leader.experience}
-                          </span>
-                        </div>
                       </motion.div>
 
                       {/* Информация о руководителе */}
