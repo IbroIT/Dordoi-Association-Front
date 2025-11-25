@@ -352,22 +352,6 @@ const AboutLeadership = () => {
                             ))}
                           </ul>
                         </div>
-
-                        {/* Специализации */}
-                        {leader.specialties.length > 0 && (
-                          <div className="mt-4 flex flex-wrap gap-2">
-                            {leader.specialties.map((specialty, specIndex) => (
-                              <motion.span
-                                key={specIndex}
-                                className="px-3 py-1 bg-slate-100/80 text-slate-700 rounded-full text-xs font-medium border border-slate-200/60"
-                                whileHover={{ scale: 1.05 }}
-                                transition={{ type: "spring", stiffness: 400 }}
-                              >
-                                {specialty}
-                              </motion.span>
-                            ))}
-                          </div>
-                        )}
                       </div>
                     </div>
 

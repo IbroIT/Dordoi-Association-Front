@@ -480,19 +480,6 @@ const AboutFacts = () => {
                         {fact.title}
                       </h3>
                       
-                      {/* Анимированное значение факта */}
-                      <motion.div 
-                        className="text-4xl font-black text-slate-900 mb-3 tracking-tight"
-                        initial={{ scale: 0.5, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: index * 0.1 + 0.5, type: "spring", stiffness: 200 }}
-                      >
-                        <Counter 
-                          value={fact.numericValue} 
-                          duration={fact.duration}
-                          suffix={fact.suffix}
-                        />
-                      </motion.div>
                     </div>
                   </div>
                   
