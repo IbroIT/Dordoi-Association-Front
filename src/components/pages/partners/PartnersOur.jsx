@@ -255,8 +255,6 @@ const Partners = () => {
                 <div className="absolute top-0 left-0 h-0.5 bg-yellow-400 rounded-full w-1/3 animate-move"></div>
               </div>
 
-              {/* Статистика */}
-              <PartnerStats partner={partners[activePartner]} isActive={isVisible} />
 
               {/* Основной контент - 3 колонки */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">

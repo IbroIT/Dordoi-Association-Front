@@ -28,19 +28,18 @@ const PressMedia = () => {
   }, [isInView]);
 
   const categories = [
-    { id: 'all', label: t('media.categories.all'), count: 28, icon: '🖼️' },
-    { id: 'anniversary', label: t('media.categories.anniversary'), count: 8, icon: '🎉' },
-    { id: 'sports', label: t('media.categories.sports'), count: 6, icon: '⚽' },
-    { id: 'international', label: t('media.categories.international'), count: 7, icon: '🌍' },
-    { id: 'social', label: t('media.categories.social'), count: 5, icon: '🤝' },
-    { id: 'business', label: t('media.categories.business'), count: 2, icon: '💼' }
+    { id: 'all', label: t('media.categories.all'), icon: '🖼️' },
+    { id: 'anniversary', label: t('media.categories.anniversary'), icon: '🎉' },
+    { id: 'sports', label: t('media.categories.sports'), icon: '⚽' },
+    { id: 'international', label: t('media.categories.international'), icon: '🌍' },
+    { id: 'social', label: t('media.categories.social'), icon: '🤝' },
+    { id: 'business', label: t('media.categories.business'), icon: '💼' }
   ];
 
   const years = ['all', '2024', '2023', '2022', '2021'];
   const sortOptions = [
     { id: 'newest', label: t('media.sort.newest') },
     { id: 'oldest', label: t('media.sort.oldest') },
-    { id: 'popular', label: t('media.sort.popular') },
     { id: 'name', label: t('media.sort.name') }
   ];
 
@@ -51,10 +50,6 @@ const PressMedia = () => {
       description: t('media.galleries.anniversary.description'),
       category: 'anniversary',
       year: '2024',
-      imageCount: 24,
-      videoCount: 3,
-      views: 1250,
-      downloads: 342,
       featured: true,
       coverImage: '/api/placeholder/600/400',
       images: [
@@ -103,10 +98,6 @@ const PressMedia = () => {
       description: t('media.galleries.sports.description'),
       category: 'sports',
       year: '2024',
-      imageCount: 18,
-      videoCount: 2,
-      views: 892,
-      downloads: 215,
       featured: false,
       coverImage: '/api/placeholder/600/400',
       images: [
@@ -133,10 +124,6 @@ const PressMedia = () => {
       description: t('media.galleries.international.description'),
       category: 'international',
       year: '2023',
-      imageCount: 32,
-      videoCount: 4,
-      views: 1567,
-      downloads: 421,
       featured: true,
       coverImage: '/api/placeholder/600/400',
       images: [
@@ -163,10 +150,6 @@ const PressMedia = () => {
       description: t('media.galleries.social.description'),
       category: 'social',
       year: '2023',
-      imageCount: 15,
-      videoCount: 1,
-      views: 723,
-      downloads: 189,
       featured: false,
       coverImage: '/api/placeholder/600/400',
       images: [
@@ -193,10 +176,6 @@ const PressMedia = () => {
       description: t('media.galleries.business.description'),
       category: 'business',
       year: '2024',
-      imageCount: 12,
-      videoCount: 0,
-      views: 456,
-      downloads: 134,
       featured: false,
       coverImage: '/api/placeholder/600/400',
       images: [],
@@ -208,10 +187,6 @@ const PressMedia = () => {
       description: t('media.galleries.infrastructure.description'),
       category: 'infrastructure',
       year: '2023',
-      imageCount: 22,
-      videoCount: 2,
-      views: 634,
-      downloads: 178,
       featured: true,
       coverImage: '/api/placeholder/600/400',
       images: [],
@@ -279,8 +254,6 @@ const PressMedia = () => {
           return new Date(b.year) - new Date(a.year);
         case 'oldest':
           return new Date(a.year) - new Date(b.year);
-        case 'popular':
-          return b.views - a.views;
         case 'name':
           return a.title.localeCompare(b.title);
         default:
@@ -376,20 +349,6 @@ const PressMedia = () => {
     }
   };
 
-  const handleDownload = (downloadUrl, imageTitle) => {
-    console.log('Downloading:', downloadUrl);
-    const link = document.createElement('a');
-    link.href = downloadUrl;
-    link.download = `${imageTitle}.jpg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const handleDownloadGallery = (gallery) => {
-    alert(t('media.downloadGalleryMessage', { title: gallery.title }));
-  };
-
   const handleShare = (gallery) => {
     if (navigator.share) {
       navigator.share({
@@ -447,32 +406,6 @@ const PressMedia = () => {
           >
             {t('media.subtitle')}
           </motion.p>
-        </motion.div>
-
-        {/* Статистика */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
-        >
-          {[
-            { label: t('media.stats.totalGalleries'), value: '28', icon: '🖼️' },
-            { label: t('media.stats.totalPhotos'), value: '1,250+', icon: '📷' },
-            { label: t('media.stats.totalVideos'), value: '45', icon: '🎥' },
-            { label: t('media.stats.totalDownloads'), value: '15K+', icon: '📥' }
-          ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              variants={itemVariants}
-              className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200 shadow-lg text-center"
-              whileHover="hover"
-            >
-              <div className="text-3xl mb-3">{stat.icon}</div>
-              <div className="text-3xl font-bold text-slate-900 mb-2">{stat.value}</div>
-              <div className="text-slate-600 font-medium">{stat.label}</div>
-            </motion.div>
-          ))}
         </motion.div>
 
         {/* Панель фильтров и поиска */}
@@ -543,11 +476,6 @@ const PressMedia = () => {
                 >
                   <span>{category.icon}</span>
                   <span>{category.label}</span>
-                  <span className={`px-2 py-1 rounded-full text-xs ${
-                    activeCategory === category.id ? 'bg-white/20' : 'bg-slate-200'
-                  }`}>
-                    {category.count}
-                  </span>
                 </motion.button>
               ))}
             </div>
@@ -585,10 +513,6 @@ const PressMedia = () => {
                         <div className="w-20 h-20 bg-white/90 rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-2xl group-hover:scale-110 transition-transform duration-300">
                           <span className="text-3xl">{categories.find(cat => cat.id === gallery.category)?.icon}</span>
                         </div>
-                        <p className="text-blue-600 font-semibold text-lg">
-                          {gallery.imageCount} {t('media.images')}
-                          {gallery.videoCount > 0 && ` + ${gallery.videoCount} ${t('media.videos')}`}
-                        </p>
                       </div>
                     </div>
                     
@@ -602,21 +526,6 @@ const PressMedia = () => {
                       <span className={`px-3 py-1 ${colors.light} ${colors.text} text-sm font-medium rounded-full backdrop-blur-sm`}>
                         {gallery.year}
                       </span>
-                    </div>
-                    
-                    {/* Статистика */}
-                    <div className="absolute top-4 right-4 flex flex-col space-y-2 items-end">
-                      <span className="bg-black/50 backdrop-blur-sm px-3 py-1 text-white text-sm font-medium rounded-full">
-                        {gallery.imageCount} {t('media.photos')}
-                      </span>
-                      <div className="flex space-x-2 text-white text-sm">
-                        <span className="bg-black/40 backdrop-blur-sm px-2 py-1 rounded-full">
-                          👁️ {gallery.views}
-                        </span>
-                        <span className="bg-black/40 backdrop-blur-sm px-2 py-1 rounded-full">
-                          📥 {gallery.downloads}
-                        </span>
-                      </div>
                     </div>
 
                     {/* Overlay при наведении */}
@@ -714,8 +623,6 @@ const PressMedia = () => {
                         <span>{selectedImage.images[lightboxIndex]?.date}</span>
                         <span>•</span>
                         <span>{lightboxIndex + 1} / {selectedImage.images.length}</span>
-                        <span>•</span>
-                        <span>{selectedImage.views} {t('media.views')}</span>
                         {selectedImage.images[lightboxIndex]?.photographer && (
                           <>
                             <span>•</span>
@@ -850,46 +757,7 @@ const PressMedia = () => {
                     </div>
 
                     <div className="space-y-4">
-                      <div className="flex flex-col sm:flex-row gap-4">
-                        <motion.button
-                          onClick={() => handleDownload(
-                            selectedImage.images[lightboxIndex]?.downloadUrl,
-                            selectedImage.images[lightboxIndex]?.title
-                          )}
-                          className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-4 rounded-2xl font-semibold hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center space-x-3 flex-1"
-                          whileHover={{ scale: 1.02, y: -2 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                          </svg>
-                          <span className="text-lg">{t('media.download')}</span>
-                        </motion.button>
-                        
-                        <motion.button
-                          onClick={() => handleDownloadGallery(selectedImage)}
-                          className="border-2 border-blue-600 text-blue-600 px-6 py-4 rounded-2xl font-semibold hover:bg-blue-50 transition-all duration-300 inline-flex items-center justify-center space-x-3 flex-1"
-                          whileHover={{ scale: 1.02, y: -2 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
-                          </svg>
-                          <span className="text-lg">{t('media.downloadGallery')}</span>
-                        </motion.button>
-                      </div>
-
-                      <motion.button
-                        onClick={() => handleDownloadRequest(selectedImage.images[lightboxIndex])}
-                        className="w-full border border-slate-300 text-slate-700 px-6 py-4 rounded-2xl font-semibold hover:bg-slate-50 transition-all duration-300 inline-flex items-center justify-center space-x-3"
-                        whileHover={{ scale: 1.02, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span className="text-lg">{t('media.highResRequest')}</span>
-                      </motion.button>
+                      {/* Кнопки скачивания удалены */}
                     </div>
                   </div>
                 </div>
@@ -897,97 +765,6 @@ const PressMedia = () => {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* CTA секция */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="text-center"
-        >
-          <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 rounded-3xl p-12 text-white relative overflow-hidden shadow-2xl">
-            {/* Анимированный фон */}
-            <div className="absolute inset-0 overflow-hidden">
-              <motion.div
-                className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.1, 0.2, 0.1]
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-            </div>
-            
-            <div className="relative z-10">
-              <motion.h3 
-                variants={itemVariants}
-                className="text-4xl md:text-5xl font-bold mb-6"
-              >
-                {t('media.cta.title')}
-              </motion.h3>
-              
-              <motion.p 
-                variants={itemVariants}
-                className="text-xl text-blue-100 max-w-3xl mx-auto mb-8 leading-relaxed"
-              >
-                {t('media.cta.description')}
-              </motion.p>
-
-              <motion.div 
-                className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-                variants={containerVariants}
-              >
-                <motion.button
-                  className="bg-white text-blue-600 px-10 py-5 rounded-2xl font-bold hover:bg-slate-100 transition-all duration-300 shadow-2xl hover:shadow-3xl inline-flex items-center space-x-4 group"
-                  whileHover={{ scale: 1.05, y: -4 }}
-                  whileTap={{ scale: 0.98 }}
-                  variants={itemVariants}
-                >
-                  <svg className="w-7 h-7 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <span className="text-lg">{t('media.cta.requestPhotos')}</span>
-                </motion.button>
-                
-                <motion.button
-                  className="border-2 border-white/80 text-white px-10 py-5 rounded-2xl font-bold hover:bg-white hover:text-blue-600 transition-all duration-300 backdrop-blur-sm inline-flex items-center space-x-4 group"
-                  whileHover={{ scale: 1.05, y: -4 }}
-                  whileTap={{ scale: 0.98 }}
-                  variants={itemVariants}
-                >
-                  <svg className="w-7 h-7 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  <span className="text-lg">{t('media.cta.contact')}</span>
-                </motion.button>
-
-                <motion.button
-                  className="border-2 border-white/50 text-white/90 px-8 py-5 rounded-2xl font-bold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm inline-flex items-center space-x-4 group"
-                  whileHover={{ scale: 1.05, y: -4 }}
-                  whileTap={{ scale: 0.98 }}
-                  variants={itemVariants}
-                >
-                  <svg className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                  <span className="text-lg">{t('media.cta.mediaKit')}</span>
-                </motion.button>
-              </motion.div>
-
-              <motion.p
-                variants={itemVariants}
-                className="text-blue-200/80 text-sm mt-8"
-              >
-                {t('media.cta.note')}
-              </motion.p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

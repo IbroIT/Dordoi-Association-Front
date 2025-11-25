@@ -50,6 +50,7 @@ import Footer from './components/Footer';
 
 
 import DordoiLoadingAnimation from './components/DordoiLoadingAnimation';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
 
@@ -65,6 +66,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen bg-slate-50">
         <Navbar />
         
@@ -86,27 +88,27 @@ function App() {
             {/* Страницы Activities */}
             <Route path="/activities" element={<ActivitiesPage />} />
             <Route path="/activities/trade" element={<ActivitiesTrade />} />
-            <Route path="/activities/finance" element={<ActivitiesFinance />} />
+            {/* <Route path="/activities/finance" element={<ActivitiesFinance />} /> */}
             <Route path="/activities/education" element={<ActivitiesEducation />} />
             <Route path="/activities/medicine" element={<ActivitiesMedicine />} />
             <Route path="/activities/sports" element={<ActivitiesSports />} />
             <Route path="/activities/culture" element={<ActivitiesCulture />} />
-            <Route path="/activities/social" element={<ActivitiesSocial />} />
+            {/* <Route path="/activities/social" element={<ActivitiesSocial />} /> */}
 
             {/* Страницы Press */}
             <Route path="/press" element={<PressPage />} />
             <Route path="/press/news" element={<PressNews />} />
             <Route path="/press/media" element={<PressMedia />} />
             <Route path="/press/publications" element={<PressPublications />} />
-            <Route path="/press/events" element={<PressEvents />} />
-            <Route path="/press/releases" element={<PressReleases />} />
+            {/* <Route path="/press/events" element={<PressEvents />} /> */}
+            {/* <Route path="/press/releases" element={<PressReleases />} /> */}
 
             {/* Страницы Partners */}
             <Route path="/partners" element={<PartnersPage />} />
             <Route path="/partners/our" element={<PartnersOur />} />
             <Route path="/partners/international" element={<PartnersInternational />} />
             <Route path="/partners/projects" element={<PartnersProjects />} />
-            <Route path="/partners/conferences" element={<PartnersConferences />} />
+            {/* <Route path="/partners/conferences" element={<PartnersConferences />} /> */}
             <Route path="/partners/role" element={<PartnersRole />} />
 
             {/* Страницы Contacts */}

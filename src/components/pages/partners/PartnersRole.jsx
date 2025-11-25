@@ -83,19 +83,6 @@ const PartnersRole = () => {
       color: 'cyan',
       trend: '+15%',
       period: t('role.stats.enterprises.period')
-    },
-    {
-      value: t('role.stats.investment.value'),
-      label: t('role.stats.investment.label'),
-      description: t('role.stats.investment.description'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-        </svg>
-      ),
-      color: 'pink',
-      trend: '+25%',
-      period: t('role.stats.investment.period')
     }
   ];
 
@@ -210,21 +197,18 @@ const PartnersRole = () => {
       name: t('role.projects.digitalHub.name'),
       description: t('role.projects.digitalHub.description'),
       timeline: t('role.projects.digitalHub.timeline'),
-      investment: t('role.projects.digitalHub.investment'),
       status: 'development'
     },
     {
       name: t('role.projects.logisticsCenter.name'),
       description: t('role.projects.logisticsCenter.description'),
       timeline: t('role.projects.logisticsCenter.timeline'),
-      investment: t('role.projects.logisticsCenter.investment'),
       status: 'planning'
     },
     {
       name: t('role.projects.tradeAcademy.name'),
       description: t('role.projects.tradeAcademy.description'),
       timeline: t('role.projects.tradeAcademy.timeline'),
-      investment: t('role.projects.tradeAcademy.investment'),
       status: 'launched'
     }
   ];
@@ -804,10 +788,6 @@ const PartnersRole = () => {
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-slate-500">{t('role.futureProjects.timeline')}</span>
                     <span className="font-semibold text-slate-900">{project.timeline}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-slate-500">{t('role.futureProjects.investment')}</span>
-                    <span className="font-semibold text-slate-900">{project.investment}</span>
                   </div>
                 </div>
               </motion.div>

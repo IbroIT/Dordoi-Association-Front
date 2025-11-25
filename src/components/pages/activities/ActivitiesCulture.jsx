@@ -11,11 +11,11 @@ const ActivitiesCulture = () => {
   const { t } = useTranslation();
 
   const categories = [
-    { id: 'all', label: t('culture.categories.all'), icon: '🌐', count: t('culture.stats.projects.value') },
-    { id: 'events', label: t('culture.categories.events'), icon: '🎪', count: '12' },
-    { id: 'heritage', label: t('culture.categories.heritage'), icon: '🏛️', count: '8' },
-    { id: 'arts', label: t('culture.categories.arts'), icon: '🎨', count: '10' },
-    { id: 'publications', label: t('culture.categories.publications'), icon: '📚', count: '15' }
+    { id: 'all', label: t('culture.categories.all'), icon: '🌐' },
+    { id: 'events', label: t('culture.categories.events'), icon: '🎪' },
+    { id: 'heritage', label: t('culture.categories.heritage'), icon: '🏛️' },
+    { id: 'arts', label: t('culture.categories.arts'), icon: '🎨' },
+    { id: 'publications', label: t('culture.categories.publications'), icon: '📚' }
   ];
 
   const projects = [
@@ -26,7 +26,6 @@ const ActivitiesCulture = () => {
       fullDescription: t('culture.projects.festival.fullDescription', { defaultValue: 'Ежегодный фестиваль, объединяющий художников, музыкантов и performers со всего мира для культурного обмена и создания уникальных коллабораций.' }),
       category: 'events',
       image: '/api/placeholder/400/300',
-      stats: t('culture.projects.festival.stats'),
       year: '2024',
       duration: '3 дня',
       participants: '100+ участников',
@@ -44,7 +43,6 @@ const ActivitiesCulture = () => {
       fullDescription: t('culture.projects.museum.fullDescription', { defaultValue: 'Комплексная реставрация и модернизация регионального музея с созданием интерактивных экспозиций и цифровых решений.' }),
       category: 'heritage',
       image: '/api/placeholder/400/300',
-      stats: t('culture.projects.museum.stats'),
       year: '2023',
       duration: '12 месяцев',
       participants: '5000+ посетителей',
@@ -62,7 +60,6 @@ const ActivitiesCulture = () => {
       fullDescription: t('culture.projects.gallery.fullDescription', { defaultValue: 'Современное выставочное пространство для молодых художников с образовательными программами и мастер-классами.' }),
       category: 'arts',
       image: '/api/placeholder/400/300',
-      stats: t('culture.projects.gallery.stats'),
       year: '2024',
       duration: 'Постоянно',
       participants: '50+ художников',
@@ -80,7 +77,6 @@ const ActivitiesCulture = () => {
       fullDescription: t('culture.projects.library.fullDescription', { defaultValue: 'Создание доступной цифровой платформы для сохранения и распространения культурного наследия через оцифровку редких изданий.' }),
       category: 'publications',
       image: '/api/placeholder/400/300',
-      stats: t('culture.projects.library.stats'),
       year: '2023',
       duration: '18 месяцев',
       participants: 'Университеты, исследователи',
@@ -98,7 +94,6 @@ const ActivitiesCulture = () => {
       fullDescription: t('culture.projects.theater.fullDescription', { defaultValue: 'Программа поддержки молодых театральных режиссеров через гранты, мастер-классы и международные резиденции.' }),
       category: 'arts',
       image: '/api/placeholder/400/300',
-      stats: t('culture.projects.theater.stats'),
       year: '2024',
       duration: '9 месяцев',
       participants: '15 режиссеров',
@@ -116,7 +111,6 @@ const ActivitiesCulture = () => {
       fullDescription: t('culture.projects.folklore.fullDescription', { defaultValue: 'Комплексная программа по документированию, сохранению и популяризации народных традиций, музыки и ремесел.' }),
       category: 'heritage',
       image: '/api/placeholder/400/300',
-      stats: t('culture.projects.folklore.stats'),
       year: '2023',
       duration: '24 месяца',
       participants: '8 этнических групп',
@@ -126,37 +120,6 @@ const ActivitiesCulture = () => {
       gallery: ['/api/placeholder/400/300'],
       partners: ['ЮНЕСКО', 'Национальная академия наук'],
       impact: t('culture.projects.folklore.impact', { defaultValue: 'Сохранение культурного разнообразия' })
-    }
-  ];
-
-  const stats = [
-    {
-      value: t('culture.stats.events.value'),
-      label: t('culture.stats.events.label'),
-      trend: '+12%',
-      icon: '🎭',
-      description: t('culture.stats.events.description', { defaultValue: 'По сравнению с прошлым годом' })
-    },
-    {
-      value: t('culture.stats.participants.value'),
-      label: t('culture.stats.participants.label'),
-      trend: '+25%',
-      icon: '👥',
-      description: t('culture.stats.participants.description', { defaultValue: 'Активное вовлечение сообществ' })
-    },
-    {
-      value: t('culture.stats.projects.value'),
-      label: t('culture.stats.projects.label'),
-      trend: '+8',
-      icon: '🚀',
-      description: t('culture.stats.projects.description', { defaultValue: 'Новые инициативы в этом году' })
-    },
-    {
-      value: t('culture.stats.regions.value'),
-      label: t('culture.stats.regions.label'),
-      trend: '+2',
-      icon: '🗺️',
-      description: t('culture.stats.regions.description', { defaultValue: 'Расширение географического охвата' })
     }
   ];
 
@@ -281,10 +244,6 @@ const ActivitiesCulture = () => {
     ? projects 
     : projects.filter(project => project.category === activeCategory);
 
-  const handleSupportProject = (projectId) => {
-    console.log('Support project:', projectId);
-  };
-
   const openProjectModal = (project) => {
     setSelectedProject(project);
   };
@@ -371,54 +330,6 @@ const ActivitiesCulture = () => {
           </motion.p>
         </motion.div>
 
-        {/* Статистика с улучшенным дизайном */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              variants={itemVariants}
-              className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-500 group"
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="text-3xl">{stat.icon}</div>
-                <motion.span 
-                  className="text-sm font-semibold bg-green-100 text-green-700 px-2 py-1 rounded-full"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  {stat.trend}
-                </motion.span>
-              </div>
-              
-              <div className="text-3xl font-bold text-slate-900 mb-2">
-                {stat.value}
-              </div>
-              
-              <div className="text-slate-600 font-medium mb-2">
-                {stat.label}
-              </div>
-
-              <div className="text-sm text-slate-500">
-                {stat.description}
-              </div>
-
-              {/* Анимированная полоса прогресса */}
-              <motion.div 
-                className="w-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mt-3 group-hover:w-full transition-all duration-1000 ease-out"
-                initial={{ width: 0 }}
-                whileInView={{ width: '100%' }}
-                transition={{ duration: 2, delay: index * 0.2 }}
-                viewport={{ once: true }}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-
         {/* Улучшенный фильтр категорий */}
         <motion.div
           variants={containerVariants}
@@ -442,13 +353,6 @@ const ActivitiesCulture = () => {
                 >
                   <span className="text-xl">{category.icon}</span>
                   <span>{category.label}</span>
-                  <span className={`text-sm px-2 py-1 rounded-full ${
-                    activeCategory === category.id 
-                      ? 'bg-white/20 text-white' 
-                      : 'bg-slate-100 text-slate-600'
-                  }`}>
-                    {category.count}
-                  </span>
                 </motion.button>
               ))}
             </div>
@@ -540,13 +444,6 @@ const ActivitiesCulture = () => {
                       <div className="absolute top-4 right-4">
                         <span className={`px-3 py-1 ${statusBadge.color} text-sm font-medium rounded-full shadow-sm`}>
                           {statusBadge.label}
-                        </span>
-                      </div>
-                      
-                      {/* Статистика */}
-                      <div className="absolute bottom-4 right-4">
-                        <span className="bg-white/90 backdrop-blur-sm px-3 py-1 text-slate-700 text-sm font-medium rounded-full shadow-sm">
-                          {project.stats}
                         </span>
                       </div>
                     </div>
@@ -775,23 +672,6 @@ const ActivitiesCulture = () => {
                       ))}
                     </div>
                   </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <motion.button
-                    className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all duration-300"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {t('culture.modal.supportProject', { defaultValue: 'Поддержать проект' })}
-                  </motion.button>
-                  <motion.button
-                    className="flex-1 border-2 border-slate-300 text-slate-700 px-6 py-3 rounded-xl font-semibold hover:border-purple-600 hover:text-purple-600 transition-all duration-300"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {t('culture.modal.shareProject', { defaultValue: 'Поделиться' })}
-                  </motion.button>
                 </div>
               </div>
             </motion.div>

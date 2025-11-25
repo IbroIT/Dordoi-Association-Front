@@ -13,7 +13,7 @@ function HomePage() {
         <HeroSlider />
         <AboutSection />
         <MissionAndValues />
-        <AchievementsSection />
+        {/* <AchievementsSection /> */}
         <ActivitiesSection />
         <NewsAndEventsSection />
         {/* <InternationalPartnersSection /> */}

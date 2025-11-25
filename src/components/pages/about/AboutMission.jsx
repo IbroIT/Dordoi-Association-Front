@@ -364,37 +364,6 @@ const AboutMission = () => {
           </motion.div>
         </motion.div>
 
-        {/* Статистика */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-16 sm:mb-20 lg:mb-24"
-        >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {t('missionAbout.stats', { returnObjects: true }).map((stat, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="text-center p-6 bg-white rounded-2xl border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300"
-                whileHover={{ y: -5 }}
-              >
-                <motion.div 
-                  className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: index * 0.2 + 1 }}
-                >
-                  {stat.value}
-                </motion.div>
-                <div className="text-sm sm:text-base text-slate-600 font-medium">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
         {/* Карточки ценностей с расширенной функциональностью */}
         <motion.div
           variants={containerVariants}
@@ -431,16 +400,6 @@ const AboutMission = () => {
                           {value.icon}
                         </div>
                       </motion.div>
-                      
-                      {/* Индикатор расширения */}
-                      <motion.div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center ${colors.medium} transition-colors duration-300`}
-                        animate={{ rotate: isExpanded ? 180 : 0 }}
-                      >
-                        <svg className={`w-4 h-4 ${colors.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </motion.div>
                     </div>
                     
                     <div className="flex-1">
@@ -450,15 +409,6 @@ const AboutMission = () => {
                       <p className="text-slate-600 text-base leading-relaxed mb-4">
                         {value.description}
                       </p>
-                      
-                      {/* Статистика */}
-                      {value.stats && (
-                        <div className="mb-4 p-3 bg-white rounded-lg border border-slate-200">
-                          <div className="text-sm font-semibold text-slate-700">
-                            {value.stats}
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
 
@@ -522,49 +472,6 @@ const AboutMission = () => {
               ))}
             </div>
           </div>
-        </motion.div>
-
-        {/* Кнопки действий с улучшенным дизайном */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="text-center"
-        >
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6"
-          >
-            <motion.button
-              className="group bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 sm:px-10 sm:py-5 rounded-2xl font-semibold hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 shadow-2xl hover:shadow-3xl inline-flex items-center justify-center space-x-3 text-lg"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <span>{t('missionAbout.buttons.join')}</span>
-              <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </motion.button>
-
-            <motion.button
-              className="group border-2 border-blue-600 text-blue-600 px-8 py-4 sm:px-10 sm:py-5 rounded-2xl font-semibold hover:bg-blue-600 hover:text-white transition-all duration-300 inline-flex items-center justify-center space-x-3 text-lg"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <span>{t('missionAbout.buttons.learnMore')}</span>
-              <svg className="w-5 h-5 transform group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </motion.button>
-          </motion.div>
-          
-          {/* Дополнительная информация */}
-          <motion.p
-            variants={itemVariants}
-            className="text-slate-500 mt-6 text-sm"
-          >
-            {t('missionAbout.footerText')}
-          </motion.p>
         </motion.div>
       </div>
     </section>

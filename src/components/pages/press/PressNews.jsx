@@ -9,9 +9,7 @@ const PressNews = () => {
   const [selectedNews, setSelectedNews] = useState(null);
   const [activeCategory, setActiveCategory] = useState('all');
   const [showMore, setShowMore] = useState({});
-  const [searchTerm, setSearchTerm] = useState('');
   const [visibleCount, setVisibleCount] = useState(6);
-  const [activeTab, setActiveTab] = useState('text');
   const [isLoading, setIsLoading] = useState(false);
 
   // Имитация загрузки данных
@@ -232,15 +230,9 @@ const PressNews = () => {
     xls: 'bg-green-100 text-green-600'
   };
 
-  // Фильтрация и поиск
+  // Фильтрация новостей
   const filteredNews = news
     .filter(item => activeCategory === 'all' || item.category === activeCategory)
-    .filter(item => 
-      item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.lead.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      item.author.toLowerCase().includes(searchTerm.toLowerCase())
-    )
     .slice(0, visibleCount);
 
   const featuredNews = news.filter(item => item.featured);
@@ -255,10 +247,6 @@ const PressNews = () => {
 
   const handleLoadMore = () => {
     setVisibleCount(prev => prev + 6);
-  };
-
-  const formatNumber = (num) => {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   };
 
   // Анимации
@@ -372,13 +360,6 @@ const PressNews = () => {
     </motion.div>
   );
 
-  const modalTabs = [
-    { id: 'text', label: t('press.modal.tabs.text'), icon: '📖' },
-    { id: 'gallery', label: t('press.modal.tabs.gallery'), icon: '🖼️' },
-    { id: 'files', label: t('press.modal.tabs.files'), icon: '📎' },
-    { id: 'video', label: t('press.modal.tabs.video'), icon: '🎥' }
-  ];
-
   return (
     <section ref={ref} className="relative py-20 bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden">
       {/* Анимированный фон */}
@@ -441,14 +422,14 @@ const PressNews = () => {
           </motion.p>
         </motion.div>
 
-        {/* Панель управления: поиск и фильтры */}
+        {/* Панель управления: фильтры */}
         <motion.div
           variants={itemVariants}
           className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white mb-12"
         >
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-center">
             {/* Фильтры по категориям */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 justify-center">
               {categories.map((category) => {
                 const colors = colorMap[category.color];
                 const isActive = activeCategory === category.id;
@@ -475,27 +456,11 @@ const PressNews = () => {
                 );
               })}
             </div>
-
-            {/* Поиск */}
-            <div className="flex-1 max-w-md">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder={t('press.searchPlaceholder')}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                />
-                <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-            </div>
           </div>
         </motion.div>
 
         {/* Рекомендуемые новости */}
-        {featuredNews.length > 0 && activeCategory === 'all' && searchTerm === '' && (
+        {featuredNews.length > 0 && activeCategory === 'all' && (
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -543,8 +508,6 @@ const PressNews = () => {
                         </h3>
                         <div className="flex items-center text-white/80 text-sm">
                           <span>{newsItem.date}</span>
-                          <span className="mx-2">•</span>
-                          <span>{newsItem.readTime}</span>
                         </div>
                       </div>
                     </div>
@@ -554,32 +517,15 @@ const PressNews = () => {
                         {newsItem.lead}
                       </p>
 
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4 text-sm text-slate-500">
-                          <div className="flex items-center space-x-1">
-                            <span>👁️</span>
-                            <span>{formatNumber(newsItem.views)}</span>
-                          </div>
-                          <div className="flex items-center space-x-1">
-                            <span>❤️</span>
-                            <span>{formatNumber(newsItem.likes)}</span>
-                          </div>
-                          <div className="flex items-center space-x-1">
-                            <span>↗️</span>
-                            <span>{formatNumber(newsItem.shares)}</span>
-                          </div>
-                        </div>
-                        
-                        <motion.button
-                          className="text-blue-600 hover:text-blue-700 font-semibold text-sm flex items-center space-x-2"
-                          whileHover={{ x: 5 }}
-                        >
-                          <span>{t('press.readMore')}</span>
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </motion.button>
-                      </div>
+                      <motion.button
+                        className="text-blue-600 hover:text-blue-700 font-semibold text-sm flex items-center space-x-2"
+                        whileHover={{ x: 5 }}
+                      >
+                        <span>{t('press.readMore')}</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </motion.button>
                     </div>
                   </motion.article>
                 );
@@ -638,16 +584,12 @@ const PressNews = () => {
                       )}
                       
                       <div className="absolute bottom-4 left-4 right-4">
-                        <div className="flex items-center justify-between text-white text-sm">
+                        <div className="flex items-center text-white text-sm">
                           <span className="font-medium">{newsItem.date}</span>
-                          <span className="bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
-                            {newsItem.readTime}
-                          </span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Контент */}
                     <div className="p-6">
                       <h3 className="text-lg font-bold text-slate-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300">
                         {newsItem.title}
@@ -657,44 +599,9 @@ const PressNews = () => {
                         {newsItem.lead}
                       </p>
 
-                      {/* Автор */}
-                      <div className="flex items-center text-slate-500 text-sm mb-3">
-                        <span className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-xs mr-2">
-                          {newsItem.author.split(' ').map(n => n[0]).join('')}
-                        </span>
-                        {newsItem.author}
-                      </div>
-
-                      {/* Теги */}
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {newsItem.tags.slice(0, 2).map((tag, index) => (
-                          <span
-                            key={index}
-                            className="inline-flex items-center px-2 py-1 rounded-lg text-xs bg-slate-100 text-slate-600"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
-                        {newsItem.tags.length > 2 && (
-                          <span className="inline-flex items-center px-2 py-1 rounded-lg text-xs bg-slate-100 text-slate-600">
-                            +{newsItem.tags.length - 2}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Статистика */}
-                      <div className="flex items-center justify-between pt-4 border-t border-slate-200">
-                        <div className="flex items-center space-x-3 text-slate-500 text-sm">
-                          <div className="flex items-center space-x-1">
-                            <span>👁️</span>
-                            <span>{formatNumber(newsItem.views)}</span>
-                          </div>
-                          <div className="flex items-center space-x-1">
-                            <span>❤️</span>
-                            <span>{formatNumber(newsItem.likes)}</span>
-                          </div>
-                        </div>
-
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-500 text-sm">{newsItem.date}</span>
+                        
                         <motion.button
                           className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center space-x-1"
                           whileHover={{ x: 3 }}
@@ -731,7 +638,6 @@ const PressNews = () => {
                 </p>
                 <motion.button
                   onClick={() => {
-                    setSearchTerm('');
                     setActiveCategory('all');
                   }}
                   className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300"
@@ -811,21 +717,6 @@ const PressNews = () => {
                       <h2 className="text-3xl font-bold text-slate-900 mb-4 pr-8">
                         {selectedNews.title}
                       </h2>
-                      
-                      <div className="flex flex-wrap gap-6 text-slate-600 mb-2">
-                        <div className="flex items-center">
-                          <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                          </svg>
-                          <span className="font-medium">{selectedNews.author}</span>
-                        </div>
-                        <div className="flex items-center">
-                          <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="font-medium">{selectedNews.readTime}</span>
-                        </div>
-                      </div>
                     </div>
                     
                     <button
@@ -837,208 +728,18 @@ const PressNews = () => {
                       </svg>
                     </button>
                   </div>
-
-                  {/* Вкладки модального окна */}
-                  <div className="px-8">
-                    <div className="flex space-x-1 bg-slate-100 rounded-xl p-1">
-                      {modalTabs.map((tab) => (
-                        <button
-                          key={tab.id}
-                          onClick={() => setActiveTab(tab.id)}
-                          className={`flex-1 flex items-center justify-center py-3 px-4 rounded-lg text-sm font-medium transition-all duration-300 ${
-                            activeTab === tab.id
-                              ? 'bg-white text-blue-600 shadow-sm'
-                              : 'text-slate-600 hover:text-slate-900'
-                          }`}
-                        >
-                          <span className="mr-2">{tab.icon}</span>
-                          {tab.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
                 </div>
 
                 {/* Контент модального окна */}
                 <div className="p-8">
-                  {/* Вкладка: Текст */}
-                  {activeTab === 'text' && (
-                    <div className="space-y-6">
-                      <div className="prose prose-lg max-w-none">
-                        <p className="text-xl text-slate-600 leading-relaxed mb-6">
-                          {selectedNews.lead}
-                        </p>
-                        <div className="text-slate-700 whitespace-pre-line leading-relaxed">
-                          {selectedNews.fullText}
-                        </div>
-                      </div>
-
-                      {/* Теги */}
-                      <div className="flex flex-wrap gap-2">
-                        {selectedNews.tags.map((tag, index) => (
-                          <span
-                            key={index}
-                            className="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-blue-100 text-blue-600 font-medium"
-                          >
-                            #{tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {/* Статистика */}
-                      <div className="flex items-center justify-between pt-6 border-t border-slate-200">
-                        <div className="flex items-center space-x-6 text-slate-600">
-                          <div className="flex items-center space-x-2">
-                            <span>👁️</span>
-                            <span className="font-medium">{formatNumber(selectedNews.views)} {t('press.views')}</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <span>❤️</span>
-                            <span className="font-medium">{formatNumber(selectedNews.likes)} {t('press.likes')}</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <span>↗️</span>
-                            <span className="font-medium">{formatNumber(selectedNews.shares)} {t('press.shares')}</span>
-                          </div>
-                        </div>
-                        
-                        <div className="flex gap-3">
-                          <motion.button
-                            className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors duration-300"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <span>❤️</span>
-                            <span>{t('press.like')}</span>
-                          </motion.button>
-                          <motion.button
-                            className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors duration-300"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            <span>↗️</span>
-                            <span>{t('press.share')}</span>
-                          </motion.button>
-                        </div>
-                      </div>
+                  <div className="prose prose-lg max-w-none">
+                    <p className="text-xl text-slate-600 leading-relaxed mb-6">
+                      {selectedNews.lead}
+                    </p>
+                    <div className="text-slate-700 whitespace-pre-line leading-relaxed">
+                      {selectedNews.fullText}
                     </div>
-                  )}
-
-                  {/* Вкладка: Галерея */}
-                  {activeTab === 'gallery' && selectedNews.gallery && (
-                    <div>
-                      <h3 className="text-2xl font-bold text-slate-900 mb-6">{t('press.modal.gallery')}</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {selectedNews.gallery.map((img, index) => (
-                          <motion.div
-                            key={index}
-                            className="aspect-square bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center hover:shadow-lg transition-shadow duration-300 group cursor-pointer"
-                            whileHover={{ scale: 1.02 }}
-                          >
-                            <div className="text-center">
-                              <div className="text-4xl mb-3 opacity-60 group-hover:opacity-80 transition-opacity duration-300">
-                                {selectedNews.thumbnail}
-                              </div>
-                              <p className="text-blue-600 font-medium">{t('press.modal.image')} {index + 1}</p>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Вкладка: Файлы */}
-                  {activeTab === 'files' && (
-                    <div>
-                      <h3 className="text-2xl font-bold text-slate-900 mb-6">{t('press.modal.files')}</h3>
-                      {selectedNews.files.length > 0 ? (
-                        <div className="space-y-4">
-                          {selectedNews.files.map((file, index) => (
-                            <motion.a
-                              key={index}
-                              href={file.url}
-                              className="flex items-center p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors duration-300 group"
-                              whileHover={{ x: 5 }}
-                            >
-                              <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-xl mr-4 ${fileTypeColors[file.type]}`}>
-                                {fileTypeIcons[file.type]}
-                              </div>
-                              <div className="flex-1">
-                                <div className="font-medium text-slate-900 group-hover:text-blue-600 transition-colors duration-300">
-                                  {file.name}
-                                </div>
-                                <div className="text-sm text-slate-500">{file.size}</div>
-                              </div>
-                              <svg className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                              </svg>
-                            </motion.a>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="text-center py-12">
-                          <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                            </svg>
-                          </div>
-                          <p className="text-slate-600">{t('press.modal.noFiles')}</p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Вкладка: Видео */}
-                  {activeTab === 'video' && (
-                    <div>
-                      <h3 className="text-2xl font-bold text-slate-900 mb-6">{t('press.modal.video')}</h3>
-                      {selectedNews.video ? (
-                        <div className="aspect-video bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center">
-                          <div className="text-center">
-                            <div className="text-6xl mb-4 opacity-60">🎥</div>
-                            <p className="text-blue-600 font-medium text-lg">{t('press.modal.videoPlayer')}</p>
-                            <p className="text-slate-600 mt-2">{selectedNews.title}</p>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="text-center py-12">
-                          <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                            </svg>
-                          </div>
-                          <p className="text-slate-600">{t('press.modal.noVideo')}</p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Похожие новости */}
-                  {relatedNews.length > 0 && (
-                    <div className="mt-12 pt-8 border-t border-slate-200">
-                      <h3 className="text-2xl font-bold text-slate-900 mb-6">{t('press.related')}</h3>
-                      <div className="grid md:grid-cols-2 gap-6">
-                        {relatedNews.map((newsItem) => (
-                          <motion.article
-                            key={newsItem.id}
-                            className="flex items-center p-4 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors duration-300 cursor-pointer group"
-                            whileHover={{ x: 5 }}
-                            onClick={() => setSelectedNews(newsItem)}
-                          >
-                            <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center text-2xl mr-4 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-                              {newsItem.thumbnail}
-                            </div>
-                            <div className="flex-1">
-                              <h4 className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2">
-                                {newsItem.title}
-                              </h4>
-                              <p className="text-sm text-slate-600 mt-1">{newsItem.date}</p>
-                            </div>
-                          </motion.article>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                  </div>
                 </div>
               </div>
             </motion.div>

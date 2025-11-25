@@ -512,31 +512,6 @@ const PartnersInternational = () => {
           </motion.p>
         </motion.div>
 
-        {/* Статистика */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-12 sm:mb-16 lg:mb-20"
-        >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {t('partnersInternational.stats.items', { returnObjects: true }).map((stat, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="bg-white rounded-2xl p-6 border border-slate-200 shadow-lg text-center"
-                whileHover={{ y: -5, scale: 1.02 }}
-              >
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-sm sm:text-base text-slate-600 font-medium">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
 
         {/* Переключение вида, фильтры и поиск */}
         <motion.div

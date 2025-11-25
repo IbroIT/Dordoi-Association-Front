@@ -15,7 +15,6 @@ const ActivitiesMedicine = () => {
       services: t('medicine.centers.0.services', { returnObjects: true }),
       icon: '🏥',
       color: 'blue',
-      stats: t('medicine.centers.0.stats'),
       features: t('medicine.centers.0.features', { returnObjects: true }),
       image: '/images/medical-center-1.jpg',
       description: t('medicine.centers.0.description', '')
@@ -25,7 +24,6 @@ const ActivitiesMedicine = () => {
       services: t('medicine.centers.1.services', { returnObjects: true }),
       icon: '👨‍⚕️',
       color: 'green',
-      stats: t('medicine.centers.1.stats'),
       features: t('medicine.centers.1.features', { returnObjects: true }),
       image: '/images/family-medicine.jpg',
       description: t('medicine.centers.1.description', '')
@@ -35,7 +33,6 @@ const ActivitiesMedicine = () => {
       services: t('medicine.centers.2.services', { returnObjects: true }),
       icon: '🦷',
       color: 'purple',
-      stats: t('medicine.centers.2.stats'),
       features: t('medicine.centers.2.features', { returnObjects: true }),
       image: '/images/dental-center.jpg',
       description: t('medicine.centers.2.description', '')
@@ -45,7 +42,6 @@ const ActivitiesMedicine = () => {
       services: t('medicine.centers.3.services', { returnObjects: true }),
       icon: '👁️',
       color: 'orange',
-      stats: t('medicine.centers.3.stats'),
       features: t('medicine.centers.3.features', { returnObjects: true }),
       image: '/images/diagnostic-center.jpg',
       description: t('medicine.centers.3.description', '')
@@ -54,39 +50,27 @@ const ActivitiesMedicine = () => {
 
   const pandemicActions = [
     {
-      amount: t('medicine.pandemic.actions.0.amount'),
       description: t('medicine.pandemic.actions.0.description'),
       icon: '💰',
       color: 'red',
-      impact: t('medicine.pandemic.actions.0.impact'),
-      timeline: t('medicine.pandemic.actions.0.timeline'),
       details: t('medicine.pandemic.actions.0.details', '')
     },
     {
-      amount: t('medicine.pandemic.actions.1.amount'),
       description: t('medicine.pandemic.actions.1.description'),
       icon: '🔄',
       color: 'blue',
-      impact: t('medicine.pandemic.actions.1.impact'),
-      timeline: t('medicine.pandemic.actions.1.timeline'),
       details: t('medicine.pandemic.actions.1.details', '')
     },
     {
-      amount: t('medicine.pandemic.actions.2.amount'),
       description: t('medicine.pandemic.actions.2.description'),
       icon: '🏨',
       color: 'green',
-      impact: t('medicine.pandemic.actions.2.impact'),
-      timeline: t('medicine.pandemic.actions.2.timeline'),
       details: t('medicine.pandemic.actions.2.details', '')
     },
     {
-      amount: t('medicine.pandemic.actions.3.amount'),
       description: t('medicine.pandemic.actions.3.description'),
       icon: '🏫',
       color: 'purple',
-      impact: t('medicine.pandemic.actions.3.impact'),
-      timeline: t('medicine.pandemic.actions.3.timeline'),
       details: t('medicine.pandemic.actions.3.details', '')
     }
   ];
@@ -97,30 +81,24 @@ const ActivitiesMedicine = () => {
       description: t('medicine.socialPrograms.0.description'),
       detailed: t('medicine.socialPrograms.0.detailed'),
       icon: '💊',
-      beneficiaries: t('medicine.socialPrograms.0.beneficiaries'),
       color: 'blue',
-      achievements: t('medicine.socialPrograms.0.achievements', { returnObjects: true }),
-      duration: t('medicine.socialPrograms.0.duration')
+      achievements: t('medicine.socialPrograms.0.achievements', { returnObjects: true })
     },
     {
       title: t('medicine.socialPrograms.1.title'),
       description: t('medicine.socialPrograms.1.description'),
       detailed: t('medicine.socialPrograms.1.detailed'),
       icon: '🚐',
-      beneficiaries: t('medicine.socialPrograms.1.beneficiaries'),
       color: 'green',
-      achievements: t('medicine.socialPrograms.1.achievements', { returnObjects: true }),
-      duration: t('medicine.socialPrograms.1.duration')
+      achievements: t('medicine.socialPrograms.1.achievements', { returnObjects: true })
     },
     {
       title: t('medicine.socialPrograms.2.title'),
       description: t('medicine.socialPrograms.2.description'),
       detailed: t('medicine.socialPrograms.2.detailed'),
       icon: '👵',
-      beneficiaries: t('medicine.socialPrograms.2.beneficiaries'),
       color: 'purple',
-      achievements: t('medicine.socialPrograms.2.achievements', { returnObjects: true }),
-      duration: t('medicine.socialPrograms.2.duration')
+      achievements: t('medicine.socialPrograms.2.achievements', { returnObjects: true })
     }
   ];
 
@@ -129,7 +107,6 @@ const ActivitiesMedicine = () => {
       title: t('medicine.research.0.title'),
       description: t('medicine.research.0.description'),
       icon: '🔬',
-      progress: t('medicine.research.0.progress'),
       partners: t('medicine.research.0.partners', { returnObjects: true }),
       color: 'blue',
       details: t('medicine.research.0.details', '')
@@ -138,7 +115,6 @@ const ActivitiesMedicine = () => {
       title: t('medicine.research.1.title'),
       description: t('medicine.research.1.description'),
       icon: '🧬',
-      progress: t('medicine.research.1.progress'),
       partners: t('medicine.research.1.partners', { returnObjects: true }),
       color: 'green',
       details: t('medicine.research.1.details', '')
@@ -147,7 +123,6 @@ const ActivitiesMedicine = () => {
       title: t('medicine.research.2.title'),
       description: t('medicine.research.2.description'),
       icon: '🧠',
-      progress: t('medicine.research.2.progress'),
       partners: t('medicine.research.2.partners', { returnObjects: true }),
       color: 'purple',
       details: t('medicine.research.2.details', '')
@@ -340,7 +315,6 @@ const ActivitiesMedicine = () => {
                 </div>
                 <div>
                   <h2 className="text-3xl font-bold text-white mb-2">{modalData.name}</h2>
-                  <div className="text-white/90 text-lg">{modalData.stats}</div>
                 </div>
               </div>
             </div>
@@ -380,15 +354,6 @@ const ActivitiesMedicine = () => {
                   <p className="text-slate-700 leading-relaxed">{modalData.description}</p>
                 </div>
               )}
-
-              <div className="mt-8 flex space-x-4">
-                <button className={`flex-1 py-4 bg-gradient-to-r ${colors.gradient} text-white rounded-xl font-semibold text-lg`}>
-                  {t('medicine.modal.apply')}
-                </button>
-                <button className="flex-1 py-4 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold text-lg hover:border-slate-400 transition-colors">
-                  {t('medicine.modal.more')}
-                </button>
-              </div>
             </div>
           </div>
         );
@@ -418,13 +383,6 @@ const ActivitiesMedicine = () => {
             </div>
 
             <div className="p-8">
-              <div className="flex items-center justify-between mb-6">
-                <div className={`inline-flex items-center px-4 py-2 rounded-full ${colors.light} ${colors.text} font-semibold`}>
-                  {modalData.beneficiaries}
-                </div>
-                <div className="text-slate-500">{modalData.duration}</div>
-              </div>
-
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-bold text-slate-900 mb-3">{t('medicine.modal.about')}</h3>
@@ -443,10 +401,6 @@ const ActivitiesMedicine = () => {
                   </div>
                 </div>
               </div>
-
-              <button className={`w-full mt-8 py-4 bg-gradient-to-r ${colors.gradient} text-white rounded-xl font-semibold text-lg`}>
-                {t('medicine.modal.support')}
-              </button>
             </div>
           </div>
         );
@@ -483,21 +437,6 @@ const ActivitiesMedicine = () => {
                   <p className="text-slate-700">{modalData.details}</p>
                 </div>
               )}
-
-              <div className="mb-6">
-                <div className="flex justify-between text-sm text-slate-600 mb-2">
-                  <span>{t('medicine.research_progress')}</span>
-                  <span>{modalData.progress}</span>
-                </div>
-                <div className="w-full bg-slate-200 rounded-full h-3">
-                  <motion.div
-                    className={`h-3 rounded-full ${colors.bg}`}
-                    initial={{ width: 0 }}
-                    animate={{ width: modalData.progress }}
-                    transition={{ duration: 1, delay: 0.2 }}
-                  />
-                </div>
-              </div>
 
               <div>
                 <h3 className="text-lg font-bold text-slate-900 mb-3">{t('medicine.partners')}</h3>
@@ -537,7 +476,7 @@ const ActivitiesMedicine = () => {
                   <span className="text-3xl">{modalData.icon}</span>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">{modalData.amount}</h2>
+                  <h2 className="text-2xl font-bold text-white">{modalData.description}</h2>
                 </div>
               </div>
             </div>
@@ -550,17 +489,6 @@ const ActivitiesMedicine = () => {
                   <p className="text-slate-700">{modalData.details}</p>
                 </div>
               )}
-
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="text-center p-4 bg-slate-50 rounded-xl">
-                  <div className="text-sm text-slate-600 mb-1">{t('medicine.timeline')}</div>
-                  <div className="font-semibold text-slate-900">{modalData.timeline}</div>
-                </div>
-                <div className="text-center p-4 bg-slate-50 rounded-xl">
-                  <div className="text-sm text-slate-600 mb-1">{t('medicine.impact')}</div>
-                  <div className="font-semibold text-slate-900">{modalData.impact}</div>
-                </div>
-              </div>
 
               <button className={`w-full py-4 bg-gradient-to-r ${colors.gradient} text-white rounded-xl font-semibold text-lg`}>
                 Узнать подробности
@@ -661,23 +589,6 @@ const ActivitiesMedicine = () => {
                   {t('medicine.lead.description')}
                 </p>
                 
-                {/* Статистика */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {t('medicine.lead.stats', { returnObjects: true }).map((stat, index) => (
-                    <motion.div
-                      key={index}
-                      className="text-center p-4 bg-white rounded-2xl border border-slate-200 shadow-sm"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <div className="text-2xl sm:text-3xl font-bold text-blue-600 mb-1">
-                        {stat.value}
-                      </div>
-                      <div className="text-sm text-slate-600">
-                        {stat.label}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
               </div>
             </div>
           </motion.div>
@@ -738,15 +649,6 @@ const ActivitiesMedicine = () => {
                         {center.name}
                       </h4>
                       
-                      <div className="text-center mb-4">
-                        <div className="text-sm text-slate-500 mb-2">
-                          {t('medicine.centers.statsLabel')}
-                        </div>
-                        <div className="text-lg font-semibold text-blue-600">
-                          {center.stats}
-                        </div>
-                      </div>
-
                       <ul className="space-y-3 mb-4">
                         {center.services.slice(0, 3).map((service, serviceIndex) => (
                           <motion.li
@@ -806,22 +708,9 @@ const ActivitiesMedicine = () => {
                           </div>
                           
                           <div className="flex-1">
-                            <div className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
-                              {action.amount}
-                            </div>
-                            
                             <p className="text-slate-600 text-lg leading-relaxed mb-3">
                               {action.description}
                             </p>
-
-                            <div className="flex items-center justify-between text-sm">
-                              <div className="text-slate-500">
-                                {action.timeline}
-                              </div>
-                              <div className={`px-3 py-1 rounded-full ${colors.light} ${colors.text} font-semibold`}>
-                                {action.impact}
-                              </div>
-                            </div>
                           </div>
                         </div>
                       </motion.div>
@@ -899,27 +788,6 @@ const ActivitiesMedicine = () => {
                           </p>
                         </div>
                       </div>
-                      
-                      <div className="flex items-center justify-between mb-4">
-                        <div className={`inline-flex items-center px-3 py-1 rounded-full ${colors.light} ${colors.text} text-sm font-semibold`}>
-                          {program.beneficiaries}
-                        </div>
-                        <div className="text-sm text-slate-500">
-                          {program.duration}
-                        </div>
-                      </div>
-
-                      <motion.button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openModal(program, 'social');
-                        }}
-                        className={`w-full mt-4 py-3 bg-gradient-to-r ${colors.gradient} ${colors.hover} text-white rounded-xl font-semibold transition-all duration-300`}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        {t('medicine.buttons.supportProgram')}
-                      </motion.button>
                     </motion.div>
                   );
                 })}
@@ -968,20 +836,6 @@ const ActivitiesMedicine = () => {
                         <p className="text-slate-600 text-base leading-relaxed mb-4">
                           {project.description}
                         </p>
-
-                        <div className="mb-4">
-                          <div className="text-sm text-slate-500 mb-2">
-                            {t('medicine.research.progress')}
-                          </div>
-                          <div className="w-full bg-slate-200 rounded-full h-2">
-                            <motion.div
-                              className={`h-2 rounded-full ${colors.bg}`}
-                              initial={{ width: 0 }}
-                              animate={{ width: project.progress }}
-                              transition={{ duration: 1, delay: 0.5 }}
-                            />
-                          </div>
-                        </div>
 
                         <div className="space-y-2">
                           <div className="text-sm font-semibold text-slate-800">
@@ -1047,25 +901,6 @@ const ActivitiesMedicine = () => {
           </motion.div>
 
           {/* Дополнительная информация */}
-          <motion.div
-            variants={itemVariants}
-            className="grid md:grid-cols-3 gap-6 text-center"
-          >
-            {t('medicine.footer.stats', { returnObjects: true }).map((stat, index) => (
-              <motion.div
-                key={index}
-                className="p-4"
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="text-2xl sm:text-3xl font-bold text-blue-600 mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-slate-600">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
         </motion.div>
       </div>
 

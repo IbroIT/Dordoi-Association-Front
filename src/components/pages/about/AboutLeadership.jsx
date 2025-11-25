@@ -229,31 +229,6 @@ const AboutLeadership = () => {
           </motion.p>
         </motion.div>
 
-        {/* Статистика */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl border border-slate-200/60 shadow-sm hover:shadow-lg transition-all duration-500 group"
-            >
-              <motion.div
-                className="text-3xl lg:text-4xl font-bold bg-gradient-to-br from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2"
-                whileHover={{ scale: 1.1 }}
-              >
-                {stat.value}
-              </motion.div>
-              <div className="text-slate-600 text-sm font-medium">{stat.label}</div>
-              <div className="w-0 group-hover:w-12 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mx-auto mt-3 transition-all duration-500" />
-            </motion.div>
-          ))}
-        </motion.div>
-
         {/* Сетка карточек руководства */}
         <AnimatePresence>
           {activeTab === 'leadership' && (
@@ -462,41 +437,6 @@ const AboutLeadership = () => {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Кнопка загрузки PDF */}
-        <motion.div
-          variants={itemVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="text-center"
-        >
-          <motion.button
-            onClick={handleDownloadPDF}
-            className="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-2xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-500 overflow-hidden"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span className="relative z-10 flex items-center">
-              {t('leadership.downloadPDF')}
-              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-            </span>
-            
-            {/* Анимированный фон кнопки */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              animate={{
-                background: [
-                  'linear-gradient(to right, #0891b2, #0369a1)',
-                  'linear-gradient(to right, #0369a1, #0891b2)',
-                  'linear-gradient(to right, #0891b2, #0369a1)'
-                ]
-              }}
-              transition={{ duration: 3, repeat: Infinity }}
-            />
-          </motion.button>
-        </motion.div>
       </div>
 
       {/* Модальное окно с детальной информацией */}

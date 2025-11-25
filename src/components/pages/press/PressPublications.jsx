@@ -638,28 +638,6 @@ const PressPublications = () => {
           </motion.p>
         </motion.div>
 
-        {/* Statistics */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300 text-center"
-            >
-              <div className="text-2xl lg:text-3xl font-bold text-slate-900 mb-2">
-                {stat.value}
-              </div>
-              <div className="text-slate-600 text-sm">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
 
         {/* Controls Section */}
         <motion.div

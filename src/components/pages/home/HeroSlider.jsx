@@ -111,21 +111,6 @@ const HeroSlider = () => {
                     {slide.description}
                   </p>
                   
-                  {/* Кнопки */}
-                  <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                    <Link
-                      to={slide.buttonLink}
-                      className="bg-yellow-400 text-blue-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
-                    >
-                      {slide.buttonText}
-                    </Link>
-                    <Link
-                      to="/contacts"
-                      className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-blue-900 transition-all duration-300 transform hover:scale-105 text-center"
-                    >
-                      {t('hero.contactButton')}
-                    </Link>
-                  </div>
                 </div>
               </div>
             </div>

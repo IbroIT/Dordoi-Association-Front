@@ -20,7 +20,6 @@ const PartnersProjects = () => {
   ];
 
   const stats = [
-    { value: t('partnersProjects.stats.totalInvestment'), label: t('partnersProjects.stats.investmentLabel') },
     { value: t('partnersProjects.stats.countries'), label: t('partnersProjects.stats.partnerCountries') },
     { value: t('partnersProjects.stats.jobsCreated'), label: t('partnersProjects.stats.jobsLabel') },
     { value: t('partnersProjects.stats.successRate'), label: t('partnersProjects.stats.successLabel') }
@@ -329,10 +328,6 @@ const PartnersProjects = () => {
                       <span className="font-semibold">{project.duration}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-600">{t('partnersProjects.investment')}</span>
-                      <span className="font-semibold">{project.investment}</span>
-                    </div>
-                    <div className="flex justify-between">
                       <span className="text-slate-600">{t('partnersProjects.details.location')}</span>
                       <span className="font-semibold">{project.location}</span>
                     </div>
@@ -447,29 +442,6 @@ const PartnersProjects = () => {
           >
             {t('partnersProjects.subtitle')}
           </motion.p>
-        </motion.div>
-
-        {/* Statistics Section */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300"
-            >
-              <div className="text-2xl lg:text-3xl font-bold text-slate-900 mb-2">
-                {stat.value}
-              </div>
-              <div className="text-slate-600 text-sm">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
         </motion.div>
 
         {/* Enhanced Filters and View Controls */}
@@ -636,20 +608,13 @@ const PartnersProjects = () => {
                     </ul>
 
                     {/* Project Metrics */}
-                    <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                    <div className="flex justify-center pt-4 border-t border-slate-100">
                       <motion.div 
                         className="text-center"
                         whileHover={{ scale: 1.05 }}
                       >
                         <div className="text-xs text-slate-500 mb-1">{t('partnersProjects.duration')}</div>
                         <div className="text-sm font-semibold text-slate-900">{project.duration}</div>
-                      </motion.div>
-                      <motion.div 
-                        className="text-center"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <div className="text-xs text-slate-500 mb-1">{t('partnersProjects.investment')}</div>
-                        <div className="text-sm font-semibold text-slate-900">{project.investment}</div>
                       </motion.div>
                     </div>
                   </div>

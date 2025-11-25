@@ -251,29 +251,6 @@ const Footer = () => {
                 </motion.a>
               ))}
             </div>
-
-            {/* Форма быстрого запроса */}
-            <motion.div
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <h4 className="text-white font-semibold mb-3 text-sm">{t('footer.social.messageForm.title')}</h4>
-              <div className="space-y-3">
-                <input
-                  type="email"
-                  placeholder={t('footer.social.messageForm.placeholder')}
-                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 text-sm focus:outline-none focus:border-yellow-400 transition-colors"
-                />
-                <motion.button
-                  className="w-full bg-yellow-400 text-slate-900 py-2 rounded-lg font-semibold text-sm hover:bg-yellow-300 transition-colors duration-300"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {t('footer.social.messageForm.button')}
-                </motion.button>
-              </div>
-            </motion.div>
           </motion.div>
         </motion.div>
 

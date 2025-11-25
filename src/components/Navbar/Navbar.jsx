@@ -101,12 +101,12 @@ const Navbar = () => {
       path: '/activities',
       submenu: [
         { key: 'activities_trade', label: t('nav.activities_trade'), path: '/activities/trade' },
-        { key: 'activities_finance', label: t('nav.activities_finance'), path: '/activities/finance' },
+        // { key: 'activities_finance', label: t('nav.activities_finance'), path: '/activities/finance' },
         { key: 'activities_education', label: t('nav.activities_education'), path: '/activities/education' },
         { key: 'activities_medicine', label: t('nav.activities_medicine'), path: '/activities/medicine' },
         { key: 'activities_sports', label: t('nav.activities_sports'), path: '/activities/sports' },
         { key: 'activities_culture', label: t('nav.activities_culture'), path: '/activities/culture' },
-        { key: 'activities_social', label: t('nav.activities_social'), path: '/activities/social' }
+        // { key: 'activities_social', label: t('nav.activities_social'), path: '/activities/social' }
       ]
     },
     {
@@ -118,8 +118,8 @@ const Navbar = () => {
         { key: 'press_news', label: t('nav.press_news'), path: '/press/news' },
         { key: 'press_media', label: t('nav.press_media'), path: '/press/media' },
         { key: 'press_publications', label: t('nav.press_publications'), path: '/press/publications' },
-        { key: 'press_events', label: t('nav.press_events'), path: '/press/events' },
-        { key: 'press_releases', label: t('nav.press_releases'), path: '/press/releases' }
+        // { key: 'press_events', label: t('nav.press_events'), path: '/press/events' },
+        // { key: 'press_releases', label: t('nav.press_releases'), path: '/press/releases' }
       ]
     },
     {
@@ -131,7 +131,7 @@ const Navbar = () => {
         { key: 'partners_our', label: t('nav.partners_our'), path: '/partners/our' },
         { key: 'partners_international', label: t('nav.partners_international'), path: '/partners/international' },
         { key: 'partners_projects', label: t('nav.partners_projects'), path: '/partners/projects' },
-        { key: 'partners_conferences', label: t('nav.partners_conferences'), path: '/partners/conferences' },
+        // { key: 'partners_conferences', label: t('nav.partners_conferences'), path: '/partners/conferences' },
         { key: 'partners_role', label: t('nav.partners_role'), path: '/partners/role' }
       ]
     },
