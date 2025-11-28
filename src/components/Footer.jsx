@@ -113,8 +113,8 @@ const Footer = () => {
                   D
                 </div>
                 <div>
-                  <div className="text-xl font-bold text-white">Ассоциация</div>
-                  <div className="text-yellow-400 font-semibold">«Дордой»</div>
+                  <div className="text-xl font-bold text-white">{t('footer.logo.association')}</div>
+                  <div className="text-yellow-400 font-semibold">{t('footer.logo.foundation')}</div>
                 </div>
               </div>
             </Link>
