@@ -5,217 +5,139 @@ import { useTranslation } from 'react-i18next';
 const PressNews = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedNews, setSelectedNews] = useState(null);
   const [activeCategory, setActiveCategory] = useState('all');
   const [showMore, setShowMore] = useState({});
   const [visibleCount, setVisibleCount] = useState(6);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [news, setNews] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(null);
 
-  // Имитация загрузки данных
+  // Загрузка данных из API с fallback на демо-данные
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // Загрузка категорий
+        const categoriesResponse = await fetch(`/api/presscentre/categories/?lang=${i18n.language}`);
+        if (!categoriesResponse.ok) {
+          throw new Error(`Failed to fetch categories: ${categoriesResponse.status}`);
+        }
+        const categoriesData = await categoriesResponse.json();
+
+        // Загрузка новостей
+        const newsResponse = await fetch(`/api/presscentre/news/?lang=${i18n.language}`);
+        if (!newsResponse.ok) {
+          throw new Error(`Failed to fetch news: ${newsResponse.status}`);
+        }
+        const newsData = await newsResponse.json();
+
+        // Преобразование данных категорий
+        const categoriesArray = categoriesData.results || categoriesData;
+        const transformedCategories = [
+          { id: 'all', name: t('press.categories.all'), color: 'gray', icon: '📰' },
+          ...categoriesArray.map(cat => ({
+            id: cat.id.toString(),
+            name: cat.title,
+            color: getCategoryColor(cat.id),
+            icon: getCategoryIcon(cat.id)
+          }))
+        ];
+
+        // Преобразование данных новостей
+        const newsArray = newsData.results || newsData || [];
+        const transformedNews = Array.isArray(newsArray) ? newsArray.map(item => ({
+          id: item.id,
+          title: item.title,
+          date: new Date(item.created_at).toLocaleDateString(i18n.language, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          }),
+          category: item.category?.id?.toString() || item.category_id?.toString() || '1',
+          thumbnail: item.image || '📰',
+          lead: item.short_description || item.description?.substring(0, 100) + '...' || '',
+          fullText: item.description,
+          gallery: [],
+          video: null,
+          files: [],
+          tags: [],
+          views: 0,
+          likes: 0,
+          shares: 0,
+          author: '',
+          readTime: '3 мин',
+          featured: item.is_recommended || false,
+          related: []
+        })) : [];
+
+        setCategories(transformedCategories);
+        setNews(transformedNews);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        console.warn('API недоступен, используются демо-данные. Запустите Django сервер для получения реальных данных.');
+        // Fallback to static data if API is not available
+        setCategories([
+          { id: 'all', name: t('press.categories.all'), color: 'gray', icon: '📰' },
+          { id: '1', name: 'Категория RU', color: 'blue', icon: '📢' }
+        ]);
+        setNews([
+          {
+            id: 1,
+            title: 'Пример новости',
+            date: '29.11.2023',
+            category: '1',
+            thumbnail: '📰',
+            lead: 'Это пример новости для демонстрации функциональности.',
+            fullText: 'Полный текст новости для демонстрации модального окна.',
+            gallery: [],
+            video: null,
+            files: [],
+            tags: [],
+            views: 0,
+            likes: 0,
+            shares: 0,
+            author: '',
+            readTime: '3 мин',
+            featured: true,
+            related: []
+          }
+        ]);
+        setError(null); // Clear error since we have fallback data
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     if (isInView) {
-      setIsLoading(true);
-      const timer = setTimeout(() => setIsLoading(false), 1500);
-      return () => clearTimeout(timer);
+      fetchData();
     }
-  }, [isInView]);
+  }, [isInView, i18n.language, t]);
 
-  const news = [
-    {
-      id: 1,
-      title: t('press.news.0.title'),
-      date: t('press.news.0.date'),
-      category: 'official',
-      thumbnail: '📰',
-      lead: t('press.news.0.lead'),
-      fullText: t('press.news.0.fullText'),
-      gallery: ['1', '2', '3'],
-      video: 'https://example.com/video1',
-      files: [
-        { name: t('press.news.0.files.0'), url: '#', type: 'pdf', size: '2.4 MB' },
-        { name: t('press.news.0.files.1'), url: '#', type: 'doc', size: '1.8 MB' }
-      ],
-      tags: [t('press.news.0.tags.0'), t('press.news.0.tags.1'), t('press.news.0.tags.2')],
-      views: 1247,
-      likes: 89,
-      shares: 34,
-      author: t('press.authors.0'),
-      readTime: '4 мин',
-      featured: true,
-      related: [2, 3]
-    },
-    {
-      id: 2,
-      title: t('press.news.1.title'),
-      date: t('press.news.1.date'),
-      category: 'event',
-      thumbnail: '🎉',
-      lead: t('press.news.1.lead'),
-      fullText: t('press.news.1.fullText'),
-      gallery: ['1', '2'],
-      video: null,
-      files: [
-        { name: t('press.news.1.files.0'), url: '#', type: 'pdf', size: '3.1 MB' }
-      ],
-      tags: [t('press.news.1.tags.0'), t('press.news.1.tags.1')],
-      views: 856,
-      likes: 67,
-      shares: 21,
-      author: t('press.authors.1'),
-      readTime: '3 мин',
-      featured: false,
-      related: [1, 4]
-    },
-    {
-      id: 3,
-      title: t('press.news.2.title'),
-      date: t('press.news.2.date'),
-      category: 'opening',
-      thumbnail: '🏗️',
-      lead: t('press.news.2.lead'),
-      fullText: t('press.news.2.fullText'),
-      gallery: ['1', '2', '3', '4'],
-      video: 'https://example.com/video2',
-      files: [
-        { name: t('press.news.2.files.0'), url: '#', type: 'pdf', size: '4.2 MB' },
-        { name: t('press.news.2.files.1'), url: '#', type: 'pdf', size: '2.9 MB' }
-      ],
-      tags: [t('press.news.2.tags.0'), t('press.news.2.tags.1'), t('press.news.2.tags.2')],
-      views: 1563,
-      likes: 124,
-      shares: 45,
-      author: t('press.authors.2'),
-      readTime: '5 мин',
-      featured: true,
-      related: [1, 5]
-    },
-    {
-      id: 4,
-      title: t('press.news.3.title'),
-      date: t('press.news.3.date'),
-      category: 'memorandum',
-      thumbnail: '📝',
-      lead: t('press.news.3.lead'),
-      fullText: t('press.news.3.fullText'),
-      gallery: ['1', '2'],
-      video: null,
-      files: [
-        { name: t('press.news.3.files.0'), url: '#', type: 'pdf', size: '1.5 MB' }
-      ],
-      tags: [t('press.news.3.tags.0'), t('press.news.3.tags.1')],
-      views: 723,
-      likes: 45,
-      shares: 18,
-      author: t('press.authors.3'),
-      readTime: '2 мин',
-      featured: false,
-      related: [2, 6]
-    },
-    {
-      id: 5,
-      title: t('press.news.4.title'),
-      date: t('press.news.4.date'),
-      category: 'official',
-      thumbnail: '📢',
-      lead: t('press.news.4.lead'),
-      fullText: t('press.news.4.fullText'),
-      gallery: ['1', '2', '3'],
-      video: 'https://example.com/video3',
-      files: [],
-      tags: [t('press.news.4.tags.0'), t('press.news.4.tags.1'), t('press.news.4.tags.2')],
-      views: 934,
-      likes: 78,
-      shares: 29,
-      author: t('press.authors.4'),
-      readTime: '4 мин',
-      featured: false,
-      related: [3, 6]
-    },
-    {
-      id: 6,
-      title: t('press.news.5.title'),
-      date: t('press.news.5.date'),
-      category: 'event',
-      thumbnail: '🌟',
-      lead: t('press.news.5.lead'),
-      fullText: t('press.news.5.fullText'),
-      gallery: ['1', '2'],
-      video: null,
-      files: [
-        { name: t('press.news.5.files.0'), url: '#', type: 'pdf', size: '2.7 MB' },
-        { name: t('press.news.5.files.1'), url: '#', type: 'pdf', size: '3.3 MB' }
-      ],
-      tags: [t('press.news.5.tags.0'), t('press.news.5.tags.1')],
-      views: 1125,
-      likes: 92,
-      shares: 31,
-      author: t('press.authors.5'),
-      readTime: '3 мин',
-      featured: true,
-      related: [4, 5]
-    },
-    {
-      id: 7,
-      title: t('press.news.6.title', 'Новый проект устойчивого развития'),
-      date: '18.11.2023',
-      category: 'official',
-      thumbnail: '🌱',
-      lead: t('press.news.6.lead', 'Запуск экологически чистого производства с использованием солнечной энергии'),
-      fullText: t('press.news.6.fullText', 'Компания объявляет о запуске нового экологического проекта, направленного на снижение углеродного следа и внедрение устойчивых практик в производственный процесс.\n\nПроект включает установку солнечных панелей мощностью 5 МВт, систему рециркуляции воды и переход на биологически разлагаемые материалы. Ожидается, что это позволит сократить выбросы CO2 на 40% в течение следующего года.'),
-      gallery: ['1', '2', '3', '4', '5'],
-      video: 'https://example.com/video4',
-      files: [
-        { name: t('press.news.6.files.0', 'Экологический отчет.pdf'), url: '#', type: 'pdf', size: '5.1 MB' }
-      ],
-      tags: [t('press.news.6.tags.0', 'экология'), t('press.news.6.tags.1', 'устойчивое развитие'), t('press.news.6.tags.2', 'инновации')],
-      views: 876,
-      likes: 103,
-      shares: 42,
-      author: t('press.authors.6', 'Экологический отдел'),
-      readTime: '6 мин',
-      featured: true,
-      related: [1, 3]
-    },
-    {
-      id: 8,
-      title: t('press.news.7.title', 'Технологическое партнерство с университетом'),
-      date: '12.11.2023',
-      category: 'memorandum',
-      thumbnail: '🎓',
-      lead: t('press.news.7.lead', 'Подписание соглашения о совместных исследованиях в области искусственного интеллекта'),
-      fullText: t('press.news.7.fullText', 'Компания заключила стратегическое партнерство с ведущим техническим университетом для совместной работы над проектами в области искусственного интеллекта и машинного обучения.\n\nВ рамках сотрудничества планируется создание исследовательского центра, где студенты и сотрудники компании будут работать над инновационными проектами. Первым совместным проектом станет разработка системы прогнозирования спроса с использованием нейронных сетей.'),
-      gallery: ['1', '2'],
-      video: 'https://example.com/video5',
-      files: [
-        { name: t('press.news.7.files.0', 'Соглашение о партнерстве.pdf'), url: '#', type: 'pdf', size: '3.8 MB' },
-        { name: t('press.news.7.files.1', 'Презентация проекта.pdf'), url: '#', type: 'pdf', size: '4.5 MB' }
-      ],
-      tags: [t('press.news.7.tags.0', 'технологии'), t('press.news.7.tags.1', 'образование'), t('press.news.7.tags.2', 'ИИ')],
-      views: 765,
-      likes: 56,
-      shares: 23,
-      author: t('press.authors.7', 'Отдел инноваций'),
-      readTime: '4 мин',
-      featured: false,
-      related: [2, 4]
-    }
-  ];
+  // Вспомогательные функции для категорий
+  const getCategoryColor = (categoryId) => {
+    const colors = ['blue', 'green', 'orange', 'purple', 'red', 'indigo', 'teal'];
+    return colors[categoryId % colors.length];
+  };
 
-  const categories = [
-    { id: 'all', name: t('press.categories.all'), color: 'gray', icon: '📰' },
-    { id: 'official', name: t('press.categories.official'), color: 'blue', icon: '📢' },
-    { id: 'event', name: t('press.categories.event'), color: 'green', icon: '🎉' },
-    { id: 'opening', name: t('press.categories.opening'), color: 'orange', icon: '🏗️' },
-    { id: 'memorandum', name: t('press.categories.memorandum'), color: 'purple', icon: '📝' }
-  ];
+  const getCategoryIcon = (categoryId) => {
+    const icons = ['📢', '🎉', '🏗️', '📝', '🌟', '📊', '🎓'];
+    return icons[categoryId % icons.length];
+  };
 
   const colorMap = {
     gray: { bg: 'bg-gray-500', text: 'text-gray-600', light: 'bg-gray-50', border: 'border-gray-200', gradient: 'from-gray-500 to-gray-600' },
     blue: { bg: 'bg-blue-500', text: 'text-blue-600', light: 'bg-blue-50', border: 'border-blue-200', gradient: 'from-blue-500 to-blue-600' },
     green: { bg: 'bg-green-500', text: 'text-green-600', light: 'bg-green-50', border: 'border-green-200', gradient: 'from-green-500 to-green-600' },
     orange: { bg: 'bg-orange-500', text: 'text-orange-600', light: 'bg-orange-50', border: 'border-orange-200', gradient: 'from-orange-500 to-orange-600' },
-    purple: { bg: 'bg-purple-500', text: 'text-purple-600', light: 'bg-purple-50', border: 'border-purple-200', gradient: 'from-purple-500 to-purple-600' }
+    purple: { bg: 'bg-purple-500', text: 'text-purple-600', light: 'bg-purple-50', border: 'border-purple-200', gradient: 'from-purple-500 to-purple-600' },
+    red: { bg: 'bg-red-500', text: 'text-red-600', light: 'bg-red-50', border: 'border-red-200', gradient: 'from-red-500 to-red-600' },
+    indigo: { bg: 'bg-indigo-500', text: 'text-indigo-600', light: 'bg-indigo-50', border: 'border-indigo-200', gradient: 'from-indigo-500 to-indigo-600' },
+    teal: { bg: 'bg-teal-500', text: 'text-teal-600', light: 'bg-teal-50', border: 'border-teal-200', gradient: 'from-teal-500 to-teal-600' }
   };
 
   const fileTypeIcons = {
@@ -236,7 +158,7 @@ const PressNews = () => {
     .slice(0, visibleCount);
 
   const featuredNews = news.filter(item => item.featured);
-  const relatedNews = selectedNews ? news.filter(item => selectedNews.related?.includes(item.id)) : [];
+  const relatedNews = selectedNews ? news.filter(item => item.id !== selectedNews.id).slice(0, 3) : [];
 
   const toggleShowMore = (id) => {
     setShowMore(prev => ({
@@ -473,8 +395,8 @@ const PressNews = () => {
             </motion.h3>
             <div className="grid lg:grid-cols-2 gap-8">
               {featuredNews.slice(0, 2).map((newsItem) => {
-                const category = categories.find(cat => cat.id === newsItem.category);
-                const colors = colorMap[category.color];
+                const category = categories.find(cat => cat.id === newsItem.category) || categories[0];
+                const colors = colorMap[category?.color || 'gray'];
                 
                 return (
                   <motion.article
@@ -485,11 +407,19 @@ const PressNews = () => {
                     onClick={() => setSelectedNews(newsItem)}
                   >
                     <div className="relative h-64 bg-gradient-to-br from-blue-100 to-purple-100 overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-8xl opacity-20 group-hover:scale-110 transition-transform duration-500">
-                          {newsItem.thumbnail}
+                      {newsItem.thumbnail && newsItem.thumbnail !== '📰' ? (
+                        <img
+                          src={newsItem.thumbnail}
+                          alt={newsItem.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-8xl opacity-20 group-hover:scale-110 transition-transform duration-500">
+                            📰
+                          </div>
                         </div>
-                      </div>
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       
                       <div className="absolute top-4 left-4 flex flex-wrap gap-2">
@@ -535,7 +465,33 @@ const PressNews = () => {
         )}
 
         {/* Список новостей */}
-        {isLoading ? (
+        {error && news.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center py-16"
+          >
+            <div className="w-24 h-24 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg className="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-semibold text-slate-900 mb-3">
+              {t('press.error.title', 'Ошибка загрузки')}
+            </h3>
+            <p className="text-slate-600 max-w-md mx-auto mb-6">
+              {error}
+            </p>
+            <motion.button
+              onClick={() => window.location.reload()}
+              className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {t('press.error.retry', 'Попробовать снова')}
+            </motion.button>
+          </motion.div>
+        ) : isLoading ? (
           <SkeletonLoader />
         ) : (
           <>
@@ -546,8 +502,8 @@ const PressNews = () => {
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
             >
               {filteredNews.map((newsItem) => {
-                const category = categories.find(cat => cat.id === newsItem.category);
-                const colors = colorMap[category.color];
+                const category = categories.find(cat => cat.id === newsItem.category) || categories[0];
+                const colors = colorMap[category?.color || 'gray'];
                 
                 return (
                   <motion.article
@@ -561,11 +517,19 @@ const PressNews = () => {
                   >
                     {/* Миниатюра */}
                     <div className="relative h-48 bg-gradient-to-br from-blue-50 to-purple-50 overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-6xl opacity-20 group-hover:scale-110 transition-transform duration-500">
-                          {newsItem.thumbnail}
+                      {newsItem.thumbnail && newsItem.thumbnail !== '📰' ? (
+                        <img
+                          src={newsItem.thumbnail}
+                          alt={newsItem.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="text-6xl opacity-20 group-hover:scale-110 transition-transform duration-500">
+                            📰
+                          </div>
                         </div>
-                      </div>
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       
                       <div className="absolute top-4 left-4">
@@ -697,12 +661,12 @@ const PressNews = () => {
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-4 flex-wrap">
                         <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold ${
-                          colorMap[categories.find(cat => cat.id === selectedNews.category).color].light
+                          colorMap[(categories.find(cat => cat.id === selectedNews.category) || categories[0])?.color || 'gray'].light
                         } ${
-                          colorMap[categories.find(cat => cat.id === selectedNews.category).color].text
+                          colorMap[(categories.find(cat => cat.id === selectedNews.category) || categories[0])?.color || 'gray'].text
                         }`}>
-                          <span className="mr-2">{categories.find(cat => cat.id === selectedNews.category).icon}</span>
-                          {categories.find(cat => cat.id === selectedNews.category).name}
+                          <span className="mr-2">{(categories.find(cat => cat.id === selectedNews.category) || categories[0])?.icon || '📰'}</span>
+                          {(categories.find(cat => cat.id === selectedNews.category) || categories[0])?.name || 'General'}
                         </span>
                         {selectedNews.featured && (
                           <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-700">

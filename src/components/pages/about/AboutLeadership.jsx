@@ -1,13 +1,46 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 const AboutLeadership = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedLeader, setSelectedLeader] = useState(null);
   const [activeTab, setActiveTab] = useState('leadership');
+  const [leaders, setLeaders] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Загрузка данных из API
+  useEffect(() => {
+    const fetchLeaders = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/about-us/leaders/?lang=${i18n.language}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        let leadersArray = [];
+        if (data.results && Array.isArray(data.results)) {
+          leadersArray = data.results;
+        } else if (Array.isArray(data)) {
+          leadersArray = data;
+        } else {
+          console.error('Unexpected API response structure:', data);
+          setLeaders([]);
+          return;
+        }
+        setLeaders(leadersArray);
+      } catch (error) {
+        console.error('Error fetching leaders:', error);
+        setLeaders([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLeaders();
+  }, [i18n.language]);
 
   // Генерация градиента на основе имени
   const generateGradient = (name) => {
@@ -27,29 +60,6 @@ const AboutLeadership = () => {
   const getInitials = (name) => {
     return name.split(' ').map(word => word[0]).join('').toUpperCase();
   };
-
-  const leaders = [0, 1, 2, 3].map(index => ({
-    id: index + 1,
-    name: t(`leadership.persons.${index}.name`),
-    position: t(`leadership.persons.${index}.position`),
-    bio: t(`leadership.persons.${index}.bio`),
-    fullBio: t(`leadership.persons.${index}.fullBio`, { defaultValue: '' }),
-    experience: t(`leadership.persons.${index}.experience`, { defaultValue: '15+ years' }),
-    education: t(`leadership.persons.${index}.education`, { defaultValue: '' }),
-    achievements: [
-      t(`leadership.persons.${index}.achievements.0`),
-      t(`leadership.persons.${index}.achievements.1`),
-      t(`leadership.persons.${index}.achievements.2`),
-      t(`leadership.persons.${index}.achievements.3`, { defaultValue: '' }),
-      t(`leadership.persons.${index}.achievements.4`, { defaultValue: '' })
-    ].filter(achievement => achievement),
-    specialties: [
-      t(`leadership.persons.${index}.specialties.0`, { defaultValue: '' }),
-      t(`leadership.persons.${index}.specialties.1`, { defaultValue: '' }),
-      t(`leadership.persons.${index}.specialties.2`, { defaultValue: '' })
-    ].filter(specialty => specialty),
-    contact: t(`leadership.persons.${index}.contact`, { defaultValue: '' })
-  }));
 
   const stats = [
     { value: t('leadership.stats.experience.value'), label: t('leadership.stats.experience.label') },
@@ -177,7 +187,7 @@ const AboutLeadership = () => {
             variants={itemVariants}
             className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200/50 mb-6 shadow-sm"
           >
-            <span className="text-blue-600 text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+            <span className="text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
               {t('leadership.badge')}
             </span>
           </motion.div>
@@ -240,7 +250,12 @@ const AboutLeadership = () => {
               transition={{ duration: 0.5 }}
               className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8 mb-16"
             >
-              {leaders.map((leader, index) => (
+              {loading && (
+                <div className="col-span-full flex justify-center items-center py-20">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+                </div>
+              )}
+              {!loading && leaders.map((leader, index) => (
                 <motion.div
                   key={leader.id}
                   variants={cardVariants}
@@ -258,41 +273,49 @@ const AboutLeadership = () => {
                         whileHover={{ scale: 1.05, rotate: 2 }}
                         transition={{ type: "spring", stiffness: 300, damping: 10 }}
                       >
-                        <div className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${generateGradient(leader.name)} relative overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500`}>
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-white text-4xl font-bold tracking-wider">
-                              {getInitials(leader.name)}
-                            </span>
+                        {leader.photo ? (
+                          <img
+                            src={leader.photo}
+                            alt={leader.name}
+                            className="w-32 h-32 rounded-3xl object-cover shadow-2xl group-hover:shadow-3xl transition-all duration-500"
+                          />
+                        ) : (
+                          <div className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${generateGradient(leader.name)} relative overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500`}>
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <span className="text-white text-4xl font-bold tracking-wider">
+                                {getInitials(leader.name)}
+                              </span>
+                            </div>
+                            
+                            {/* Анимированные элементы */}
+                            <motion.div
+                              className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full shadow-lg"
+                              animate={{ 
+                                scale: [1, 1.2, 1],
+                                rotate: [0, 180, 360]
+                              }}
+                              transition={{ 
+                                duration: 4, 
+                                repeat: Infinity, 
+                                ease: "easeInOut",
+                                delay: index * 0.5 
+                              }}
+                            />
+                            
+                            <motion.div
+                              className="absolute -bottom-2 -left-2 w-6 h-6 bg-white/30 rounded-full"
+                              animate={{ 
+                                scale: [1, 1.5, 1],
+                                opacity: [0.5, 0.8, 0.5]
+                              }}
+                              transition={{ 
+                                duration: 3, 
+                                repeat: Infinity,
+                                delay: index * 0.7 
+                              }}
+                            />
                           </div>
-                          
-                          {/* Анимированные элементы */}
-                          <motion.div
-                            className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full shadow-lg"
-                            animate={{ 
-                              scale: [1, 1.2, 1],
-                              rotate: [0, 180, 360]
-                            }}
-                            transition={{ 
-                              duration: 4, 
-                              repeat: Infinity, 
-                              ease: "easeInOut",
-                              delay: index * 0.5 
-                            }}
-                          />
-                          
-                          <motion.div
-                            className="absolute -bottom-2 -left-2 w-6 h-6 bg-white/30 rounded-full"
-                            animate={{ 
-                              scale: [1, 1.5, 1],
-                              opacity: [0.5, 0.8, 0.5]
-                            }}
-                            transition={{ 
-                              duration: 3, 
-                              repeat: Infinity,
-                              delay: index * 0.7 
-                            }}
-                          />
-                        </div>
+                        )}
                         
                         {/* Статус онлайн */}
                         <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-4 border-white shadow-lg">
@@ -337,7 +360,7 @@ const AboutLeadership = () => {
                             {t('leadership.achievementsTitle')}
                           </h4>
                           <ul className="space-y-2">
-                            {leader.achievements.slice(0, 3).map((achievement, achievementIndex) => (
+                            {leader.achievements && leader.achievements.slice(0, 3).map((achievement, achievementIndex) => (
                               <motion.li 
                                 key={achievementIndex}
                                 className="flex items-start text-sm text-slate-600 group/achievement"
@@ -446,13 +469,21 @@ const AboutLeadership = () => {
 
                 <div className="flex flex-col lg:flex-row gap-8">
                   <div className="flex-shrink-0">
-                    <div className={`w-48 h-48 rounded-3xl bg-gradient-to-br ${generateGradient(selectedLeader.name)} relative overflow-hidden shadow-2xl`}>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-white text-5xl font-bold tracking-wider">
-                          {getInitials(selectedLeader.name)}
-                        </span>
+                    {selectedLeader.photo ? (
+                      <img
+                        src={selectedLeader.photo}
+                        alt={selectedLeader.name}
+                        className="w-48 h-48 rounded-3xl object-cover shadow-2xl"
+                      />
+                    ) : (
+                      <div className={`w-48 h-48 rounded-3xl bg-gradient-to-br ${generateGradient(selectedLeader.name)} relative overflow-hidden shadow-2xl`}>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-white text-5xl font-bold tracking-wider">
+                            {getInitials(selectedLeader.name)}
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
 
                   <div className="flex-1">

@@ -10,106 +10,83 @@ const AboutFacts = () => {
   const [counterValues, setCounterValues] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedFact, setSelectedFact] = useState(null);
+  const [facts, setFacts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Факты с расширенной информацией
-  const facts = [
-    {
-      id: 'forbes',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-        </svg>
-      ),
-      title: t('facts.items.forbes.title'),
-      description: t('facts.items.forbes.description'),
-      value: t('facts.items.forbes.value'),
+  // Маппинг ID фактов к дополнительным данным
+  const factMapping = {
+    1: { // forbes
       numericValue: 30,
       suffix: '+',
       color: 'blue',
-      details: t('facts.items.forbes.details', { returnObjects: true }),
       duration: 3000
     },
-    {
-      id: 'smokeless',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-        </svg>
-      ),
-      title: t('facts.items.smokeless.title'),
-      description: t('facts.items.smokeless.description'),
-      value: t('facts.items.smokeless.value'),
+    2: { // smokeless
       numericValue: 15,
       suffix: '%',
       color: 'green',
-      details: t('facts.items.smokeless.details', { returnObjects: true }),
       duration: 2500
     },
-    {
-      id: 'tax',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      title: t('facts.items.tax.title'),
-      description: t('facts.items.tax.description'),
-      value: t('facts.items.tax.value'),
+    3: { // tax
       numericValue: 2.5,
       suffix: 'B',
       color: 'orange',
-      details: t('facts.items.tax.details', { returnObjects: true }),
       duration: 3500
     },
-    {
-      id: 'export',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      ),
-      title: t('facts.items.export.title'),
-      description: t('facts.items.export.description'),
-      value: t('facts.items.export.value'),
+    4: { // export
       numericValue: 50,
       suffix: '+',
       color: 'purple',
-      details: t('facts.items.export.details', { returnObjects: true }),
       duration: 3000
     },
-    {
-      id: 'employment',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-      ),
-      title: t('facts.items.employment.title'),
-      description: t('facts.items.employment.description'),
-      value: t('facts.items.employment.value'),
+    5: { // employment
       numericValue: 10000,
       suffix: '+',
       color: 'cyan',
-      details: t('facts.items.employment.details', { returnObjects: true }),
       duration: 4000
     },
-    {
-      id: 'infrastructure',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-        </svg>
-      ),
-      title: t('facts.items.infrastructure.title'),
-      description: t('facts.items.infrastructure.description'),
-      value: t('facts.items.infrastructure.value'),
+    6: { // infrastructure
       numericValue: 25,
       suffix: '+',
       color: 'red',
-      details: t('facts.items.infrastructure.details', { returnObjects: true }),
       duration: 3000
     }
-  ];
+  };
+
+  // Загрузка данных из API
+  useEffect(() => {
+    const fetchFacts = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/about-us/facts/?lang=${i18n.language}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        let factsArray = [];
+        if (data.results && Array.isArray(data.results)) {
+          factsArray = data.results;
+        } else if (Array.isArray(data)) {
+          factsArray = data;
+        } else {
+          console.error('Unexpected API response structure:', data);
+          setFacts([]);
+          return;
+        }
+        const enrichedFacts = factsArray.map(fact => ({
+          ...fact,
+          ...factMapping[fact.id]
+        }));
+        setFacts(enrichedFacts);
+      } catch (error) {
+        console.error('Error fetching facts:', error);
+        setFacts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFacts();
+  }, [i18n.language]);
 
   const colorMap = {
     blue: { 
@@ -430,100 +407,107 @@ const AboutFacts = () => {
         </motion.div>
 
         {/* Карточки с фактами */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-20"
-        >
-          {facts.map((fact, index) => {
-            const colors = colorMap[fact.color];
-            
-            return (
-              <motion.div
-                key={fact.id}
-                variants={cardVariants}
-                className="group relative"
-                whileHover="hover"
-                layout
-              >
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+          </div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-20"
+          >
+            {facts.map((fact, index) => {
+              const colors = colorMap[fact.color];
+              
+              return (
                 <motion.div
-                  className={`relative bg-white/90 backdrop-blur-sm rounded-3xl p-8 border-2 ${colors.border} shadow-2xl shadow-${fact.color}-500/10 hover:shadow-${fact.color}-500/20 transition-all duration-500 h-full flex flex-col cursor-pointer overflow-hidden`}
-                  onClick={() => openModal(fact)}
+                  key={fact.id}
+                  variants={cardVariants}
+                  className="group relative"
+                  whileHover="hover"
+                  layout
                 >
-                  {/* Акцентная градиентная полоса */}
-                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`}></div>
-                  
-                  {/* Декоративный уголок */}
-                  <div className={`absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 ${colors.border} rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-
-                  <div className="flex items-start space-x-6 mb-6">
-                    <motion.div 
-                      className={`flex-shrink-0 w-16 h-16 ${colors.light} rounded-2xl flex items-center justify-center group-hover:${colors.medium} transition-all duration-300 shadow-lg`}
-                      whileHover={{ 
-                        scale: 1.1, 
-                        rotate: 5,
-                        boxShadow: `0 10px 25px -5px ${colors.text}40`
-                      }}
-                      transition={{ type: "spring", stiffness: 400 }}
-                    >
-                      <motion.div 
-                        className={colors.text}
-                        transition={{ duration: 0.5 }}
-                      >
-                        {fact.icon}
-                      </motion.div>
-                    </motion.div>
-                    
-                    <div className="flex-1 min-w-0">
-                      <h3 className={`text-2xl font-bold mb-3 ${colors.text}`}>
-                        {fact.title}
-                      </h3>
-                      
-                    </div>
-                  </div>
-                  
-                  <p className="text-slate-600 leading-relaxed flex-grow text-lg font-light">
-                    {fact.description}
-                  </p>
-
-                  {/* Кнопка для подробностей */}
-                  <motion.div 
-                    className="mt-6 flex items-center justify-between"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
+                  <motion.div
+                    className={`relative bg-white/90 backdrop-blur-sm rounded-3xl p-8 border-2 ${colors.border} shadow-2xl shadow-${fact.color}-500/10 hover:shadow-${fact.color}-500/20 transition-all duration-500 h-full flex flex-col cursor-pointer overflow-hidden`}
+                    onClick={() => openModal(fact)}
                   >
-                    <button className={`flex items-center space-x-2 ${colors.text} font-semibold text-sm hover:underline`}>
-                      <span>{t('facts.more')}</span>
-                      <motion.svg 
-                        className="w-4 h-4" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                        transition={{ duration: 0.3 }}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </motion.svg>
-                    </button>
+                    {/* Акцентная градиентная полоса */}
+                    <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`}></div>
                     
+                    {/* Декоративный уголок */}
+                    <div className={`absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 ${colors.border} rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+
+                    <div className="flex items-start space-x-6 mb-6">
+                      <motion.div 
+                        className={`flex-shrink-0 w-16 h-16 ${colors.light} rounded-2xl flex items-center justify-center group-hover:${colors.medium} transition-all duration-300 shadow-lg`}
+                        whileHover={{ 
+                          scale: 1.1, 
+                          rotate: 5,
+                          boxShadow: `0 10px 25px -5px ${colors.text}40`
+                        }}
+                        transition={{ type: "spring", stiffness: 400 }}
+                      >
+                        <motion.div 
+                          className={colors.text}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <img src={fact.icon} alt={fact.title} className="w-6 h-6" />
+                        </motion.div>
+                      </motion.div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <h3 className={`text-2xl font-bold mb-3 ${colors.text}`}>
+                          {fact.title}
+                        </h3>
+                        
+                        
+                      </div>
+                    </div>
+                    
+                    <p className="text-slate-600 leading-relaxed flex-grow text-lg font-light">
+                      {fact.description}
+                    </p>
+
+                    {/* Кнопка для подробностей */}
                     <motion.div 
-                      className={`w-3 h-3 rounded-full ${colors.medium} group-hover:${colors.dark} transition-colors duration-300`}
+                      className="mt-6 flex items-center justify-between"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                    >
+                      <button className={`flex items-center space-x-2 ${colors.text} font-semibold text-sm hover:underline`}>
+                        <span>{t('facts.more')}</span>
+                        <motion.svg 
+                          className="w-4 h-4" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                          transition={{ duration: 0.3 }}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </motion.svg>
+                      </button>
+                      
+                      <motion.div 
+                        className={`w-3 h-3 rounded-full ${colors.medium} group-hover:${colors.dark} transition-colors duration-300`}
+                      />
+                    </motion.div>
+
+                    {/* Декоративный элемент при наведении */}
+                    <motion.div
+                      className={`absolute -bottom-12 -right-12 w-24 h-24 ${colors.light} rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-500`}
+                      initial={{ scale: 0 }}
+                      whileHover={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 200 }}
                     />
                   </motion.div>
-
-                  {/* Декоративный элемент при наведении */}
-                  <motion.div
-                    className={`absolute -bottom-12 -right-12 w-24 h-24 ${colors.light} rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-500`}
-                    initial={{ scale: 0 }}
-                    whileHover={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 200 }}
-                  />
                 </motion.div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+              );
+            })}
+          </motion.div>
+        )}
       </div>
 
       {/* Модальное окно */}
@@ -551,9 +535,7 @@ const AboutFacts = () => {
                     <div className={`relative p-8 border-b-4 ${colorMap[selectedFact.color].border}`}>
                       <div className="flex items-start space-x-6 mb-6">
                         <div className={`flex-shrink-0 w-20 h-20 ${colorMap[selectedFact.color].light} rounded-2xl flex items-center justify-center shadow-lg`}>
-                          <div className={colorMap[selectedFact.color].text}>
-                            {selectedFact.icon}
-                          </div>
+                          <img src={selectedFact.icon} alt={selectedFact.title} className="w-10 h-10" />
                         </div>
                         
                         <div className="flex-1">
@@ -561,9 +543,6 @@ const AboutFacts = () => {
                             {selectedFact.title}
                           </h3>
                           
-                          <div className="text-5xl font-black text-slate-900 mb-4">
-                            {selectedFact.numericValue.toLocaleString()}{selectedFact.suffix}
-                          </div>
                           
                           <p className="text-xl text-slate-600 leading-relaxed">
                             {selectedFact.description}
@@ -594,11 +573,13 @@ const AboutFacts = () => {
                               className="flex items-start space-x-4 p-4 bg-slate-50 rounded-2xl"
                             >
                               <div className={`w-3 h-3 rounded-full ${colorMap[selectedFact.color].medium} mt-2 flex-shrink-0`}></div>
-                              <p className="text-slate-700 leading-relaxed text-lg">{detail}</p>
+                              <p className="text-slate-700 leading-relaxed text-lg">{detail.detail || detail}</p>
                             </div>
                           ))
                         ) : (
-                          <p className="text-slate-700 leading-relaxed text-lg">{selectedFact.details}</p>
+                          <p className="text-slate-700 leading-relaxed text-lg">
+                            {typeof selectedFact.details === 'string' ? selectedFact.details : JSON.stringify(selectedFact.details)}
+                          </p>
                         )}
                       </div>
                       
