@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const Partners = () => {
+  
   const { t, i18n } = useTranslation();
   const [activePartner, setActivePartner] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
