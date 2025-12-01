@@ -53,7 +53,7 @@ const PressNews = () => {
         const transformedNews = Array.isArray(newsArray) ? newsArray.map(item => ({
           id: item.id,
           title: item.title,
-          date: new Date(item.created_at).toLocaleDateString(i18n.language, {
+          date: new Date(item.published_at).toLocaleDateString(i18n.language, {
             year: 'numeric',
             month: 'short',
             day: 'numeric'
