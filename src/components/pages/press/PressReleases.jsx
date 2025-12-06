@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { DocumentIcon, DownloadIcon, HardDriveIcon, GlobeIcon, NewspaperIcon, ChartIcon, DollarSignIcon, TrendingUpIcon, LeafIcon, StarIcon } from '../../icons';
 
 const PressReleases = () => {
   const ref = useRef(null);
@@ -190,12 +191,12 @@ const PressReleases = () => {
   ];
 
   const filters = [
-    { id: 'all', name: t('pressReleases.filters.all'), color: 'gray', icon: '📄' },
-    { id: 'press-release', name: t('pressReleases.filters.pressReleases'), color: 'blue', icon: '📰' },
-    { id: 'annual-report', name: t('pressReleases.filters.annualReports'), color: 'green', icon: '📊' },
-    { id: 'financial', name: t('pressReleases.filters.financial'), color: 'orange', icon: '💰' },
-    { id: 'presentation', name: t('pressReleases.filters.presentations'), color: 'purple', icon: '📈' },
-    { id: 'sustainability', name: t('pressReleases.filters.sustainability'), color: 'emerald', icon: '🌱' }
+    { id: 'all', name: t('pressReleases.filters.all'), color: 'gray', icon: <DocumentIcon className="w-5 h-5" /> },
+    { id: 'press-release', name: t('pressReleases.filters.pressReleases'), color: 'blue', icon: <NewspaperIcon className="w-5 h-5" /> },
+    { id: 'annual-report', name: t('pressReleases.filters.annualReports'), color: 'green', icon: <ChartIcon className="w-5 h-5" /> },
+    { id: 'financial', name: t('pressReleases.filters.financial'), color: 'orange', icon: <DollarSignIcon className="w-5 h-5" /> },
+    { id: 'presentation', name: t('pressReleases.filters.presentations'), color: 'purple', icon: <TrendingUpIcon className="w-5 h-5" /> },
+    { id: 'sustainability', name: t('pressReleases.filters.sustainability'), color: 'emerald', icon: <LeafIcon className="w-5 h-5" /> }
   ];
 
   const years = ['2024', '2023', '2022', '2021'];
@@ -216,11 +217,11 @@ const PressReleases = () => {
   };
 
   const typeIcons = {
-    'press-release': '📰',
-    'annual-report': '📊',
-    'financial': '💰',
-    'presentation': '📈',
-    'sustainability': '🌱'
+    'press-release': <NewspaperIcon className="w-5 h-5" />,
+    'annual-report': <ChartIcon className="w-5 h-5" />,
+    'financial': <DollarSignIcon className="w-5 h-5" />,
+    'presentation': <TrendingUpIcon className="w-5 h-5" />,
+    'sustainability': <LeafIcon className="w-5 h-5" />
   };
 
   const typeColors = {
@@ -404,10 +405,10 @@ const PressReleases = () => {
       className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12"
     >
       {[
-        { label: t('pressReleases.stats.totalDocuments'), value: documents.length, icon: '📄' },
-        { label: t('pressReleases.stats.totalDownloads'), value: documents.reduce((sum, doc) => sum + doc.downloads, 0), icon: '⬇️' },
-        { label: t('pressReleases.stats.avgSize'), value: '4.2 MB', icon: '💾' },
-        { label: t('pressReleases.stats.languages'), value: '3', icon: '🌐' }
+        { label: t('pressReleases.stats.totalDocuments'), value: documents.length, icon: <DocumentIcon className="w-8 h-8" /> },
+        { label: t('pressReleases.stats.totalDownloads'), value: documents.reduce((sum, doc) => sum + doc.downloads, 0), icon: <DownloadIcon className="w-8 h-8" /> },
+        { label: t('pressReleases.stats.avgSize'), value: '4.2 MB', icon: <HardDriveIcon className="w-8 h-8" /> },
+        { label: t('pressReleases.stats.languages'), value: '3', icon: <GlobeIcon className="w-8 h-8" /> }
       ].map((stat, index) => (
         <motion.div
           key={stat.label}
@@ -641,7 +642,7 @@ const PressReleases = () => {
                               {filters.find(f => f.id === doc.type)?.name}
                             </span>
                             <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-700">
-                              ⭐ {t('pressReleases.featuredBadge')}
+                              <StarIcon className="w-4 h-4 mr-1" /> {t('pressReleases.featuredBadge')}
                             </span>
                           </div>
                           <h3 className="text-2xl font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300">
@@ -664,11 +665,11 @@ const PressReleases = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-4 text-slate-500 text-sm">
                           <div className="flex items-center space-x-1">
-                            <span>⬇️</span>
+                            <DownloadIcon className="w-4 h-4" />
                             <span>{formatNumber(doc.downloads)}</span>
                           </div>
                           <div className="flex items-center space-x-1">
-                            <span>🌐</span>
+                            <GlobeIcon className="w-4 h-4" />
                             <span>{doc.language}</span>
                           </div>
                         </div>
@@ -757,11 +758,11 @@ const PressReleases = () => {
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center space-x-3 text-slate-500 text-sm">
                           <div className="flex items-center space-x-1">
-                            <span>📄</span>
+                            <DocumentIcon className="w-4 h-4" />
                             <span>{doc.pages}</span>
                           </div>
                           <div className="flex items-center space-x-1">
-                            <span>⬇️</span>
+                            <DownloadIcon className="w-4 h-4" />
                             <span>{formatNumber(doc.downloads)}</span>
                           </div>
                         </div>
@@ -880,7 +881,7 @@ const PressReleases = () => {
                         </span>
                         {selectedDocument.featured && (
                           <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-700">
-                            ⭐ {t('pressReleases.featuredBadge')}
+                            <StarIcon className="w-4 h-4 mr-1" /> {t('pressReleases.featuredBadge')}
                           </span>
                         )}
                         <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-slate-100 text-slate-600">

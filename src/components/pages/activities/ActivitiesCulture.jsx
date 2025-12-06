@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { GlobeIcon, CircusIcon, MonumentIcon, PaletteIcon, BookIcon } from '../../icons';
 
 const ActivitiesCulture = () => {
   const ref = useRef(null);
@@ -11,11 +12,11 @@ const ActivitiesCulture = () => {
   const { t } = useTranslation();
 
   const categories = [
-    { id: 'all', label: t('culture.categories.all'), icon: '🌐' },
-    { id: 'events', label: t('culture.categories.events'), icon: '🎪' },
-    { id: 'heritage', label: t('culture.categories.heritage'), icon: '🏛️' },
-    { id: 'arts', label: t('culture.categories.arts'), icon: '🎨' },
-    { id: 'publications', label: t('culture.categories.publications'), icon: '📚' }
+    { id: 'all', label: t('culture.categories.all'), icon: <GlobeIcon className="w-5 h-5" /> },
+    { id: 'events', label: t('culture.categories.events'), icon: <CircusIcon className="w-5 h-5" /> },
+    { id: 'heritage', label: t('culture.categories.heritage'), icon: <MonumentIcon className="w-5 h-5" /> },
+    { id: 'arts', label: t('culture.categories.arts'), icon: <PaletteIcon className="w-5 h-5" /> },
+    { id: 'publications', label: t('culture.categories.publications'), icon: <BookIcon className="w-5 h-5" /> }
   ];
 
   const projects = [

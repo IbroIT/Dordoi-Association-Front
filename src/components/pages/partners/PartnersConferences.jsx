@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { SearchIcon, CalendarIcon, BookIcon, LocationIcon, ClockIcon, LightbulbIcon, MemoIcon, BuildingIcon, CameraIcon, MicrophoneIcon, DollarSignIcon } from '../../icons';
 
 const PartnersConferences = () => {
   const ref = useRef(null);
@@ -13,38 +14,81 @@ const PartnersConferences = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [countdown, setCountdown] = useState({});
 
+  // SVG иконки для статистики конференций
+  const statIcons = {
+    target: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    users: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
+    ),
+    globe: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    handshake: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2.5M7 11.5a1.5 1.5 0 003 0m0 0h6.5a1.5 1.5 0 001.5-1.5v-3a1.5 1.5 0 00-1.5-1.5H14m0 0V8a1.5 1.5 0 003 0V5.5M10 5.5a1.5 1.5 0 10-3 0v2.5a1.5 1.5 0 003 0V5.5z" />
+      </svg>
+    )
+  };
+
   const stats = [
     {
       value: t('partnersConferences.stats.conferences.value', { defaultValue: '50+' }),
       label: t('partnersConferences.stats.conferences.label', { defaultValue: 'Проведено конференций' }),
-      icon: '🎯',
+      icon: statIcons.target,
       description: t('partnersConferences.stats.conferences.description', { defaultValue: 'За последние 5 лет' })
     },
     {
       value: t('partnersConferences.stats.participants.value', { defaultValue: '10,000+' }),
       label: t('partnersConferences.stats.participants.label', { defaultValue: 'Участников' }),
-      icon: '👥',
+      icon: statIcons.users,
       description: t('partnersConferences.stats.participants.description', { defaultValue: 'Со всего мира' })
     },
     {
       value: t('partnersConferences.stats.countries.value', { defaultValue: '25+' }),
       label: t('partnersConferences.stats.countries.label', { defaultValue: 'Стран-участниц' }),
-      icon: '🌍',
+      icon: statIcons.globe,
       description: t('partnersConferences.stats.countries.description', { defaultValue: 'Международное участие' })
     },
     {
       value: t('partnersConferences.stats.partnerships.value', { defaultValue: '100+' }),
       label: t('partnersConferences.stats.partnerships.label', { defaultValue: 'Партнерских соглашений' }),
-      icon: '🤝',
+      icon: statIcons.handshake,
       description: t('partnersConferences.stats.partnerships.description', { defaultValue: 'Заключено на мероприятиях' })
     }
   ];
 
+  // SVG иконки для фильтров
+  const filterIcons = {
+    globe: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    map: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+      </svg>
+    ),
+    briefcase: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m8 0V8a2 2 0 01-2 2H8a2 2 0 01-2-2V6m8 0H8m0 0V4" />
+      </svg>
+    )
+  };
+
   const filters = [
-    { value: 'all', label: t('partnersConferences.filters.all', { defaultValue: 'Все конференции' }), icon: '🌐' },
-    { value: 'international', label: t('partnersConferences.filters.international', { defaultValue: 'Международные' }), icon: '🌍' },
-    { value: 'regional', label: t('partnersConferences.filters.regional', { defaultValue: 'Региональные' }), icon: '🗺️' },
-    { value: 'business', label: t('partnersConferences.filters.business', { defaultValue: 'Бизнес' }), icon: '💼' }
+    { value: 'all', label: t('partnersConferences.filters.all', { defaultValue: 'Все конференции' }), icon: filterIcons.globe },
+    { value: 'international', label: t('partnersConferences.filters.international', { defaultValue: 'Международные' }), icon: filterIcons.globe },
+    { value: 'regional', label: t('partnersConferences.filters.regional', { defaultValue: 'Региональные' }), icon: filterIcons.map },
+    { value: 'business', label: t('partnersConferences.filters.business', { defaultValue: 'Бизнес' }), icon: filterIcons.briefcase }
   ];
 
   const testimonials = [
@@ -459,7 +503,7 @@ const PartnersConferences = () => {
                   className="w-full lg:w-64 px-4 py-3 pl-12 rounded-xl border border-slate-200 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-300"
                 />
                 <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400">
-                  🔍
+                  <SearchIcon className="w-5 h-5" />
                 </div>
                 {searchQuery && (
                   <button
@@ -514,7 +558,7 @@ const PartnersConferences = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span>📅</span>
+                <CalendarIcon className="w-5 h-5" />
                 <span>{t('partnersConferences.tabs.upcoming')}</span>
                 <span className="bg-white/20 text-white/90 px-2 py-1 rounded-full text-sm">
                   {conferences.upcoming.length}
@@ -530,7 +574,7 @@ const PartnersConferences = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span>📚</span>
+                <BookIcon className="w-5 h-5" />
                 <span>{t('partnersConferences.tabs.archive')}</span>
                 <span className="bg-white/20 text-white/90 px-2 py-1 rounded-full text-sm">
                   {conferences.archive.length}
@@ -574,7 +618,7 @@ const PartnersConferences = () => {
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="text-center">
                           <div className="w-16 h-16 bg-gradient-to-r from-sky-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                            <span className="text-2xl text-white">📅</span>
+                            <CalendarIcon className="w-8 h-8 text-white" />
                           </div>
                           <p className="text-sky-600 font-semibold text-sm">{t('partnersConferences.conferenceImage')}</p>
                         </div>
@@ -622,12 +666,12 @@ const PartnersConferences = () => {
                       </h3>
                       
                       <div className="flex items-center text-slate-600 mb-2">
-                        <span className="mr-2">📍</span>
+                        <LocationIcon className="w-4 h-4 mr-2" />
                         <span className="text-sm">{conference.location}</span>
                       </div>
 
                       <div className="flex items-center text-slate-600 mb-3">
-                        <span className="mr-2">🕒</span>
+                        <ClockIcon className="w-4 h-4 mr-2" />
                         <span className="text-sm">{conference.time}</span>
                       </div>
 
@@ -741,7 +785,9 @@ const PartnersConferences = () => {
                         className="text-amber-400"
                         whileHover={{ scale: 1.2 }}
                       >
-                        ⭐
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                        </svg>
                       </motion.span>
                     ))}
                   </div>
@@ -775,7 +821,7 @@ const PartnersConferences = () => {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="text-xl">💡</span>
+                <LightbulbIcon className="w-6 h-6" />
                 <span className="text-lg">{t('partnersConferences.cta.suggestTopic')}</span>
               </motion.button>
               <motion.button
@@ -783,7 +829,7 @@ const PartnersConferences = () => {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="text-xl">🎤</span>
+                <span className="text-xl"><MicrophoneIcon className="w-6 h-6" /></span>
                 <span className="text-lg">{t('partnersConferences.cta.becomeSpeaker')}</span>
               </motion.button>
               {activeTab === 'upcoming' && (
@@ -792,7 +838,7 @@ const PartnersConferences = () => {
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="text-xl">📝</span>
+                  <MemoIcon className="w-6 h-6" />
                   <span className="text-lg">{t('partnersConferences.cta.register')}</span>
                 </motion.button>
               )}
@@ -828,20 +874,20 @@ const PartnersConferences = () => {
                     </h3>
                     <div className="flex flex-wrap items-center gap-4 text-slate-600">
                       <div className="flex items-center">
-                        <span className="mr-2">📅</span>
+                        <CalendarIcon className="w-4 h-4 mr-2" />
                         <span>{formatDate(selectedConference.date)}</span>
                       </div>
                       <div className="flex items-center">
-                        <span className="mr-2">🕒</span>
+                        <ClockIcon className="w-4 h-4 mr-2" />
                         <span>{selectedConference.time}</span>
                       </div>
                       <div className="flex items-center">
-                        <span className="mr-2">📍</span>
+                        <LocationIcon className="w-4 h-4 mr-2" />
                         <span>{selectedConference.location}</span>
                       </div>
                       {selectedConference.price && (
                         <div className="flex items-center">
-                          <span className="mr-2">💰</span>
+                          <DollarSignIcon className="w-4 h-4 mr-2" />
                           <span>{selectedConference.price}</span>
                         </div>
                       )}
@@ -908,7 +954,7 @@ const PartnersConferences = () => {
                         return (
                           <div key={index} className="flex items-center bg-slate-50/80 rounded-xl p-4 border border-slate-200/60">
                             <div className={`w-12 h-12 ${partnerColors.bg} rounded-lg flex items-center justify-center mr-4 shadow-sm`}>
-                              <span className="text-lg">🏢</span>
+                              <BuildingIcon className="w-6 h-6" />
                             </div>
                             <div>
                               <span className="text-slate-700 font-semibold text-lg">{partner.name}</span>
@@ -934,7 +980,7 @@ const PartnersConferences = () => {
                         {selectedConference.speakers.map((speaker, index) => (
                           <div key={index} className="flex items-center bg-white rounded-xl p-4 border border-slate-200/60 shadow-sm">
                             <div className="w-12 h-12 bg-gradient-to-r from-sky-500 to-blue-500 rounded-lg flex items-center justify-center mr-4 shadow-sm">
-                              <span className="text-lg text-white">🎤</span>
+                              <MicrophoneIcon className="w-6 h-6 text-white" />
                             </div>
                             <div>
                               <span className="text-slate-700 font-semibold">{speaker}</span>
@@ -1026,7 +1072,11 @@ const PartnersConferences = () => {
                             <p className="text-slate-600 italic mb-3">"{testimonial}"</p>
                             <div className="flex space-x-1">
                               {[...Array(5)].map((_, i) => (
-                                <span key={i} className="text-amber-400">⭐</span>
+                                <span key={i} className="text-amber-400">
+                                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                                  </svg>
+                                </span>
                               ))}
                             </div>
                           </div>
@@ -1044,7 +1094,7 @@ const PartnersConferences = () => {
                       <div className="grid grid-cols-3 gap-4">
                         {selectedConference.photos.map((photo, index) => (
                           <div key={index} className="aspect-square bg-slate-100 rounded-xl flex items-center justify-center border border-slate-200/60">
-                            <span className="text-3xl text-slate-400">📷</span>
+                            <CameraIcon className="w-8 h-8 text-slate-400" />
                           </div>
                         ))}
                       </div>
@@ -1065,7 +1115,11 @@ const PartnersConferences = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
-                            <span className="mr-3">📄</span>
+                            <span className="mr-3">
+                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                              </svg>
+                            </span>
                             <span className="font-medium">{t('partnersConferences.modal.download')} {index + 1}</span>
                           </motion.button>
                         ))}
@@ -1081,7 +1135,7 @@ const PartnersConferences = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <span className="text-xl">📝</span>
+                        <MemoIcon className="w-6 h-6" />
                         <span className="text-lg">{t('partnersConferences.modal.registerButton')}</span>
                       </motion.button>
                     </div>

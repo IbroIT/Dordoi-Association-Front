@@ -8,12 +8,56 @@ const AboutHistory = () => {
   const { t } = useTranslation();
   const [activeYear, setActiveYear] = useState(0);
 
+  // SVG иконки для вех истории
+  const milestoneIcons = {
+    calendar: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+    ),
+    education: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+      </svg>
+    ),
+    film: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-9 0V1m10 3V1m0 3l1 1v16a2 2 0 01-2 2H6a2 2 0 01-2-2V5l1-1z" />
+      </svg>
+    ),
+    chart: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+      </svg>
+    ),
+    money: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    medical: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      </svg>
+    ),
+    logistics: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+      </svg>
+    ),
+    book: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+      </svg>
+    )
+  };
+
   const milestones = [
     {
       year: "1991",
       title: t('history.milestones.0.title'),
       description: t('history.milestones.0.description'),
-      image: "📅",
+      image: milestoneIcons.calendar,
       stats: t('history.milestones.0.stats'),
       color: "blue"
     },
@@ -21,7 +65,7 @@ const AboutHistory = () => {
       year: "1990s",
       title: t('history.milestones.1.title'),
       description: t('history.milestones.1.description'),
-      image: "🎓",
+      image: milestoneIcons.education,
       stats: t('history.milestones.1.stats'),
       color: "purple"
     },
@@ -29,7 +73,7 @@ const AboutHistory = () => {
       year: "2005",
       title: t('history.milestones.2.title'),
       description: t('history.milestones.2.description'),
-      image: "🎬",
+      image: milestoneIcons.film,
       stats: t('history.milestones.2.stats'),
       color: "green"
     },
@@ -37,7 +81,7 @@ const AboutHistory = () => {
       year: "2008",
       title: t('history.milestones.3.title'),
       description: t('history.milestones.3.description'),
-      image: "📊",
+      image: milestoneIcons.chart,
       stats: t('history.milestones.3.stats'),
       color: "orange"
     },
@@ -45,7 +89,7 @@ const AboutHistory = () => {
       year: "2010-2020",
       title: t('history.milestones.4.title'),
       description: t('history.milestones.4.description'),
-      image: "💰",
+      image: milestoneIcons.money,
       stats: t('history.milestones.4.stats'),
       color: "cyan"
     },
@@ -53,7 +97,7 @@ const AboutHistory = () => {
       year: "2020",
       title: t('history.milestones.5.title'),
       description: t('history.milestones.5.description'),
-      image: "🩺",
+      image: milestoneIcons.medical,
       stats: t('history.milestones.5.stats'),
       color: "red"
     },
@@ -61,7 +105,7 @@ const AboutHistory = () => {
       year: "2021",
       title: t('history.milestones.6.title'),
       description: t('history.milestones.6.description'),
-      image: "🚚",
+      image: milestoneIcons.logistics,
       stats: t('history.milestones.6.stats'),
       color: "indigo"
     },
@@ -69,7 +113,7 @@ const AboutHistory = () => {
       year: "2021",
       title: t('history.milestones.7.title'),
       description: t('history.milestones.7.description'),
-      image: "📚",
+      image: milestoneIcons.book,
       stats: t('history.milestones.7.stats'),
       color: "amber"
     }

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { GlobeIcon } from '../../icons';
 
 const InternationalPartnersSection = () => {
   const ref = useRef(null);
@@ -228,7 +229,7 @@ const InternationalPartnersSection = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl border border-blue-200"></div>
           <div className="relative z-10 text-center">
-            <div className="text-4xl mb-2">🌍</div>
+            <GlobeIcon className="w-16 h-16 mx-auto mb-2 text-blue-600" />
             <p className="text-slate-600 font-medium">Более 20 стран сотрудничества по всему миру</p>
           </div>
           

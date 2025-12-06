@@ -3,6 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
+import { BookIcon, BuildingIcon, ClockIcon, CameraIcon, GlobeIcon, PhoneIcon, EnvelopeIcon, LocationIcon, MapIcon, CarIcon, BusIcon, SearchIcon, HospitalIcon, GraduationCapIcon, MicroscopeIcon, BriefcaseIcon } from '../../icons';
 import 'leaflet/dist/leaflet.css';
 
 // Fix for default markers in react-leaflet
@@ -28,15 +29,15 @@ const createCustomMarker = (type) => {
   };
 
   const icons = {
-    clinical: '🏥',
-    university: '🎓',
-    organization: '🔬',
-    business: '💼',
-    academic: '📚',
-    medical: '🏥',
-    educational: '🎓',
-    research: '🔬',
-    corporate: '💼'
+    clinical: '<svg class="w-5 h-5" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>',
+    university: '<svg class="w-5 h-5" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>',
+    organization: '<svg class="w-5 h-5" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>',
+    business: '<svg class="w-5 h-5" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m8 0V8a2 2 0 01-2 2H8a2 2 0 01-2-2V6m8 0H8m0 0V4"></path></svg>',
+    academic: '<svg class="w-5 h-5" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>',
+    medical: '<svg class="w-5 h-5" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>',
+    educational: '<svg class="w-5 h-5" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>',
+    research: '<svg class="w-5 h-5" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>',
+    corporate: '<svg class="w-5 h-5" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m8 0V8a2 2 0 01-2 2H8a2 2 0 01-2-2V6m8 0H8m0 0V4"></path></svg>'
   };
 
   return new L.DivIcon({
@@ -74,12 +75,12 @@ const createLocationMarker = (type) => {
   };
 
   const icons = {
-    office: '🏢',
-    warehouse: '🏭',
-    'trade-complex': '🏪',
-    headquarter: '🏢',
-    storage: '🏭',
-    commercial: '🏪'
+    office: '<svg class="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>',
+    warehouse: '<svg class="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>',
+    'trade-complex': '<svg class="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>',
+    headquarter: '<svg class="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>',
+    storage: '<svg class="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>',
+    commercial: '<svg class="w-6 h-6" fill="none" stroke="white" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>'
   };
 
   return new L.DivIcon({
@@ -217,11 +218,51 @@ const ContactsAddress = () => {
     fetchPartners();
   }, [i18n.language, t]);
 
+  // SVG иконки для контактов
+  const contactIcons = {
+    address: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+    phone: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      </svg>
+    ),
+    building: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+      </svg>
+    ),
+    newspaper: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+      </svg>
+    ),
+    handshake: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2.5M7 11.5a1.5 1.5 0 003 0m0 0h6.5a1.5 1.5 0 001.5-1.5v-3a1.5 1.5 0 00-1.5-1.5H14m0 0V8a1.5 1.5 0 003 0V5.5M10 5.5a1.5 1.5 0 10-3 0v2.5a1.5 1.5 0 003 0V5.5z" />
+      </svg>
+    ),
+    email: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    ),
+    announcement: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+      </svg>
+    )
+  };
+
   const contactInfo = {
     address: {
       title: t('contacts.address.title'),
       value: t('contacts.address.value'),
-      icon: '📍',
+      icon: contactIcons.address,
       description: t('contacts.address.description'),
       coordinates: [42.8746, 74.5698],
       details: t('contacts.address.details', { defaultValue: 'Центральный офис с конференц-залами и переговорными комнатами' })
@@ -230,28 +271,28 @@ const ContactsAddress = () => {
       {
         title: t('contacts.phones.general.title'),
         number: t('contacts.phones.general.number'),
-        icon: '📞',
+        icon: contactIcons.phone,
         description: t('contacts.phones.general.description'),
         department: t('contacts.phones.general.department', { defaultValue: 'Общий отдел' })
       },
       {
         title: t('contacts.phones.reception.title'),
         number: t('contacts.phones.reception.number'),
-        icon: '🏢',
+        icon: contactIcons.building,
         description: t('contacts.phones.reception.description'),
         department: t('contacts.phones.reception.department', { defaultValue: 'Приемная' })
       },
       {
         title: t('contacts.phones.press.title'),
         number: t('contacts.phones.press.number'),
-        icon: '📰',
+        icon: contactIcons.newspaper,
         description: t('contacts.phones.press.description'),
         department: t('contacts.phones.press.department', { defaultValue: 'Пресс-служба' })
       },
       {
         title: t('contacts.phones.partnership.title'),
         number: t('contacts.phones.partnership.number'),
-        icon: '🤝',
+        icon: contactIcons.handshake,
         description: t('contacts.phones.partnership.description'),
         department: t('contacts.phones.partnership.department', { defaultValue: 'Отдел партнерств' })
       }
@@ -260,21 +301,21 @@ const ContactsAddress = () => {
       {
         title: t('contacts.emails.info.title'),
         address: t('contacts.emails.info.address'),
-        icon: '📧',
+        icon: contactIcons.email,
         description: t('contacts.emails.info.description'),
         response: t('contacts.emails.info.response', { defaultValue: 'Ответ в течение 24 часов' })
       },
       {
         title: t('contacts.emails.press.title'),
         address: t('contacts.emails.press.address'),
-        icon: '📰',
+        icon: contactIcons.newspaper,
         description: t('contacts.emails.press.description'),
         response: t('contacts.emails.press.response', { defaultValue: 'Ответ в течение 2 часов' })
       },
       {
         title: t('contacts.emails.partnership.title'),
         address: t('contacts.emails.partnership.address'),
-        icon: '🤝',
+        icon: contactIcons.handshake,
         description: t('contacts.emails.partnership.description'),
         response: t('contacts.emails.partnership.response', { defaultValue: 'Ответ в течение 48 часов' })
       }
@@ -298,7 +339,7 @@ const ContactsAddress = () => {
           note: t('contacts.hours.holidays.note', { defaultValue: 'Экстренные контакты доступны' })
         }
       ],
-      icon: '🕒',
+      icon: <ClockIcon className="w-5 h-5" />,
       notice: t('contacts.hours.notice', { defaultValue: 'Время указано для местного часового пояса' })
     },
     social: {
@@ -306,25 +347,25 @@ const ContactsAddress = () => {
       platforms: [
         {
           name: 'Facebook',
-          icon: '📘',
+          icon: <BookIcon className="w-5 h-5" />,
           url: 'https://facebook.com/dordoi',
           handle: t('contacts.social.facebook.handle', { defaultValue: '@dordoi' })
         },
         {
           name: 'Instagram',
-          icon: '📷',
+          icon: <CameraIcon className="w-5 h-5" />,
           url: 'https://instagram.com/dordoi',
           handle: t('contacts.social.instagram.handle', { defaultValue: '@dordoi' })
         },
         {
           name: 'Telegram',
-          icon: '📢',
+          icon: <PhoneIcon className="w-5 h-5" />,
           url: 'https://t.me/dordoi',
           handle: t('contacts.social.telegram.handle', { defaultValue: '@dordoi' })
         },
         {
           name: 'YouTube',
-          icon: '🎥',
+          icon: <CameraIcon className="w-5 h-5" />,
           url: 'https://youtube.com/dordoi',
           handle: t('contacts.social.youtube.handle', { defaultValue: 'Дордой' })
         }
@@ -470,11 +511,11 @@ const ContactsAddress = () => {
   };
 
   const partnerTypes = [
-    { value: 'all', label: t('contacts.partners.filters.all', { defaultValue: 'Все партнеры' }), icon: '🌐' },
-    { value: 'clinical', label: t('contacts.partners.filters.clinical', { defaultValue: 'Клинические' }), icon: '🏥' },
-    { value: 'university', label: t('contacts.partners.filters.university', { defaultValue: 'Университеты' }), icon: '🎓' },
-    { value: 'research', label: t('contacts.partners.filters.research', { defaultValue: 'Исследования' }), icon: '🔬' },
-    { value: 'business', label: t('contacts.partners.filters.business', { defaultValue: 'Бизнес' }), icon: '💼' }
+    { value: 'all', label: t('contacts.partners.filters.all', { defaultValue: 'Все партнеры' }), icon: <GlobeIcon className="w-5 h-5" /> },
+    { value: 'clinical', label: t('contacts.partners.filters.clinical', { defaultValue: 'Клинические' }), icon: <BuildingIcon className="w-5 h-5" /> },
+    { value: 'university', label: t('contacts.partners.filters.university', { defaultValue: 'Университеты' }), icon: contactIcons.building },
+    { value: 'research', label: t('contacts.partners.filters.research', { defaultValue: 'Исследования' }), icon: <BuildingIcon className="w-5 h-5" /> },
+    { value: 'business', label: t('contacts.partners.filters.business', { defaultValue: 'Бизнес' }), icon: <BriefcaseIcon className="w-5 h-5" /> }
   ];
 
   const filteredPartners = partners.filter(partner => {
@@ -646,7 +687,9 @@ const ContactsAddress = () => {
               className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-slate-200/60 shadow-lg hover:shadow-2xl transition-all duration-500"
             >
               <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                <span className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mr-3">📞</span>
+                <span className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mr-3">
+                  <PhoneIcon className="w-5 h-5" />
+                </span>
                 {t('contacts.phones.title')}
               </h3>
               
@@ -708,7 +751,9 @@ const ContactsAddress = () => {
               className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-slate-200/60 shadow-lg hover:shadow-2xl transition-all duration-500"
             >
               <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                <span className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mr-3">📧</span>
+                <span className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mr-3">
+                  <EnvelopeIcon className="w-5 h-5" />
+                </span>
                 {t('contacts.emails.title')}
               </h3>
               
@@ -862,7 +907,7 @@ const ContactsAddress = () => {
                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                     }`}
                   >
-                    <span>📍</span>
+                    <LocationIcon className="w-5 h-5" />
                     <span>{t('contacts.map.tabs.locations', { defaultValue: 'Наши локации' })}</span>
                   </button>
                   <button
@@ -873,7 +918,7 @@ const ContactsAddress = () => {
                         : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                     }`}
                   >
-                    <span>🤝</span>
+                    <HandshakeIcon className="w-5 h-5" />
                     <span>{t('contacts.map.tabs.partners', { defaultValue: 'Партнеры' })}</span>
                   </button>
                 </div>
@@ -911,7 +956,7 @@ const ContactsAddress = () => {
                       className="w-full px-4 py-3 pl-12 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                     />
                     <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400">
-                      🔍
+                      <SearchIcon className="w-5 h-5" />
                     </div>
                     {searchQuery && (
                       <button
@@ -1043,11 +1088,10 @@ const ContactsAddress = () => {
                           <div className="p-4 min-w-[300px]">
                             <div className="flex items-start mb-3">
                               <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
-                                <span className="text-2xl">
-                                  {partner.type === 'clinical' ? '🏥' :
-                                   partner.type === 'university' ? '🎓' :
-                                   partner.type === 'research' ? '🔬' : '💼'}
-                                </span>
+                                {partner.type === 'clinical' ? <HospitalIcon className="w-6 h-6 text-slate-600" /> :
+                                 partner.type === 'university' ? <GraduationCapIcon className="w-6 h-6 text-slate-600" /> :
+                                 partner.type === 'research' ? <MicroscopeIcon className="w-6 h-6 text-slate-600" /> :
+                                 <BriefcaseIcon className="w-6 h-6 text-slate-600" />}
                               </div>
                               <div className="flex-1 min-w-0">
                                 <h3 className="font-bold text-gray-900 text-base mb-1">
@@ -1060,7 +1104,7 @@ const ContactsAddress = () => {
                             </div>
 
                             <div className="flex items-center text-sm text-gray-600 mb-3">
-                              <span className="mr-2">📍</span>
+                              <LocationIcon className="w-4 h-4 mr-2" />
                               <span>{partner.city}, {partner.country}</span>
                             </div>
 
@@ -1119,7 +1163,7 @@ const ContactsAddress = () => {
                 {/* Легенда карты */}
                 <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-200 p-4 max-w-xs">
                   <h4 className="text-sm font-semibold text-slate-900 mb-3 flex items-center">
-                    <span className="mr-2">🗺️</span>
+                    <MapIcon className="w-4 h-4 mr-2" />
                     {t('contacts.map.legend', { defaultValue: 'Легенда' })}
                   </h4>
                   <div className="space-y-3">
@@ -1223,7 +1267,7 @@ const ContactsAddress = () => {
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xl">🚗</span>
+                    <CarIcon className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-900 text-lg mb-2">
@@ -1248,7 +1292,7 @@ const ContactsAddress = () => {
 
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center shadow-lg">
-                    <span className="text-white text-xl">🚌</span>
+                    <BusIcon className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-slate-900 text-lg mb-2">
@@ -1337,11 +1381,10 @@ const ContactsAddress = () => {
 
                   <div className="flex items-start mb-6">
                     <div className="w-20 h-20 bg-slate-100 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg">
-                      <span className="text-4xl">
-                        {selectedPartner.type === 'clinical' ? '🏥' :
-                         selectedPartner.type === 'university' ? '🎓' :
-                         selectedPartner.type === 'research' ? '🔬' : '💼'}
-                      </span>
+                      {selectedPartner.type === 'clinical' ? <HospitalIcon className="w-10 h-10 text-slate-600" /> :
+                       selectedPartner.type === 'university' ? <GraduationCapIcon className="w-10 h-10 text-slate-600" /> :
+                       selectedPartner.type === 'research' ? <MicroscopeIcon className="w-10 h-10 text-slate-600" /> :
+                       <BriefcaseIcon className="w-10 h-10 text-slate-600" />}
                     </div>
                     <div className="flex-1">
                       <h3 className="text-3xl font-bold text-slate-900 mb-2">{selectedPartner.name}</h3>
@@ -1376,7 +1419,7 @@ const ContactsAddress = () => {
                         {selectedPartner.contact.email && (
                           <div className="flex items-center">
                             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mr-3">
-                              📧
+                              <EnvelopeIcon className="w-5 h-5" />
                             </div>
                             <div>
                               <div className="text-sm text-slate-500">{t('contacts.partners.email', { defaultValue: 'Email' })}</div>
@@ -1389,7 +1432,7 @@ const ContactsAddress = () => {
                         {selectedPartner.contact.phone && (
                           <div className="flex items-center">
                             <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600 mr-3">
-                              📞
+                              <PhoneIcon className="w-5 h-5" />
                             </div>
                             <div>
                               <div className="text-sm text-slate-500">{t('contacts.partners.phone', { defaultValue: 'Телефон' })}</div>
@@ -1402,7 +1445,7 @@ const ContactsAddress = () => {
                         {selectedPartner.address && (
                           <div className="flex items-center">
                             <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 mr-3">
-                              📍
+                              <LocationIcon className="w-5 h-5" />
                             </div>
                             <div>
                               <div className="text-sm text-slate-500">{t('contacts.partners.address', { defaultValue: 'Адрес' })}</div>
@@ -1506,10 +1549,9 @@ const ContactsAddress = () => {
 
                   <div className="flex items-start mb-6">
                     <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 shadow-lg">
-                      <span className="text-4xl text-white">
-                        {selectedLocation.type === 'office' ? '🏢' :
-                         selectedLocation.type === 'storage' ? '🏭' : '🏪'}
-                      </span>
+                      {selectedLocation.type === 'office' ? <BuildingIcon className="w-10 h-10 text-white" /> :
+                       selectedLocation.type === 'storage' ? <PackageIcon className="w-10 h-10 text-white" /> :
+                       <BuildingIcon className="w-10 h-10 text-white" />}
                     </div>
                     <div className="flex-1">
                       <h3 className="text-3xl font-bold text-slate-900 mb-2">{selectedLocation.title}</h3>

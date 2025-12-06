@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { GlobeIcon, NewspaperIcon, MicroscopeIcon, MicrophoneIcon, ChartIcon, StarIcon, DocumentIcon } from '../../icons';
 
 const PressPublications = () => {
   const ref = useRef(null);
@@ -17,11 +18,11 @@ const PressPublications = () => {
 
   const filters = [
     { id: 'all', label: t('publications.filters.all'), count: t('publications.stats.total') },
-    { id: 'international', label: t('publications.filters.international'), icon: '🌍' },
-    { id: 'local', label: t('publications.filters.local'), icon: '📰' },
-    { id: 'research', label: t('publications.filters.research'), icon: '🔬' },
-    { id: 'interviews', label: t('publications.filters.interviews'), icon: '🎤' },
-    { id: 'reports', label: t('publications.filters.reports'), icon: '📊' }
+    { id: 'international', label: t('publications.filters.international'), icon: <GlobeIcon className="w-5 h-5" /> },
+    { id: 'local', label: t('publications.filters.local'), icon: <NewspaperIcon className="w-5 h-5" /> },
+    { id: 'research', label: t('publications.filters.research'), icon: <MicroscopeIcon className="w-5 h-5" /> },
+    { id: 'interviews', label: t('publications.filters.interviews'), icon: <MicrophoneIcon className="w-5 h-5" /> },
+    { id: 'reports', label: t('publications.filters.reports'), icon: <ChartIcon className="w-5 h-5" /> }
   ];
 
   const sortOptions = [
@@ -750,7 +751,7 @@ const PressPublications = () => {
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center space-x-3">
                           <div className={`w-12 h-12 ${colors.light} rounded-xl flex items-center justify-center`}>
-                            <span className="text-lg">{publication.featured ? '⭐' : '📄'}</span>
+                            {publication.featured ? <StarIcon className="w-6 h-6 text-amber-600" /> : <DocumentIcon className="w-6 h-6 text-slate-600" />}
                           </div>
                           <div>
                             <span className={`text-sm font-medium ${colors.text}`}>

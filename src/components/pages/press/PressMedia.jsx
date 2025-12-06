@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { CameraIcon, TrophyIcon, GlobeIcon, HandshakeIcon, BriefcaseIcon } from '../../icons';
 
 const PressMedia = () => {
   const ref = useRef(null);
@@ -28,12 +29,12 @@ const PressMedia = () => {
   }, [isInView]);
 
   const categories = [
-    { id: 'all', label: t('media.categories.all'), icon: '🖼️' },
-    { id: 'anniversary', label: t('media.categories.anniversary'), icon: '🎉' },
-    { id: 'sports', label: t('media.categories.sports'), icon: '⚽' },
-    { id: 'international', label: t('media.categories.international'), icon: '🌍' },
-    { id: 'social', label: t('media.categories.social'), icon: '🤝' },
-    { id: 'business', label: t('media.categories.business'), icon: '💼' }
+    { id: 'all', label: t('media.categories.all'), icon: <CameraIcon className="w-5 h-5" /> },
+    { id: 'anniversary', label: t('media.categories.anniversary'), icon: <TrophyIcon className="w-5 h-5" /> },
+    { id: 'sports', label: t('media.categories.sports'), icon: <TrophyIcon className="w-5 h-5" /> },
+    { id: 'international', label: t('media.categories.international'), icon: <GlobeIcon className="w-5 h-5" /> },
+    { id: 'social', label: t('media.categories.social'), icon: <HandshakeIcon className="w-5 h-5" /> },
+    { id: 'business', label: t('media.categories.business'), icon: <BriefcaseIcon className="w-5 h-5" /> }
   ];
 
   const years = ['all', '2024', '2023', '2022', '2021'];

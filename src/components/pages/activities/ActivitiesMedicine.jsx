@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { ToothIcon, RefreshIcon, HospitalIcon, TruckIcon, ElderlyIcon, DnaIcon, BrainIcon, StethoscopeIcon, MicroscopeIcon, DollarSignIcon } from '../../icons';
 
 const ActivitiesMedicine = () => {
   const ref = useRef(null);
@@ -13,7 +14,7 @@ const ActivitiesMedicine = () => {
     {
       name: t('medicine.centers.0.name'),
       services: t('medicine.centers.0.services', { returnObjects: true }),
-      icon: '🏥',
+      icon: <HospitalIcon className="w-6 h-6" />,
       color: 'blue',
       features: t('medicine.centers.0.features', { returnObjects: true }),
       image: '/images/medical-center-1.jpg',
@@ -31,7 +32,7 @@ const ActivitiesMedicine = () => {
     {
       name: t('medicine.centers.2.name'),
       services: t('medicine.centers.2.services', { returnObjects: true }),
-      icon: '🦷',
+      icon: <ToothIcon className="w-6 h-6" />,
       color: 'purple',
       features: t('medicine.centers.2.features', { returnObjects: true }),
       image: '/images/dental-center.jpg',
@@ -51,19 +52,19 @@ const ActivitiesMedicine = () => {
   const pandemicActions = [
     {
       description: t('medicine.pandemic.actions.0.description'),
-      icon: '💰',
+      icon: <DollarSignIcon className="w-6 h-6" />,
       color: 'red',
       details: t('medicine.pandemic.actions.0.details', '')
     },
     {
       description: t('medicine.pandemic.actions.1.description'),
-      icon: '🔄',
+      icon: <RefreshIcon className="w-6 h-6" />,
       color: 'blue',
       details: t('medicine.pandemic.actions.1.details', '')
     },
     {
       description: t('medicine.pandemic.actions.2.description'),
-      icon: '🏨',
+      icon: <HospitalIcon className="w-6 h-6" />,
       color: 'green',
       details: t('medicine.pandemic.actions.2.details', '')
     },
@@ -88,7 +89,7 @@ const ActivitiesMedicine = () => {
       title: t('medicine.socialPrograms.1.title'),
       description: t('medicine.socialPrograms.1.description'),
       detailed: t('medicine.socialPrograms.1.detailed'),
-      icon: '🚐',
+      icon: <TruckIcon className="w-6 h-6" />,
       color: 'green',
       achievements: t('medicine.socialPrograms.1.achievements', { returnObjects: true })
     },
@@ -96,7 +97,7 @@ const ActivitiesMedicine = () => {
       title: t('medicine.socialPrograms.2.title'),
       description: t('medicine.socialPrograms.2.description'),
       detailed: t('medicine.socialPrograms.2.detailed'),
-      icon: '👵',
+      icon: <ElderlyIcon className="w-6 h-6" />,
       color: 'purple',
       achievements: t('medicine.socialPrograms.2.achievements', { returnObjects: true })
     }
@@ -106,7 +107,7 @@ const ActivitiesMedicine = () => {
     {
       title: t('medicine.research.0.title'),
       description: t('medicine.research.0.description'),
-      icon: '🔬',
+      icon: <MicroscopeIcon className="w-6 h-6" />,
       partners: t('medicine.research.0.partners', { returnObjects: true }),
       color: 'blue',
       details: t('medicine.research.0.details', '')
@@ -114,7 +115,7 @@ const ActivitiesMedicine = () => {
     {
       title: t('medicine.research.1.title'),
       description: t('medicine.research.1.description'),
-      icon: '🧬',
+      icon: <DnaIcon className="w-6 h-6" />,
       partners: t('medicine.research.1.partners', { returnObjects: true }),
       color: 'green',
       details: t('medicine.research.1.details', '')
@@ -122,7 +123,7 @@ const ActivitiesMedicine = () => {
     {
       title: t('medicine.research.2.title'),
       description: t('medicine.research.2.description'),
-      icon: '🧠',
+      icon: <BrainIcon className="w-6 h-6" />,
       partners: t('medicine.research.2.partners', { returnObjects: true }),
       color: 'purple',
       details: t('medicine.research.2.details', '')
@@ -579,7 +580,7 @@ const ActivitiesMedicine = () => {
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <span className="text-white text-3xl sm:text-4xl">🩺</span>
+                <StethoscopeIcon className="w-8 h-8 text-white" />
               </motion.div>
               <div className="text-center lg:text-left flex-1">
                 <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-4">

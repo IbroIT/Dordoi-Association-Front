@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { TruckIcon, GlobeIcon, BriefcaseIcon, AppleIcon, CarIcon, PackageIcon, CameraIcon } from '../../icons';
 
 const ActivitiesTrade = () => {
   const ref = useRef(null);
@@ -73,7 +74,7 @@ const ActivitiesTrade = () => {
       id: 'customs',
       title: t('trade.logistics.services.0.title'),
       description: t('trade.logistics.services.0.description'),
-      icon: '🛃',
+      icon: <TruckIcon className="w-6 h-6" />,
       details: t('trade.logistics.services.0.details', { returnObjects: true }),
       color: 'blue'
     },
@@ -81,7 +82,7 @@ const ActivitiesTrade = () => {
       id: 'transport',
       title: t('trade.logistics.services.1.title'),
       description: t('trade.logistics.services.1.description'),
-      icon: '🚚',
+      icon: <TruckIcon className="w-6 h-6" />,
       details: t('trade.logistics.services.1.details', { returnObjects: true }),
       color: 'green'
     },
@@ -89,7 +90,7 @@ const ActivitiesTrade = () => {
       id: 'international',
       title: t('trade.logistics.services.2.title'),
       description: t('trade.logistics.services.2.description'),
-      icon: '🌐',
+      icon: <GlobeIcon className="w-6 h-6" />,
       details: t('trade.logistics.services.2.details', { returnObjects: true }),
       color: 'orange'
     },
@@ -97,7 +98,7 @@ const ActivitiesTrade = () => {
       id: 'cash',
       title: t('trade.logistics.services.3.title'),
       description: t('trade.logistics.services.3.description'),
-      icon: '💼',
+      icon: <BriefcaseIcon className="w-6 h-6" />,
       details: t('trade.logistics.services.3.details', { returnObjects: true }),
       color: 'purple'
     }
@@ -577,9 +578,9 @@ const ActivitiesTrade = () => {
                     <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-blue-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                       <span className="text-white text-xl">
                         {item === 'market' && '👕'}
-                        {item === 'food' && '🍎'}
-                        {item === 'auto' && '🚗'}
-                        {item === 'warehouse' && '📦'}
+                        {item === 'food' && <AppleIcon className="w-5 h-5" />}
+                        {item === 'auto' && <CarIcon className="w-5 h-5" />}
+                        {item === 'warehouse' && <PackageIcon className="w-5 h-5" />}
                       </span>
                     </div>
                     <div>
@@ -606,7 +607,11 @@ const ActivitiesTrade = () => {
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <span className="text-white text-3xl">🏗️</span>
+                    <span className="text-white text-3xl">
+                      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                      </svg>
+                    </span>
                   </motion.div>
                   <p className="text-blue-600 font-semibold text-xl">{t('trade.structure.imagePlaceholder')}</p>
                   <p className="text-slate-500 mt-2">{t('trade.structure.imageSubtitle')}</p>
@@ -760,7 +765,7 @@ const ActivitiesTrade = () => {
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <span className="text-white text-3xl lg:text-4xl">💼</span>
+                <BriefcaseIcon className="w-12 h-12 lg:w-14 lg:h-14 text-white" />
               </motion.div>
               <div className="text-center lg:text-left flex-1">
                 <h3 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
@@ -814,7 +819,7 @@ const ActivitiesTrade = () => {
                       className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-600 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-3 lg:mb-4 shadow-lg group-hover:rotate-12 transition-transform duration-300"
                       whileHover={{ scale: 1.1 }}
                     >
-                      <span className="text-white text-lg lg:text-xl">📸</span>
+                      <CameraIcon className="w-6 h-6 text-white" />
                     </motion.div>
                     <p className="text-blue-600 text-sm lg:text-base font-semibold">{item.placeholder}</p>
                     <p className="text-slate-500 text-xs lg:text-sm mt-1">{item.caption}</p>

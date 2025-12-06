@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, Suspense, lazy } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { SearchIcon, MapIcon, ListIcon } from '../../icons';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -224,13 +225,47 @@ const PartnersInternational = () => {
     }
   };
 
+  // SVG иконки для типов сотрудничества
+  const cooperationIcons = {
+    trade: (
+      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    education: (
+      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+      </svg>
+    ),
+    culture: (
+      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+      </svg>
+    ),
+    industry: (
+      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+      </svg>
+    ),
+    logistics: (
+      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+      </svg>
+    ),
+    innovation: (
+      <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+      </svg>
+    )
+  };
+
   const cooperationTypes = [
-    { icon: '💰', label: t('partnersInternational.cooperation.trade'), key: 'trade' },
-    { icon: '🎓', label: t('partnersInternational.cooperation.education'), key: 'education' },
-    { icon: '🎭', label: t('partnersInternational.cooperation.culture'), key: 'culture' },
-    { icon: '🏭', label: t('partnersInternational.cooperation.industry'), key: 'industry' },
-    { icon: '🚚', label: t('partnersInternational.cooperation.logistics'), key: 'logistics' },
-    { icon: '💡', label: t('partnersInternational.cooperation.innovation'), key: 'innovation' }
+    { icon: cooperationIcons.trade, label: t('partnersInternational.cooperation.trade'), key: 'trade' },
+    { icon: cooperationIcons.education, label: t('partnersInternational.cooperation.education'), key: 'education' },
+    { icon: cooperationIcons.culture, label: t('partnersInternational.cooperation.culture'), key: 'culture' },
+    { icon: cooperationIcons.industry, label: t('partnersInternational.cooperation.industry'), key: 'industry' },
+    { icon: cooperationIcons.logistics, label: t('partnersInternational.cooperation.logistics'), key: 'logistics' },
+    { icon: cooperationIcons.innovation, label: t('partnersInternational.cooperation.innovation'), key: 'innovation' }
   ];
 
   const filters = [
@@ -486,8 +521,8 @@ const PartnersInternational = () => {
             {/* Переключение вида */}
             <div className="flex bg-slate-100 rounded-2xl p-1">
               {[
-                { key: 'map', label: t('partnersInternational.view.map'), icon: '🗺️' },
-                { key: 'list', label: t('partnersInternational.view.list'), icon: '📋' }
+                { key: 'map', label: t('partnersInternational.view.map'), icon: <MapIcon className="w-4 h-4" /> },
+                { key: 'list', label: t('partnersInternational.view.list'), icon: <ListIcon className="w-4 h-4" /> }
               ].map((view) => (
                 <motion.button
                   key={view.key}
@@ -516,7 +551,7 @@ const PartnersInternational = () => {
                 className="w-full px-4 py-2 pl-10 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">
-                🔍
+                <SearchIcon className="w-4 h-4" />
               </div>
             </div>
 
@@ -576,7 +611,9 @@ const PartnersInternational = () => {
                 variants={itemVariants}
                 className="text-center py-12"
               >
-                <div className="text-6xl mb-4">🔍</div>
+                <div className="text-6xl mb-4 text-slate-400">
+                  <SearchIcon className="w-16 h-16" />
+                </div>
                 <h3 className="text-xl font-semibold text-slate-700 mb-2">
                   {t('partnersInternational.search.noResults')}
                 </h3>

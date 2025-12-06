@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { MapIcon, RocketIcon, UsersIcon, HandshakeIcon, LocationIcon, DollarSignIcon } from '../../icons';
 
 const ActivitiesSocial = () => {
   const ref = useRef(null);
@@ -26,7 +27,7 @@ const ActivitiesSocial = () => {
     { 
       id: 'regions', 
       label: t('social.tabs.regions'),
-      icon: '🗺️',
+      icon: <MapIcon className="w-5 h-5" />,
       description: t('social.tabs.regionsDescription', { defaultValue: 'Помощь регионам в кризисных ситуациях' })
     }
   ];
@@ -36,35 +37,59 @@ const ActivitiesSocial = () => {
       value: t('social.stats.totalAmount.value'),
       label: t('social.stats.totalAmount.label'),
       trend: t('social.stats.totalAmount.trend', { defaultValue: '+15%' }),
-      icon: '💰',
+      icon: <DollarSignIcon className="w-6 h-6" />,
       description: t('social.stats.totalAmount.description', { defaultValue: 'За последние 3 года' })
     },
     {
       value: t('social.stats.projects.value'),
       label: t('social.stats.projects.label'),
       trend: t('social.stats.projects.trend', { defaultValue: '+25' }),
-      icon: '🚀',
+      icon: <RocketIcon className="w-6 h-6" />,
       description: t('social.stats.projects.description', { defaultValue: 'Активных программ' })
     },
     {
       value: t('social.stats.people.value'),
       label: t('social.stats.people.label'),
       trend: t('social.stats.people.trend', { defaultValue: '+10K' }),
-      icon: '👥',
+      icon: <UsersIcon className="w-6 h-6" />,
       description: t('social.stats.people.description', { defaultValue: 'Получили помощь' })
     },
     {
       value: t('social.stats.volunteers.value'),
       label: t('social.stats.volunteers.label'),
       trend: t('social.stats.volunteers.trend', { defaultValue: '+200' }),
-      icon: '🤝',
+      icon: <HandshakeIcon className="w-6 h-6" />,
       description: t('social.stats.volunteers.description', { defaultValue: 'Активных волонтеров' })
     }
   ];
 
+  // SVG иконки для благотворительных проектов
+  const charityIcons = [
+    (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      </svg>
+    ),
+    (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+      </svg>
+    ),
+    (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      </svg>
+    ),
+    (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+      </svg>
+    )
+  ];
+
   const charityProjects = [0, 1, 2, 3].map(index => ({
     id: index + 1,
-    icon: ['❤️', '🎓', '⚽', '🏛️'][index],
+    icon: charityIcons[index],
     category: t(`social.charity.projects.${index}.category`),
     amount: t(`social.charity.projects.${index}.amount`),
     description: t(`social.charity.projects.${index}.description`),
@@ -636,7 +661,7 @@ const ActivitiesSocial = () => {
                     >
                       <div className="flex items-center mb-4">
                         <div className="w-12 h-12 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl flex items-center justify-center mr-3 group-hover:from-green-200 group-hover:to-emerald-200 transition-colors duration-300 shadow-sm">
-                          <span className="text-xl">📍</span>
+                          <LocationIcon className="w-6 h-6 text-green-600" />
                         </div>
                         <h4 className="text-lg font-bold text-slate-900">{aid.region}</h4>
                       </div>
@@ -711,7 +736,9 @@ const ActivitiesSocial = () => {
                       className="text-amber-400"
                       whileHover={{ scale: 1.2 }}
                     >
-                      ⭐
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                      </svg>
                     </motion.span>
                   ))}
                 </div>
@@ -754,7 +781,7 @@ const ActivitiesSocial = () => {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span className="text-xl">🤝</span>
+                <HandshakeIcon className="w-6 h-6" />
                 <span className="text-lg">{t('social.cta.volunteerButton')}</span>
               </motion.button>
             </div>
@@ -853,7 +880,7 @@ const ActivitiesSocial = () => {
                   <div>
                     <div className="flex items-center mb-6">
                       <div className="w-16 h-16 bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl flex items-center justify-center mr-4 shadow-sm">
-                        <span className="text-3xl">📍</span>
+                        <LocationIcon className="w-8 h-8 text-green-600" />
                       </div>
                       <div>
                         <h3 className="text-3xl font-bold text-slate-900">{selectedRegion.region}</h3>
