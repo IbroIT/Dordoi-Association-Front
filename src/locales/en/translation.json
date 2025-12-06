@@ -203,7 +203,7 @@
   },
   "news": {
     "badge": "Current Events",
-    "title": "News and Important Events",
+    "title": "News",
     "subtitle": "Current achievements, initiatives, and projects of the Dordoi Association",
     "learnMore": "Learn More",
     "categories": {
@@ -2540,7 +2540,7 @@
       "noVideo": "No video materials available"
     },
     "badge": "Press Center",
-    "title": "News and",
+    "title": "News",
     "titleHighlight": "Publications",
     "subtitle": "Current news, events and official company announcements",
     "categories": {
