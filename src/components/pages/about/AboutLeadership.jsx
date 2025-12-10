@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { apiRequest } from '../../../api';
 
 const AboutLeadership = () => {
   const ref = useRef(null);
@@ -15,11 +16,7 @@ const AboutLeadership = () => {
   useEffect(() => {
     const fetchLeaders = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/about-us/leaders/?lang=${i18n.language}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const data = await apiRequest(`about-us/leaders/?lang=${i18n.language}`);
         let leadersArray = [];
         if (data.results && Array.isArray(data.results)) {
           leadersArray = data.results;

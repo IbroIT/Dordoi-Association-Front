@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { apiRequest } from '../../../api';
 
 const AboutFacts = () => {
   const ref = useRef(null);
@@ -57,11 +58,7 @@ const AboutFacts = () => {
   useEffect(() => {
     const fetchFacts = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/about-us/facts/?lang=${i18n.language}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
+        const data = await apiRequest(`about-us/facts/?lang=${i18n.language}`);
         let factsArray = [];
         if (data.results && Array.isArray(data.results)) {
           factsArray = data.results;

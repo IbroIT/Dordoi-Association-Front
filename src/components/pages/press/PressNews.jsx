@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { apiRequest } from '../../../api';
 
 const PressNews = () => {
   const ref = useRef(null);
@@ -67,18 +68,10 @@ const PressNews = () => {
         setError(null);
 
         // Загрузка категорий
-        const categoriesResponse = await fetch(`/api/presscentre/categories/?lang=${i18n.language}`);
-        if (!categoriesResponse.ok) {
-          throw new Error(`Failed to fetch categories: ${categoriesResponse.status}`);
-        }
-        const categoriesData = await categoriesResponse.json();
+        const categoriesData = await apiRequest(`presscentre/categories/?lang=${i18n.language}`);
 
         // Загрузка новостей
-        const newsResponse = await fetch(`/api/presscentre/news/?lang=${i18n.language}`);
-        if (!newsResponse.ok) {
-          throw new Error(`Failed to fetch news: ${newsResponse.status}`);
-        }
-        const newsData = await newsResponse.json();
+        const newsData = await apiRequest(`presscentre/news/?lang=${i18n.language}`);
 
         // Преобразование данных категорий
         const categoriesArray = categoriesData.results || categoriesData;

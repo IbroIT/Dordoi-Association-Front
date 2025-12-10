@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BuildingIcon, WrenchIcon, TrophyIcon } from '../../icons';
+import { apiRequest } from '../../../api';
 
 const Partners = () => {
   
@@ -36,11 +37,7 @@ const Partners = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch(`/api/partners/?lang=${i18n.language}`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch partners: ${response.status}`);
-        }
-        const data = await response.json();
+        const data = await apiRequest(`partners/?lang=${i18n.language}`);
 
         // Обработка данных партнеров
         const partnersArray = data.results || data || [];
@@ -238,7 +235,7 @@ const Partners = () => {
                         <div className={`text-xl transition-transform duration-300 ${
                           activePartner === index ? 'scale-110 rotate-12' : 'scale-100'
                         }`}>
-                          {partner.logo && partner.logo.startsWith('http') ? (
+                          {partner.logo && typeof partner.logo === 'string' && partner.logo.startsWith('http') ? (
                             <img src={partner.logo} alt={partner.name} className="w-6 h-6 rounded" />
                           ) : (
                             <BuildingIcon className="w-6 h-6" />
