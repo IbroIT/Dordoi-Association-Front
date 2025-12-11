@@ -213,71 +213,36 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
         >
           {/* Минималистичный логотип */}
           <div className="relative mb-12">
-            {/* Внешний круг */}
-            <div
-              className="w-32 h-32 rounded-full border-2 border-blue-400/60 mx-auto mb-6"
+            {/* Логотип */}
+            <img
+              src="/logodor2.png"
+              alt="Dordoi Logo"
+              className="w-48 h-48 object-contain mx-auto"
               style={{
-                opacity: animationStage >= 3 ? (isExiting ? 0 : 1) : 0,
-                transform: animationStage >= 3 ? 
-                  (isExiting ? 'scale(0.5) rotate(90deg)' : 'scale(1) rotate(0deg)') : 
-                  'scale(0.8) rotate(-180deg)',
-                transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                boxShadow: '0 0 40px rgba(59, 130, 246, 0.3)'
+                opacity: animationStage >= 4 ? (isExiting ? 0 : 1) : 0,
+                transform: animationStage >= 4 ?
+                  (isExiting ? 'translateY(-20px)' : 'translateY(0)') :
+                  'translateY(20px)',
+                transition: 'all 0.6s ease-out 0.2s',
+                filter: !isExiting ? 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.5))' : 'none'
+              }}
+            />
+
+            <div
+              className="overflow-hidden"
+              style={{
+                opacity: animationStage >= 4 ? (isExiting ? 0 : 1) : 0,
+                transform: animationStage >= 4 ?
+                  (isExiting ? 'translateY(-15px) scale(0.9)' : 'translateY(0) scale(1)') :
+                  'translateY(10px)',
+                transition: 'all 0.6s ease-out 0.4s'
               }}
             >
-              <div className="absolute inset-4 rounded-full border border-blue-300/40" />
-              <div 
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full opacity-20"
-                style={{
-                  animation: !isExiting ? 'pulse 3s infinite ease-in-out' : 'none'
-                }}
-              />
+              <p className="text-lg text-blue-200/80 font-light tracking-widest uppercase">
+                Business Excellence
+              </p>
             </div>
-
-            {/* Текст логотипа */}
-            <div className="space-y-4">
-              <div
-                className="flex justify-center space-x-3"
-                style={{
-                  opacity: animationStage >= 4 ? (isExiting ? 0 : 1) : 0,
-                  transform: animationStage >= 4 ? 
-                    (isExiting ? 'translateY(-20px)' : 'translateY(0)') : 
-                    'translateY(20px)',
-                  transition: 'all 0.6s ease-out 0.2s'
-                }}
-              >
-                {'DORDOI'.split('').map((letter, index) => (
-                  <span
-                    key={index}
-                    className="text-4xl font-light text-white tracking-wider"
-                    style={{
-                      textShadow: '0 0 20px rgba(59, 130, 246, 0.5)',
-                      animation: !isExiting ? `glow 2s infinite ease-in-out ${index * 0.1}s` : 'none',
-                      transform: isExiting ? `translateX(${index % 2 === 0 ? -50 : 50}px)` : 'translateX(0)',
-                      transition: `all 0.5s ease-out ${index * 80}ms`
-                    }}
-                  >
-                    {letter}
-                  </span>
-                ))}
-              </div>
-
-              <div
-                className="overflow-hidden"
-                style={{
-                  opacity: animationStage >= 4 ? (isExiting ? 0 : 1) : 0,
-                  transform: animationStage >= 4 ? 
-                    (isExiting ? 'translateY(-15px) scale(0.9)' : 'translateY(0) scale(1)') : 
-                    'translateY(10px)',
-                  transition: 'all 0.6s ease-out 0.4s'
-                }}
-              >
-                <p className="text-lg text-blue-200/80 font-light tracking-widest uppercase">
-                  Business Excellence
-                </p>
-              </div>
             </div>
-          </div>
 
           {/* Статистика */}
           <div className="grid grid-cols-2 gap-8 max-w-md mx-auto">
