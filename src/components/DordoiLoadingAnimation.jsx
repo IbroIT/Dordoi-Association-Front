@@ -6,9 +6,23 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
   const [particles, setParticles] = useState([]);
   const [lines, setLines] = useState([]);
   const [ripples, setRipples] = useState([]);
+  const [showAnimation, setShowAnimation] = useState(false);
+
+  // Проверка, была ли анимация уже показана
+  useEffect(() => {
+    const hasShown = localStorage.getItem('dordoiAnimationShown');
+    if (hasShown) {
+      // Анимация уже была показана, сразу завершить
+      onAnimationComplete?.();
+    } else {
+      // Показать анимацию
+      setShowAnimation(true);
+    }
+  }, [onAnimationComplete]);
 
   // Инициализация частиц для фона
   useEffect(() => {
+    if (!showAnimation) return;
     const newParticles = Array.from({ length: 20 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
@@ -18,10 +32,11 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
       opacity: 0
     }));
     setParticles(newParticles);
-  }, []);
+  }, [showAnimation]);
 
   // Инициализация линий сетки
   useEffect(() => {
+    if (!showAnimation) return;
     const newLines = [];
     for (let i = 0; i <= 10; i++) {
       newLines.push({
@@ -42,25 +57,25 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
       });
     }
     setLines(newLines);
-  }, []);
+  }, [showAnimation]);
 
   // Создание ripple эффектов для завершения
   useEffect(() => {
-    if (isExiting) {
-      const newRipples = Array.from({ length: 3 }, (_, i) => ({
-        id: i,
-        size: 0,
-        opacity: 0.4,
-        x: 50,
-        y: 50,
-        delay: i * 300
-      }));
-      setRipples(newRipples);
-    }
-  }, [isExiting]);
+    if (!showAnimation || !isExiting) return;
+    const newRipples = Array.from({ length: 3 }, (_, i) => ({
+      id: i,
+      size: 0,
+      opacity: 0.4,
+      x: 50,
+      y: 50,
+      delay: i * 300
+    }));
+    setRipples(newRipples);
+  }, [isExiting, showAnimation]);
 
   // Основная анимация
   useEffect(() => {
+    if (!showAnimation) return;
     const timeline = [
       { time: 0, stage: 1 },
       { time: 800, stage: 2 },
@@ -79,6 +94,7 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
     }, 4500);
 
     const completionTimer = setTimeout(() => {
+      localStorage.setItem('dordoiAnimationShown', 'true');
       onAnimationComplete?.();
     }, 6000);
 
@@ -86,27 +102,30 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
       clearTimeout(exitTimer);
       clearTimeout(completionTimer);
     };
-  }, [onAnimationComplete]);
+  }, [onAnimationComplete, showAnimation]);
 
   // Анимация частиц
   useEffect(() => {
-    if (animationStage >= 2) {
-      setParticles(prev => prev.map(particle => ({
-        ...particle,
-        opacity: 0.6
-      })));
-    }
-  }, [animationStage]);
+    if (!showAnimation || animationStage < 2) return;
+    setParticles(prev => prev.map(particle => ({
+      ...particle,
+      opacity: 0.6
+    })));
+  }, [animationStage, showAnimation]);
 
   // Анимация линий сетки
   useEffect(() => {
-    if (animationStage >= 1) {
-      setLines(prev => prev.map(line => ({
-        ...line,
-        opacity: 0.1
-      })));
-    }
-  }, [animationStage]);
+    if (!showAnimation || animationStage < 1) return;
+    setLines(prev => prev.map(line => ({
+      ...line,
+      opacity: 0.1
+    })));
+  }, [animationStage, showAnimation]);
+
+  // Если анимация не должна показываться, вернуть null
+  if (!showAnimation) {
+    return null;
+  }
 
   const businessStats = [
     { id: 1, value: "25+", label: "Лет опыта", delay: 2800 },
