@@ -8,7 +8,6 @@ const PartnersProjects = () => {
   const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedProject, setSelectedProject] = useState(null);
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
 
   // SVG иконки для категорий
   const categoryIcons = {
@@ -62,6 +61,7 @@ const PartnersProjects = () => {
       category: 'memorandums',
       status: 'completed',
       progress: 100,
+      image: 'https://via.placeholder.com/300x200?text=Turkey+Project',
       description: t('partnersProjects.projects.0.description'),
       fullDescription: t('partnersProjects.projects.0.fullDescription'),
       achievements: [
@@ -83,6 +83,7 @@ const PartnersProjects = () => {
       category: 'investments',
       status: 'ongoing',
       progress: 75,
+      image: 'https://via.placeholder.com/300x200?text=China+Project',
       description: t('partnersProjects.projects.1.description'),
       fullDescription: t('partnersProjects.projects.1.fullDescription'),
       achievements: [
@@ -104,6 +105,7 @@ const PartnersProjects = () => {
       category: 'education',
       status: 'ongoing',
       progress: 60,
+      image: 'https://via.placeholder.com/300x200?text=GIZ+Project',
       description: t('partnersProjects.projects.2.description'),
       fullDescription: t('partnersProjects.projects.2.fullDescription'),
       achievements: [
@@ -125,6 +127,7 @@ const PartnersProjects = () => {
       category: 'education',
       status: 'upcoming',
       progress: 10,
+      image: 'https://via.placeholder.com/300x200?text=KOICA+Project',
       description: t('partnersProjects.projects.3.description'),
       fullDescription: t('partnersProjects.projects.3.fullDescription'),
       achievements: [
@@ -146,6 +149,7 @@ const PartnersProjects = () => {
       category: 'technology',
       status: 'completed',
       progress: 100,
+      image: 'https://via.placeholder.com/300x200?text=USAID+Project',
       description: t('partnersProjects.projects.4.description'),
       fullDescription: t('partnersProjects.projects.4.fullDescription'),
       achievements: [
@@ -167,6 +171,7 @@ const PartnersProjects = () => {
       category: 'infrastructure',
       status: 'ongoing',
       progress: 45,
+      image: 'https://via.placeholder.com/300x200?text=Turkey+Infra+Project',
       description: t('partnersProjects.projects.5.description'),
       fullDescription: t('partnersProjects.projects.5.fullDescription'),
       achievements: [
@@ -296,46 +301,28 @@ const PartnersProjects = () => {
 
   const ProjectModal = ({ project, onClose }) => {
     if (!project) return null;
-    const partnerInfo = partnerLogos[project.partner];
-    const colors = colorMap[partnerInfo.color];
-    const statusInfo = statusConfig[project.status];
 
     return (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+        className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50"
         onClick={onClose}
       >
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+          className="bg-white bg-opacity-70 backdrop-blur-sm rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className={`p-8 ${colors.light} rounded-t-2xl`}>
-            <div className="flex justify-between items-start mb-6">
-              <div className="flex items-center space-x-4">
-                <div className={`w-16 h-16 ${colors.medium} rounded-2xl flex items-center justify-center`}>
-                  <span className="text-2xl">{partnerInfo.flag}</span>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-slate-900">{project.title}</h3>
-                  <div className="flex items-center space-x-2 mt-2">
-                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusInfo.text} bg-white`}>
-                      {statusInfo.label}
-                    </span>
-                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${colors.text} bg-white`}>
-                      {t(`partnersProjects.types.${project.category}`)}
-                    </span>
-                  </div>
-                </div>
-              </div>
+          <div className="p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold text-slate-900">{project.title}</h3>
               <button
                 onClick={onClose}
-                className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-slate-100 transition-colors"
+                className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 transition-colors"
               >
                 <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -343,66 +330,13 @@ const PartnersProjects = () => {
               </button>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="text-lg font-semibold text-slate-900 mb-3">{t('partnersProjects.details.projectOverview')}</h4>
-                <p className="text-slate-700 leading-relaxed">{project.fullDescription}</p>
-              </div>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="text-lg font-semibold text-slate-900 mb-3">{t('partnersProjects.details.projectDetails')}</h4>
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">{t('partnersProjects.duration')}</span>
-                      <span className="font-semibold">{project.duration}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">{t('partnersProjects.details.location')}</span>
-                      <span className="font-semibold">{project.location}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">{t('partnersProjects.details.impact')}</span>
-                      <span className="font-semibold">{project.impact}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            <img 
+              src={project.image} 
+              alt={project.title} 
+              className="w-full h-64 object-cover rounded-xl mb-6"
+            />
 
-          <div className="p-8">
-            <h4 className="text-xl font-bold text-slate-900 mb-6">{t('partnersProjects.achievements')}</h4>
-            <div className="grid md:grid-cols-2 gap-4 mb-8">
-              {project.achievements.map((achievement, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex items-start space-x-3 p-4 bg-slate-50 rounded-xl"
-                >
-                  <div className={`w-8 h-8 ${colors.medium} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <p className="text-slate-700">{achievement}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-between items-center pt-6 border-t border-slate-200">
-              <div className="flex items-center space-x-4">
-                <a href={project.website} className="text-slate-600 hover:text-slate-900 transition-colors">
-                  {t('partnersProjects.details.visitWebsite')}
-                </a>
-                <span className="text-slate-400">•</span>
-                <span className="text-slate-600">{project.contact}</span>
-              </div>
-              <button className="bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-800 transition-colors">
-                {t('partnersProjects.details.learnMore')}
-              </button>
-            </div>
+            <p className="text-slate-700 leading-relaxed">{project.description}</p>
           </div>
         </motion.div>
       </motion.div>
@@ -473,76 +407,45 @@ const PartnersProjects = () => {
           </motion.p>
         </motion.div>
 
-        {/* Enhanced Filters and View Controls */}
+        {/* Enhanced Filters */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-col lg:flex-row justify-between items-center gap-6 mb-12"
+          className="flex flex-wrap justify-center gap-2 mb-12"
         >
-          <div className="flex flex-wrap justify-center gap-2">
-            {categories.map((category) => {
-              const isActive = activeCategory === category.id;
-              return (
-                <motion.button
-                  key={category.id}
-                  onClick={() => setActiveCategory(category.id)}
-                  className={`px-4 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2 ${
-                    isActive
-                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span>{category.icon}</span>
-                  <span>{category.label}</span>
-                  {category.count && (
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      isActive ? 'bg-white text-amber-600' : 'bg-slate-200 text-slate-600'
-                    }`}>
-                      {category.count}
-                    </span>
-                  )}
-                </motion.button>
-              );
-            })}
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <div className="flex bg-slate-100 rounded-xl p-1">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg transition-colors ${
-                  viewMode === 'grid' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600'
+          {categories.map((category) => {
+            const isActive = activeCategory === category.id;
+            return (
+              <motion.button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`px-4 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2 ${
+                  isActive
+                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-lg'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                </svg>
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={`p-2 rounded-lg transition-colors ${
-                  viewMode === 'list' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600'
-                }`}
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                </svg>
-              </button>
-            </div>
-          </div>
+                <span>{category.icon}</span>
+                <span>{category.label}</span>
+                {category.count && (
+                  <span className={`px-2 py-1 text-xs rounded-full ${
+                    isActive ? 'bg-white text-amber-600' : 'bg-slate-200 text-slate-600'
+                  }`}>
+                    {category.count}
+                  </span>
+                )}
+              </motion.button>
+            );
+          })}
         </motion.div>
 
-        {/* Projects Grid/List */}
+        {/* Projects Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className={`${
-            viewMode === 'grid' 
-              ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-8' 
-              : 'space-y-6'
-          } mb-16`}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
         >
           <AnimatePresence>
             {filteredProjects.map((project) => {
@@ -558,44 +461,17 @@ const PartnersProjects = () => {
                   initial="hidden"
                   animate="visible"
                   exit="hidden"
-                  className={`bg-white rounded-2xl border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden group cursor-pointer ${
-                    viewMode === 'list' ? 'flex' : ''
-                  }`}
+                  className="bg-white rounded-2xl border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden group cursor-pointer"
                   whileHover={{ y: -5 }}
                   onClick={() => setSelectedProject(project)}
                 >
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className="w-full h-48 object-cover rounded-t-2xl"
+                  />
                   {/* Project Header */}
-                  <div className={`p-6 border-b border-slate-200 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center space-x-3">
-                        <motion.div 
-                          className={`w-12 h-12 ${colors.medium} rounded-xl flex items-center justify-center group-hover:${colors.light} transition-colors duration-300`}
-                          whileHover={{ scale: 1.1, rotate: 5 }}
-                        >
-                          <span className="text-lg">{partnerInfo.flag}</span>
-                        </motion.div>
-                        <div>
-                          <h3 className="text-lg font-bold text-slate-900">{project.partner}</h3>
-                          <span className={`text-xs font-medium ${colors.text}`}>
-                            {t(`partnersProjects.types.${project.category}`)}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end space-y-2">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusInfo.text} ${statusInfo.color} bg-opacity-10`}>
-                          {statusInfo.label}
-                        </span>
-                        <div className="w-20 h-2 bg-slate-200 rounded-full overflow-hidden">
-                          <motion.div
-                            className={`h-full ${statusInfo.color}`}
-                            initial={{ width: 0 }}
-                            animate={{ width: `${project.progress}%` }}
-                            transition={{ duration: 1, delay: 0.5 }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    
+                  <div className="p-6">
                     <h4 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-amber-600 transition-colors duration-300 line-clamp-2">
                       {project.title}
                     </h4>
@@ -608,95 +484,12 @@ const PartnersProjects = () => {
                     </motion.p>
                   </div>
 
-                  {/* Project Details */}
-                  <div className={`p-6 ${viewMode === 'list' ? 'w-80 border-l border-slate-200' : ''}`}>
-                    <h5 className="text-sm font-semibold text-slate-900 mb-3 flex items-center">
-                      <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      {t('partnersProjects.achievements')}
-                    </h5>
-                    <ul className="space-y-2 mb-4">
-                      {project.achievements.slice(0, 2).map((achievement, index) => (
-                        <motion.li 
-                          key={index}
-                          className="flex items-start text-slate-600 text-sm"
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                        >
-                          <span className={`w-1.5 h-1.5 ${colors.dark} rounded-full mt-1.5 mr-2 flex-shrink-0`}></span>
-                          <span className="line-clamp-2">{achievement}</span>
-                        </motion.li>
-                      ))}
-                      {project.achievements.length > 2 && (
-                        <li className="text-slate-500 text-sm">
-                          +{project.achievements.length - 2} more achievements
-                        </li>
-                      )}
-                    </ul>
-
-                    {/* Project Metrics */}
-                    <div className="flex justify-center pt-4 border-t border-slate-100">
-                      <motion.div 
-                        className="text-center"
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <div className="text-xs text-slate-500 mb-1">{t('partnersProjects.duration')}</div>
-                        <div className="text-sm font-semibold text-slate-900">{project.duration}</div>
-                      </motion.div>
-                    </div>
-                  </div>
-
                   {/* Accent Element */}
                   <div className={`h-1 ${colors.dark} w-full`}></div>
                 </motion.div>
               );
             })}
           </AnimatePresence>
-        </motion.div>
-
-        {/* Enhanced CTA Section */}
-        <motion.div
-          variants={itemVariants}
-          className="relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-12 text-center overflow-hidden"
-        >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-32 h-32 bg-amber-400 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-0 w-40 h-40 bg-emerald-400 rounded-full blur-3xl"></div>
-          </div>
-
-          <div className="relative z-10">
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              {t('partnersProjects.cta.title')}
-            </h3>
-            <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-              {t('partnersProjects.cta.description')}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <motion.button
-                className="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center space-x-3"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <span>{t('partnersProjects.cta.becomePartner')}</span>
-              </motion.button>
-              <motion.button
-                className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center space-x-3"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                <span>{t('partnersProjects.cta.suggestProject')}</span>
-              </motion.button>
-            </div>
-          </div>
         </motion.div>
       </div>
 

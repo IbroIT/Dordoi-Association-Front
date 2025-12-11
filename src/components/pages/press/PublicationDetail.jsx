@@ -1,26 +1,17 @@
-import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { GlobeIcon, NewspaperIcon, MicroscopeIcon, MicrophoneIcon, ChartIcon } from '../../icons';
 
-const PressPublications = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.1 });
-  const [activeFilter, setActiveFilter] = useState('all');
-  const { t } = useTranslation();
+const PublicationDetail = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const [publication, setPublication] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const filters = [
-    { id: 'all', label: t('publications.filters.all'), count: t('publications.stats.total') },
-    { id: 'international', label: t('publications.filters.international'), icon: <GlobeIcon className="w-5 h-5" /> },
-    { id: 'local', label: t('publications.filters.local'), icon: <NewspaperIcon className="w-5 h-5" /> },
-    { id: 'research', label: t('publications.filters.research'), icon: <MicroscopeIcon className="w-5 h-5" /> },
-    { id: 'interviews', label: t('publications.filters.interviews'), icon: <MicrophoneIcon className="w-5 h-5" /> },
-    { id: 'reports', label: t('publications.filters.reports'), icon: <ChartIcon className="w-5 h-5" /> }
-  ];
-
-  const publications = [
+  // Данные публикаций с динамическими переводами
+  const publications = useMemo(() => [
     {
       id: 1,
       title: t('publications.items.forbes.title'),
@@ -197,214 +188,203 @@ const PressPublications = () => {
       featured: false,
       related: [2, 6]
     }
-  ];
+  ], [t, i18n.language]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
 
-
-  // Фильтрация
-  const filteredPublications = publications
-    .filter(pub => activeFilter === 'all' || pub.type === activeFilter);
-
-
-
-
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
+    // Находим публикацию по ID
+    const foundPublication = publications.find(pub => pub.id === parseInt(id));
+    if (foundPublication) {
+      setPublication(foundPublication);
     }
+
+    setLoading(false);
+  }, [id, publications]);
+
+  const handleDownload = (downloadUrl, title) => {
+    console.log('Downloading:', downloadUrl);
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = `${title}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
-  const cardVariants = {
-    hidden: { scale: 0.9, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
-
-
-
-  const floatingVariants = {
-    animate: {
-      y: [0, -15, 0],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  };
-
-
-
-
+  if (!publication) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="text-center">
+          <div className="bg-white rounded-2xl shadow-xl p-12 max-w-md mx-auto">
+            <div className="text-8xl font-bold text-slate-300 mb-4">404</div>
+            <h1 className="text-2xl font-bold text-slate-900 mb-4">{t('publications.notFound')}</h1>
+            <p className="text-slate-600 mb-8">
+              {t('publications.notFoundDescription')}
+            </p>
+            <button
+              onClick={() => navigate('/press/publications')}
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold inline-block"
+            >
+              {t('publications.backToPublications')}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <section ref={ref} className="relative py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden">
+    <section className="relative py-32 bg-gradient-to-br from-slate-50 via-white to-blue-50 min-h-screen">
       {/* Enhanced Background */}
       <div className="absolute inset-0 opacity-10">
         <motion.div
-          variants={floatingVariants}
-          animate="animate"
+          animate={{
+            y: [0, -15, 0],
+            transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+          }}
           className="absolute top-10 left-5 w-32 h-32 bg-blue-200 rounded-full blur-2xl"
         />
         <motion.div
-          variants={floatingVariants}
-          animate="animate"
-          transition={{ delay: 1 }}
+          animate={{
+            y: [0, -15, 0],
+            transition: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }
+          }}
           className="absolute bottom-10 right-5 w-40 h-40 bg-cyan-200 rounded-full blur-2xl"
         />
         <motion.div
-          variants={floatingVariants}
-          animate="animate"
-          transition={{ delay: 2 }}
+          animate={{
+            y: [0, -15, 0],
+            transition: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }
+          }}
           className="absolute top-1/3 right-1/4 w-24 h-24 bg-indigo-200 rounded-full blur-2xl"
         />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Back Button */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="text-center mb-16"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
         >
-          <motion.div 
-            variants={itemVariants}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 mb-6"
+          <button
+            onClick={() => navigate('/press/publications')}
+            className="inline-flex items-center space-x-2 text-slate-600 hover:text-blue-600 transition-colors duration-300 group"
+          >
+            <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="font-medium">{t('header.back')}</span>
+          </button>
+        </motion.div>
+
+        {/* Breadcrumb */}
+        <div className="mb-12">
+          <nav className="flex items-center space-x-2 text-sm text-slate-600">
+            <button
+              onClick={() => navigate('/press')}
+              className="hover:text-blue-600 transition-colors"
+            >
+              {t('nav.press')}
+            </button>
+            <span>/</span>
+            <button
+              onClick={() => navigate('/press/publications')}
+              className="hover:text-blue-600 transition-colors"
+            >
+              {t('publications.title')}
+            </button>
+            <span>/</span>
+            <span className="text-slate-900 font-medium">{publication.title}</span>
+          </nav>
+        </div>
+
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
+        >
+          <motion.div
+            className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 mb-8"
           >
             <span className="text-blue-600 text-sm font-semibold">{t('publications.badge')}</span>
           </motion.div>
-          
-          <motion.h2 
-            variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6"
+
+          <motion.h1
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-8"
           >
-            {t('publications.title')}
-          </motion.h2>
-          
+            {publication.title}
+          </motion.h1>
+
           <motion.div
-            variants={itemVariants}
-            className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mx-auto mb-6"
+            className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mx-auto mb-8"
           ></motion.div>
-          
-          <motion.p 
-            variants={itemVariants}
-            className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
-          >
-            {t('publications.subtitle')}
-          </motion.p>
         </motion.div>
 
+        {/* Main Content */}
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-white rounded-2xl shadow-lg p-12 mb-12"
+          >
+            {/* Description */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">{t('publications.details.description')}</h3>
+              <p className="text-slate-700 leading-relaxed text-lg">{publication.description}</p>
+            </div>
 
-        {/* Filters */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="mb-12"
-        >
-          <div className="flex flex-wrap justify-center gap-3">
-            {filters.map((filter) => (
+            {/* Date */}
+            <div className="mb-12">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('publications.details.date')}</h3>
+              <p className="text-slate-600 text-lg">{new Date(publication.date).toLocaleDateString()}</p>
+            </div>
+
+            {/* Author */}
+            <div className="mb-12">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">{t('publications.details.author')}</h3>
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <span className="text-slate-700 font-medium text-lg">{publication.authors[0]}</span>
+              </div>
+            </div>
+
+            {/* Download PDF */}
+            <div className="text-center pt-8 border-t border-slate-200">
               <motion.button
-                key={filter.id}
-                onClick={() => setActiveFilter(filter.id)}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2 ${
-                  activeFilter === filter.id
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-                }`}
+                onClick={() => handleDownload(publication.downloadUrl, publication.title)}
+                className="bg-blue-600 text-white px-10 py-5 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300 inline-flex items-center justify-center space-x-4 text-xl shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span>{filter.icon}</span>
-                <span>{filter.label}</span>
-                {filter.count && (
-                  <span className={`px-2 py-1 text-xs rounded-full ${
-                    activeFilter === filter.id ? 'bg-white text-blue-600' : 'bg-slate-200 text-slate-600'
-                  }`}>
-                    {filter.count}
-                  </span>
-                )}
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>{t('publications.downloadPDF')}</span>
               </motion.button>
-            ))}
-          </div>
-        </motion.div>
-
-
-
-        {/* Publications Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
-        >
-          {filteredPublications.map((publication) => (
-            <motion.div
-              key={publication.id}
-              variants={cardVariants}
-              className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer"
-              whileHover={{ y: -5 }}
-              onClick={() => navigate(`/publications/${publication.id}`)}
-            >
-              <img
-                src={publication.previewUrl}
-                alt={publication.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2">
-                  {publication.title}
-                </h3>
-                <p className="text-slate-600 leading-relaxed text-sm mb-4 line-clamp-3">
-                  {publication.description}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-500">{new Date(publication.date).toLocaleDateString()}</span>
-                  <motion.button
-                    className="text-blue-600 hover:text-blue-700 font-semibold text-sm inline-flex items-center space-x-1 transition-colors duration-300"
-                    whileHover={{ x: 3 }}
-                  >
-                    <span>{t('publications.readMore')}</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </motion.button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-
+            </div>
+          </motion.div>
+        </div>
       </div>
-
-
     </section>
   );
 };
 
-export default PressPublications;
+export default PublicationDetail;

@@ -10,6 +10,7 @@ const ContactsForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     contact: '',
+    department: '',
     subject: '',
     message: '',
     file: null
@@ -25,6 +26,15 @@ const ContactsForm = () => {
     { value: 'social', label: t('contactsForm.subjects.social') },
     { value: 'rent', label: t('contactsForm.subjects.rent') },
     { value: 'other', label: t('contactsForm.subjects.other') }
+  ];
+
+  const departments = [
+    { value: 'press', label: t('contactsForm.departments.press') },
+    { value: 'investments', label: t('contactsForm.departments.investments') },
+    { value: 'hr', label: t('contactsForm.departments.hr') },
+    { value: 'commercial', label: t('contactsForm.departments.commercial') },
+    { value: 'medical', label: t('contactsForm.departments.medical') },
+    { value: 'sports', label: t('contactsForm.departments.sports') }
   ];
 
   const containerVariants = {
@@ -96,6 +106,10 @@ const ContactsForm = () => {
       newErrors.contact = t('contactsForm.errors.contactInvalid');
     }
 
+    if (!formData.department) {
+      newErrors.department = t('contactsForm.errors.departmentRequired');
+    }
+
     if (!formData.subject) {
       newErrors.subject = t('contactsForm.errors.subjectRequired');
     }
@@ -140,6 +154,7 @@ const ContactsForm = () => {
       setFormData({
         name: '',
         contact: '',
+        department: '',
         subject: '',
         message: '',
         file: null
@@ -392,6 +407,50 @@ const ContactsForm = () => {
                       className="mt-1 text-sm text-red-600"
                     >
                       {errors.contact}
+                    </motion.p>
+                  )}
+                </div>
+
+                {/* Отдел */}
+                <div>
+                  <label htmlFor="department" className="block text-sm font-semibold text-slate-900 mb-2">
+                    {t('contactsForm.labels.department')} *
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <svg className="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                      </svg>
+                    </div>
+                    <select
+                      id="department"
+                      name="department"
+                      value={formData.department}
+                      onChange={handleChange}
+                      className={`block w-full pl-10 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors duration-200 appearance-none ${
+                        errors.department ? 'border-red-300 bg-red-50' : 'border-slate-300'
+                      }`}
+                    >
+                      <option value="">{t('contactsForm.placeholders.department')}</option>
+                      {departments.map((department) => (
+                        <option key={department.value} value={department.value}>
+                          {department.label}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <svg className="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                  {errors.department && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-1 text-sm text-red-600"
+                    >
+                      {errors.department}
                     </motion.p>
                   )}
                 </div>

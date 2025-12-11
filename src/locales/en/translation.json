@@ -33,6 +33,25 @@
     "contacts_social": "Social Media",
     "contacts_form": "Online Contact Form"
   },
+  "common": {
+    "back": "Back",
+    "close": "Close",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "view": "View",
+    "download": "Download",
+    "share": "Share",
+    "more": "More",
+    "less": "Less"
+  },
   "hero": {
     "contactButton": "Contact Us",
     "previousSlide": "Previous slide",
@@ -1099,6 +1118,10 @@
     },
     "publications": {
       "title": "Scientific Publications",
+      "details": {
+        "date": "Date",
+        "author": "Author"
+      },
       "research1": {
         "title": "Innovations in Education of Kyrgyzstan",
         "author": "Collective of authors",
@@ -2490,6 +2513,10 @@
     "license": "License",
     "resolution": "Resolution",
     "photographer": "Photographer",
+    "viewImage": "View Image",
+    "noImages": "No images available",
+    "noImagesDescription": "This gallery doesn't have any images yet",
+    "shareGallery": "Share Gallery",
     "cta": {
       "title": "Need high-quality photos?",
       "description": "Contact us for professional high-resolution photos for publications and media materials",
@@ -2800,6 +2827,12 @@
     "title": "Media Publications",
     "subtitle": "Archive of articles, research and publications in local and international editions",
     
+    "details": {
+      "description": "Description",
+      "date": "Publication Date",
+      "author": "Author"
+    },
+    
     "stats": {
       "total": "24",
       "publications": "50+",
@@ -2953,7 +2986,7 @@
       "climate": "Climate"
     },
     
-    "details": {
+    "itemDetails": {
       "description": "Description",
       "fullDescription": "Full Description",
       "citation": "Citation",
@@ -5116,6 +5149,7 @@
     "labels": {
       "name": "Name",
       "contact": "Email or phone",
+      "department": "Department",
       "subject": "Request Subject",
       "message": "Message",
       "file": "Attach File"
@@ -5123,6 +5157,7 @@
     "placeholders": {
       "name": "Enter your name",
       "contact": "example@email.com or +996 XXX XXX XXX",
+      "department": "Select department",
       "subject": "Select request subject",
       "message": "Describe your question or suggestion...",
       "file": "Drag file or click to upload"
@@ -5134,10 +5169,19 @@
       "rent": "Rental",
       "other": "Other"
     },
+    "departments": {
+      "press": "Press Service",
+      "investments": "Investment Department",
+      "hr": "Human Resources",
+      "commercial": "Commercial Department",
+      "medical": "Medical Services",
+      "sports": "Sports Department"
+    },
     "errors": {
       "nameRequired": "Please enter your name",
       "contactRequired": "Please enter email or phone",
       "contactInvalid": "Please enter valid email or phone",
+      "departmentRequired": "Please select department",
       "subjectRequired": "Please select request subject",
       "messageRequired": "Please enter message",
       "messageTooShort": "Message must contain at least 10 characters"
@@ -5149,7 +5193,8 @@
       "title": "Request Successfully Sent!",
       "description": "We received your message and will contact you shortly. Confirmation sent to your email.",
       "sendAnother": "Send Another Request"
-    }
+    },
+    "socialLinks": "Social Links"
   },
   "footer": {
     "description": "The largest association of entrepreneurs in Kyrgyzstan, operating in trade, education, sports, culture, and charity.",

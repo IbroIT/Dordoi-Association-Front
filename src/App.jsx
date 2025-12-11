@@ -34,6 +34,8 @@ import PressPublications from './components/pages/press/PressPublications';
 import PressEvents from './components/pages/press/PressEvents';
 import PressReleases from './components/pages/press/PressReleases';
 import Details from './components/pages/press/Details';
+import GalleryDetail from './components/pages/press/GalleryDetail';
+import PublicationDetail from './components/pages/press/PublicationDetail';
 
 // Подразделы Partners
 import PartnersOur from './components/pages/partners/PartnersOur';
@@ -101,7 +103,9 @@ function App() {
             <Route path="/press/news" element={<PressNews />} />
             <Route path="/press/news/:id" element={<Details />} />
             <Route path="/press/media" element={<PressMedia />} />
+            <Route path="/press/gallery/:id" element={<GalleryDetail />} />
             <Route path="/press/publications" element={<PressPublications />} />
+            <Route path="/publications/:id" element={<PublicationDetail />} />
             {/* <Route path="/press/events" element={<PressEvents />} /> */}
             {/* <Route path="/press/releases" element={<PressReleases />} /> */}
 
