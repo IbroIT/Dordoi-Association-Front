@@ -56,7 +56,7 @@ const AboutHistory = () => {
     {
       year: "1991",
       title: t('history.milestones.0.title'),
-      description: t('history.milestones.0.description'),
+      description: "В 1991 году была основана Ассоциация Dordoi, которая начала свою деятельность с небольшим коллективом энтузиастов, веривших в потенциал развития бизнеса в Кыргызстане. Были заложены основы для будущих проектов, включая первые инициативы по поддержке местных предпринимателей. Ассоциация организовала семинары и конференции, направленные на обмен опытом и знаниями между бизнес-сообществом. Это время характеризовалось активным поиском партнеров и инвесторов. Были установлены первые международные связи, которые позже стали основой для глобального сотрудничества. Ассоциация также начала работу над созданием благоприятной бизнес-среды в республике.",
       image: milestoneIcons.calendar,
       stats: t('history.milestones.0.stats'),
       color: "blue"
@@ -64,7 +64,7 @@ const AboutHistory = () => {
     {
       year: "1990s",
       title: t('history.milestones.1.title'),
-      description: t('history.milestones.1.description'),
+      description: "В 90-х годах Ассоциация активно участвовала в образовательных программах, организуя тренинги и курсы для предпринимателей. Были разработаны специальные программы по повышению квалификации, которые помогли многим бизнесменам адаптироваться к рыночным условиям. Особое внимание уделялось поддержке молодежного предпринимательства. Этот период отмечен значительным ростом числа членов Ассоциации. Были созданы региональные отделения, что позволило расширить географию деятельности. Ассоциация также начала работу над законодательными инициативами, направленными на улучшение бизнес-климата в стране.",
       image: milestoneIcons.education,
       stats: t('history.milestones.1.stats'),
       color: "purple"
@@ -72,7 +72,7 @@ const AboutHistory = () => {
     {
       year: "2005",
       title: t('history.milestones.2.title'),
-      description: t('history.milestones.2.description'),
+      description: "2005 год стал переломным моментом в истории Ассоциации. Были запущены крупные проекты в сфере медиа и коммуникаций, включая создание информационных платформ для бизнеса. Ассоциация организовала серию документальных фильмов о успешных кыргызстанских предпринимателях, которые стали вдохновением для многих. В этот период Ассоциация значительно расширила свою медиа-присутствие. Были запущены регулярные публикации, новостные рассылки и онлайн-платформы. Это позволило не только информировать бизнес-сообщество, но и привлекать новых партнеров и инвесторов.",
       image: milestoneIcons.film,
       stats: t('history.milestones.2.stats'),
       color: "green"
@@ -80,7 +80,7 @@ const AboutHistory = () => {
     {
       year: "2008",
       title: t('history.milestones.3.title'),
-      description: t('history.milestones.3.description'),
+      description: "Глобальный финансовый кризис 2008 года стал серьезным испытанием для бизнеса в Кыргызстане. Ассоциация разработала комплекс мер по поддержке предпринимателей, включая консультационные услуги, финансовое планирование и стратегии выживания. Были организованы специальные программы по диверсификации бизнеса. Ассоциация активно сотрудничала с международными организациями для получения поддержки. Были разработаны аналитические отчеты о состоянии бизнеса в республике, которые стали основой для принятия стратегических решений. Этот период укрепил позиции Ассоциации как надежного партнера для бизнеса.",
       image: milestoneIcons.chart,
       stats: t('history.milestones.3.stats'),
       color: "orange"
@@ -88,7 +88,7 @@ const AboutHistory = () => {
     {
       year: "2010-2020",
       title: t('history.milestones.4.title'),
-      description: t('history.milestones.4.description'),
+      description: "Десятилетие 2010-2020 годов отмечено значительным ростом экономики Кыргызстана. Ассоциация сыграла ключевую роль в привлечении инвестиций и развитии новых секторов экономики. Были реализованы проекты в сфере финансов, торговли и услуг, которые способствовали созданию тысяч рабочих мест. Этот период характеризовался активным международным сотрудничеством. Ассоциация участвовала в крупных региональных проектах, включая инициативы по развитию транспортных коридоров и торговых связей. Были установлены партнерские отношения с ведущими компаниями из разных стран.",
       image: milestoneIcons.money,
       stats: t('history.milestones.4.stats'),
       color: "cyan"
@@ -96,7 +96,7 @@ const AboutHistory = () => {
     {
       year: "2020",
       title: t('history.milestones.5.title'),
-      description: t('history.milestones.5.description'),
+      description: "Пандемия COVID-19 стала серьезным вызовом для всего мира, включая Кыргызстан. Ассоциация оперативно отреагировала на кризис, разработав программы поддержки бизнеса в условиях ограничений. Были организованы онлайн-платформы для ведения бизнеса, доставки и коммуникаций. Ассоциация координировала усилия по обеспечению медицинскими средствами и оборудованием. Были запущены инициативы по поддержке уязвимых групп населения и бизнеса. Этот период показал высокую адаптивность и ответственность Ассоциации перед обществом.",
       image: milestoneIcons.medical,
       stats: t('history.milestones.5.stats'),
       color: "red"
@@ -104,7 +104,7 @@ const AboutHistory = () => {
     {
       year: "2021",
       title: t('history.milestones.6.title'),
-      description: t('history.milestones.6.description'),
+      description: "2021 год ознаменовался новыми инициативами в сфере логистики и транспорта. Ассоциация разработала проекты по оптимизации транспортных потоков и развитию инфраструктуры. Были установлены новые партнерства с логистическими компаниями и транспортными операторами. Этот год стал периодом активного развития цифровой трансформации. Ассоциация внедрила современные технологии для управления бизнес-процессами. Были запущены онлайн-платформы для автоматизации логистики и оптимизации цепочек поставок.",
       image: milestoneIcons.logistics,
       stats: t('history.milestones.6.stats'),
       color: "indigo"
@@ -112,7 +112,7 @@ const AboutHistory = () => {
     {
       year: "2021",
       title: t('history.milestones.7.title'),
-      description: t('history.milestones.7.description'),
+      description: "В 2021 году Ассоциация продолжила свою образовательную миссию, запустив новые программы обучения и развития. Были созданы онлайн-курсы, вебинары и мастер-классы для предпринимателей. Особое внимание уделялось цифровым навыкам и инновационным технологиям. Ассоциация организовала международные конференции и форумы, где обсуждались актуальные темы бизнеса и экономики. Были опубликованы исследования и аналитические материалы, которые стали ценным ресурсом для бизнес-сообщества. Этот период подчеркнул важность непрерывного обучения и адаптации к изменениям.",
       image: milestoneIcons.book,
       stats: t('history.milestones.7.stats'),
       color: "amber"
@@ -224,188 +224,46 @@ const AboutHistory = () => {
           </motion.p>
         </motion.div>
 
-        {/* Timeline - мобильная версия (вертикальная слева) */}
-        <div className="block lg:hidden">
-          <div className="relative">
-            {/* Центральная линия для мобильных */}
-            <motion.div
-              variants={timelineVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              className="absolute left-6 sm:left-8 w-0.5 h-full bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full"
-              style={{ originY: 0 }}
-            />
+        {/* История - простой текст */}
+        <div className="space-y-8 sm:space-y-12 lg:space-y-16">
+          {milestones.map((milestone, index) => {
+            const colors = colorMap[milestone.color];
 
-            {/* Элементы таймлайна для мобильных */}
-            <div className="space-y-8">
-              {milestones.map((milestone, index) => {
-                const colors = colorMap[milestone.color];
-                
-                return (
+            return (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                transition={{ delay: index * 0.1 }}
+                className="prose prose-lg max-w-none"
+              >
+                <div className="flex items-center mb-4">
                   <motion.div
-                    key={index}
-                    variants={itemVariants}
-                    initial="hidden"
-                    animate={isInView ? "visible" : "hidden"}
-                    transition={{ delay: index * 0.1 }}
-                    className="relative flex"
-                    onMouseEnter={() => setActiveYear(index)}
-                    onMouseLeave={() => setActiveYear(0)}
+                    className={`w-10 h-10 sm:w-12 sm:h-12 ${colors.dark} rounded-xl flex items-center justify-center mr-4 shadow-lg`}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
-                    {/* Точка на линии для мобильных */}
-                    <motion.div
-                      variants={dotVariants}
-                      initial="hidden"
-                      animate={isInView ? "visible" : "hidden"}
-                      transition={{ delay: index * 0.1 + 0.3 }}
-                      className={`absolute left-6 sm:left-8 transform -translate-x-1/2 w-4 h-4 sm:w-5 sm:h-5 ${colors.dark} rounded-full border-2 border-white shadow-lg z-10 ${
-                        activeYear === index ? 'scale-125' : ''
-                      } transition-transform duration-300`}
-                    />
-
-                    {/* Карточка контента для мобильных */}
-                    <motion.div
-                      className="w-full ml-12 sm:ml-16"
-                      whileHover={{ scale: 1.01, y: -2 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <div className={`relative rounded-xl sm:rounded-2xl p-4 sm:p-6 border-2 ${colors.border} ${colors.light} shadow-lg hover:shadow-xl transition-all duration-300 group`}>
-                        
-                        {/* Год */}
-                        <div className="flex items-center mb-3 sm:mb-4">
-                          <motion.div 
-                            className={`w-8 h-8 sm:w-10 sm:h-10 ${colors.dark} rounded-lg sm:rounded-xl flex items-center justify-center mr-3 sm:mr-4 shadow-lg flex-shrink-0`}
-                            whileHover={{ scale: 1.05, rotate: 5 }}
-                            transition={{ type: "spring", stiffness: 300 }}
-                          >
-                            <span className="text-white text-sm sm:text-base font-bold">{milestone.image}</span>
-                          </motion.div>
-                          <div className="min-w-0">
-                            <h3 className="text-lg sm:text-xl font-bold text-slate-900 truncate">{milestone.year}</h3>
-                            <h4 className={`text-base sm:text-lg font-semibold ${colors.text} truncate`}>{milestone.title}</h4>
-                          </div>
-                        </div>
-
-                        {/* Описание */}
-                        <p className="text-slate-700 text-sm sm:text-base leading-relaxed mb-3 sm:mb-4 line-clamp-3">
-                          {milestone.description}
-                        </p>
-
-                        {/* Статистика */}
-                        {milestone.stats && (
-                          <div className={`inline-flex items-center px-2 py-1 rounded-full ${colors.medium} ${colors.text} text-xs sm:text-sm font-semibold`}>
-                            {milestone.stats}
-                          </div>
-                        )}
-
-                        {/* Декоративный элемент */}
-                        <motion.div 
-                          className={`absolute top-3 right-3 sm:top-4 sm:right-4 w-1.5 h-6 sm:h-8 ${colors.dark} rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                          animate={{ scaleY: [1, 1.3, 1] }}
-                          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                        />
-                      </div>
-                    </motion.div>
+                    <span className="text-white text-lg sm:text-xl font-bold">{milestone.image}</span>
                   </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+                  <div>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 mb-1">{milestone.year}</h3>
+                    <h4 className={`text-lg sm:text-xl font-semibold ${colors.text}`}>{milestone.title}</h4>
+                  </div>
+                </div>
 
-        {/* Timeline - десктоп версия (горизонтальная с чередованием) */}
-        <div className="hidden lg:block">
-          <div className="relative">
-            {/* Центральная линия для десктопа */}
-            <motion.div
-              variants={timelineVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full"
-              style={{ originX: 0 }}
-            />
+                <p className="text-slate-700 leading-relaxed text-base sm:text-lg mb-4">
+                  {milestone.description}
+                </p>
 
-            {/* Элементы таймлайна для десктопа */}
-            <div className="space-y-12">
-              {milestones.map((milestone, index) => {
-                const colors = colorMap[milestone.color];
-                const isLeft = index % 2 === 0;
-                
-                return (
-                  <motion.div
-                    key={index}
-                    variants={itemVariants}
-                    initial="hidden"
-                    animate={isInView ? "visible" : "hidden"}
-                    transition={{ delay: index * 0.1 }}
-                    className={`relative flex items-center ${
-                      isLeft ? 'flex-row' : 'flex-row-reverse'
-                    }`}
-                    onMouseEnter={() => setActiveYear(index)}
-                    onMouseLeave={() => setActiveYear(0)}
-                  >
-                    {/* Точка на линии для десктопа */}
-                    <motion.div
-                      variants={dotVariants}
-                      initial="hidden"
-                      animate={isInView ? "visible" : "hidden"}
-                      transition={{ delay: index * 0.1 + 0.5 }}
-                      className={`absolute left-1/2 transform -translate-x-1/2 w-5 h-5 ${colors.dark} rounded-full border-4 border-white shadow-lg z-10 ${
-                        activeYear === index ? 'scale-125' : ''
-                      } transition-transform duration-300`}
-                    />
-
-                    {/* Карточка контента для десктопа */}
-                    <motion.div
-                      className={`w-5/12 ${isLeft ? 'pr-8 xl:pr-12' : 'pl-8 xl:pl-12'}`}
-                      whileHover={{ scale: 1.02, y: -5 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <div className={`relative rounded-2xl p-6 border-2 ${colors.border} ${colors.light} shadow-lg hover:shadow-xl transition-all duration-300 group`}>
-                        
-                        {/* Год */}
-                        <div className="flex items-center mb-4">
-                          <motion.div 
-                            className={`w-10 h-10 xl:w-12 xl:h-12 ${colors.dark} rounded-xl flex items-center justify-center mr-4 shadow-lg`}
-                            whileHover={{ scale: 1.1, rotate: 5 }}
-                            transition={{ type: "spring", stiffness: 300 }}
-                          >
-                            <span className="text-white text-base xl:text-lg font-bold">{milestone.image}</span>
-                          </motion.div>
-                          <div>
-                            <h3 className="text-xl xl:text-2xl font-bold text-slate-900">{milestone.year}</h3>
-                            <h4 className={`text-lg xl:text-lg font-semibold ${colors.text}`}>{milestone.title}</h4>
-                          </div>
-                        </div>
-
-                        {/* Описание */}
-                        <p className="text-slate-700 leading-relaxed mb-4">
-                          {milestone.description}
-                        </p>
-
-                        {/* Статистика */}
-                        {milestone.stats && (
-                          <div className={`inline-flex items-center px-3 py-1 rounded-full ${colors.medium} ${colors.text} text-sm font-semibold`}>
-                            {milestone.stats}
-                          </div>
-                        )}
-
-                        {/* Декоративный элемент */}
-                        <motion.div 
-                          className={`absolute top-4 right-4 w-2 h-8 ${colors.dark} rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                          animate={{ scaleY: [1, 1.3, 1] }}
-                          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                        />
-                      </div>
-                    </motion.div>
-
-                    {/* Пустое пространство для выравнивания */}
-                    <div className="w-2/12"></div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+                {milestone.stats && (
+                  <div className={`inline-flex items-center px-3 py-1 rounded-full ${colors.medium} ${colors.text} text-sm font-semibold mb-6`}>
+                    {milestone.stats}
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Индикатор прогресса */}
