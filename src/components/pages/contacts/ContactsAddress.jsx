@@ -3,7 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import { BookIcon, BuildingIcon, ClockIcon, CameraIcon, GlobeIcon, PhoneIcon, EnvelopeIcon, LocationIcon, MapIcon, CarIcon, BusIcon, SearchIcon, HospitalIcon, GraduationCapIcon, MicroscopeIcon, BriefcaseIcon } from '../../icons';
+import { BookIcon, BuildingIcon, ClockIcon, CameraIcon, GlobeIcon, PhoneIcon, EnvelopeIcon, LocationIcon, MapIcon, CarIcon, BusIcon, SearchIcon, HospitalIcon, GraduationCapIcon, MicroscopeIcon, BriefcaseIcon, HandshakeIcon } from '../../icons';
 import 'leaflet/dist/leaflet.css';
 
 // Fix for default markers in react-leaflet

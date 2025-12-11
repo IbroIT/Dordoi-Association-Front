@@ -248,7 +248,6 @@ const Navbar = () => {
               </div>
               <div className="flex flex-col">
                 <span className="text-white text-lg font-semibold leading-tight"> «Дордой»</span>
-                <span className="text-slate-300 text-xs font-medium">Business Association</span>
               </div>
             </Link>
           </div>
