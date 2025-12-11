@@ -2501,8 +2501,11 @@
   },
   "press": {
     "searchPlaceholder": "Search news...",
+    "allNews": "All News",
+    "items": "news",
     "featured": "Featured News",
     "featuredBadge": "Featured",
+    "recommended": "Recommended news",
     "views": "views",
     "likes": "likes",
     "shares": "shares",
@@ -4778,7 +4781,8 @@
     "publishedDate": "Published",
     "category": "Category",
     "comments": "Comments",
-    "tags": "Tags"
+    "tags": "Tags",
+    "readMore": "Read more"
   },
   "contactsSocial": {
     "highEngagement": "High Engagement",

@@ -42,7 +42,7 @@ const PressNews = () => {
 
         // Преобразование данных новостей
         const newsArray = newsData.results || newsData || [];
-        const transformedNews = Array.isArray(newsArray) ? newsArray.map((item, index) => ({
+        const transformedNews = Array.isArray(newsArray) ? newsArray.map(item => ({
           id: item.id,
           title: item.title,
           date: new Date(item.published_at || item.created_at).toLocaleDateString(i18n.language, {
@@ -55,7 +55,8 @@ const PressNews = () => {
           image_url: item.image || null,
           description: item.short_description || item.description?.substring(0, 200) + '...' || '',
           full_description: item.description,
-          is_featured: item.is_recommended || index < 2,
+          // Используем is_recommended из API, а не индекс
+          is_recommended: item.is_recommended || false,
           created_at: item.published_at || item.created_at
         })) : [];
 
@@ -79,7 +80,19 @@ const PressNews = () => {
             image_url: null,
             description: t('press.demo.description', 'Новая стратегия развития компании на ближайшие годы с фокусом на инновации и устойчивое развитие.'),
             full_description: t('press.demo.fullText', 'Полный текст новости для демонстрации. Компания продолжает инвестировать в новые технологии и расширять свое присутствие на международных рынках.'),
-            is_featured: true,
+            is_recommended: true,
+            created_at: new Date().toISOString()
+          },
+          {
+            id: 2,
+            title: t('press.demo.title2', 'Открытие нового офиса в Европе'),
+            date: new Date().toLocaleDateString(i18n.language),
+            category: '1',
+            category_name: 'Пресс-релизы',
+            image_url: null,
+            description: t('press.demo.description2', 'Компания открывает новый офис в Берлине для расширения присутствия на европейском рынке.'),
+            full_description: t('press.demo.fullText2', 'Полный текст новости о новом офисе.'),
+            is_recommended: false,
             created_at: new Date().toISOString()
           }
         ]);
@@ -96,35 +109,36 @@ const PressNews = () => {
     ? newsData 
     : newsData.filter(item => item.category === activeCategory);
 
-  const featuredNews = filteredNews.filter(item => item.is_featured);
-  const regularNews = filteredNews.filter(item => !item.is_featured);
+  // Разделение на рекомендованные и остальные новости
+  const recommendedNews = filteredNews.filter(item => item.is_recommended);
+  const regularNews = filteredNews.filter(item => !item.is_recommended);
 
   const navigateNews = useCallback((direction) => {
-    if (featuredNews.length === 0) return;
+    if (recommendedNews.length === 0) return;
     
     setIsVisible(false);
     setTimeout(() => {
       setCurrentNewsIndex((prev) => {
         if (direction === 'next') {
-          return (prev + 1) % featuredNews.length;
+          return (prev + 1) % recommendedNews.length;
         } else {
-          return prev === 0 ? featuredNews.length - 1 : prev - 1;
+          return prev === 0 ? recommendedNews.length - 1 : prev - 1;
         }
       });
       setIsVisible(true);
     }, 300);
-  }, [featuredNews.length]);
+  }, [recommendedNews.length]);
 
-  // Автоматическая смена новостей
+  // Автоматическая смена новостей (только для рекомендованных)
   useEffect(() => {
-    if (!isAutoPlaying || featuredNews.length === 0) return;
+    if (!isAutoPlaying || recommendedNews.length === 0) return;
 
     const interval = setInterval(() => {
       navigateNews('next');
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying, navigateNews, featuredNews.length]);
+  }, [isAutoPlaying, navigateNews, recommendedNews.length]);
 
   const handleReadMore = (newsId) => {
     navigate(`/press/news/${newsId}`);
@@ -190,9 +204,14 @@ const PressNews = () => {
         </div>
       </div>
 
-      {/* Featured News Slider */}
-      {featuredNews.length > 0 && (
+      {/* Рекомендованные новости (слайдер) */}
+      {recommendedNews.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-800">{t('press.recommended', 'Рекомендованные новости')}</h2>
+            <span className="text-gray-500 text-sm">{recommendedNews.length} {t('press.items', 'новостей')}</span>
+          </div>
+          
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -239,12 +258,12 @@ const PressNews = () => {
               {/* Image Section */}
               <div className="relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 z-10" />
-                {featuredNews[currentNewsIndex]?.image_url ? (
+                {recommendedNews[currentNewsIndex]?.image_url ? (
                   <motion.div
                     className={`absolute inset-0 bg-cover bg-center transition-transform duration-700 ${
                       isVisible ? 'scale-110' : 'scale-100'
                     }`}
-                    style={{ backgroundImage: `url(${featuredNews[currentNewsIndex].image_url})` }}
+                    style={{ backgroundImage: `url(${recommendedNews[currentNewsIndex].image_url})` }}
                   />
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-cyan-50 flex items-center justify-center">
@@ -259,7 +278,7 @@ const PressNews = () => {
               <div className="relative p-8 lg:p-12 flex flex-col justify-center">
                 <AnimatePresence mode="wait">
                   <motion.div
-                    key={featuredNews[currentNewsIndex]?.id}
+                    key={recommendedNews[currentNewsIndex]?.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -268,24 +287,24 @@ const PressNews = () => {
                   >
                     <div className="flex items-center gap-4">
                       <span className="px-4 py-2 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-700 rounded-full text-sm font-semibold border border-blue-200">
-                        {featuredNews[currentNewsIndex]?.category_name || 'News'}
+                        {recommendedNews[currentNewsIndex]?.category_name || 'News'}
                       </span>
                       <span className="text-gray-500 font-medium">
-                        {featuredNews[currentNewsIndex]?.date}
+                        {recommendedNews[currentNewsIndex]?.date}
                       </span>
                     </div>
 
                     <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 leading-tight">
-                      {featuredNews[currentNewsIndex]?.title}
+                      {recommendedNews[currentNewsIndex]?.title}
                     </h2>
 
                     <p className="text-lg text-gray-600 leading-relaxed">
-                      {featuredNews[currentNewsIndex]?.description}
+                      {recommendedNews[currentNewsIndex]?.description}
                     </p>
 
                     <div className="flex items-center gap-4 pt-4">
                       <button
-                        onClick={() => handleReadMore(featuredNews[currentNewsIndex]?.id)}
+                        onClick={() => handleReadMore(recommendedNews[currentNewsIndex]?.id)}
                         className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                       >
                         {t('press.readMore', 'Подробнее')}
@@ -297,9 +316,9 @@ const PressNews = () => {
             </div>
 
             {/* Progress Indicators */}
-            {featuredNews.length > 1 && (
+            {recommendedNews.length > 1 && (
               <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2">
-                {featuredNews.map((news, index) => (
+                {recommendedNews.map((news, index) => (
                   <button
                     key={news.id}
                     onClick={() => {
@@ -308,7 +327,7 @@ const PressNews = () => {
                         setCurrentNewsIndex(index);
                         setIsVisible(true);
                       }, 300);
-                    }}
+                    }} 
                     className={`h-1 rounded-full transition-all duration-500 ${
                       index === currentNewsIndex
                         ? 'bg-gradient-to-r from-blue-600 to-cyan-600 w-8'
@@ -322,7 +341,7 @@ const PressNews = () => {
         </div>
       )}
 
-      {/* All News Grid */}
+      {/* Все остальные новости (карточки) */}
       {regularNews.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
           <motion.div
@@ -343,7 +362,8 @@ const PressNews = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="group bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500"
+                  className="group bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                  onClick={() => handleReadMore(news.id)}
                 >
                   <div className="relative overflow-hidden h-48">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 z-10" />
@@ -377,15 +397,12 @@ const PressNews = () => {
 
                     <p className="text-gray-600 text-sm line-clamp-2 mb-4">{news.description}</p>
 
-                    <button
-                      onClick={() => handleReadMore(news.id)}
-                      className="flex items-center text-blue-600 text-sm font-semibold group-hover:translate-x-2 transition-transform duration-300"
-                    >
+                    <div className="flex items-center text-blue-600 text-sm font-semibold group-hover:translate-x-2 transition-transform duration-300">
                       {t('press.readMore', 'Подробнее')}
                       <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
-                    </button>
+                    </div>
                   </div>
                 </motion.div>
               ))}

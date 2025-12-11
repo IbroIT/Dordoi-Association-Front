@@ -519,7 +519,7 @@ const NewsDetailPage = () => {
               className="mt-12"
             >
               <h2 className="text-3xl font-bold text-gray-800 mb-8">
-                {t('newsDetail.related.title')}
+                {t('newsDetail.related')}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {relatedNews.map((news, index) => (
@@ -564,7 +564,7 @@ const NewsDetailPage = () => {
                       <p className="text-gray-600 text-sm line-clamp-2 mb-4">{news.short_description || news.description}</p>
 
                       <div className="flex items-center text-blue-600 text-sm font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                        {t('newsDetail.related.readMore')}
+                        {t('newsDetail.readMore')}
                         <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>

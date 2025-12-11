@@ -2501,6 +2501,9 @@
   },
   "press": {
     "searchPlaceholder": "Жаңылыктарды издөө...",
+    "allNews": "Бардык жаңылыктар",
+    "items": "жаңылыктар",
+    "recommended": "Сунушталган жаңылыктар",
     "featured": "Сунушталган жаңылыктар",
     "featuredBadge": "Сунуштайбыз",
     "views": "көрүүлөр",
@@ -4778,7 +4781,8 @@
     "publishedDate": "Жарыяланды",
     "category": "Категория",
     "comments": "Комментарийлер",
-    "tags": "Тегтер"
+    "tags": "Тегтер",
+    "readMore": "Толук окуу"
   },
   "contactsSocial": {
     "highEngagement": "Жогорку аракеттүүлүк",

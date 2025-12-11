@@ -2501,8 +2501,11 @@
   },
   "press": {
     "searchPlaceholder": "Поиск новостей...",
+    "allNews": "Все новости",
     "featured": "Рекомендуемые новости",
-    "featuredBadge": "Рекомендуем",
+    "items": "новостей",
+    "featuredBadge": "Рекомендуем", 
+    "recommended": "Рекомендуемые новости",
     "loading": "Загрузка...",
     "share": "Поделиться",
     "related": "Похожие новости",
@@ -4774,7 +4777,8 @@
   "publishedDate": "Опубликовано",
   "category": "Категория",
   "comments": "Комментарии",
-  "tags": "Теги"
+  "tags": "Теги",
+  "readMore": "Читать далее"
 },
 "contactsSocial": {
   "highEngagement": "Высокая вовлеченность",
