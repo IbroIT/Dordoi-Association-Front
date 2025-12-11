@@ -17,6 +17,7 @@ import AboutMission from './components/pages/about/AboutMission';
 import AboutLeadership from './components/pages/about/AboutLeadership';
 import AboutStructure from './components/pages/about/AboutStructure';
 import AboutFacts from './components/pages/about/AboutFacts';
+import SubsidiaryDetail from './components/pages/about/SubsidiaryDetail';
 
 // Подразделы Activities
 import ActivitiesTrade from './components/pages/activities/ActivitiesTrade';
@@ -86,6 +87,7 @@ function App() {
             <Route path="/about/mission" element={<AboutMission />} />
             <Route path="/about/leadership" element={<AboutLeadership />} />
             <Route path="/about/structure" element={<AboutStructure />} />
+            <Route path="/about/structure/:companyId" element={<SubsidiaryDetail />} />
             <Route path="/about/facts" element={<AboutFacts />} />
 
             {/* Страницы Activities */}

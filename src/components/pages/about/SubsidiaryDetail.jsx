@@ -1,0 +1,231 @@
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+
+const SubsidiaryDetail = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const subsidiary = location.state?.subsidiary;
+
+  if (!subsidiary) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="text-center">
+          <div className="bg-white rounded-2xl shadow-xl p-12 max-w-md mx-auto">
+            <div className="text-8xl font-bold text-slate-300 mb-4">404</div>
+            <h1 className="text-2xl font-bold text-slate-900 mb-4">Компания не найдена</h1>
+            <p className="text-slate-600 mb-8">
+              Информация о запрашиваемой компании не найдена.
+            </p>
+            <button
+              onClick={() => navigate('/about/structure')}
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+            >
+              Вернуться к структуре
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  return (
+    <section className="relative py-20 bg-slate-50 min-h-screen">
+      {/* Фоновые элементы */}
+      <div className="absolute inset-0 opacity-3">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          className="absolute top-10 left-10 w-64 h-64 bg-blue-200 rounded-full blur-3xl"
+        />
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 2, delay: 0.5, ease: "easeOut" }}
+          className="absolute bottom-10 right-10 w-80 h-80 bg-cyan-200 rounded-full blur-3xl"
+        />
+      </div>
+
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Кнопка назад */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
+        >
+          <button
+            onClick={() => navigate('/about/structure')}
+            className="inline-flex items-center space-x-2 px-4 py-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-all duration-300 shadow-sm hover:shadow-md"
+          >
+            <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="text-slate-700 font-medium">Вернуться к структуре</span>
+          </button>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="bg-white rounded-3xl shadow-2xl overflow-hidden"
+        >
+          {/* Заголовок */}
+          <div className="bg-gradient-to-r from-blue-600 to-cyan-600 px-8 md:px-12 py-12 text-white">
+            <div className="flex items-center space-x-6">
+              <div className="w-24 h-24 bg-white bg-opacity-20 rounded-3xl flex items-center justify-center shadow-lg">
+                <img src={subsidiary.logo} alt={subsidiary.name} className="w-16 h-16 object-contain" />
+              </div>
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold mb-2">
+                  {subsidiary.name}
+                </h1>
+                <p className="text-xl text-blue-100">
+                  Основана в {subsidiary.founded}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="px-8 md:px-12 py-12">
+            {/* Описание */}
+            <motion.div
+              variants={itemVariants}
+              className="mb-12"
+            >
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">О компании</h2>
+              <p className="text-lg text-slate-700 leading-relaxed">
+                {subsidiary.description}
+              </p>
+            </motion.div>
+
+            {/* Достижения */}
+            {subsidiary.achievements && subsidiary.achievements.length > 0 && (
+              <motion.div
+                variants={itemVariants}
+                className="mb-12"
+              >
+                <h2 className="text-2xl font-bold text-slate-900 mb-8">Достижения</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {subsidiary.achievements.map((achievement, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="flex items-center space-x-4 p-6 bg-gradient-to-r from-slate-50 to-slate-100 rounded-2xl border border-slate-200"
+                    >
+                      <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="text-slate-700 font-medium">{achievement}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Контактная информация */}
+            <motion.div
+              variants={itemVariants}
+              className="mb-12"
+            >
+              <h2 className="text-2xl font-bold text-slate-900 mb-8">Контакты</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-slate-900 mb-1">Адрес</div>
+                    <div className="text-slate-600">{subsidiary.address}</div>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                  <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-slate-900 mb-1">Email</div>
+                    <div className="text-slate-600">{subsidiary.email}</div>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                  <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-slate-900 mb-1">Телефон</div>
+                    <div className="text-slate-600">{subsidiary.phone}</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Кнопки действий */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4 pt-8 border-t border-slate-200"
+            >
+              <a
+                href={subsidiary.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300 shadow-md inline-flex items-center justify-center space-x-3"
+              >
+                <span>Перейти на сайт</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+              <button
+                onClick={() => navigate('/about/structure')}
+                className="px-8 py-4 bg-slate-100 text-slate-700 rounded-2xl font-semibold hover:bg-slate-200 transition-all duration-300"
+              >
+                Вернуться к структуре
+              </button>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default SubsidiaryDetail;
