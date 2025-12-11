@@ -8,6 +8,7 @@ const AboutStructure = () => {
   const { t } = useTranslation();
   const [activeDivision, setActiveDivision] = useState(null);
   const [selectedDivision, setSelectedDivision] = useState(null);
+  const [selectedSubsidiary, setSelectedSubsidiary] = useState(null);
 
   const divisions = [
     { 
@@ -251,6 +252,130 @@ const AboutStructure = () => {
     }
   };
 
+  const modalVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeIn"
+      }
+    }
+  };
+
+  const modalContentVariants = {
+    hidden: { scale: 0.9, opacity: 0, y: 20 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut"
+      }
+    },
+    exit: {
+      scale: 0.9,
+      opacity: 0,
+      y: 20,
+      transition: {
+        duration: 0.3,
+        ease: "easeIn"
+      }
+    }
+  };
+
+  const subsidiaries = [
+    { 
+      id: 'dordoi-trade',
+      logo: '/logos/dordoi-trade.png',
+      name: 'Дордой Торговля',
+      description: 'Крупная торговая компания, специализирующаяся на импорте и экспорте товаров по всему региону.',
+      website: 'https://dordoi-trade.kg',
+      founded: '1995',
+      achievements: [
+        'Лидер рынка импорта-экспорта в регионе',
+        'Сеть из 15+ филиалов по странам',
+        'Объем торговых операций $50M+ ежегодно'
+      ],
+      address: 'г. Бишкек, ул. Чуй 123',
+      email: 'info@dordoi-trade.kg',
+      phone: '+996 312 123 456'
+    },
+    { 
+      id: 'dordoi-logistics',
+      logo: '/logos/dordoi-logistics.png',
+      name: 'Дордой Логистика',
+      description: 'Современная логистическая компания, обеспечивающая доставку грузов по всей Центральной Азии.',
+      website: 'https://dordoi-logistics.kg',
+      founded: '2000',
+      branches: '12+',
+      projects: '150+',
+      address: 'г. Бишкек, пр. Манаса 456',
+      email: 'contact@dordoi-logistics.kg',
+      phone: '+996 312 654 321'
+    },
+    { 
+      id: 'dordoi-finance',
+      logo: '/logos/dordoi-finance.png',
+      name: 'Дордой Финанс',
+      description: 'Финансовые услуги и инвестиционные проекты для развития бизнеса в регионе.',
+      website: 'https://dordoi-finance.kg',
+      founded: '2005',
+      branches: '8+',
+      projects: '100+',
+      address: 'г. Бишкек, ул. Абдрахманова 789',
+      email: 'support@dordoi-finance.kg',
+      phone: '+996 312 987 654'
+    },
+    { 
+      id: 'dordoi-education',
+      logo: '/logos/dordoi-education.png',
+      name: 'Дордой Образование',
+      description: 'Образовательные программы и развитие талантов для будущего поколения.',
+      website: 'https://dordoi-education.kg',
+      founded: '2010',
+      branches: '6+',
+      projects: '80+',
+      address: 'г. Бишкек, ул. Киевская 321',
+      email: 'education@dordoi-education.kg',
+      phone: '+996 312 456 789'
+    },
+    { 
+      id: 'dordoi-medicine',
+      logo: '/logos/dordoi-medicine.png',
+      name: 'Дордой Медицина',
+      description: 'Медицинские услуги и фармацевтика для улучшения здоровья населения.',
+      website: 'https://dordoi-medicine.kg',
+      founded: '2008',
+      branches: '10+',
+      projects: '120+',
+      address: 'г. Бишкек, ул. Ахунбаева 654',
+      email: 'medical@dordoi-medicine.kg',
+      phone: '+996 312 321 987'
+    },
+    { 
+      id: 'dordoi-sport',
+      logo: '/logos/dordoi-sport.png',
+      name: 'Дордой Спорт',
+      description: 'Спортивные мероприятия и развитие спорта для активного образа жизни.',
+      website: 'https://dordoi-sport.kg',
+      founded: '2015',
+      branches: '5+',
+      projects: '60+',
+      address: 'г. Бишкек, ул. Токтогула 987',
+      email: 'sport@dordoi-sport.kg',
+      phone: '+996 312 789 123'
+    }
+  ];
+
   const floatingVariants = {
     animate: {
       y: [0, -20, 0],
@@ -265,23 +390,23 @@ const AboutStructure = () => {
   return (
     <section ref={ref} className="relative py-20 bg-white overflow-hidden">
       {/* Фоновые элементы */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-3">
         <motion.div
           variants={floatingVariants}
           animate="animate"
-          className="absolute top-10 left-10 w-64 h-64 bg-blue-200 rounded-full blur-3xl"
+          className="absolute top-10 left-10 w-64 h-64 bg-slate-200 rounded-full blur-3xl"
         />
         <motion.div
           variants={floatingVariants}
           animate="animate"
           transition={{ delay: 2 }}
-          className="absolute bottom-10 right-10 w-80 h-80 bg-cyan-200 rounded-full blur-3xl"
+          className="absolute bottom-10 right-10 w-80 h-80 bg-slate-300 rounded-full blur-3xl"
         />
         <motion.div
           variants={floatingVariants}
           animate="animate"
           transition={{ delay: 4 }}
-          className="absolute top-1/2 left-1/3 w-48 h-48 bg-green-200 rounded-full blur-3xl"
+          className="absolute top-1/2 left-1/3 w-48 h-48 bg-slate-200 rounded-full blur-3xl"
         />
       </div>
 
@@ -295,14 +420,14 @@ const AboutStructure = () => {
         >
           <motion.div 
             variants={itemVariants}
-            className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 mb-6"
+            className="inline-flex items-center px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-6"
           >
-            <span className="text-blue-600 text-sm font-semibold">{t('structure.badge')}</span>
+            <span className="text-slate-600 text-sm font-semibold">{t('structure.badge')}</span>
           </motion.div>
           
           <motion.h2 
             variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6"
           >
             {t('structure.title')}
           </motion.h2>
@@ -540,47 +665,54 @@ const AboutStructure = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {divisions.map((division, index) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {subsidiaries.map((subsidiary, index) => (
               <motion.div
-                key={division.id}
+                key={subsidiary.id}
                 variants={itemVariants}
-                className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-blue-300 transition-all duration-300 group cursor-pointer shadow-sm hover:shadow-lg"
-                whileHover={{ y: -5, scale: 1.02 }}
-                onClick={() => setSelectedDivision(division.id)}
+                className="group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-slate-200 transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 overflow-hidden"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <div className="flex items-start space-x-4">
-                  <div className={`flex-shrink-0 w-12 h-12 ${colorMap[division.color].bg} rounded-xl flex items-center justify-center group-hover:${colorMap[division.color].dark} transition-colors duration-300`}>
-                    <div className={colorMap[division.color].text}>
-                      {division.icon}
+                {/* Фоновый градиент при ховере */}
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                
+                <div className="relative z-10">
+                  <div className="flex items-start space-x-6">
+                    {/* Логотип */}
+                    <div className="flex-shrink-0">
+                      <div className="w-16 h-16 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow duration-300">
+                        <img src={subsidiary.logo} alt={subsidiary.name} className="w-12 h-12 object-contain" />
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div className="flex-1">
-                    <h4 className="text-xl font-bold text-slate-900 mb-2">
-                      {division.name}
-                    </h4>
-                    <p className="text-slate-600 leading-relaxed mb-4">
-                      {t(`structure.subsidiaries.${division.id}.description`)}
-                    </p>
                     
-                    <div className="flex items-center justify-between">
+                    {/* Контент */}
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-900 transition-colors duration-300">
+                        {subsidiary.name}
+                      </h4>
+                      <p className="text-slate-600 leading-relaxed mb-6 text-sm">
+                        {subsidiary.description}
+                      </p>
+                      
+                      {/* Кнопка */}
                       <motion.button
-                        className="inline-flex items-center space-x-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300"
-                        whileHover={{ x: 5 }}
+                        onClick={() => setSelectedSubsidiary(subsidiary.id)}
+                        className="inline-flex items-center space-x-2 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-800 transition-all duration-300 shadow-sm hover:shadow-md group-hover:bg-blue-600 group-hover:shadow-blue-200"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                       >
-                        <span>{t('structure.subsidiaries.learnMore')}</span>
+                        <span>Подробнее</span>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </motion.button>
-                      
-                      <div className="text-sm text-slate-500">
-                        {division.team}
-                      </div>
                     </div>
                   </div>
                 </div>
+                
+                {/* Декоративный элемент */}
+                <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
               </motion.div>
             ))}
           </div>
@@ -588,21 +720,193 @@ const AboutStructure = () => {
           {/* Кнопка просмотра всех компаний */}
           <motion.div
             variants={itemVariants}
-            className="text-center mt-12"
+            className="text-center mt-16"
           >
             <motion.button
-              className="bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-lg hover:shadow-xl inline-flex items-center space-x-3"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="bg-slate-900 text-white px-10 py-4 rounded-2xl font-semibold hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center space-x-3 text-lg"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               <span>{t('structure.subsidiaries.viewAll')}</span>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </motion.button>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Модальное окно для дочерних компаний */}
+      <AnimatePresence>
+        {selectedSubsidiary && (
+          <motion.div
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm"
+            onClick={() => setSelectedSubsidiary(null)}
+          >
+            <motion.div
+              variants={modalContentVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="relative max-w-2xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {subsidiaries.map((subsidiary) => {
+                if (subsidiary.id !== selectedSubsidiary) return null;
+                
+                return (
+                  <div key={subsidiary.id} className="p-8 md:p-12">
+                    <div className="flex items-start justify-between mb-8">
+                      <div className="flex items-center space-x-6">
+                        <div className="w-20 h-20 bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl flex items-center justify-center shadow-lg">
+                          <img src={subsidiary.logo} alt={subsidiary.name} className="w-14 h-14 object-contain" />
+                        </div>
+                        <div>
+                          <h3 className="text-3xl font-bold text-slate-900 mb-2">
+                            {subsidiary.name}
+                          </h3>
+                          <p className="text-lg text-slate-600">
+                            Дочерняя компания • Основана в {subsidiary.founded}
+                          </p>
+                        </div>
+                      </div>
+                      <motion.button
+                        onClick={() => setSelectedSubsidiary(null)}
+                        className="w-12 h-12 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors duration-300"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </motion.button>
+                    </div>
+
+                    <div className="mb-8">
+                      <p className="text-slate-700 text-lg leading-relaxed">
+                        {subsidiary.description}
+                      </p>
+                    </div>
+
+                    {/* Ключевые показатели */}
+                    <div className="mb-8">
+                      <h4 className="text-xl font-bold text-slate-900 mb-6">Ключевые показатели</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200">
+                          <div className="flex items-center space-x-4">
+                            <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+                              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                              </svg>
+                            </div>
+                            <div>
+                              <div className="text-2xl font-bold text-slate-900">{subsidiary.branches}</div>
+                              <div className="text-sm text-slate-600">Филиалов</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border border-green-200">
+                          <div className="flex items-center space-x-4">
+                            <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                              </svg>
+                            </div>
+                            <div>
+                              <div className="text-2xl font-bold text-slate-900">{subsidiary.projects}</div>
+                              <div className="text-sm text-slate-600">Проектов</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border border-purple-200">
+                          <div className="flex items-center space-x-4">
+                            <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center">
+                              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 4v10m0 0l-2-2m2 2l2-2m6-6v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6a2 2 0 012-2h8a2 2 0 012 2z" />
+                              </svg>
+                            </div>
+                            <div>
+                              <div className="text-2xl font-bold text-slate-900">{subsidiary.founded}</div>
+                              <div className="text-sm text-slate-600">Год основания</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Контактная информация */}
+                    <div className="mb-8">
+                      <h4 className="text-xl font-bold text-slate-900 mb-6">Контакты</h4>
+                      <div className="space-y-4">
+                        <div className="flex items-center space-x-4">
+                          <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
+                            <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <div className="font-medium text-slate-900">Адрес</div>
+                            <div className="text-slate-600">{subsidiary.address}</div>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-4">
+                          <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
+                            <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <div className="font-medium text-slate-900">Email</div>
+                            <div className="text-slate-600">{subsidiary.email}</div>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-4">
+                          <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
+                            <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <div className="font-medium text-slate-900">Телефон</div>
+                            <div className="text-slate-600">{subsidiary.phone}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <a
+                        href={subsidiary.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 bg-blue-600 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center justify-center space-x-3"
+                      >
+                        <span>Перейти на сайт</span>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                      <motion.button
+                        onClick={() => setSelectedSubsidiary(null)}
+                        className="px-8 py-4 bg-slate-100 text-slate-700 rounded-2xl font-semibold hover:bg-slate-200 transition-all duration-300"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        Закрыть
+                      </motion.button>
+                    </div>
+                  </div>
+                );
+              })}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
