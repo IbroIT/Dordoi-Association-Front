@@ -1,764 +1,422 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { apiRequest } from '../../../api';
 
 const PressNews = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.1 });
   const { t, i18n } = useTranslation();
-  const [selectedNews, setSelectedNews] = useState(null);
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [showMore, setShowMore] = useState({});
-  const [visibleCount, setVisibleCount] = useState(6);
-  const [isLoading, setIsLoading] = useState(true);
-  const [news, setNews] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const navigate = useNavigate();
+  const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [newsData, setNewsData] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [activeCategory, setActiveCategory] = useState('all');
 
-  // Иконки SVG для категорий
-  const categoryIcons = {
-    all: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-      </svg>
-    ),
-    press: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-      </svg>
-    ),
-    announcement: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-      </svg>
-    ),
-    construction: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-      </svg>
-    ),
-    document: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-      </svg>
-    ),
-    star: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-      </svg>
-    ),
-    chart: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-      </svg>
-    ),
-    education: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-      </svg>
-    )
-  };
-
-  // Загрузка данных из API с fallback на демо-данные
+  // Загрузка данных
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true);
+        setLoading(true);
         setError(null);
 
         // Загрузка категорий
         const categoriesData = await apiRequest(`presscentre/categories/?lang=${i18n.language}`);
-
+        
         // Загрузка новостей
         const newsData = await apiRequest(`presscentre/news/?lang=${i18n.language}`);
 
         // Преобразование данных категорий
         const categoriesArray = categoriesData.results || categoriesData;
         const transformedCategories = [
-          { id: 'all', name: t('press.categories.all'), color: 'gray', icon: categoryIcons.all },
+          { id: 'all', name: t('press.categories.all'), color: 'gray' },
           ...categoriesArray.map(cat => ({
             id: cat.id.toString(),
             name: cat.title,
-            color: getCategoryColor(cat.id),
-            icon: getCategoryIcon(cat.id)
+            color: 'blue'
           }))
         ];
 
         // Преобразование данных новостей
         const newsArray = newsData.results || newsData || [];
-        const transformedNews = Array.isArray(newsArray) ? newsArray.map(item => ({
+        const transformedNews = Array.isArray(newsArray) ? newsArray.map((item, index) => ({
           id: item.id,
           title: item.title,
-          date: new Date(item.published_at).toLocaleDateString(i18n.language, {
+          date: new Date(item.published_at || item.created_at).toLocaleDateString(i18n.language, {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
           }),
           category: item.category?.id?.toString() || item.category_id?.toString() || '1',
-          thumbnail: item.image || null,
-          lead: item.short_description || item.description?.substring(0, 150) + '...' || '',
-          fullText: item.description,
-          gallery: [],
-          video: null,
-          files: [],
-          tags: [],
-          views: 0,
-          likes: 0,
-          shares: 0,
-          author: '',
-          readTime: '3 мин',
-          featured: item.is_recommended || false,
-          related: []
+          category_name: item.category?.title || 'General',
+          image_url: item.image || null,
+          description: item.short_description || item.description?.substring(0, 200) + '...' || '',
+          full_description: item.description,
+          is_featured: item.is_recommended || index < 2,
+          created_at: item.published_at || item.created_at
         })) : [];
 
         setCategories(transformedCategories);
-        setNews(transformedNews);
+        setNewsData(transformedNews);
       } catch (err) {
         console.error('Error fetching data:', err);
-        console.warn('API недоступен, используются демо-данные. Запустите Django сервер для получения реальных данных.');
-        // Fallback to static data if API is not available
+        setError(t('press.error.loading'));
+        // Fallback data
         setCategories([
-          { id: 'all', name: t('press.categories.all'), color: 'gray', icon: categoryIcons.all },
-          { id: '1', name: 'Пресс-релизы', color: 'blue', icon: categoryIcons.press }
+          { id: 'all', name: t('press.categories.all'), color: 'gray' },
+          { id: '1', name: 'Пресс-релизы', color: 'blue' }
         ]);
-        setNews([
+        setNewsData([
           {
             id: 1,
-            title: 'Компания представляет новую стратегию развития на 2024 год',
-            date: '29 ноября 2023',
+            title: t('press.demo.title', 'Компания представляет новую стратегию развития'),
+            date: new Date().toLocaleDateString(i18n.language),
             category: '1',
-            thumbnail: null,
-            lead: 'Сегодня компания объявила о новой стратегии развития, которая будет реализована в течение следующих пяти лет. Основное внимание будет уделено инновациям и устойчивому развитию.',
-            fullText: 'Полный текст новости для демонстрации модального окна. Компания продолжает инвестировать в новые технологии и расширять свое присутствие на международных рынках.',
-            gallery: [],
-            video: null,
-            files: [],
-            tags: [],
-            views: 0,
-            likes: 0,
-            shares: 0,
-            author: '',
-            readTime: '3 мин',
-            featured: true,
-            related: []
+            category_name: 'Пресс-релизы',
+            image_url: null,
+            description: t('press.demo.description', 'Новая стратегия развития компании на ближайшие годы с фокусом на инновации и устойчивое развитие.'),
+            full_description: t('press.demo.fullText', 'Полный текст новости для демонстрации. Компания продолжает инвестировать в новые технологии и расширять свое присутствие на международных рынках.'),
+            is_featured: true,
+            created_at: new Date().toISOString()
           }
         ]);
-        setError(null);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
-    if (isInView) {
-      fetchData();
-    }
-  }, [isInView, i18n.language, t]);
+    fetchData();
+  }, [i18n.language, t]);
 
-  // Вспомогательные функции для категорий
-  const getCategoryColor = (categoryId) => {
-    const colors = ['blue', 'indigo', 'gray', 'teal', 'slate', 'neutral', 'stone'];
-    return colors[categoryId % colors.length];
+  // Фильтрация новостей по категории
+  const filteredNews = activeCategory === 'all' 
+    ? newsData 
+    : newsData.filter(item => item.category === activeCategory);
+
+  const featuredNews = filteredNews.filter(item => item.is_featured);
+  const regularNews = filteredNews.filter(item => !item.is_featured);
+
+  const navigateNews = useCallback((direction) => {
+    if (featuredNews.length === 0) return;
+    
+    setIsVisible(false);
+    setTimeout(() => {
+      setCurrentNewsIndex((prev) => {
+        if (direction === 'next') {
+          return (prev + 1) % featuredNews.length;
+        } else {
+          return prev === 0 ? featuredNews.length - 1 : prev - 1;
+        }
+      });
+      setIsVisible(true);
+    }, 300);
+  }, [featuredNews.length]);
+
+  // Автоматическая смена новостей
+  useEffect(() => {
+    if (!isAutoPlaying || featuredNews.length === 0) return;
+
+    const interval = setInterval(() => {
+      navigateNews('next');
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, navigateNews, featuredNews.length]);
+
+  const handleReadMore = (newsId) => {
+    navigate(`/press/news/${newsId}`);
   };
 
-  const getCategoryIcon = (categoryId) => {
-    const icons = ['press', 'announcement', 'construction', 'document', 'star', 'chart', 'education'];
-    return categoryIcons[icons[categoryId % icons.length]] || categoryIcons.all;
+  const handleCategoryChange = (categoryId) => {
+    setActiveCategory(categoryId);
+    setCurrentNewsIndex(0);
   };
 
-  const colorMap = {
-    gray: { 
-      bg: 'bg-gray-500', 
-      text: 'text-gray-700', 
-      light: 'bg-gray-50', 
-      border: 'border-gray-200', 
-      gradient: 'from-gray-600 to-gray-700',
-      dark: 'bg-gray-800'
-    },
-    blue: { 
-      bg: 'bg-blue-500', 
-      text: 'text-blue-700', 
-      light: 'bg-blue-50', 
-      border: 'border-blue-200', 
-      gradient: 'from-blue-600 to-blue-700',
-      dark: 'bg-blue-800'
-    },
-    indigo: { 
-      bg: 'bg-indigo-500', 
-      text: 'text-indigo-700', 
-      light: 'bg-indigo-50', 
-      border: 'border-indigo-200', 
-      gradient: 'from-indigo-600 to-indigo-700',
-      dark: 'bg-indigo-800'
-    },
-    teal: { 
-      bg: 'bg-teal-500', 
-      text: 'text-teal-700', 
-      light: 'bg-teal-50', 
-      border: 'border-teal-200', 
-      gradient: 'from-teal-600 to-teal-700',
-      dark: 'bg-teal-800'
-    },
-    slate: { 
-      bg: 'bg-slate-500', 
-      text: 'text-slate-700', 
-      light: 'bg-slate-50', 
-      border: 'border-slate-200', 
-      gradient: 'from-slate-600 to-slate-700',
-      dark: 'bg-slate-800'
-    },
-    neutral: { 
-      bg: 'bg-neutral-500', 
-      text: 'text-neutral-700', 
-      light: 'bg-neutral-50', 
-      border: 'border-neutral-200', 
-      gradient: 'from-neutral-600 to-neutral-700',
-      dark: 'bg-neutral-800'
-    },
-    stone: { 
-      bg: 'bg-stone-500', 
-      text: 'text-stone-700', 
-      light: 'bg-stone-50', 
-      border: 'border-stone-200', 
-      gradient: 'from-stone-600 to-stone-700',
-      dark: 'bg-stone-800'
-    }
-  };
-
-  // Фильтрация новостей
-  const filteredNews = news
-    .filter(item => activeCategory === 'all' || item.category === activeCategory)
-    .slice(0, visibleCount);
-
-  const featuredNews = news.filter(item => item.featured);
-  const relatedNews = selectedNews ? news.filter(item => item.id !== selectedNews.id).slice(0, 3) : [];
-
-  const toggleShowMore = (id) => {
-    setShowMore(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
-  };
-
-  const handleLoadMore = () => {
-    setVisibleCount(prev => prev + 6);
-  };
-
-  // Анимации
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    },
-    hover: {
-      y: -4,
-      transition: {
-        duration: 0.2,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const modalVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.3,
-        ease: "easeOut"
-      }
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.95,
-      transition: {
-        duration: 0.2
-      }
-    }
-  };
-
-  const loadingVariants = {
-    initial: { opacity: 0 },
-    animate: { 
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  };
-
-  const skeletonVariants = {
-    initial: { opacity: 0.3 },
-    animate: { 
-      opacity: 0.7,
-      transition: { 
-        duration: 0.8,
-        repeat: Infinity,
-        repeatType: "reverse"
-      }
-    }
-  };
-
-  const SkeletonLoader = () => (
-    <motion.div
-      variants={loadingVariants}
-      initial="initial"
-      animate="animate"
-      className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-    >
-      {[...Array(6)].map((_, index) => (
-        <motion.div
-          key={index}
-          variants={skeletonVariants}
-          className="bg-gray-100 rounded-lg h-96 animate-pulse"
-        />
-      ))}
-    </motion.div>
-  );
+  if (loading) {
+    return (
+      <div className="min-h-[600px] flex items-center justify-center">
+        <div className="text-blue-600 text-xl">{t('press.loading')}</div>
+      </div>
+    );
+  }
 
   return (
-    <section ref={ref} className="relative py-16 bg-white overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Заголовок секции */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="text-center mb-12"
-        >
-          <motion.div 
-            variants={itemVariants}
-            className="inline-flex items-center px-3 py-1 rounded-md bg-blue-50 border border-blue-200 mb-6"
-          >
-            <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></div>
-            <span className="text-blue-700 text-sm font-medium uppercase tracking-wider">{t('press.badge', 'ПРЕСС-ЦЕНТР')}</span>
-          </motion.div>
-          
-          <motion.h2 
-            variants={itemVariants}
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
-          >
-            {t('press.title', 'Новости и события')}
-          </motion.h2>
-          
-          <motion.div
-            variants={itemVariants}
-            className="w-16 h-1 bg-blue-600 rounded-full mx-auto mb-6"
-          ></motion.div>
-          
-          <motion.p 
-            variants={itemVariants}
-            className="text-lg text-gray-600 max-w-3xl mx-auto"
-          >
-            {t('press.subtitle', 'Актуальная информация о деятельности компании, важные объявления и пресс-релизы')}
-          </motion.p>
-        </motion.div>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]" />
 
-        {/* Панель управления: фильтры */}
-        <motion.div
-          variants={itemVariants}
-          className="mb-10"
-        >
-          <div className="flex flex-wrap gap-3 justify-center">
-            {categories.map((category) => {
-              const colors = colorMap[category.color];
-              const isActive = activeCategory === category.id;
-              
-              return (
-                <motion.button
-                  key={category.id}
-                  variants={itemVariants}
-                  className={`px-4 py-2.5 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 ${
-                    isActive
-                      ? `bg-blue-600 text-white shadow-sm`
-                      : `bg-white text-gray-700 border border-gray-300 hover:bg-gray-50`
-                  }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    setActiveCategory(category.id);
-                    setVisibleCount(6);
-                  }}
-                >
-                  <div className={`${isActive ? 'text-white' : 'text-gray-500'}`}>
-                    {category.icon}
-                  </div>
-                  <span>{category.name}</span>
-                </motion.button>
-              );
-            })}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+          <div className="text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-6"
+            >
+              {t('press.title', 'Пресс-центр')}
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            >
+              {t('press.subtitle', 'Актуальные новости, пресс-релизы и события компании')}
+            </motion.p>
           </div>
-        </motion.div>
-
-        {/* Рекомендуемые новости */}
-        {featuredNews.length > 0 && activeCategory === 'all' && (
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="mb-12"
-          >
-            <motion.h3 variants={itemVariants} className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
-              <svg className="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-              </svg>
-              {t('press.featured', 'Рекомендуемые')}
-            </motion.h3>
-            <div className="grid lg:grid-cols-2 gap-8">
-              {featuredNews.slice(0, 2).map((newsItem) => {
-                const category = categories.find(cat => cat.id === newsItem.category) || categories[0];
-                const colors = colorMap[category?.color || 'gray'];
-                
-                return (
-                  <motion.article
-                    key={newsItem.id}
-                    variants={cardVariants}
-                    className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer"
-                    whileHover="hover"
-                    onClick={() => setSelectedNews(newsItem)}
-                  >
-                    <div className="relative h-64 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
-                      {newsItem.thumbnail ? (
-                        <img
-                          src={newsItem.thumbnail}
-                          alt={newsItem.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-gray-300">
-                            <svg className="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                            </svg>
-                          </div>
-                        </div>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      
-                      <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                        <span className={`inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium ${colors.light} ${colors.text} backdrop-blur-sm`}>
-                          <div className="mr-1.5">
-                            {category.icon}
-                          </div>
-                          {category.name}
-                        </span>
-                      </div>
-                      
-                      <div className="absolute bottom-6 left-6 right-6">
-                        <h3 className="text-xl font-semibold text-white mb-2 line-clamp-2">
-                          {newsItem.title}
-                        </h3>
-                        <div className="flex items-center text-white/90 text-sm">
-                          <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          <span>{newsItem.date}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-6">
-                      <p className="text-gray-600 mb-4 leading-relaxed">
-                        {newsItem.lead}
-                      </p>
-
-                      <motion.button
-                        className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center space-x-2"
-                        whileHover={{ x: 5 }}
-                      >
-                        <span>{t('press.readMore', 'Подробнее')}</span>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                      </motion.button>
-                    </div>
-                  </motion.article>
-                );
-              })}
-            </div>
-          </motion.div>
-        )}
-
-        {/* Список новостей */}
-        {error && news.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center py-16"
-          >
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-3">
-              {t('press.error.title', 'Ошибка загрузки')}
-            </h3>
-            <p className="text-gray-600 max-w-md mx-auto mb-6">
-              {error}
-            </p>
-            <motion.button
-              onClick={() => window.location.reload()}
-              className="bg-blue-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-300"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              {t('press.error.retry', 'Попробовать снова')}
-            </motion.button>
-          </motion.div>
-        ) : isLoading ? (
-          <SkeletonLoader />
-        ) : (
-          <>
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-            >
-              {filteredNews.map((newsItem) => {
-                const category = categories.find(cat => cat.id === newsItem.category) || categories[0];
-                const colors = colorMap[category?.color || 'gray'];
-                
-                return (
-                  <motion.article
-                    key={newsItem.id}
-                    variants={cardVariants}
-                    initial="hidden"
-                    animate="visible"
-                    whileHover="hover"
-                    className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-all duration-300 group cursor-pointer"
-                    onClick={() => setSelectedNews(newsItem)}
-                  >
-                    {/* Миниатюра */}
-                    <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
-                      {newsItem.thumbnail ? (
-                        <img
-                          src={newsItem.thumbnail}
-                          alt={newsItem.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-gray-200">
-                            <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                            </svg>
-                          </div>
-                        </div>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      
-                      <div className="absolute top-3 left-3">
-                        <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium ${colors.light} ${colors.text} backdrop-blur-sm`}>
-                          <div className="mr-1.5">
-                            {category.icon}
-                          </div>
-                          {category.name}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-5">
-                      <div className="flex items-center text-gray-500 text-sm mb-3">
-                        <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span>{newsItem.date}</span>
-                      </div>
-                      
-                      <h3 className="text-lg font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300">
-                        {newsItem.title}
-                      </h3>
-                      
-                      <p className="text-gray-600 mb-4 leading-relaxed text-sm line-clamp-3">
-                        {newsItem.lead}
-                      </p>
-
-                      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                        <span className="text-gray-500 text-sm">{newsItem.readTime}</span>
-                        
-                        <motion.button
-                          className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center space-x-1"
-                          whileHover={{ x: 3 }}
-                        >
-                          <span>{t('press.readMore', 'Подробнее')}</span>
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                          </svg>
-                        </motion.button>
-                      </div>
-                    </div>
-                  </motion.article>
-                );
-              })}
-            </motion.div>
-
-            {/* Сообщение если ничего не найдено */}
-            {filteredNews.length === 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center py-16"
-              >
-                <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  {t('press.noNews.title', 'Новости не найдены')}
-                </h3>
-                <p className="text-gray-600 max-w-md mx-auto mb-6">
-                  {t('press.noNews.description', 'Попробуйте выбрать другую категорию или изменить параметры фильтрации')}
-                </p>
-                <motion.button
-                  onClick={() => {
-                    setActiveCategory('all');
-                  }}
-                  className="bg-blue-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-300"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {t('press.noNews.reset', 'Сбросить фильтры')}
-                </motion.button>
-              </motion.div>
-            )}
-
-            {/* Кнопка загрузки еще */}
-            {filteredNews.length > 0 && visibleCount < news.length && (
-              <motion.div
-                variants={itemVariants}
-                className="text-center mt-12"
-              >
-                <motion.button
-                  onClick={handleLoadMore}
-                  className="bg-white border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-all duration-300 inline-flex items-center space-x-2"
-                  whileHover={{ scale: 1.02, y: -1 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>{t('press.loadMore', 'Загрузить еще')}</span>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </motion.button>
-              </motion.div>
-            )}
-          </>
-        )}
+        </div>
       </div>
 
-      {/* Модальное окно с полной новостью */}
-      <AnimatePresence>
-        {selectedNews && (
-          <motion.div
-            className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedNews(null)}
-          >
-            <motion.div
-              variants={modalVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
+      {/* Category Filters */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <div className="flex flex-wrap gap-3 justify-center">
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => handleCategoryChange(category.id)}
+              className={`px-5 py-2.5 rounded-xl font-medium transition-all duration-300 ${
+                activeCategory === category.id
+                  ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
+                  : 'bg-white text-gray-700 border border-gray-200 hover:border-blue-300 hover:shadow-md'
+              }`}
             >
-              <div className="relative">
-                {/* Шапка модального окна */}
-                <div className="sticky top-0 bg-white border-b border-gray-200 z-10 rounded-t-xl">
-                  <div className="flex justify-between items-start p-6">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-4 flex-wrap">
-                        <span className={`inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium ${
-                          colorMap[(categories.find(cat => cat.id === selectedNews.category) || categories[0])?.color || 'gray'].light
-                        } ${
-                          colorMap[(categories.find(cat => cat.id === selectedNews.category) || categories[0])?.color || 'gray'].text
-                        }`}>
-                          <div className="mr-2">
-                            {(categories.find(cat => cat.id === selectedNews.category) || categories[0])?.icon || categoryIcons.all}
-                          </div>
-                          {(categories.find(cat => cat.id === selectedNews.category) || categories[0])?.name || 'General'}
-                        </span>
-                        <span className="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-gray-100 text-gray-600">
-                          <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          {selectedNews.date}
-                        </span>
-                      </div>
-                      
-                      <h2 className="text-2xl font-bold text-gray-900 mb-4 pr-8">
-                        {selectedNews.title}
-                      </h2>
+              {category.name}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Featured News Slider */}
+      {featuredNews.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100"
+          >
+            {/* Navigation Arrows */}
+            <button
+              onClick={() => navigateNews('prev')}
+              className="absolute left-6 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+            >
+              <svg className="w-6 h-6 text-gray-600 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <button
+              onClick={() => navigateNews('next')}
+              className="absolute right-6 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 group"
+            >
+              <svg className="w-6 h-6 text-gray-600 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Auto-play Toggle */}
+            <button
+              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+              className="absolute top-6 right-6 z-10 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white transition-all duration-300 group"
+            >
+              {isAutoPlaying ? (
+                <svg className="w-5 h-5 text-gray-600 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5 text-gray-600 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              )}
+            </button>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
+              {/* Image Section */}
+              <div className="relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 z-10" />
+                {featuredNews[currentNewsIndex]?.image_url ? (
+                  <motion.div
+                    className={`absolute inset-0 bg-cover bg-center transition-transform duration-700 ${
+                      isVisible ? 'scale-110' : 'scale-100'
+                    }`}
+                    style={{ backgroundImage: `url(${featuredNews[currentNewsIndex].image_url})` }}
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-cyan-50 flex items-center justify-center">
+                    <svg className="w-24 h-24 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+
+              {/* Content Section */}
+              <div className="relative p-8 lg:p-12 flex flex-col justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={featuredNews[currentNewsIndex]?.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                    className="space-y-6"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="px-4 py-2 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-700 rounded-full text-sm font-semibold border border-blue-200">
+                        {featuredNews[currentNewsIndex]?.category_name || 'News'}
+                      </span>
+                      <span className="text-gray-500 font-medium">
+                        {featuredNews[currentNewsIndex]?.date}
+                      </span>
                     </div>
-                    
+
+                    <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 leading-tight">
+                      {featuredNews[currentNewsIndex]?.title}
+                    </h2>
+
+                    <p className="text-lg text-gray-600 leading-relaxed">
+                      {featuredNews[currentNewsIndex]?.description}
+                    </p>
+
+                    <div className="flex items-center gap-4 pt-4">
+                      <button
+                        onClick={() => handleReadMore(featuredNews[currentNewsIndex]?.id)}
+                        className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                      >
+                        {t('press.readMore', 'Подробнее')}
+                      </button>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Progress Indicators */}
+            {featuredNews.length > 1 && (
+              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2">
+                {featuredNews.map((news, index) => (
+                  <button
+                    key={news.id}
+                    onClick={() => {
+                      setIsVisible(false);
+                      setTimeout(() => {
+                        setCurrentNewsIndex(index);
+                        setIsVisible(true);
+                      }, 300);
+                    }}
+                    className={`h-1 rounded-full transition-all duration-500 ${
+                      index === currentNewsIndex
+                        ? 'bg-gradient-to-r from-blue-600 to-cyan-600 w-8'
+                        : 'bg-gray-300 w-3 hover:bg-blue-400'
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+          </motion.div>
+        </div>
+      )}
+
+      {/* All News Grid */}
+      {regularNews.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-12"
+          >
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-3xl font-bold text-gray-800">{t('press.allNews', 'Все новости')}</h2>
+              <span className="text-gray-500">{regularNews.length} {t('press.items', 'новостей')}</span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {regularNews.map((news, index) => (
+                <motion.div
+                  key={news.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500"
+                >
+                  <div className="relative overflow-hidden h-48">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 z-10" />
+                    {news.image_url ? (
+                      <div
+                        className="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
+                        style={{ backgroundImage: `url(${news.image_url})` }}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-r from-blue-50 to-cyan-50 flex items-center justify-center">
+                        <svg className="w-16 h-16 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
+                        {news.category_name}
+                      </span>
+                      <span className="text-gray-400 text-xs">
+                        {news.date}
+                      </span>
+                    </div>
+
+                    <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                      {news.title}
+                    </h3>
+
+                    <p className="text-gray-600 text-sm line-clamp-2 mb-4">{news.description}</p>
+
                     <button
-                      onClick={() => setSelectedNews(null)}
-                      className="text-gray-400 hover:text-gray-600 transition-colors duration-300 bg-gray-100 hover:bg-gray-200 rounded-lg p-2 ml-4"
+                      onClick={() => handleReadMore(news.id)}
+                      className="flex items-center text-blue-600 text-sm font-semibold group-hover:translate-x-2 transition-transform duration-300"
                     >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                      {t('press.readMore', 'Подробнее')}
+                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </button>
                   </div>
-                </div>
-
-                {/* Контент модального окна */}
-                <div className="p-6">
-                  <div className="prose prose-gray max-w-none">
-                    <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                      {selectedNews.lead}
-                    </p>
-                    <div className="text-gray-800 whitespace-pre-line leading-relaxed">
-                      {selectedNews.fullText}
-                    </div>
-                  </div>
-                  
-                  {/* Действия в модальном окне */}
-                  <div className="flex items-center justify-end mt-8 pt-6 border-t border-gray-200">
-                    <button
-                      onClick={() => setSelectedNews(null)}
-                      className="bg-blue-600 text-white px-5 py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors duration-300"
-                    >
-                      {t('press.close', 'Закрыть')}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </section>
+        </div>
+      )}
+
+      {/* No News Message */}
+      {filteredNews.length === 0 && !loading && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+          <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg className="w-12 h-12 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+            {t('press.noNews.title', 'Новости не найдены')}
+          </h3>
+          <p className="text-gray-600 max-w-md mx-auto mb-8">
+            {t('press.noNews.description', 'В этой категории пока нет новостей. Попробуйте выбрать другую категорию.')}
+          </p>
+          <button
+            onClick={() => setActiveCategory('all')}
+            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 font-semibold"
+          >
+            {t('press.noNews.reset', 'Показать все новости')}
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 

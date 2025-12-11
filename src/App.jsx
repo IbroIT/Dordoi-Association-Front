@@ -33,6 +33,7 @@ import PressMedia from './components/pages/press/PressMedia';
 import PressPublications from './components/pages/press/PressPublications';
 import PressEvents from './components/pages/press/PressEvents';
 import PressReleases from './components/pages/press/PressReleases';
+import Details from './components/pages/press/Details';
 
 // Подразделы Partners
 import PartnersOur from './components/pages/partners/PartnersOur';
@@ -98,6 +99,7 @@ function App() {
             {/* Страницы Press */}
             <Route path="/press" element={<PressPage />} />
             <Route path="/press/news" element={<PressNews />} />
+            <Route path="/press/news/:id" element={<Details />} />
             <Route path="/press/media" element={<PressMedia />} />
             <Route path="/press/publications" element={<PressPublications />} />
             {/* <Route path="/press/events" element={<PressEvents />} /> */}

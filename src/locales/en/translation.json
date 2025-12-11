@@ -2506,6 +2506,7 @@
     "views": "views",
     "likes": "likes",
     "shares": "shares",
+    "loading": "Loading...",
     "like": "Like",
     "share": "Share",
     "related": "Related News",
@@ -4741,6 +4742,43 @@
         ]
       }
     }
+  },
+  "newsDetail": {
+    "loading": "Loading news...",
+    "error": {
+      "title": "Unable to load news",
+      "notFound": "News not found. The news you are looking for may have been removed or moved.",
+      "homeButton": "Go to Home",
+      "retryButton": "Try Again",
+      "loading": "Loading..."
+    },
+    "header": {
+      "back": "Back",
+      "share": "Share"
+    },
+    "meta": {
+      "readTime": "5 min read"
+    },
+    "defaultCategory": "News",
+    "photoCounter": "{{count}} photos",
+    "fallback": {
+      "title": "News Title",
+      "description": "News description",
+      "fullContent": "Full news content",
+      "category": "General",
+      "author": "Press Service",
+      "readTime": "5 min read"
+    },
+    "share": {
+      "copied": "Link copied to clipboard!",
+      "error": "Error sharing content"
+    },
+    "related": "Related News",
+    "author": "Author",
+    "publishedDate": "Published",
+    "category": "Category",
+    "comments": "Comments",
+    "tags": "Tags"
   },
   "contactsSocial": {
     "highEngagement": "High Engagement",
