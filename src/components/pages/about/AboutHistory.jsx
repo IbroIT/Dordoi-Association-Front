@@ -224,46 +224,46 @@ const AboutHistory = () => {
           </motion.p>
         </motion.div>
 
-        {/* История - простой текст */}
-        <div className="space-y-8 sm:space-y-12 lg:space-y-16">
-          {milestones.map((milestone, index) => {
-            const colors = colorMap[milestone.color];
-
-            return (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-                transition={{ delay: index * 0.1 }}
-                className="prose prose-lg max-w-none"
-              >
-                <div className="flex items-center mb-4">
-                  <motion.div
-                    className={`w-10 h-10 sm:w-12 sm:h-12 ${colors.dark} rounded-xl flex items-center justify-center mr-4 shadow-lg`}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <span className="text-white text-lg sm:text-xl font-bold">{milestone.image}</span>
-                  </motion.div>
-                  <div>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 mb-1">{milestone.year}</h3>
-                    <h4 className={`text-lg sm:text-xl font-semibold ${colors.text}`}>{milestone.title}</h4>
-                  </div>
-                </div>
-
-                <p className="text-slate-700 leading-relaxed text-base sm:text-lg mb-4">
+        {/* История - непрерывный текст с фотографиями */}
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="space-y-6 sm:space-y-8"
+          >
+            {milestones.map((milestone, index) => (
+              <React.Fragment key={index}>
+                {/* Текстовый абзац */}
+                <motion.p
+                  variants={itemVariants}
+                  className="text-slate-700 leading-relaxed text-base sm:text-lg text-justify"
+                >
                   {milestone.description}
-                </p>
+                </motion.p>
 
-                {milestone.stats && (
-                  <div className={`inline-flex items-center px-3 py-1 rounded-full ${colors.medium} ${colors.text} text-sm font-semibold mb-6`}>
-                    {milestone.stats}
-                  </div>
+                {/* Фотография между абзацами (кроме последнего) */}
+                {index < milestones.length - 1 && (
+                  <motion.div
+                    variants={itemVariants}
+                    className="relative w-full h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden shadow-xl my-6 sm:my-8"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className={`w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 ${colorMap[milestone.color].dark} rounded-2xl flex items-center justify-center shadow-lg`}>
+                          <span className="text-white text-2xl sm:text-3xl">{milestone.image}</span>
+                        </div>
+                        <p className="text-slate-600 font-medium text-sm sm:text-base">{milestone.year} - {milestone.title}</p>
+                        {milestone.stats && (
+                          <p className="text-slate-500 text-xs sm:text-sm mt-2">{milestone.stats}</p>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
                 )}
-              </motion.div>
-            );
-          })}
+              </React.Fragment>
+            ))}
+          </motion.div>
         </div>
 
         {/* Индикатор прогресса */}

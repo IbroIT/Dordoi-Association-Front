@@ -445,86 +445,6 @@ const AboutStructure = () => {
           </motion.p>
         </motion.div>
 
-        {/* Дерево подразделений */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="relative mb-20"
-        >
-          {/* Соединительные линии */}
-          <motion.div
-            variants={treeVariants}
-            className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 transform origin-left"
-          />
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 lg:gap-6">
-            {divisions.map((division, index) => {
-              const colors = colorMap[division.color];
-              return (
-                <motion.div
-                  key={division.id}
-                  variants={itemVariants}
-                  className="relative group"
-                  onMouseEnter={() => setActiveDivision(division.id)}
-                  onMouseLeave={() => setActiveDivision(null)}
-                  onClick={() => setSelectedDivision(selectedDivision === division.id ? null : division.id)}
-                >
-                  <motion.div
-                    className={`relative bg-white rounded-2xl p-4 border-2 ${colors.border} shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer ${
-                      activeDivision === division.id ? 'transform scale-105' : ''
-                    } ${
-                      selectedDivision === division.id ? 'ring-4 ring-blue-500 ring-opacity-50' : ''
-                    }`}
-                    variants={cardVariants}
-                    whileHover="hover"
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <div className={`w-12 h-12 ${colors.bg} rounded-xl flex items-center justify-center mx-auto mb-3 transition-colors duration-300 ${
-                      activeDivision === division.id ? colors.dark : ''
-                    }`}>
-                      <div className={activeDivision === division.id ? 'text-white' : colors.text}>
-                        {division.icon}
-                      </div>
-                    </div>
-                    
-                    <h3 className={`text-center font-semibold transition-colors duration-300 ${
-                      activeDivision === division.id ? colors.text : 'text-slate-700'
-                    }`}>
-                      {division.name}
-                    </h3>
-
-                    {/* Индикатор активного состояния */}
-                    <motion.div
-                      className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 ${colors.dark} rounded-full`}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: activeDivision === division.id ? 1 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    />
-
-                    {/* Статистика при ховере */}
-                    <motion.div
-                      className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-white px-2 py-1 rounded-lg shadow-lg border border-slate-200 text-xs font-medium text-slate-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap"
-                      initial={{ y: 10 }}
-                      whileHover={{ y: 0 }}
-                    >
-                      {division.stats}
-                    </motion.div>
-                  </motion.div>
-
-                  {/* Соединительные точки для мобильных */}
-                  {index < divisions.length - 1 && (
-                    <>
-                      <div className="lg:hidden absolute top-1/2 -right-2 w-4 h-0.5 bg-slate-300 transform -translate-y-1/2"></div>
-                      <div className="lg:hidden absolute -bottom-6 left-1/2 w-0.5 h-4 bg-slate-300 transform -translate-x-1/2"></div>
-                    </>
-                  )}
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
-
         {/* Детали выбранного подразделения */}
         <AnimatePresence>
           {selectedDivision && (
@@ -653,17 +573,6 @@ const AboutStructure = () => {
           animate={isInView ? "visible" : "hidden"}
           className="rounded-3xl p-8 md:p-12 border border-slate-200 bg-white shadow-lg"
         >
-          <motion.div
-            variants={itemVariants}
-            className="text-center mb-12"
-          >
-            <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              {t('structure.subsidiaries.title')}
-            </h3>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              {t('structure.subsidiaries.subtitle')}
-            </p>
-          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {subsidiaries.map((subsidiary, index) => (
