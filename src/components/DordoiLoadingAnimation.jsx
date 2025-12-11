@@ -215,7 +215,7 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
           <div className="relative mb-12">
             {/* Логотип */}
             <img
-              src="/logodor2.png"
+              src="/blue.png"
               alt="Dordoi Logo"
               className="w-48 h-48 object-contain mx-auto"
               style={{
@@ -227,21 +227,6 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
                 filter: !isExiting ? 'drop-shadow(0 0 20px rgba(59, 130, 246, 0.5))' : 'none'
               }}
             />
-
-            <div
-              className="overflow-hidden"
-              style={{
-                opacity: animationStage >= 4 ? (isExiting ? 0 : 1) : 0,
-                transform: animationStage >= 4 ?
-                  (isExiting ? 'translateY(-15px) scale(0.9)' : 'translateY(0) scale(1)') :
-                  'translateY(10px)',
-                transition: 'all 0.6s ease-out 0.4s'
-              }}
-            >
-              <p className="text-lg text-blue-200/80 font-light tracking-widest uppercase">
-                Business Excellence
-              </p>
-            </div>
             </div>
 
           {/* Статистика */}
