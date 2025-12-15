@@ -8,64 +8,73 @@ const PressMedia = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
   const [activeCategory, setActiveCategory] = useState('all');
-  const { t } = useTranslation();
+  const [categories, setCategories] = useState([]);
+  const [galleries, setGalleries] = useState([]);
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
-  // Автоматическое переключение категорий
+  // Загрузка категорий из API
   useEffect(() => {
-    if (isInView) {
-      const interval = setInterval(() => {
-        setActiveCategory(prev => {
-          const currentIndex = categories.findIndex(cat => cat.id === prev);
-          const nextIndex = (currentIndex + 1) % categories.length;
-          return categories[nextIndex].id;
-        });
-      }, 5000);
-      return () => clearInterval(interval);
-    }
-  }, [isInView]);
+    const fetchCategories = async () => {
+      try {
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/gallery/categories/?language=${lang}`);
+        const data = await response.json();
+        
+        // Добавляем категорию "all" в начало
+        const allCategory = { id: 'all', label: t('media.categories.all'), icon: <CameraIcon className="w-5 h-5" /> };
+        const apiCategories = data.map((category, index) => ({
+          id: category.id.toString(),
+          label: category[`name_${lang}`] || category.name_ru,
+          icon: getCategoryIcon(index)
+        }));
+        
+        setCategories([allCategory, ...apiCategories]);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
 
-  const categories = [
-    { id: 'all', label: t('media.categories.all'), icon: <CameraIcon className="w-5 h-5" /> },
-    { id: 'anniversary', label: t('media.categories.anniversary'), icon: <TrophyIcon className="w-5 h-5" /> },
-    { id: 'sports', label: t('media.categories.sports'), icon: <TrophyIcon className="w-5 h-5" /> },
-    { id: 'international', label: t('media.categories.international'), icon: <GlobeIcon className="w-5 h-5" /> },
-    { id: 'social', label: t('media.categories.social'), icon: <HandshakeIcon className="w-5 h-5" /> },
-    { id: 'business', label: t('media.categories.business'), icon: <BriefcaseIcon className="w-5 h-5" /> }
-  ];
+    fetchCategories();
+  }, [i18n.language, t]);
 
-  const galleries = [
-    {
-      id: 1,
-      title: t('media.galleries.anniversary.title'),
-      category: 'anniversary',
-      coverImage: '/api/placeholder/600/400'
-    },
-    {
-      id: 2,
-      title: t('media.galleries.sports.title'),
-      category: 'sports',
-      coverImage: '/api/placeholder/600/400'
-    },
-    {
-      id: 3,
-      title: t('media.galleries.international.title'),
-      category: 'international',
-      coverImage: '/api/placeholder/600/400'
-    },
-    {
-      id: 4,
-      title: t('media.galleries.social.title'),
-      category: 'social',
-      coverImage: '/api/placeholder/600/400'
-    },
-    {
-      id: 5,
-      title: t('media.galleries.business.title'),
-      category: 'business',
-      coverImage: '/api/placeholder/600/400'
-    }
-  ];
+  // Загрузка галерей из API
+  useEffect(() => {
+    const fetchGalleries = async () => {
+      try {
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/gallery/galleries/?language=${lang}`);
+        const data = await response.json();
+        
+        // Преобразуем данные для компонента
+        const transformedGalleries = data.map(gallery => ({
+          id: gallery.id,
+          title: gallery[`title_${lang}`] || gallery.title_ru,
+          category: gallery.category.id.toString(),
+          coverImage: gallery.photos.length > 0 ? gallery.photos[0].image : '/api/placeholder/600/400',
+          photos: gallery.photos
+        }));
+        
+        setGalleries(transformedGalleries);
+      } catch (error) {
+        console.error('Error fetching galleries:', error);
+      }
+    };
+
+    fetchGalleries();
+  }, [i18n.language]);
+
+  // Функция для получения иконки категории
+  const getCategoryIcon = (index) => {
+    const icons = [
+      <TrophyIcon className="w-5 h-5" />,
+      <TrophyIcon className="w-5 h-5" />,
+      <GlobeIcon className="w-5 h-5" />,
+      <HandshakeIcon className="w-5 h-5" />,
+      <BriefcaseIcon className="w-5 h-5" />
+    ];
+    return icons[index % icons.length];
+  };
 
   // Фильтрация галерей по категории
   const filteredGalleries = galleries.filter(gallery => 

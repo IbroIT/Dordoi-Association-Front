@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -6,10 +6,42 @@ import { useNavigate } from 'react-router-dom';
 const AboutStructure = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.2 });
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [activeDivision, setActiveDivision] = useState(null);
   const [selectedDivision, setSelectedDivision] = useState(null);
+  const [subsidiaries, setSubsidiaries] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  // Отслеживание видимости для запуска анимации один раз
+  useEffect(() => {
+    if (isInView && !hasAnimated) {
+      setHasAnimated(true);
+    }
+  }, [isInView, hasAnimated]);
+
+  // Загрузка данных дочерних компаний из API
+  useEffect(() => {
+    const fetchSubsidiaries = async () => {
+      try {
+        setLoading(true);
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/about-us/structure/?lang=${lang}`);
+        const data = await response.json();
+        
+        // Сортируем по order
+        const sortedData = data.sort((a, b) => a.order - b.order);
+        setSubsidiaries(sortedData);
+      } catch (error) {
+        // Error handled silently
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSubsidiaries();
+  }, [i18n.language]);
 
   const divisions = [
     { 
@@ -184,164 +216,111 @@ const AboutStructure = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+        duration: 0.6,
+        ease: "easeOut"
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: {
+      y: 50,
+      opacity: 0,
+      scale: 0.95
+    },
     visible: {
       y: 0,
       opacity: 1,
+      scale: 1,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: [0.25, 0.46, 0.45, 0.94],
+        staggerChildren: 0.05
       }
     }
   };
 
   const cardVariants = {
-    hidden: { scale: 0.9, opacity: 0, y: 30 },
+    hidden: {
+      scale: 0.8,
+      opacity: 0,
+      y: 40,
+      rotateY: -15
+    },
     visible: {
       scale: 1,
       opacity: 1,
       y: 0,
+      rotateY: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut"
+        duration: 0.7,
+        ease: [0.25, 0.46, 0.45, 0.94],
+        type: "spring",
+        stiffness: 100,
+        damping: 15
       }
     },
     hover: {
       y: -8,
       scale: 1.02,
+      rotateY: 5,
       transition: {
         duration: 0.3,
-        ease: "easeInOut"
+        ease: "easeInOut",
+        type: "spring",
+        stiffness: 300,
+        damping: 20
       }
     }
   };
 
   const treeVariants = {
-    hidden: { scaleX: 0 },
+    hidden: { scaleX: 0, originX: 0 },
     visible: {
       scaleX: 1,
       transition: {
-        duration: 1.2,
-        ease: "easeOut"
+        duration: 1.5,
+        ease: [0.25, 0.46, 0.45, 0.94],
+        delay: 0.3
       }
     }
   };
 
   const detailVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: {
+      opacity: 0,
+      y: 60,
+      scale: 0.9
+    },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.6,
-        ease: "easeOut"
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94],
+        staggerChildren: 0.1
       }
     },
     exit: {
       opacity: 0,
-      y: 50,
+      y: -30,
+      scale: 0.95,
       transition: {
-        duration: 0.4,
+        duration: 0.5,
         ease: "easeIn"
       }
     }
   };
 
-  const subsidiaries = [
-    { 
-      id: 'dordoi-trade',
-      logo: '/logos/dordoi-trade.png',
-      name: 'Дордой Торговля',
-      description: 'Крупная торговая компания, специализирующаяся на импорте и экспорте товаров по всему региону.',
-      website: 'https://dordoi-trade.kg',
-      founded: '1995',
-      achievements: [
-        'Лидер рынка импорта-экспорта в регионе',
-        'Сеть из 15+ филиалов по странам',
-        'Объем торговых операций $50M+ ежегодно'
-      ],
-      address: 'г. Бишкек, ул. Чуй 123',
-      email: 'info@dordoi-trade.kg',
-      phone: '+996 312 123 456'
-    },
-    { 
-      id: 'dordoi-logistics',
-      logo: '/logos/dordoi-logistics.png',
-      name: 'Дордой Логистика',
-      description: 'Современная логистическая компания, обеспечивающая доставку грузов по всей Центральной Азии.',
-      website: 'https://dordoi-logistics.kg',
-      founded: '2000',
-      branches: '12+',
-      projects: '150+',
-      address: 'г. Бишкек, пр. Манаса 456',
-      email: 'contact@dordoi-logistics.kg',
-      phone: '+996 312 654 321'
-    },
-    { 
-      id: 'dordoi-finance',
-      logo: '/logos/dordoi-finance.png',
-      name: 'Дордой Финанс',
-      description: 'Финансовые услуги и инвестиционные проекты для развития бизнеса в регионе.',
-      website: 'https://dordoi-finance.kg',
-      founded: '2005',
-      branches: '8+',
-      projects: '100+',
-      address: 'г. Бишкек, ул. Абдрахманова 789',
-      email: 'support@dordoi-finance.kg',
-      phone: '+996 312 987 654'
-    },
-    { 
-      id: 'dordoi-education',
-      logo: '/logos/dordoi-education.png',
-      name: 'Дордой Образование',
-      description: 'Образовательные программы и развитие талантов для будущего поколения.',
-      website: 'https://dordoi-education.kg',
-      founded: '2010',
-      branches: '6+',
-      projects: '80+',
-      address: 'г. Бишкек, ул. Киевская 321',
-      email: 'education@dordoi-education.kg',
-      phone: '+996 312 456 789'
-    },
-    { 
-      id: 'dordoi-medicine',
-      logo: '/logos/dordoi-medicine.png',
-      name: 'Дордой Медицина',
-      description: 'Медицинские услуги и фармацевтика для улучшения здоровья населения.',
-      website: 'https://dordoi-medicine.kg',
-      founded: '2008',
-      branches: '10+',
-      projects: '120+',
-      address: 'г. Бишкек, ул. Ахунбаева 654',
-      email: 'medical@dordoi-medicine.kg',
-      phone: '+996 312 321 987'
-    },
-    { 
-      id: 'dordoi-sport',
-      logo: '/logos/dordoi-sport.png',
-      name: 'Дордой Спорт',
-      description: 'Спортивные мероприятия и развитие спорта для активного образа жизни.',
-      website: 'https://dordoi-sport.kg',
-      founded: '2015',
-      branches: '5+',
-      projects: '60+',
-      address: 'г. Бишкек, ул. Токтогула 987',
-      email: 'sport@dordoi-sport.kg',
-      phone: '+996 312 789 123'
-    }
-  ];
-
   const floatingVariants = {
     animate: {
-      y: [0, -20, 0],
+      y: [0, -25, 0],
+      rotate: [0, 2, 0, -2, 0],
       transition: {
-        duration: 6,
+        duration: 8,
         repeat: Infinity,
         ease: "easeInOut"
       }
@@ -376,7 +355,7 @@ const AboutStructure = () => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={hasAnimated ? "visible" : "hidden"}
           className="text-center mb-16"
         >
           <motion.div 
@@ -531,78 +510,92 @@ const AboutStructure = () => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={hasAnimated ? "visible" : "hidden"}
           className="rounded-3xl p-8 md:p-12 border border-slate-200 bg-white shadow-lg"
         >
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <span className="ml-3 text-slate-600">Загрузка дочерних компаний...</span>
+            </div>
+          ) : (
+            <motion.div
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+              variants={containerVariants}
+              initial="hidden"
+              animate={hasAnimated && !loading ? "visible" : "hidden"}
+            >
+              {subsidiaries.map((subsidiary, index) => (
+                <motion.div
+                  key={subsidiary.id}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-slate-200 transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 overflow-hidden"
+                >
+                  {/* Фоновый градиент при ховере */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                  
+                  <div className="relative z-10">
+                    <div className="flex items-start space-x-6">
+                      {/* Логотип */}
+                      <div className="flex-shrink-0">
+                        <div className="w-16 h-16 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow duration-300">
+                          <img src={subsidiary.logo} alt={subsidiary.name} className="w-12 h-12 object-contain" />
+                        </div>
+                      </div>
+                      
+                      {/* Контент */}
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-900 transition-colors duration-300">
+                          {subsidiary.name}
+                        </h4>
+                        <p className="text-slate-600 leading-relaxed mb-6 text-sm">
+                          {subsidiary.short_description}
+                        </p>
+                        
+                        {/* Кнопка */}
+                        <motion.button
+                          onClick={() => navigate(`/about/structure/${subsidiary.slug}`, { state: { subsidiary } })}
+                          className="inline-flex items-center space-x-2 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-800 transition-all duration-300 shadow-sm hover:shadow-md group-hover:bg-blue-600 group-hover:shadow-blue-200"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          <span>Подробнее</span>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </motion.button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Декоративный элемент */}
+                  <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {subsidiaries.map((subsidiary, index) => (
-              <motion.div
-                key={subsidiary.id}
-                variants={itemVariants}
-                className="group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-slate-200 transition-all duration-500 shadow-sm hover:shadow-2xl hover:-translate-y-2 overflow-hidden"
+          {/* Кнопка просмотра всех компаний */}
+          {!loading && (
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              animate={hasAnimated ? "visible" : "hidden"}
+              className="text-center mt-16"
+            >
+              <motion.button
+                className="bg-slate-900 text-white px-10 py-4 rounded-2xl font-semibold hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center space-x-3 text-lg"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {/* Фоновый градиент при ховере */}
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-                
-                <div className="relative z-10">
-                  <div className="flex items-start space-x-6">
-                    {/* Логотип */}
-                    <div className="flex-shrink-0">
-                      <div className="w-16 h-16 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow duration-300">
-                        <img src={subsidiary.logo} alt={subsidiary.name} className="w-12 h-12 object-contain" />
-                      </div>
-                    </div>
-                    
-                    {/* Контент */}
-                    <div className="flex-1 min-w-0">
-                      <h4 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-900 transition-colors duration-300">
-                        {subsidiary.name}
-                      </h4>
-                      <p className="text-slate-600 leading-relaxed mb-6 text-sm">
-                        {subsidiary.description}
-                      </p>
-                      
-                      {/* Кнопка */}
-                      <motion.button
-                        onClick={() => navigate(`/about/structure/${subsidiary.id}`, { state: { subsidiary } })}
-                        className="inline-flex items-center space-x-2 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-800 transition-all duration-300 shadow-sm hover:shadow-md group-hover:bg-blue-600 group-hover:shadow-blue-200"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <span>Подробнее</span>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </motion.button>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Декоративный элемент */}
-                <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Кнопка просмотра всех компаний */}
-          <motion.div
-            variants={itemVariants}
-            className="text-center mt-16"
-          >
-            <motion.button
-              className="bg-slate-900 text-white px-10 py-4 rounded-2xl font-semibold hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center space-x-3 text-lg"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <span>{t('structure.subsidiaries.viewAll')}</span>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </motion.button>
-          </motion.div>
+                <span>{t('structure.subsidiaries.viewAll')}</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </motion.button>
+            </motion.div>
+          )}
         </motion.div>
       </div>
     </section>

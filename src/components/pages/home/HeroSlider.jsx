@@ -4,53 +4,72 @@ import { useTranslation } from 'react-i18next';
 
 const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { t } = useTranslation();
+  const [slides, setSlides] = useState([]);
+  const { t, i18n } = useTranslation();
 
-  const slides = [
-    {
-      id: 1,
-      title: t('hero.slides.0.title'),
-      subtitle: t('hero.slides.0.subtitle'),
-      description: t('hero.slides.0.description'),
-      buttonText: t('hero.slides.0.buttonText'),
-      buttonLink: "/about",
-      image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
-      overlay: "bg-blue-900/70"
-    },
-    {
-      id: 2,
-      title: t('hero.slides.1.title'),
-      subtitle: t('hero.slides.1.subtitle'),
-      description: t('hero.slides.1.description'),
-      buttonText: t('hero.slides.1.buttonText'),
-      buttonLink: "/partners",
-      image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      overlay: "bg-blue-800/70"
-    },
-    {
-      id: 3,
-      title: t('hero.slides.2.title'),
-      subtitle: t('hero.slides.2.subtitle'),
-      description: t('hero.slides.2.description'),
-      buttonText: t('hero.slides.2.buttonText'),
-      buttonLink: "/activities",
-      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-      overlay: "bg-slate-900/70"
-    },
-    {
-      id: 4,
-      title: t('hero.slides.3.title'),
-      subtitle: t('hero.slides.3.subtitle'),
-      description: t('hero.slides.3.description'),
-      buttonText: t('hero.slides.3.buttonText'),
-      buttonLink: "/activities/social",
-      image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
-      overlay: "bg-blue-900/60"
-    }
-  ];
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        
+        // Fetch banners
+        const bannersResponse = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/banners/?lang=${lang}`);
+        const bannersData = await bannersResponse.json();
+        const bannerSlides = bannersData.map(banner => ({
+          id: `banner-${banner.id}`,
+          title: banner.title,
+          subtitle: banner.idea,
+          description: banner.desctip,
+          buttonText: banner.link_url ? t('hero.bannerButton') : null,
+          buttonLink: banner.link_url,
+          image: banner.image,
+          overlay: "bg-blue-900/70"
+        }));
+        
+        // Fetch fact_banners
+        const factBannersResponse = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/about-us/fact_banners/?lang=${lang}`);
+        const factBannersData = await factBannersResponse.json();
+        const filteredFactBanners = factBannersData.filter(banner => banner.is_banner);
+        const factBannerSlides = filteredFactBanners.map(banner => ({
+          id: `fact-${banner.id}`,
+          title: banner.title,
+          subtitle: banner.details,
+          description: banner.description,
+          buttonText: banner.link_url ? t('hero.bannerButton') : null,
+          buttonLink: banner.link_url,
+          image: banner.icon,
+          overlay: "bg-blue-900/70"
+        }));
+        
+        // Fetch news-banners
+        const newsBannersResponse = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/presscentre/news-banners/?lang=${lang}`);
+        const newsBannersData = await newsBannersResponse.json();
+        const filteredNewsBanners = newsBannersData.filter(banner => banner.is_banner);
+        const newsBannerSlides = filteredNewsBanners.map(banner => ({
+          id: `news-${banner.id}`,
+          title: banner.title,
+          subtitle: banner.short_description,
+          description: '',
+          buttonText: banner.link_url ? t('hero.bannerButton') : null,
+          buttonLink: banner.link_url,
+          image: banner.image,
+          overlay: "bg-blue-900/70"
+        }));
+        
+        // Combine slides
+        const allSlides = [...bannerSlides, ...factBannerSlides, ...newsBannerSlides];
+        setSlides(allSlides);
+      } catch (error) {
+        console.error('Error fetching banners:', error);
+      }
+    };
+
+    fetchBanners();
+  }, [i18n.language, t]);
 
   // Автопереключение слайдов
   useEffect(() => {
+    if (slides.length === 0) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
@@ -73,50 +92,74 @@ const HeroSlider = () => {
   return (
     <div className="relative h-screen bg-gradient-to-r from-blue-900 via-blue-800 to-slate-900 overflow-hidden">
       {/* Слайды */}
-      {slides.map((slide, index) => (
-        <div
-          key={slide.id}
-          className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-            index === currentSlide
-              ? 'opacity-100 transform translate-x-0'
-              : 'opacity-0 transform translate-x-full'
-          }`}
-        >
-          {/* Фоновое изображение */}
+      {slides.map((slide, index) => {
+        const buttonElement = slide.buttonLink ? (
+          slide.buttonLink.startsWith('http') ? (
+            <a
+              href={slide.buttonLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-6 px-8 py-3 bg-yellow-400 text-slate-900 font-semibold rounded-lg hover:bg-yellow-300 transition-colors duration-300"
+            >
+              {slide.buttonText}
+            </a>
+          ) : (
+            <Link
+              to={slide.buttonLink}
+              className="inline-block mt-6 px-8 py-3 bg-yellow-400 text-slate-900 font-semibold rounded-lg hover:bg-yellow-300 transition-colors duration-300"
+            >
+              {slide.buttonText}
+            </Link>
+          )
+        ) : null;
+
+        return (
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${slide.image})` }}
-          />
-          
-          {/* Затемнение */}
-          <div className={`absolute inset-0 ${slide.overlay}`} />
-          
-          {/* Контент */}
-          <div className="relative h-full flex items-center">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-              <div className="max-w-2xl">
-                <div className="space-y-6">
-                  {/* Заголовок */}
-                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
-                    {slide.title}
-                  </h1>
-                  
-                  {/* Подзаголовок */}
-                  <p className="text-xl md:text-2xl text-yellow-300 font-semibold">
-                    {slide.subtitle}
-                  </p>
-                  
-                  {/* Описание */}
-                  <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-lg">
-                    {slide.description}
-                  </p>
-                  
+            key={slide.id}
+            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+              index === currentSlide
+                ? 'opacity-100 transform translate-x-0'
+                : 'opacity-0 transform translate-x-full'
+            }`}
+          >
+            {/* Фоновое изображение */}
+            <div
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: `url(${slide.image})` }}
+            />
+            
+            {/* Затемнение */}
+            <div className={`absolute inset-0 ${slide.overlay}`} />
+            
+            {/* Контент */}
+            <div className="relative h-full flex items-center">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div className="max-w-2xl">
+                  <div className="space-y-6">
+                    {/* Заголовок */}
+                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                      {slide.title}
+                    </h1>
+                    
+                    {/* Подзаголовок */}
+                    <p className="text-xl md:text-2xl text-yellow-300 font-semibold">
+                      {slide.subtitle}
+                    </p>
+                    
+                    {/* Описание */}
+                    <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-lg">
+                      {slide.description}
+                    </p>
+                    
+                    {/* Кнопка */}
+                    {buttonElement}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
 
       {/* Навигационные стрелки */}
       <button

@@ -57,6 +57,7 @@
     "previousSlide": "Previous slide",
     "nextSlide": "Next slide",
     "goToSlide": "Go to slide {{number}}",
+    "bannerButton": "Learn More",
     "slides": [
       {
         "title": "Business Development Association",
@@ -5130,7 +5131,8 @@
       "call": "Call Operator",
       "email": "Write to Us",
       "visit": "Visit Office"
-    }
+    },
+    "socialLinks": "Social Links"
   },
   "contactsForm": {
     "badge": "Feedback Form",

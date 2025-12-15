@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -8,202 +8,80 @@ const PressPublications = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.1 });
   const [activeFilter, setActiveFilter] = useState('all');
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+  const [publications, setPublications] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
-  const filters = [
-    { id: 'all', label: t('publications.filters.all'), count: t('publications.stats.total') },
-    { id: 'international', label: t('publications.filters.international'), icon: <GlobeIcon className="w-5 h-5" /> },
-    { id: 'local', label: t('publications.filters.local'), icon: <NewspaperIcon className="w-5 h-5" /> },
-    { id: 'research', label: t('publications.filters.research'), icon: <MicroscopeIcon className="w-5 h-5" /> },
-    { id: 'interviews', label: t('publications.filters.interviews'), icon: <MicrophoneIcon className="w-5 h-5" /> },
-    { id: 'reports', label: t('publications.filters.reports'), icon: <ChartIcon className="w-5 h-5" /> }
-  ];
-
-  const publications = [
-    {
-      id: 1,
-      title: t('publications.items.forbes.title'),
-      description: t('publications.items.forbes.description'),
-      fullDescription: t('publications.items.forbes.fullDescription'),
-      type: 'international',
-      publisher: 'Forbes',
-      date: '2024-01-15',
-      language: t('publications.language.en'),
-      pages: '3',
-      fileSize: '2.4 MB',
-      downloadUrl: '/publications/forbes-2024.pdf',
-      previewUrl: '/publications/forbes-2024-preview.jpg',
-      citation: t('publications.items.forbes.citation'),
-      color: 'blue',
-      authors: [t('publications.items.forbes.author')],
-      tags: [t('publications.tags.leadership'), t('publications.tags.strategy'), t('publications.tags.innovation')],
-      views: 1250,
-      likes: 89,
-      featured: true,
-      related: [2, 3]
-    },
-    {
-      id: 2,
-      title: t('publications.items.worldBank.title'),
-      description: t('publications.items.worldBank.description'),
-      fullDescription: t('publications.items.worldBank.fullDescription'),
-      type: 'research',
-      publisher: t('publications.items.worldBank.publisher'),
-      date: '2023-11-20',
-      language: t('publications.language.en'),
-      pages: '45',
-      fileSize: '8.7 MB',
-      downloadUrl: '/publications/world-bank-research.pdf',
-      previewUrl: '/publications/world-bank-preview.jpg',
-      citation: t('publications.items.worldBank.citation'),
-      color: 'green',
-      authors: [t('publications.items.worldBank.author')],
-      tags: [t('publications.tags.research'), t('publications.tags.development'), t('publications.tags.sustainability')],
-      views: 890,
-      likes: 67,
-      featured: false,
-      related: [1, 4]
-    },
-    {
-      id: 3,
-      title: t('publications.items.usaid.title'),
-      description: t('publications.items.usaid.description'),
-      fullDescription: t('publications.items.usaid.fullDescription'),
-      type: 'research',
-      publisher: 'USAID',
-      date: '2023-09-10',
-      language: t('publications.language.en'),
-      pages: '28',
-      fileSize: '5.2 MB',
-      downloadUrl: '/publications/usaid-report.pdf',
-      previewUrl: '/publications/usaid-preview.jpg',
-      citation: t('publications.items.usaid.citation'),
-      color: 'purple',
-      authors: [t('publications.items.usaid.author')],
-      tags: [t('publications.tags.csr'), t('publications.tags.social'), t('publications.tags.community')],
-      views: 756,
-      likes: 54,
-      featured: true,
-      related: [1, 5]
-    },
-    {
-      id: 4,
-      title: t('publications.items.localNews.title'),
-      description: t('publications.items.localNews.description'),
-      fullDescription: t('publications.items.localNews.fullDescription'),
-      type: 'local',
-      publisher: t('publications.items.localNews.publisher'),
-      date: '2024-02-01',
-      language: t('publications.language.local'),
-      pages: '2',
-      fileSize: '1.8 MB',
-      downloadUrl: '/publications/local-news-2024.pdf',
-      previewUrl: '/publications/local-news-preview.jpg',
-      citation: t('publications.items.localNews.citation'),
-      color: 'orange',
-      authors: [t('publications.items.localNews.author')],
-      tags: [t('publications.tags.education'), t('publications.tags.youth'), t('publications.tags.investment')],
-      views: 432,
-      likes: 32,
-      featured: false,
-      related: [2, 6]
-    },
-    {
-      id: 5,
-      title: t('publications.items.businessMag.title'),
-      description: t('publications.items.businessMag.description'),
-      fullDescription: t('publications.items.businessMag.fullDescription'),
-      type: 'international',
-      publisher: t('publications.items.businessMag.publisher'),
-      date: '2023-12-05',
-      language: t('publications.language.en'),
-      pages: '5',
-      fileSize: '3.1 MB',
-      downloadUrl: '/publications/business-magazine.pdf',
-      previewUrl: '/publications/business-mag-preview.jpg',
-      citation: t('publications.items.businessMag.citation'),
-      color: 'red',
-      authors: [t('publications.items.businessMag.author')],
-      tags: [t('publications.tags.export'), t('publications.tags.trade'), t('publications.tags.growth')],
-      views: 678,
-      likes: 45,
-      featured: false,
-      related: [3, 6]
-    },
-    {
-      id: 6,
-      title: t('publications.items.economicReview.title'),
-      description: t('publications.items.economicReview.description'),
-      fullDescription: t('publications.items.economicReview.fullDescription'),
-      type: 'research',
-      publisher: t('publications.items.economicReview.publisher'),
-      date: '2023-10-15',
-      language: t('publications.language.ru'),
-      pages: '15',
-      fileSize: '4.5 MB',
-      downloadUrl: '/publications/economic-review.pdf',
-      previewUrl: '/publications/economic-review-preview.jpg',
-      citation: t('publications.items.economicReview.citation'),
-      color: 'cyan',
-      authors: [t('publications.items.economicReview.author')],
-      tags: [t('publications.tags.economics'), t('publications.tags.investment'), t('publications.tags.regional')],
-      views: 543,
-      likes: 38,
-      featured: false,
-      related: [4, 5]
-    },
-    {
-      id: 7,
-      title: t('publications.items.techCrunch.title'),
-      description: t('publications.items.techCrunch.description'),
-      fullDescription: t('publications.items.techCrunch.fullDescription'),
-      type: 'international',
-      publisher: 'TechCrunch',
-      date: '2024-01-28',
-      language: t('publications.language.en'),
-      pages: '4',
-      fileSize: '2.8 MB',
-      downloadUrl: '/publications/techcrunch-2024.pdf',
-      previewUrl: '/publications/techcrunch-preview.jpg',
-      citation: t('publications.items.techCrunch.citation'),
-      color: 'indigo',
-      authors: [t('publications.items.techCrunch.author')],
-      tags: [t('publications.tags.technology'), t('publications.tags.innovation'), t('publications.tags.digital')],
-      views: 1120,
-      likes: 92,
-      featured: true,
-      related: [1, 3]
-    },
-    {
-      id: 8,
-      title: t('publications.items.unReport.title'),
-      description: t('publications.items.unReport.description'),
-      fullDescription: t('publications.items.unReport.fullDescription'),
-      type: 'research',
-      publisher: t('publications.items.unReport.publisher'),
-      date: '2023-08-22',
-      language: t('publications.language.en'),
-      pages: '62',
-      fileSize: '12.3 MB',
-      downloadUrl: '/publications/un-report-2023.pdf',
-      previewUrl: '/publications/un-report-preview.jpg',
-      citation: t('publications.items.unReport.citation'),
-      color: 'emerald',
-      authors: [t('publications.items.unReport.author')],
-      tags: [t('publications.tags.sustainability'), t('publications.tags.climate'), t('publications.tags.development')],
-      views: 765,
-      likes: 61,
-      featured: false,
-      related: [2, 6]
+  // Отслеживание видимости для запуска анимации один раз
+  useEffect(() => {
+    if (isInView && !hasAnimated) {
+      setHasAnimated(true);
     }
+  }, [isInView, hasAnimated]);
+
+  // Загрузка данных категорий из API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/presscentre/publication-categories/?lang=${lang}`);
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        // Error handled silently
+      }
+    };
+
+    fetchCategories();
+  }, [i18n.language]);
+
+  // Загрузка данных публикаций из API
+  useEffect(() => {
+    const fetchPublications = async () => {
+      try {
+        setLoading(true);
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/presscentre/publications/?lang=${lang}`);
+        const data = await response.json();
+        setPublications(data);
+      } catch (error) {
+        // Error handled silently
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPublications();
+  }, [i18n.language]);
+
+  // Функция для получения иконки категории
+  const getCategoryIcon = (categoryId) => {
+    const icons = {
+      1: <GlobeIcon className="w-5 h-5" />,
+      2: <NewspaperIcon className="w-5 h-5" />,
+      3: <MicroscopeIcon className="w-5 h-5" />,
+      4: <MicrophoneIcon className="w-5 h-5" />,
+      5: <ChartIcon className="w-5 h-5" />
+    };
+    return icons[categoryId] || <NewspaperIcon className="w-5 h-5" />;
+  };
+
+  // Создание фильтров на основе категорий
+  const filters = [
+    { id: 'all', label: t('publications.filters.all'), count: categories.length },
+    ...categories.map(category => ({
+      id: category.id.toString(),
+      label: category.title,
+      icon: getCategoryIcon(category.id)
+    }))
   ];
-
-
 
   // Фильтрация
   const filteredPublications = publications
-    .filter(pub => activeFilter === 'all' || pub.type === activeFilter);
+    .filter(pub => activeFilter === 'all' || pub.category?.id?.toString() === activeFilter);
 
 
 
@@ -226,18 +104,6 @@ const PressPublications = () => {
       opacity: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { scale: 0.9, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
         ease: "easeOut"
       }
     }
@@ -288,7 +154,7 @@ const PressPublications = () => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={hasAnimated ? "visible" : "hidden"}
           className="text-center mb-16"
         >
           <motion.div 
@@ -323,34 +189,35 @@ const PressPublications = () => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={hasAnimated ? "visible" : "hidden"}
           className="mb-12"
         >
-          <div className="flex flex-wrap justify-center gap-3">
-            {filters.map((filter) => (
-              <motion.button
-                key={filter.id}
-                onClick={() => setActiveFilter(filter.id)}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2 ${
-                  activeFilter === filter.id
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span>{filter.icon}</span>
-                <span>{filter.label}</span>
-                {filter.count && (
-                  <span className={`px-2 py-1 text-xs rounded-full ${
-                    activeFilter === filter.id ? 'bg-white text-blue-600' : 'bg-slate-200 text-slate-600'
-                  }`}>
-                    {filter.count}
-                  </span>
-                )}
-              </motion.button>
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex items-center justify-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              <span className="ml-3 text-slate-600">Загрузка категорий...</span>
+            </div>
+          ) : (
+            <div className="flex flex-wrap justify-center gap-3">
+              {filters.map((filter) => (
+                <motion.button
+                  key={filter.id}
+                  onClick={() => setActiveFilter(filter.id)}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2 ${
+                    activeFilter === filter.id
+                      ? 'bg-blue-600 text-white shadow-lg'
+                      : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span>{filter.icon}</span>
+                  <span>{filter.label}</span>
+                  {filter.count !== undefined}
+                </motion.button>
+              ))}
+            </div>
+          )}
         </motion.div>
 
 
@@ -359,44 +226,50 @@ const PressPublications = () => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={hasAnimated ? "visible" : "hidden"}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
         >
-          {filteredPublications.map((publication) => (
-            <motion.div
-              key={publication.id}
-              variants={cardVariants}
-              className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer"
-              whileHover={{ y: -5 }}
-              onClick={() => navigate(`/publications/${publication.id}`)}
-            >
-              <img
-                src={publication.previewUrl}
-                alt={publication.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2">
-                  {publication.title}
-                </h3>
-                <p className="text-slate-600 leading-relaxed text-sm mb-4 line-clamp-3">
-                  {publication.description}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-500">{new Date(publication.date).toLocaleDateString()}</span>
-                  <motion.button
-                    className="text-blue-600 hover:text-blue-700 font-semibold text-sm inline-flex items-center space-x-1 transition-colors duration-300"
-                    whileHover={{ x: 3 }}
-                  >
-                    <span>{t('publications.readMore')}</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </motion.button>
+          {loading ? (
+            <div className="col-span-full flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <span className="ml-3 text-slate-600">Загрузка публикаций...</span>
+            </div>
+          ) : (
+            filteredPublications.map((publication) => (
+              <motion.div
+                key={publication.id}
+                className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer"
+                whileHover={{ y: -5 }}
+                onClick={() => navigate(`/publications/${publication.id}`)}
+              >
+                <div className="w-full h-48 bg-gradient-to-br from-blue-100 to-cyan-100 flex items-center justify-center">
+                  <svg className="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2">
+                    {publication.title}
+                  </h3>
+                  <p className="text-slate-600 leading-relaxed text-sm mb-4 line-clamp-3">
+                    {publication.short_description || publication.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-slate-500">{new Date(publication.published_at).toLocaleDateString()}</span>
+                    <motion.button
+                      className="text-blue-600 hover:text-blue-700 font-semibold text-sm inline-flex items-center space-x-1 transition-colors duration-300"
+                      whileHover={{ x: 3 }}
+                    >
+                      <span>{t('publications.readMore')}</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.div>
+            ))
+          )}
         </motion.div>
 
 

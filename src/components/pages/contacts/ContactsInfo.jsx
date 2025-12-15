@@ -1,238 +1,90 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 const ContactsInfo = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.2 });
-  const [activeDepartment, setActiveDepartment] = useState('press');
-  const [showContactForm, setShowContactForm] = useState(false);
-  const { t } = useTranslation();
+  const [activeDepartment, setActiveDepartment] = useState(null);
+  const [contacts, setContacts] = useState([]);
+  const { t, i18n } = useTranslation();
 
-  const departments = [
-    {
-      id: 'press',
-      name: t('contactsInfo.departments.press.name'),
-      description: t('contactsInfo.departments.press.description'),
-      detailed: t('contactsInfo.departments.press.detailed'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-        </svg>
-      ),
-      contacts: [
-        {
-          type: 'email',
-          value: t('contactsInfo.departments.press.contacts.email'),
-          label: t('contactsInfo.types.email'),
-          action: 'email'
-        },
-        {
-          type: 'phone',
-          value: t('contactsInfo.departments.press.contacts.phone'),
-          label: t('contactsInfo.types.phone'),
-          action: 'phone'
-        },
-        {
-          type: 'hours',
-          value: t('contactsInfo.departments.press.contacts.workingHours'),
-          label: t('contactsInfo.types.workingHours'),
-          action: 'info'
+  useEffect(() => {
+    const fetchContacts = async () => {
+      try {
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/contacts/?language=${lang}`);
+        const data = await response.json();
+        const departmentsData = data.map((contact, index) => ({
+          id: contact.id,
+          name: contact.name,
+          description: contact.work_time,
+          detailed: contact.work_time,
+          icon: (
+            <img src={contact.logo} alt={contact.name} className="w-6 h-6 rounded" />
+          ),
+          contacts: [
+            {
+              type: 'email',
+              value: contact.email,
+              label: t('contactsInfo.types.email'),
+              action: 'email'
+            },
+            {
+              type: 'phone',
+              value: contact.phone,
+              label: t('contactsInfo.types.phone'),
+              action: 'phone'
+            },
+            {
+              type: 'hours',
+              value: contact.work_time,
+              label: t('contactsInfo.types.workingHours'),
+              action: 'info'
+            }
+          ],
+          color: ['blue', 'green', 'purple', 'orange', 'red', 'cyan'][index % 6],
+          socialLinks: [
+            contact.tg_link && {
+              name: 'Telegram',
+              url: contact.tg_link,
+              icon: (
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+              )
+            },
+            contact.wb_link && {
+              name: 'WhatsApp',
+              url: contact.wb_link,
+              icon: (
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                </svg>
+              )
+            },
+            contact.ins_link && {
+              name: 'Instagram',
+              url: contact.ins_link,
+              icon: (
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.017 0C8.396 0 7.609.035 6.298.129c-1.31.094-2.207.247-2.988.528a5.944 5.944 0 00-2.143.873c-.695.446-1.287.99-1.776 1.776a5.944 5.944 0 00-.873 2.143c-.281.781-.434 1.678-.528 2.988C.035 7.609 0 8.396 0 12.017s.035 4.408.129 5.719c.094 1.31.247 2.207.528 2.988.246.695.579 1.287.873 1.776.695.446 1.287.99 1.776 1.776.489.695.99 1.287 1.776 1.776a5.944 5.944 0 002.143.873c.781.281 1.678.434 2.988.528 1.31.094 2.098.129 5.719.129s4.408-.035 5.719-.129c1.31-.094 2.207-.247 2.988-.528a5.944 5.944 0 002.143-.873c.695-.489.99-1.287 1.776-1.776.489-.695.99-1.287 1.776-1.776a5.944 5.944 0 00.873-2.143c.281-.781.434-1.678.528-2.988.094-1.31.129-2.098.129-5.719s-.035-4.408-.129-5.719c-.094-1.31-.247-2.207-.528-2.988a5.944 5.944 0 00-.873-2.143c-.489-.695-.99-1.287-1.776-1.776a5.944 5.944 0 00-2.143-.873c-.781-.281-1.678-.434-2.988-.528C16.425.035 15.638 0 12.017 0zm0 5.839a6.178 6.178 0 100 12.356 6.178 6.178 0 000-12.356zm0 10.178a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+                </svg>
+              )
+            }
+          ].filter(Boolean)
+        }));
+        setContacts(departmentsData);
+        if (departmentsData.length > 0) {
+          setActiveDepartment(departmentsData[0].id);
         }
-      ],
-      color: 'blue',
-      services: t('contactsInfo.departments.press.services', { returnObjects: true }),
-      responseTime: t('contactsInfo.departments.press.responseTime')
-    },
-    {
-      id: 'investments',
-      name: t('contactsInfo.departments.investments.name'),
-      description: t('contactsInfo.departments.investments.description'),
-      detailed: t('contactsInfo.departments.investments.detailed'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
-      contacts: [
-        {
-          type: 'email',
-          value: t('contactsInfo.departments.investments.contacts.email'),
-          label: t('contactsInfo.types.email'),
-          action: 'email'
-        },
-        {
-          type: 'phone',
-          value: t('contactsInfo.departments.investments.contacts.phone'),
-          label: t('contactsInfo.types.phone'),
-          action: 'phone'
-        },
-        {
-          type: 'hours',
-          value: t('contactsInfo.departments.investments.contacts.workingHours'),
-          label: t('contactsInfo.types.workingHours'),
-          action: 'info'
-        }
-      ],
-      color: 'green',
-      services: t('contactsInfo.departments.investments.services', { returnObjects: true }),
-      responseTime: t('contactsInfo.departments.investments.responseTime')
-    },
-    {
-      id: 'hr',
-      name: t('contactsInfo.departments.hr.name'),
-      description: t('contactsInfo.departments.hr.description'),
-      detailed: t('contactsInfo.departments.hr.detailed'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-      ),
-      contacts: [
-        {
-          type: 'email',
-          value: t('contactsInfo.departments.hr.contacts.email'),
-          label: t('contactsInfo.types.email'),
-          action: 'email'
-        },
-        {
-          type: 'phone',
-          value: t('contactsInfo.departments.hr.contacts.phone'),
-          label: t('contactsInfo.types.phone'),
-          action: 'phone'
-        },
-        {
-          type: 'hours',
-          value: t('contactsInfo.departments.hr.contacts.workingHours'),
-          label: t('contactsInfo.types.workingHours'),
-          action: 'info'
-        },
-        {
-          type: 'website',
-          value: t('contactsInfo.departments.hr.contacts.careers'),
-          label: t('contactsInfo.types.careers'),
-          action: 'website'
-        }
-      ],
-      color: 'purple',
-      services: t('contactsInfo.departments.hr.services', { returnObjects: true }),
-      responseTime: t('contactsInfo.departments.hr.responseTime')
-    },
-    {
-      id: 'commercial',
-      name: t('contactsInfo.departments.commercial.name'),
-      description: t('contactsInfo.departments.commercial.description'),
-      detailed: t('contactsInfo.departments.commercial.detailed'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-        </svg>
-      ),
-      contacts: [
-        {
-          type: 'email',
-          value: t('contactsInfo.departments.commercial.contacts.email'),
-          label: t('contactsInfo.types.email'),
-          action: 'email'
-        },
-        {
-          type: 'phone',
-          value: t('contactsInfo.departments.commercial.contacts.phone'),
-          label: t('contactsInfo.types.phone'),
-          action: 'phone'
-        },
-        {
-          type: 'hours',
-          value: t('contactsInfo.departments.commercial.contacts.workingHours'),
-          label: t('contactsInfo.types.workingHours'),
-          action: 'info'
-        }
-      ],
-      color: 'orange',
-      services: t('contactsInfo.departments.commercial.services', { returnObjects: true }),
-      responseTime: t('contactsInfo.departments.commercial.responseTime')
-    },
-    {
-      id: 'medical',
-      name: t('contactsInfo.departments.medical.name'),
-      description: t('contactsInfo.departments.medical.description'),
-      detailed: t('contactsInfo.departments.medical.detailed'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-        </svg>
-      ),
-      contacts: [
-        {
-          type: 'phone',
-          value: t('contactsInfo.departments.medical.contacts.phone'),
-          label: t('contactsInfo.types.phone'),
-          action: 'phone'
-        },
-        {
-          type: 'emergency',
-          value: t('contactsInfo.departments.medical.contacts.emergency'),
-          label: t('contactsInfo.types.emergency'),
-          action: 'phone'
-        },
-        {
-          type: 'hours',
-          value: t('contactsInfo.departments.medical.contacts.workingHours'),
-          label: t('contactsInfo.types.workingHours'),
-          action: 'info'
-        },
-        {
-          type: 'location',
-          value: t('contactsInfo.departments.medical.contacts.location'),
-          label: t('contactsInfo.types.location'),
-          action: 'map'
-        }
-      ],
-      color: 'red',
-      services: t('contactsInfo.departments.medical.services', { returnObjects: true }),
-      responseTime: t('contactsInfo.departments.medical.responseTime')
-    },
-    {
-      id: 'sports',
-      name: t('contactsInfo.departments.sports.name'),
-      description: t('contactsInfo.departments.sports.description'),
-      detailed: t('contactsInfo.departments.sports.detailed'),
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-        </svg>
-      ),
-      contacts: [
-        {
-          type: 'phone',
-          value: t('contactsInfo.departments.sports.contacts.phone'),
-          label: t('contactsInfo.types.phone'),
-          action: 'phone'
-        },
-        {
-          type: 'email',
-          value: t('contactsInfo.departments.sports.contacts.email'),
-          label: t('contactsInfo.types.email'),
-          action: 'email'
-        },
-        {
-          type: 'hours',
-          value: t('contactsInfo.departments.sports.contacts.workingHours'),
-          label: t('contactsInfo.types.workingHours'),
-          action: 'info'
-        },
-        {
-          type: 'location',
-          value: t('contactsInfo.departments.sports.contacts.location'),
-          label: t('contactsInfo.types.location'),
-          action: 'map'
-        }
-      ],
-      color: 'cyan',
-      services: t('contactsInfo.departments.sports.services', { returnObjects: true }),
-      responseTime: t('contactsInfo.departments.sports.responseTime')
-    }
-  ];
+      } catch (error) {
+        console.error('Error fetching contacts:', error);
+      }
+    };
+
+    fetchContacts();
+  }, [i18n.language]);
 
   const colorMap = {
     blue: { 
@@ -333,7 +185,7 @@ const ContactsInfo = () => {
     }
   };
 
-  const activeDepartmentData = departments.find(dept => dept.id === activeDepartment);
+  const activeDepartmentData = contacts.find(dept => dept.id === activeDepartment);
 
   const handleContactAction = (contact) => {
     switch (contact.action) {
@@ -481,15 +333,15 @@ const ContactsInfo = () => {
             className="lg:col-span-1"
           >
             <div className="space-y-4">
-              {departments.map((department, index) => {
-                const colors = colorMap[department.color];
+              {contacts.map((contact, index) => {
+                const colors = colorMap[contact.color];
                 return (
                   <motion.button
-                    key={department.id}
+                    key={contact.id}
                     variants={itemVariants}
-                    onClick={() => setActiveDepartment(department.id)}
+                    onClick={() => setActiveDepartment(contact.id)}
                     className={`w-full text-left p-6 rounded-2xl border-2 transition-all duration-300 ${
-                      activeDepartment === department.id
+                      activeDepartment === contact.id
                         ? `${colors.border} ${colors.light} shadow-lg scale-105`
                         : 'border-slate-200 bg-white hover:border-slate-300 hover:shadow-md'
                     }`}
@@ -498,18 +350,18 @@ const ContactsInfo = () => {
                   >
                     <div className="flex items-center space-x-4">
                       <div className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${
-                        activeDepartment === department.id ? colors.dark : colors.light
+                        activeDepartment === contact.id ? colors.dark : colors.light
                       }`}>
-                        <div className={activeDepartment === department.id ? 'text-white' : colors.text}>
-                          {department.icon}
+                        <div className={activeDepartment === contact.id ? 'text-white' : colors.text}>
+                          {contact.icon}
                         </div>
                       </div>
                       
                       <div className="flex-1 min-w-0">
                         <h3 className={`text-lg font-bold ${
-                          activeDepartment === department.id ? colors.text : 'text-slate-900'
+                          activeDepartment === contact.id ? colors.text : 'text-slate-900'
                         }`}>
-                          {department.name}
+                          {contact.name}
                         </h3>
                       </div>
                     </div>
@@ -597,55 +449,35 @@ const ContactsInfo = () => {
                     </div>
 
                     {/* Социальные ссылки */}
-                    <div>
-                      <h4 className="text-xl font-bold text-slate-900 mb-6">
-                        {t('contactsInfo.socialLinks')}
-                      </h4>
-                      
-                      <div className="flex flex-wrap gap-4">
-                        <motion.a
-                          href="https://t.me/dordoi"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center space-x-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-                          </svg>
-                          <span>Telegram</span>
-                        </motion.a>
-
-                        <motion.a
-                          href="https://wa.me/996555123456"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center space-x-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-300"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-                          </svg>
-                          <span>WhatsApp</span>
-                        </motion.a>
-
-                        <motion.a
-                          href="https://instagram.com/dordoi"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center space-x-2 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors duration-300"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12.017 0C8.396 0 7.609.035 6.298.129c-1.31.094-2.207.247-2.988.528a5.944 5.944 0 00-2.143.873c-.695.446-1.287.99-1.776 1.776a5.944 5.944 0 00-.873 2.143c-.281.781-.434 1.678-.528 2.988C.035 7.609 0 8.396 0 12.017s.035 4.408.129 5.719c.094 1.31.247 2.207.528 2.988.246.695.579 1.287.873 1.776.695.446 1.287.99 1.776 1.776.489.695.99 1.287 1.776 1.776a5.944 5.944 0 002.143.873c.781.281 1.678.434 2.988.528 1.31.094 2.098.129 5.719.129s4.408-.035 5.719-.129c1.31-.094 2.207-.247 2.988-.528a5.944 5.944 0 002.143-.873c.695-.489.99-1.287 1.776-1.776.489-.695.99-1.287 1.776-1.776a5.944 5.944 0 00.873-2.143c.281-.781.434-1.678.528-2.988.094-1.31.129-2.098.129-5.719s-.035-4.408-.129-5.719c-.094-1.31-.247-2.207-.528-2.988a5.944 5.944 0 00-.873-2.143c-.489-.695-.99-1.287-1.776-1.776a5.944 5.944 0 00-2.143-.873c-.781-.281-1.678-.434-2.988-.528C16.425.035 15.638 0 12.017 0zm0 5.839a6.178 6.178 0 100 12.356 6.178 6.178 0 000-12.356zm0 10.178a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
-                          </svg>
-                          <span>Instagram</span>
-                        </motion.a>
+                    {activeDepartmentData.socialLinks && activeDepartmentData.socialLinks.length > 0 && (
+                      <div>
+                        <h4 className="text-xl font-bold text-slate-900 mb-6">
+                          {t('contactsInfo.socialLinks')}
+                        </h4>
+                        
+                        <div className="flex flex-wrap gap-4">
+                          {activeDepartmentData.socialLinks.map((link, idx) => (
+                            <motion.a
+                              key={idx}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={`flex items-center space-x-2 px-4 py-2 text-white rounded-lg transition-colors duration-300 ${
+                                link.name === 'Telegram' ? 'bg-blue-500 hover:bg-blue-600' :
+                                link.name === 'WhatsApp' ? 'bg-green-500 hover:bg-green-600' :
+                                link.name === 'Instagram' ? 'bg-pink-600 hover:bg-pink-700' :
+                                'bg-gray-500 hover:bg-gray-600'
+                              }`}
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              {link.icon}
+                              <span>{link.name}</span>
+                            </motion.a>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </motion.div>

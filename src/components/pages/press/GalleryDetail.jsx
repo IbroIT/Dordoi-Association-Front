@@ -7,9 +7,54 @@ import { CameraIcon, TrophyIcon, GlobeIcon, HandshakeIcon, BriefcaseIcon } from 
 const GalleryDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedImage, setSelectedImage] = useState(null);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [gallery, setGallery] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Загрузка данных галереи из API
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        setLoading(true);
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/gallery/galleries/${id}/?language=${lang}`);
+        const data = await response.json();
+        
+        // Преобразуем данные для компонента
+        const transformedGallery = {
+          id: data.id,
+          title: data[`title_${lang}`] || data.title_ru,
+          category: data.category.id.toString(),
+          categoryName: data.category[`name_${lang}`] || data.category.name_ru,
+          images: data.photos.map((photo, index) => ({
+            id: photo.id,
+            src: photo.image,
+            thumbnail: photo.image,
+            title: `Фото ${index + 1}`,
+            description: '',
+            date: new Date().toLocaleDateString(),
+            photographer: 'Dordoi Association',
+            tags: [],
+            resolution: '4000x3000',
+            size: '8.0 MB',
+            license: 'Editorial Use'
+          }))
+        };
+        
+        setGallery(transformedGallery);
+      } catch (error) {
+        console.error('Error fetching gallery:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchGallery();
+    }
+  }, [id, i18n.language]);
 
   // Данные галерей (в реальном приложении будут приходить из API)
   const galleries = [
@@ -129,8 +174,6 @@ const GalleryDetail = () => {
     }
   ];
 
-  const gallery = galleries.find(g => g.id === parseInt(id));
-
   const categories = [
     { id: 'all', label: t('media.categories.all'), icon: <CameraIcon className="w-5 h-5" /> },
     { id: 'anniversary', label: t('media.categories.anniversary'), icon: <TrophyIcon className="w-5 h-5" /> },
@@ -159,7 +202,7 @@ const GalleryDetail = () => {
   };
 
   const nextImage = () => {
-    if (selectedImage && selectedImage.images.length > 0) {
+    if (selectedImage && selectedImage.images && selectedImage.images.length > 0) {
       setLightboxIndex((prev) =>
         prev < selectedImage.images.length - 1 ? prev + 1 : 0
       );
@@ -175,17 +218,28 @@ const GalleryDetail = () => {
   };
 
   const handleShare = () => {
-    if (navigator.share) {
+    if (gallery && navigator.share) {
       navigator.share({
         title: gallery.title,
-        text: gallery.description,
+        text: `Галерея: ${gallery.title}`,
         url: window.location.href,
       });
-    } else {
+    } else if (gallery) {
       navigator.clipboard.writeText(window.location.href);
       alert(t('media.linkCopied'));
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-slate-600">Загрузка галереи...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!gallery) {
     return (
@@ -228,7 +282,7 @@ const GalleryDetail = () => {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          <span>{t('header.back')}</span>
+          <span>{t('common.back')}</span>
         </motion.button>
 
         {/* Заголовок галереи */}

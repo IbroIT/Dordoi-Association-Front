@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
@@ -9,198 +9,55 @@ const PublicationDetail = () => {
   const { t, i18n } = useTranslation();
   const [publication, setPublication] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [relatedPublications, setRelatedPublications] = useState([]);
 
-  // Данные публикаций с динамическими переводами
-  const publications = useMemo(() => [
-    {
-      id: 1,
-      title: t('publications.items.forbes.title'),
-      description: t('publications.items.forbes.description'),
-      fullDescription: t('publications.items.forbes.fullDescription'),
-      type: 'international',
-      publisher: 'Forbes',
-      date: '2024-01-15',
-      language: t('publications.language.en'),
-      pages: '3',
-      fileSize: '2.4 MB',
-      downloadUrl: '/publications/forbes-2024.pdf',
-      previewUrl: '/publications/forbes-2024-preview.jpg',
-      citation: t('publications.items.forbes.citation'),
-      color: 'blue',
-      authors: [t('publications.items.forbes.author')],
-      tags: [t('publications.tags.leadership'), t('publications.tags.strategy'), t('publications.tags.innovation')],
-      views: 1250,
-      likes: 89,
-      featured: true,
-      related: [2, 3]
-    },
-    {
-      id: 2,
-      title: t('publications.items.worldBank.title'),
-      description: t('publications.items.worldBank.description'),
-      fullDescription: t('publications.items.worldBank.fullDescription'),
-      type: 'research',
-      publisher: t('publications.items.worldBank.publisher'),
-      date: '2023-11-20',
-      language: t('publications.language.en'),
-      pages: '45',
-      fileSize: '8.7 MB',
-      downloadUrl: '/publications/world-bank-research.pdf',
-      previewUrl: '/publications/world-bank-preview.jpg',
-      citation: t('publications.items.worldBank.citation'),
-      color: 'green',
-      authors: [t('publications.items.worldBank.author')],
-      tags: [t('publications.tags.research'), t('publications.tags.development'), t('publications.tags.sustainability')],
-      views: 890,
-      likes: 67,
-      featured: false,
-      related: [1, 4]
-    },
-    {
-      id: 3,
-      title: t('publications.items.usaid.title'),
-      description: t('publications.items.usaid.description'),
-      fullDescription: t('publications.items.usaid.fullDescription'),
-      type: 'research',
-      publisher: 'USAID',
-      date: '2023-09-10',
-      language: t('publications.language.en'),
-      pages: '28',
-      fileSize: '5.2 MB',
-      downloadUrl: '/publications/usaid-report.pdf',
-      previewUrl: '/publications/usaid-preview.jpg',
-      citation: t('publications.items.usaid.citation'),
-      color: 'purple',
-      authors: [t('publications.items.usaid.author')],
-      tags: [t('publications.tags.csr'), t('publications.tags.social'), t('publications.tags.community')],
-      views: 756,
-      likes: 54,
-      featured: true,
-      related: [1, 5]
-    },
-    {
-      id: 4,
-      title: t('publications.items.localNews.title'),
-      description: t('publications.items.localNews.description'),
-      fullDescription: t('publications.items.localNews.fullDescription'),
-      type: 'local',
-      publisher: t('publications.items.localNews.publisher'),
-      date: '2024-02-01',
-      language: t('publications.language.local'),
-      pages: '2',
-      fileSize: '1.8 MB',
-      downloadUrl: '/publications/local-news-2024.pdf',
-      previewUrl: '/publications/local-news-preview.jpg',
-      citation: t('publications.items.localNews.citation'),
-      color: 'orange',
-      authors: [t('publications.items.localNews.author')],
-      tags: [t('publications.tags.education'), t('publications.tags.youth'), t('publications.tags.investment')],
-      views: 432,
-      likes: 32,
-      featured: false,
-      related: [2, 6]
-    },
-    {
-      id: 5,
-      title: t('publications.items.businessMag.title'),
-      description: t('publications.items.businessMag.description'),
-      fullDescription: t('publications.items.businessMag.fullDescription'),
-      type: 'international',
-      publisher: t('publications.items.businessMag.publisher'),
-      date: '2023-12-05',
-      language: t('publications.language.en'),
-      pages: '5',
-      fileSize: '3.1 MB',
-      downloadUrl: '/publications/business-magazine.pdf',
-      previewUrl: '/publications/business-mag-preview.jpg',
-      citation: t('publications.items.businessMag.citation'),
-      color: 'red',
-      authors: [t('publications.items.businessMag.author')],
-      tags: [t('publications.tags.export'), t('publications.tags.trade'), t('publications.tags.growth')],
-      views: 678,
-      likes: 45,
-      featured: false,
-      related: [3, 6]
-    },
-    {
-      id: 6,
-      title: t('publications.items.economicReview.title'),
-      description: t('publications.items.economicReview.description'),
-      fullDescription: t('publications.items.economicReview.fullDescription'),
-      type: 'research',
-      publisher: t('publications.items.economicReview.publisher'),
-      date: '2023-10-15',
-      language: t('publications.language.ru'),
-      pages: '15',
-      fileSize: '4.5 MB',
-      downloadUrl: '/publications/economic-review.pdf',
-      previewUrl: '/publications/economic-review-preview.jpg',
-      citation: t('publications.items.economicReview.citation'),
-      color: 'cyan',
-      authors: [t('publications.items.economicReview.author')],
-      tags: [t('publications.tags.economics'), t('publications.tags.investment'), t('publications.tags.regional')],
-      views: 543,
-      likes: 38,
-      featured: false,
-      related: [4, 5]
-    },
-    {
-      id: 7,
-      title: t('publications.items.techCrunch.title'),
-      description: t('publications.items.techCrunch.description'),
-      fullDescription: t('publications.items.techCrunch.fullDescription'),
-      type: 'international',
-      publisher: 'TechCrunch',
-      date: '2024-01-28',
-      language: t('publications.language.en'),
-      pages: '4',
-      fileSize: '2.8 MB',
-      downloadUrl: '/publications/techcrunch-2024.pdf',
-      previewUrl: '/publications/techcrunch-preview.jpg',
-      citation: t('publications.items.techCrunch.citation'),
-      color: 'indigo',
-      authors: [t('publications.items.techCrunch.author')],
-      tags: [t('publications.tags.technology'), t('publications.tags.innovation'), t('publications.tags.digital')],
-      views: 1120,
-      likes: 92,
-      featured: true,
-      related: [1, 3]
-    },
-    {
-      id: 8,
-      title: t('publications.items.unReport.title'),
-      description: t('publications.items.unReport.description'),
-      fullDescription: t('publications.items.unReport.fullDescription'),
-      type: 'research',
-      publisher: t('publications.items.unReport.publisher'),
-      date: '2023-08-22',
-      language: t('publications.language.en'),
-      pages: '62',
-      fileSize: '12.3 MB',
-      downloadUrl: '/publications/un-report-2023.pdf',
-      previewUrl: '/publications/un-report-preview.jpg',
-      citation: t('publications.items.unReport.citation'),
-      color: 'emerald',
-      authors: [t('publications.items.unReport.author')],
-      tags: [t('publications.tags.sustainability'), t('publications.tags.climate'), t('publications.tags.development')],
-      views: 765,
-      likes: 61,
-      featured: false,
-      related: [2, 6]
-    }
-  ], [t, i18n.language]);
-
+  // Загрузка данных публикации из API
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const fetchPublication = async () => {
+      try {
+        setLoading(true);
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/presscentre/publications/${id}/?lang=${lang}`);
+        if (response.ok) {
+          const data = await response.json();
+          setPublication(data);
+        } else {
+          // Если публикация не найдена, перенаправляем на страницу публикаций
+          navigate('/press/publications');
+        }
+      } catch (error) {
+        console.error('Error fetching publication:', error);
+        navigate('/press/publications');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    // Находим публикацию по ID
-    const foundPublication = publications.find(pub => pub.id === parseInt(id));
-    if (foundPublication) {
-      setPublication(foundPublication);
+    if (id) {
+      fetchPublication();
     }
+    window.scrollTo(0, 0);
+  }, [id, i18n.language, navigate]);
 
-    setLoading(false);
-  }, [id, publications]);
+  // Загрузка связанных публикаций
+  useEffect(() => {
+    const fetchRelatedPublications = async () => {
+      try {
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/presscentre/publications/?lang=${lang}&limit=3`);
+        const data = await response.json();
+        // Исключаем текущую публикацию из связанных
+        const filtered = data.filter(pub => pub.id !== parseInt(id));
+        setRelatedPublications(filtered.slice(0, 3));
+      } catch (error) {
+        console.error('Error fetching related publications:', error);
+      }
+    };
+
+    if (publication) {
+      fetchRelatedPublications();
+    }
+  }, [publication, id, i18n.language]);
 
   const handleDownload = (downloadUrl, title) => {
     console.log('Downloading:', downloadUrl);
@@ -284,7 +141,7 @@ const PublicationDetail = () => {
             <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span className="font-medium">{t('header.back')}</span>
+            <span className="font-medium">{t('common.back')}</span>
           </button>
         </motion.div>
 
@@ -350,7 +207,7 @@ const PublicationDetail = () => {
             {/* Date */}
             <div className="mb-12">
               <h3 className="text-xl font-bold text-slate-900 mb-4">{t('publications.details.date')}</h3>
-              <p className="text-slate-600 text-lg">{new Date(publication.date).toLocaleDateString()}</p>
+              <p className="text-slate-600 text-lg">{new Date(publication.published_at).toLocaleDateString()}</p>
             </div>
 
             {/* Author */}
@@ -362,14 +219,14 @@ const PublicationDetail = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <span className="text-slate-700 font-medium text-lg">{publication.authors[0]}</span>
+                <span className="text-slate-700 font-medium text-lg">{publication.author}</span>
               </div>
             </div>
 
             {/* Download PDF */}
             <div className="text-center pt-8 border-t border-slate-200">
               <motion.button
-                onClick={() => handleDownload(publication.downloadUrl, publication.title)}
+                onClick={() => handleDownload(publication.pdf_file, publication.title)}
                 className="bg-blue-600 text-white px-10 py-5 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300 inline-flex items-center justify-center space-x-4 text-xl shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
