@@ -241,7 +241,7 @@ const Navbar = () => {
               onClick={closeAllDropdowns}
             >
               <div className="relative rounded-2xl">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center font-bold text-white text-lg shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
+                <div className="w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-white text-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
                   <img src={Logo} alt="" className='rounded-xl' />
                 </div>
                 <div className="absolute -inset-1 bg-blue-500/20 rounded-xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

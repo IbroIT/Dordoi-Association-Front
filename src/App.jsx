@@ -61,7 +61,7 @@ function App() {
   // Проверяем localStorage только на клиенте
   const getInitialAnimationState = () => {
     if (typeof window !== 'undefined') {
-      return !localStorage.getItem('dordoiAnimationShown');
+      return !sessionStorage.getItem('dordoiAnimationShown');
     }
     return true;
   };
