@@ -214,166 +214,163 @@ const AboutLeadership = () => {
           )}
           {!loading && (
             <>
-              {/* Первая карточка - по центру */}
+              {/* Первые 2 карточки - вертикально */}
               {leaders.length > 0 && (
-                <div className="flex justify-center mb-8">
-                  <div className="w-full max-w-2xl">
-                    {(() => {
-                      const leader = leaders[0];
-                      const index = 0;
-                      return (
-                        <motion.div
-                          key={leader.id}
-                          variants={cardVariants}
-                          initial="hidden"
-                          animate={isInView ? "visible" : "hidden"}
-                          whileHover="hover"
-                          className="group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-slate-200/60 overflow-hidden cursor-pointer"
-                          onClick={() => openLeaderModal(leader)}
-                        >
-                          <div className="relative p-8">
-                            <div className="flex flex-col lg:flex-row gap-8">
-                              {/* Аватар руководителя с градиентом */}
-                              <motion.div
-                                className="flex-shrink-0 relative"
-                                whileHover={{ scale: 1.05, rotate: 2 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 10 }}
-                              >
-                                {leader.photo ? (
-                                  <img
-                                    src={leader.photo}
-                                    alt={leader.name}
-                                    className="w-32 h-32 rounded-3xl object-contain shadow-2xl group-hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-slate-50 to-slate-100"
-                                  />
-                                ) : (
-                                  <div className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${generateGradient(leader.name)} relative overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500`}>
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                      <span className="text-white text-4xl font-bold tracking-wider">
-                                        {getInitials(leader.name)}
-                                      </span>
-                                    </div>
-                                    
-                                    {/* Анимированные элементы */}
-                                    <motion.div
-                                      className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full shadow-lg"
-                                      animate={{ 
-                                        scale: [1, 1.2, 1],
-                                        rotate: [0, 180, 360]
-                                      }}
-                                      transition={{ 
-                                        duration: 4, 
-                                        repeat: Infinity, 
-                                        ease: "easeInOut",
-                                        delay: index * 0.5 
-                                      }}
-                                    />
-                                    
-                                    <motion.div
-                                      className="absolute -bottom-2 -left-2 w-6 h-6 bg-white/30 rounded-full"
-                                      animate={{ 
-                                        scale: [1, 1.5, 1],
-                                        opacity: [0.5, 0.8, 0.5]
-                                      }}
-                                      transition={{ 
-                                        duration: 3, 
-                                        repeat: Infinity,
-                                        delay: index * 0.7 
-                                      }}
-                                    />
+                <div className="flex flex-col gap-8 max-w-2xl mx-auto mb-8">
+                  {leaders.slice(0, 2).map((leader, idx) => {
+                    const index = idx;
+                    return (
+                      <motion.div
+                        key={leader.id}
+                        variants={cardVariants}
+                        initial="hidden"
+                        animate={isInView ? "visible" : "hidden"}
+                        whileHover="hover"
+                        className="group relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-slate-200/60 overflow-hidden cursor-pointer"
+                        onClick={() => openLeaderModal(leader)}
+                      >
+                        <div className="relative p-8">
+                          <div className="flex flex-col lg:flex-row gap-8">
+                            {/* Аватар руководителя с градиентом */}
+                            <motion.div
+                              className="flex-shrink-0 relative"
+                              whileHover={{ scale: 1.05, rotate: 2 }}
+                              transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                            >
+                              {leader.photo ? (
+                                <img
+                                  src={leader.photo}
+                                  alt={leader.name}
+                                  className="w-32 h-32 rounded-3xl object-contain shadow-2xl group-hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-slate-50 to-slate-100"
+                                />
+                              ) : (
+                                <div className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${generateGradient(leader.name)} relative overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500`}>
+                                  <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-white text-4xl font-bold tracking-wider">
+                                      {getInitials(leader.name)}
+                                    </span>
                                   </div>
-                                )}
-                                
-                                {/* Статус онлайн */}
-                                <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-4 border-white shadow-lg">
+                                  
+                                  {/* Анимированные элементы */}
                                   <motion.div
-                                    className="w-full h-full rounded-full bg-green-400"
-                                    animate={{ scale: [1, 1.5, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
+                                    className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full shadow-lg"
+                                    animate={{ 
+                                      scale: [1, 1.2, 1],
+                                      rotate: [0, 180, 360]
+                                    }}
+                                    transition={{ 
+                                      duration: 4, 
+                                      repeat: Infinity, 
+                                      ease: "easeInOut",
+                                      delay: index * 0.5 
+                                    }}
+                                  />
+                                  
+                                  <motion.div
+                                    className="absolute -bottom-2 -left-2 w-6 h-6 bg-white/30 rounded-full"
+                                    animate={{ 
+                                      scale: [1, 1.5, 1],
+                                      opacity: [0.5, 0.8, 0.5]
+                                    }}
+                                    transition={{ 
+                                      duration: 3, 
+                                      repeat: Infinity,
+                                      delay: index * 0.7 
+                                    }}
                                   />
                                 </div>
-                              </motion.div>
-
-                              {/* Информация о руководителе */}
-                              <div className="flex-1 min-w-0">
-                                <motion.h3 
-                                  className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-cyan-600 group-hover:bg-clip-text transition-all duration-500"
-                                  whileHover={{ x: 5 }}
-                                >
-                                  {leader.name}
-                                </motion.h3>
-                                
-                                <motion.p 
-                                  className="text-blue-600 font-semibold mb-4 inline-flex items-center px-4 py-2 rounded-2xl bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200/50 text-sm shadow-sm group-hover:shadow-md transition-all duration-300"
-                                  whileHover={{ scale: 1.05, y: -2 }}
-                                >
-                                  <span className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse" />
-                                  {leader.position}
-                                </motion.p>
-
-                                <motion.p 
-                                  className="text-slate-600 leading-relaxed mb-6 text-base font-light line-clamp-3"
-                                  whileHover={{ x: 3 }}
-                                >
-                                  {leader.bio}
-                                </motion.p>
-
-                                {/* Ключевые достижения */}
-                                {leader.achievements && leader.achievements.length > 0 && (
-                                  <div className="space-y-3">
-                                    <h4 className="text-sm font-semibold text-slate-900 flex items-center">
-                                      <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                      </svg>
-                                      {t('leadership.achievementsTitle')}
-                                    </h4>
-                                    <ul className="space-y-2">
-                                      {leader.achievements.slice(0, 3).map((achievement, achievementIndex) => (
-                                        <motion.li 
-                                          key={achievementIndex}
-                                          className="flex items-start text-sm text-slate-600 group/achievement"
-                                          initial={{ opacity: 0, x: -10 }}
-                                          animate={{ opacity: 1, x: 0 }}
-                                          transition={{ delay: index * 0.1 + achievementIndex * 0.1 }}
-                                          whileHover={{ x: 5 }}
-                                        >
-                                          <span className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2 mr-3 flex-shrink-0 group-hover/achievement:scale-150 transition-transform duration-300" />
-                                          <span className="font-medium">{achievement}</span>
-                                        </motion.li>
-                                      ))}
-                                    </ul>
-                                  </div>
-                                )}
+                              )}
+                              
+                              {/* Статус онлайн */}
+                              <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-4 border-white shadow-lg">
+                                <motion.div
+                                  className="w-full h-full rounded-full bg-green-400"
+                                  animate={{ scale: [1, 1.5, 1] }}
+                                  transition={{ duration: 2, repeat: Infinity }}
+                                />
                               </div>
-                            </div>
-
-                            {/* Индикатор клика */}
-                            <motion.div 
-                              className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center text-slate-500 text-sm font-medium"
-                              whileHover={{ x: 5 }}
-                            >
-                              {t('leadership.viewDetails')}
-                              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                              </svg>
                             </motion.div>
+
+                            {/* Информация о руководителе */}
+                            <div className="flex-1 min-w-0">
+                              <motion.h3 
+                                className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-cyan-600 group-hover:bg-clip-text transition-all duration-500"
+                                whileHover={{ x: 5 }}
+                              >
+                                {leader.name}
+                              </motion.h3>
+                              
+                              <motion.p 
+                                className="text-blue-600 font-semibold mb-4 inline-flex items-center px-4 py-2 rounded-2xl bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200/50 text-sm shadow-sm group-hover:shadow-md transition-all duration-300"
+                                whileHover={{ scale: 1.05, y: -2 }}
+                              >
+                                <span className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse" />
+                                {leader.position}
+                              </motion.p>
+
+                              <motion.p 
+                                className="text-slate-600 leading-relaxed mb-6 text-base font-light line-clamp-3"
+                                whileHover={{ x: 3 }}
+                              >
+                                {leader.bio}
+                              </motion.p>
+
+                              {/* Ключевые достижения */}
+                              {leader.achievements && leader.achievements.length > 0 && (
+                                <div className="space-y-3">
+                                  <h4 className="text-sm font-semibold text-slate-900 flex items-center">
+                                    <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    {t('leadership.achievementsTitle')}
+                                  </h4>
+                                  <ul className="space-y-2">
+                                    {leader.achievements.slice(0, 3).map((achievement, achievementIndex) => (
+                                      <motion.li 
+                                        key={achievementIndex}
+                                        className="flex items-start text-sm text-slate-600 group/achievement"
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: index * 0.1 + achievementIndex * 0.1 }}
+                                        whileHover={{ x: 5 }}
+                                      >
+                                        <span className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2 mr-3 flex-shrink-0 group-hover/achievement:scale-150 transition-transform duration-300" />
+                                        <span className="font-medium">{achievement}</span>
+                                      </motion.li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              )}
+                            </div>
                           </div>
 
-                          {/* Градиентная полоса внизу */}
+                          {/* Индикатор клика */}
                           <motion.div 
-                            className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 group-hover:w-full transition-all duration-700 ease-out"
-                          />
-                        </motion.div>
-                      );
-                    })()}
-                  </div>
+                            className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center text-slate-500 text-sm font-medium"
+                            whileHover={{ x: 5 }}
+                          >
+                            {t('leadership.viewDetails')}
+                            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </motion.div>
+                        </div>
+
+                        {/* Градиентная полоса внизу */}
+                        <motion.div 
+                          className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 group-hover:w-full transition-all duration-700 ease-out"
+                        />
+                      </motion.div>
+                    );
+                  })}
                 </div>
               )}
 
               {/* Остальные карточки - по 2 в ряд */}
-              {leaders.length > 1 && (
+              {leaders.length > 2 && (
                 <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                  {leaders.slice(1).map((leader, idx) => {
-                    const index = idx + 1;
+                  {leaders.slice(2).map((leader, idx) => {
+                    const index = idx + 2;
                     return (
                 <motion.div
                   key={leader.id}
