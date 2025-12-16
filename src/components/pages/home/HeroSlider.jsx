@@ -37,7 +37,7 @@ const HeroSlider = () => {
           description: banner.description,
           buttonText: banner.link_url ? t('hero.bannerButton') : null,
           buttonLink: banner.link_url,
-          image: banner.icon,
+          image: banner.photo,
           overlay: "bg-blue-900/70"
         }));
         

@@ -450,7 +450,7 @@ const AboutFacts = () => {
                           className={colors.text}
                           transition={{ duration: 0.5 }}
                         >
-                          <img src={fact.icon} alt={fact.title} className="w-6 h-6" />
+                          <img src={fact.photo} alt={fact.title} className="w-6 h-6" />
                         </motion.div>
                       </motion.div>
                       
@@ -532,7 +532,7 @@ const AboutFacts = () => {
                     <div className={`relative p-8 border-b-4 ${colorMap[selectedFact.color].border}`}>
                       <div className="flex items-start space-x-6 mb-6">
                         <div className={`flex-shrink-0 w-20 h-20 ${colorMap[selectedFact.color].light} rounded-2xl flex items-center justify-center shadow-lg`}>
-                          <img src={selectedFact.icon} alt={selectedFact.title} className="w-10 h-10" />
+                          <img src={selectedFact.photo} alt={selectedFact.title} className="w-10 h-10" />
                         </div>
                         
                         <div className="flex-1">
@@ -558,28 +558,6 @@ const AboutFacts = () => {
                     </div>
                     
                     <div className="p-8">
-                      <h4 className="text-2xl font-bold text-slate-900 mb-6">
-                        {t('facts.details')}
-                      </h4>
-                      
-                      <div className="space-y-4">
-                        {Array.isArray(selectedFact.details) ? (
-                          selectedFact.details.map((detail, idx) => (
-                            <div
-                              key={idx}
-                              className="flex items-start space-x-4 p-4 bg-slate-50 rounded-2xl"
-                            >
-                              <div className={`w-3 h-3 rounded-full ${colorMap[selectedFact.color].medium} mt-2 flex-shrink-0`}></div>
-                              <p className="text-slate-700 leading-relaxed text-lg">{detail.detail || detail}</p>
-                            </div>
-                          ))
-                        ) : (
-                          <p className="text-slate-700 leading-relaxed text-lg">
-                            {typeof selectedFact.details === 'string' ? selectedFact.details : JSON.stringify(selectedFact.details)}
-                          </p>
-                        )}
-                      </div>
-                      
                       <div className="mt-8 pt-6 border-t border-slate-200">
                         <button
                           onClick={closeModal}
