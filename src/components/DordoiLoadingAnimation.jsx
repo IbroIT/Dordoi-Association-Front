@@ -29,7 +29,8 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
       y: Math.random() * 100,
       size: Math.random() * 4 + 1,
       delay: Math.random() * 2000,
-      opacity: 0
+      opacity: 0,
+      floatType: i % 3
     }));
     setParticles(newParticles);
   }, [showAnimation]);
@@ -76,6 +77,7 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
   // Основная анимация
   useEffect(() => {
     if (!showAnimation) return;
+    
     const timeline = [
       { time: 0, stage: 1 },
       { time: 800, stage: 2 },
@@ -85,22 +87,24 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
       { time: 3800, stage: 6 }
     ];
 
+    const timeoutIds = [];
     timeline.forEach(({ time, stage }) => {
-      setTimeout(() => setAnimationStage(stage), time);
+      timeoutIds.push(setTimeout(() => setAnimationStage(stage), time));
     });
 
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
     }, 4500);
+    timeoutIds.push(exitTimer);
 
     const completionTimer = setTimeout(() => {
       localStorage.setItem('dordoiAnimationShown', 'true');
       onAnimationComplete?.();
     }, 6000);
+    timeoutIds.push(completionTimer);
 
     return () => {
-      clearTimeout(exitTimer);
-      clearTimeout(completionTimer);
+      timeoutIds.forEach(id => clearTimeout(id));
     };
   }, [onAnimationComplete, showAnimation]);
 
@@ -201,7 +205,7 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
                 `translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) scale(0)` : 
                 'translate(0, 0) scale(1)',
               transition: `all 0.6s cubic-bezier(0.4, 0, 0.8, 1) ${particle.id * 50}ms`,
-              animation: !isExiting ? `float-${particle.id % 3} 8s infinite ease-in-out` : 'none',
+              animation: !isExiting ? `float ${4 + particle.floatType}s infinite ease-in-out` : 'none',
               animationDelay: `${particle.delay}ms`
             }}
           />
@@ -309,20 +313,11 @@ const DordoiAnimatedLogo = ({ onAnimationComplete }) => {
 
       {/* Стили для анимаций */}
       <style jsx>{`
-        @keyframes float-0 {
+        @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        @keyframes float-1 {
-          0%, 100% { transform: translateX(0px) translateY(0px); }
-          33% { transform: translateX(10px) translateY(-15px); }
-          66% { transform: translateX(-5px) translateY(10px); }
-        }
-        
-        @keyframes float-2 {
-          0%, 100% { transform: translateY(0px) scale(1); }
-          50% { transform: translateY(15px) scale(1.1); }
+          25% { transform: translateY(-15px) rotate(90deg); }
+          50% { transform: translateY(-30px) rotate(180deg); }
+          75% { transform: translateY(-15px) rotate(270deg); }
         }
 
         @keyframes glow {
