@@ -56,9 +56,16 @@ import Footer from './components/Footer';
 import DordoiLoadingAnimation from './components/DordoiLoadingAnimation';
 import ScrollToTop from './components/ScrollToTop';
 
-function App() {
 
-  const [showAnimation, setShowAnimation] = useState(true);
+function App() {
+  // Проверяем localStorage только на клиенте
+  const getInitialAnimationState = () => {
+    if (typeof window !== 'undefined') {
+      return !localStorage.getItem('dordoiAnimationShown');
+    }
+    return true;
+  };
+  const [showAnimation, setShowAnimation] = useState(getInitialAnimationState);
 
   const handleAnimationComplete = () => {
     setShowAnimation(false);

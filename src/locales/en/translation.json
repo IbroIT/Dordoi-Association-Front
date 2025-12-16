@@ -4804,7 +4804,8 @@
       "fullContent": "Full news content",
       "category": "General",
       "author": "Press Service",
-      "readTime": "5 min read"
+      "readTime": "5 min read",
+      "content": "Full news content"
     },
     "share": {
       "copied": "Link copied to clipboard!",
