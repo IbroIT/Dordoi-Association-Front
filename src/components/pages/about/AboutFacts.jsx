@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { apiRequest } from '../../../api';
 
@@ -9,8 +9,6 @@ const AboutFacts = () => {
   const { t, i18n } = useTranslation();
   const [activeFact, setActiveFact] = useState(null);
   const [counterValues, setCounterValues] = useState({});
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedFact, setSelectedFact] = useState(null);
   const [facts, setFacts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -247,62 +245,9 @@ const AboutFacts = () => {
     }
   };
 
-  const modalVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.8,
-      y: 50
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut"
-      }
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.8,
-      y: -50,
-      transition: {
-        duration: 0.3
-      }
-    }
-  };
-
-  const overlayVariants = {
-    hidden: {
-      opacity: 0
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.3
-      }
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: 0.2
-      }
-    }
-  };
-
   const handleDownloadBrochure = () => {
     // Логика скачивания брошюры
     console.log('Download brochure');
-  };
-
-  const openModal = (fact) => {
-    setSelectedFact(fact);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    setSelectedFact(null);
   };
 
   return (
@@ -416,7 +361,7 @@ const AboutFacts = () => {
             className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-20"
           >
             {facts.map((fact, index) => {
-              const colors = colorMap[fact.color];
+              const colors = colorMap['blue'];
               
               return (
                 <motion.div
@@ -427,8 +372,7 @@ const AboutFacts = () => {
                   layout
                 >
                   <motion.div
-                    className={`relative bg-white/90 backdrop-blur-sm rounded-3xl p-8 border-2 ${colors.border} shadow-2xl shadow-${fact.color}-500/10 hover:shadow-${fact.color}-500/20 transition-all duration-500 h-full flex flex-col cursor-pointer overflow-hidden`}
-                    onClick={() => openModal(fact)}
+                    className={`relative bg-white/90 backdrop-blur-sm rounded-3xl p-8 border-2 ${colors.border} shadow-2xl shadow-${fact.color}-500/10 hover:shadow-${fact.color}-500/20 transition-all duration-500 h-full flex flex-col overflow-hidden`}
                   >
                     {/* Акцентная градиентная полоса */}
                     <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.gradient}`}></div>
@@ -436,61 +380,17 @@ const AboutFacts = () => {
                     {/* Декоративный уголок */}
                     <div className={`absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 ${colors.border} rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
 
-                    <div className="flex items-start space-x-6 mb-6">
-                      <motion.div 
-                        className={`flex-shrink-0 w-16 h-16 ${colors.light} rounded-2xl flex items-center justify-center group-hover:${colors.medium} transition-all duration-300 shadow-lg`}
-                        whileHover={{ 
-                          scale: 1.1, 
-                          rotate: 5,
-                          boxShadow: `0 10px 25px -5px ${colors.text}40`
-                        }}
-                        transition={{ type: "spring", stiffness: 400 }}
-                      >
-                        <motion.div 
-                          className={colors.text}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <img src={fact.photo} alt={fact.title} className="w-6 h-6" />
-                        </motion.div>
-                      </motion.div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className={`text-2xl font-bold mb-3 ${colors.text}`}>
+                        {fact.title}
+                      </h3>
                       
-                      <div className="flex-1 min-w-0">
-                        <h3 className={`text-2xl font-bold mb-3 ${colors.text}`}>
-                          {fact.title}
-                        </h3>
-                        
-                        
-                      </div>
+                      
                     </div>
                     
                     <p className="text-slate-600 leading-relaxed flex-grow text-lg font-light">
                       {fact.description}
                     </p>
-
-                    {/* Кнопка для подробностей */}
-                    <motion.div 
-                      className="mt-6 flex items-center justify-between"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                    >
-                      <button className={`flex items-center space-x-2 ${colors.text} font-semibold text-sm hover:underline`}>
-                        <span>{t('facts.more')}</span>
-                        <motion.svg 
-                          className="w-4 h-4" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          viewBox="0 0 24 24"
-                          transition={{ duration: 0.3 }}
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </motion.svg>
-                      </button>
-                      
-                      <motion.div 
-                        className={`w-3 h-3 rounded-full ${colors.medium} group-hover:${colors.dark} transition-colors duration-300`}
-                      />
-                    </motion.div>
 
                     {/* Декоративный элемент при наведении */}
                     <motion.div
@@ -506,74 +406,6 @@ const AboutFacts = () => {
           </motion.div>
         )}
       </div>
-
-      {/* Модальное окно */}
-      <AnimatePresence>
-        {modalOpen && selectedFact && (
-          <>
-            <motion.div
-              variants={overlayVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-              onClick={closeModal}
-            >
-              <motion.div
-                variants={modalVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {selectedFact && (
-                  <>
-                    <div className={`relative p-8 border-b-4 ${colorMap[selectedFact.color].border}`}>
-                      <div className="flex items-start space-x-6 mb-6">
-                        <div className={`flex-shrink-0 w-20 h-20 ${colorMap[selectedFact.color].light} rounded-2xl flex items-center justify-center shadow-lg`}>
-                          <img src={selectedFact.photo} alt={selectedFact.title} className="w-10 h-10" />
-                        </div>
-                        
-                        <div className="flex-1">
-                          <h3 className={`text-3xl font-bold mb-3 ${colorMap[selectedFact.color].text}`}>
-                            {selectedFact.title}
-                          </h3>
-                          
-                          
-                          <p className="text-xl text-slate-600 leading-relaxed">
-                            {selectedFact.description}
-                          </p>
-                        </div>
-                      </div>
-                      
-                      <button
-                        onClick={closeModal}
-                        className="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors duration-200"
-                      >
-                        <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
-                    </div>
-                    
-                    <div className="p-8">
-                      <div className="mt-8 pt-6 border-t border-slate-200">
-                        <button
-                          onClick={closeModal}
-                          className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 py-4 rounded-2xl font-bold transition-colors duration-200"
-                        >
-                          {t('facts.close')}
-                        </button>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </motion.div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
