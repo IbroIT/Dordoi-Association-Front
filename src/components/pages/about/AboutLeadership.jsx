@@ -318,29 +318,31 @@ const AboutLeadership = () => {
                                 </motion.p>
 
                                 {/* Ключевые достижения */}
-                                <div className="space-y-3">
-                                  <h4 className="text-sm font-semibold text-slate-900 flex items-center">
-                                    <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    {t('leadership.achievementsTitle')}
-                                  </h4>
-                                  <ul className="space-y-2">
-                                    {leader.achievements && leader.achievements.slice(0, 3).map((achievement, achievementIndex) => (
-                                      <motion.li 
-                                        key={achievementIndex}
-                                        className="flex items-start text-sm text-slate-600 group/achievement"
-                                        initial={{ opacity: 0, x: -10 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: index * 0.1 + achievementIndex * 0.1 }}
-                                        whileHover={{ x: 5 }}
-                                      >
-                                        <span className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2 mr-3 flex-shrink-0 group-hover/achievement:scale-150 transition-transform duration-300" />
-                                        <span className="font-medium">{achievement}</span>
-                                      </motion.li>
-                                    ))}
-                                  </ul>
-                                </div>
+                                {leader.achievements && leader.achievements.length > 0 && (
+                                  <div className="space-y-3">
+                                    <h4 className="text-sm font-semibold text-slate-900 flex items-center">
+                                      <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                      </svg>
+                                      {t('leadership.achievementsTitle')}
+                                    </h4>
+                                    <ul className="space-y-2">
+                                      {leader.achievements.slice(0, 3).map((achievement, achievementIndex) => (
+                                        <motion.li 
+                                          key={achievementIndex}
+                                          className="flex items-start text-sm text-slate-600 group/achievement"
+                                          initial={{ opacity: 0, x: -10 }}
+                                          animate={{ opacity: 1, x: 0 }}
+                                          transition={{ delay: index * 0.1 + achievementIndex * 0.1 }}
+                                          whileHover={{ x: 5 }}
+                                        >
+                                          <span className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2 mr-3 flex-shrink-0 group-hover/achievement:scale-150 transition-transform duration-300" />
+                                          <span className="font-medium">{achievement}</span>
+                                        </motion.li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                )}
                               </div>
                             </div>
 
@@ -369,7 +371,7 @@ const AboutLeadership = () => {
 
               {/* Остальные карточки - по 2 в ряд */}
               {leaders.length > 1 && (
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                   {leaders.slice(1).map((leader, idx) => {
                     const index = idx + 1;
                     return (
@@ -469,29 +471,31 @@ const AboutLeadership = () => {
                         </motion.p>
 
                         {/* Ключевые достижения */}
-                        <div className="space-y-3">
-                          <h4 className="text-sm font-semibold text-slate-900 flex items-center">
-                            <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            {t('leadership.achievementsTitle')}
-                          </h4>
-                          <ul className="space-y-2">
-                            {leader.achievements && leader.achievements.slice(0, 3).map((achievement, achievementIndex) => (
-                              <motion.li 
-                                key={achievementIndex}
-                                className="flex items-start text-sm text-slate-600 group/achievement"
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.1 + achievementIndex * 0.1 }}
-                                whileHover={{ x: 5 }}
-                              >
-                                <span className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2 mr-3 flex-shrink-0 group-hover/achievement:scale-150 transition-transform duration-300" />
-                                <span className="font-medium">{achievement}</span>
-                              </motion.li>
-                            ))}
-                          </ul>
-                        </div>
+                        {leader.achievements && leader.achievements.length > 0 && (
+                          <div className="space-y-3">
+                            <h4 className="text-sm font-semibold text-slate-900 flex items-center">
+                              <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              {t('leadership.achievementsTitle')}
+                            </h4>
+                            <ul className="space-y-2">
+                              {leader.achievements.slice(0, 3).map((achievement, achievementIndex) => (
+                                <motion.li 
+                                  key={achievementIndex}
+                                  className="flex items-start text-sm text-slate-600 group/achievement"
+                                  initial={{ opacity: 0, x: -10 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ delay: index * 0.1 + achievementIndex * 0.1 }}
+                                  whileHover={{ x: 5 }}
+                                >
+                                  <span className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2 mr-3 flex-shrink-0 group-hover/achievement:scale-150 transition-transform duration-300" />
+                                  <span className="font-medium">{achievement}</span>
+                                </motion.li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -536,7 +540,7 @@ const AboutLeadership = () => {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 50 }}
               transition={{ type: "spring", damping: 25 }}
-              className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative p-8">
@@ -555,12 +559,12 @@ const AboutLeadership = () => {
                     <img
                       src={selectedLeader.photo}
                       alt={selectedLeader.name}
-                      className="w-48 h-48 rounded-3xl object-contain shadow-2xl bg-gradient-to-br from-slate-50 to-slate-100"
+                      className="w-72 h-72 rounded-3xl object-contain shadow-2xl bg-gradient-to-br from-slate-50 to-slate-100"
                     />
                   ) : (
-                    <div className={`w-48 h-48 rounded-3xl bg-gradient-to-br ${generateGradient(selectedLeader.name)} relative overflow-hidden shadow-2xl`}>
+                    <div className={`w-72 h-72 rounded-3xl bg-gradient-to-br ${generateGradient(selectedLeader.name)} relative overflow-hidden shadow-2xl`}>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-white text-5xl font-bold tracking-wider">
+                        <span className="text-white text-7xl font-bold tracking-wider">
                           {getInitials(selectedLeader.name)}
                         </span>
                       </div>
@@ -580,32 +584,36 @@ const AboutLeadership = () => {
                   </p>
 
                   <div className="grid md:grid-cols-2 gap-8">
-                    <div>
-                      <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
-                        <svg className="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {t('leadership.achievementsTitle')}
-                      </h4>
-                      <ul className="space-y-3">
-                        {selectedLeader.achievements.map((achievement, index) => (
-                          <li key={index} className="flex items-start text-slate-600">
-                            <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0" />
-                            <span>{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {selectedLeader.achievements && selectedLeader.achievements.length > 0 && (
+                      <div>
+                        <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
+                          <svg className="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {t('leadership.achievementsTitle')}
+                        </h4>
+                        <ul className="space-y-3">
+                          {selectedLeader.achievements.map((achievement, index) => (
+                            <li key={index} className="flex items-start text-slate-600">
+                              <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0" />
+                              <span>{achievement}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
 
-                    <div>
-                      <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
-                        <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
-                        {t('leadership.education')}
-                      </h4>
-                      <p className="text-slate-600">{selectedLeader.education}</p>
-                    </div>
+                    {selectedLeader.education && (
+                      <div>
+                        <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
+                          <svg className="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                          </svg>
+                          {t('leadership.education')}
+                        </h4>
+                        <p className="text-slate-600">{selectedLeader.education}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

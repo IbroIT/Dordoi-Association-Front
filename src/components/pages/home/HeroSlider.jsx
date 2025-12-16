@@ -134,21 +134,16 @@ const HeroSlider = () => {
             {/* Контент */}
             <div className="relative h-full flex items-center">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                <div className="max-w-2xl">
+                <div className="max-w-6xl">
                   <div className="space-y-6">
                     {/* Заголовок */}
-                    <h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-tight">
+                    <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight">
                       {slide.title}
                     </h1>
                     
                     {/* Подзаголовок */}
                     <p className="text-xl md:text-2xl text-yellow-300 font-semibold">
                       {slide.subtitle}
-                    </p>
-                    
-                    {/* Описание */}
-                    <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-lg">
-                      {slide.description}
                     </p>
                     
                     {/* Кнопка */}
