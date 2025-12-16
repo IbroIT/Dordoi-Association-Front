@@ -98,19 +98,30 @@ const SubsidiaryDetail = () => {
           className="bg-white rounded-3xl shadow-2xl overflow-hidden"
         >
           {/* Заголовок */}
-          <div className="bg-gradient-to-r from-blue-600 to-cyan-600 px-8 md:px-12 py-12 text-white">
-            <div className="flex items-center space-x-6">
-              <div className="w-24 h-24 bg-white bg-opacity-20 rounded-3xl flex items-center justify-center shadow-lg">
-                <img src={subsidiary.logo} alt={subsidiary.name} className="w-16 h-16 object-contain" />
+          <div className="relative bg-gradient-to-r from-blue-600 to-cyan-600 px-8 md:px-12 py-32 text-white overflow-hidden">
+            {/* Большое фото компании по центру */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-80 h-80 md:w-96 md:h-96 bg-white bg-opacity-10 rounded-full flex items-center justify-center shadow-2xl overflow-hidden backdrop-blur-sm">
+                <img 
+                  src={subsidiary.logo} 
+                  alt={subsidiary.name} 
+                  className="w-full h-full object-contain" 
+                />
               </div>
-              <div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-2">
-                  {subsidiary.name}
-                </h1>
-                <p className="text-xl text-blue-100">
-                  Основана в {subsidiary.founded}
+            </div>
+            
+            {/* Оверлей для текста */}
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 via-transparent to-cyan-900/70"></div>
+            
+            <div className="relative z-10 text-center flex flex-col items-center justify-center min-h-full">
+              <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-2xl text-white">
+                {subsidiary.name}
+              </h1>
+              {subsidiary.founded_year && (
+                <p className="text-xl md:text-2xl text-blue-100 drop-shadow-lg">
+                  Основана в {subsidiary.founded_year}
                 </p>
-              </div>
+              )}
             </div>
           </div>
 
@@ -155,68 +166,91 @@ const SubsidiaryDetail = () => {
             )}
 
             {/* Контактная информация */}
-            <motion.div
-              variants={itemVariants}
-              className="mb-12"
-            >
-              <h2 className="text-2xl font-bold text-slate-900 mb-8">Контакты</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
-                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-slate-900 mb-1">Адрес</div>
-                    <div className="text-slate-600">{subsidiary.address}</div>
-                  </div>
+            {(subsidiary.address || subsidiary.contacts || subsidiary.email || subsidiary.phone) && (
+              <motion.div
+                variants={itemVariants}
+                className="mb-12"
+              >
+                <h2 className="text-2xl font-bold text-slate-900 mb-8">Контакты</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {subsidiary.address && (
+                    <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                      <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-slate-900 mb-1">Адрес</div>
+                        <div className="text-slate-600">{subsidiary.address}</div>
+                      </div>
+                    </div>
+                  )}
+                  {subsidiary.email && (
+                    <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                      <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-slate-900 mb-1">Email</div>
+                        <div className="text-slate-600">{subsidiary.email}</div>
+                      </div>
+                    </div>
+                  )}
+                  {subsidiary.phone && (
+                    <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                      <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-slate-900 mb-1">Телефон</div>
+                        <div className="text-slate-600">{subsidiary.phone}</div>
+                      </div>
+                    </div>
+                  )}
+                  {subsidiary.contacts && (
+                    <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                      <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-slate-900 mb-1">Контакты</div>
+                        <div className="text-slate-600">{subsidiary.contacts}</div>
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
-                  <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-slate-900 mb-1">Email</div>
-                    <div className="text-slate-600">{subsidiary.email}</div>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
-                  <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-slate-900 mb-1">Телефон</div>
-                    <div className="text-slate-600">{subsidiary.phone}</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            )}
 
             {/* Кнопки действий */}
             <motion.div
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4 pt-8 border-t border-slate-200"
             >
-              <a
-                href={subsidiary.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300 shadow-md inline-flex items-center justify-center space-x-3"
-              >
-                <span>Перейти на сайт</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
+              {subsidiary.website && (
+                <a
+                  href={subsidiary.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300 shadow-md inline-flex items-center justify-center space-x-3"
+                >
+                  <span>Перейти на сайт</span>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              )}
               <button
                 onClick={() => navigate('/about/structure')}
-                className="px-8 py-4 bg-slate-100 text-slate-700 rounded-2xl font-semibold hover:bg-slate-200 transition-all duration-300"
+                className={`${subsidiary.website ? '' : 'flex-1'} px-8 py-4 bg-slate-100 text-slate-700 rounded-2xl font-semibold hover:bg-slate-200 transition-all duration-300`}
               >
                 Вернуться к структуре
               </button>

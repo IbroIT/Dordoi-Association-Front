@@ -536,36 +536,38 @@ const AboutStructure = () => {
                   <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
                   
                   <div className="relative z-10">
-                    <div className="flex items-start space-x-6">
-                      {/* Логотип */}
-                      <div className="flex-shrink-0">
-                        <div className="w-16 h-16 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow duration-300">
-                          <img src={subsidiary.logo} alt={subsidiary.name} className="w-12 h-12 object-contain" />
-                        </div>
+                    {/* Фото компании */}
+                    <div className="mb-6">
+                      <div className="w-full h-48 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-xl transition-all duration-500 overflow-hidden">
+                        <img 
+                          src={subsidiary.logo} 
+                          alt={subsidiary.name} 
+                          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" 
+                        />
                       </div>
+                    </div>
+                    
+                    {/* Контент */}
+                    <div className="text-center">
+                      <h4 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-900 transition-colors duration-300">
+                        {subsidiary.name}
+                      </h4>
+                      <p className="text-slate-600 leading-relaxed mb-6 text-sm">
+                        {subsidiary.short_description}
+                      </p>
                       
-                      {/* Контент */}
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-900 transition-colors duration-300">
-                          {subsidiary.name}
-                        </h4>
-                        <p className="text-slate-600 leading-relaxed mb-6 text-sm">
-                          {subsidiary.short_description}
-                        </p>
-                        
-                        {/* Кнопка */}
-                        <motion.button
-                          onClick={() => navigate(`/about/structure/${subsidiary.slug}`, { state: { subsidiary } })}
-                          className="inline-flex items-center space-x-2 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-800 transition-all duration-300 shadow-sm hover:shadow-md group-hover:bg-blue-600 group-hover:shadow-blue-200"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <span>Подробнее</span>
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
-                        </motion.button>
-                      </div>
+                      {/* Кнопка */}
+                      <motion.button
+                        onClick={() => navigate(`/about/structure/${subsidiary.slug}`, { state: { subsidiary } })}
+                        className="inline-flex items-center space-x-2 px-6 py-3 bg-slate-900 text-white text-sm font-medium rounded-xl hover:bg-slate-800 transition-all duration-300 shadow-sm hover:shadow-md group-hover:bg-blue-600 group-hover:shadow-blue-200"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <span>Подробнее</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </motion.button>
                     </div>
                   </div>
                   
