@@ -100,13 +100,11 @@ const Navbar = () => {
       icon: ActivitiesIcon,
       path: '/activities',
       submenu: [
-        { key: 'activities_trade', label: t('nav.activities_trade'), path: '/activities/trade' },
-        // { key: 'activities_finance', label: t('nav.activities_finance'), path: '/activities/finance' },
+        { key: 'activities_business_trade', label: t('nav.activities_business_trade'), path: '/activities/business-trade' },
+        { key: 'activities_infrastructure', label: t('nav.activities_infrastructure'), path: '/activities/infrastructure' },
         { key: 'activities_education', label: t('nav.activities_education'), path: '/activities/education' },
-        { key: 'activities_medicine', label: t('nav.activities_medicine'), path: '/activities/medicine' },
+        { key: 'activities_culture_leisure', label: t('nav.activities_culture_leisure'), path: '/activities/culture-leisure' },
         { key: 'activities_sports', label: t('nav.activities_sports'), path: '/activities/sports' },
-        { key: 'activities_culture', label: t('nav.activities_culture'), path: '/activities/culture' },
-        // { key: 'activities_social', label: t('nav.activities_social'), path: '/activities/social' }
       ]
     },
     {
