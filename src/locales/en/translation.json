@@ -430,6 +430,15 @@
       "subtitle": "Explore the profiles of our subsidiaries and their specializations",
       "learnMore": "Learn More",
       "viewAll": "All Companies",
+      "loading": "Loading subsidiaries...",
+      "backToStructure": "Back to structure",
+      "contacts": "Contacts",
+      "address": "Address",
+      "email": "Email",
+      "phone": "Phone",
+      "contactsField": "Contacts",
+      "website": "Go to website",
+      "error": "Failed to load company data",
       "trade": {
         "description": "International trade and distribution of premium quality goods"
       },

@@ -92,7 +92,7 @@ function App() {
             <Route path="/about/mission" element={<AboutMission />} />
             <Route path="/about/leadership" element={<AboutLeadership />} />
             <Route path="/about/structure" element={<AboutStructure />} />
-            <Route path="/about/structure/:companyId" element={<SubsidiaryDetail />} />
+            <Route path="/about/structure/:slug" element={<SubsidiaryDetail />} />
             <Route path="/about/facts" element={<AboutFacts />} />
 
             {/* Страницы Activities */}
