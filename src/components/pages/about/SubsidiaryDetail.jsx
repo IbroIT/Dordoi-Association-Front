@@ -1,16 +1,54 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { apiRequest } from '../../../api';
 
 const SubsidiaryDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { slug } = useParams();
+  const { t, i18n } = useTranslation();
+  const [subsidiary, setSubsidiary] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const subsidiary = location.state?.subsidiary;
+  // Загрузка данных subsidiary из API
+  useEffect(() => {
+    const fetchSubsidiary = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        console.log('Fetching subsidiary with slug:', slug, 'and lang:', lang);
+        const data = await apiRequest(`about-us/structure/${encodeURIComponent(slug)}/?lang=${lang}`);
+        console.log('Received data:', data);
+        setSubsidiary(data);
+      } catch (err) {
+        console.error('Error fetching subsidiary:', err);
+        setError(t('structure.subsidiaries.error'));
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (!subsidiary) {
+    if (slug) {
+      fetchSubsidiary();
+    }
+  }, [slug, i18n.language]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-slate-600">{t('common.loading')}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !subsidiary) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="text-center">
@@ -18,7 +56,7 @@ const SubsidiaryDetail = () => {
             <div className="text-8xl font-bold text-slate-300 mb-4">404</div>
             <h1 className="text-2xl font-bold text-slate-900 mb-4">Компания не найдена</h1>
             <p className="text-slate-600 mb-8">
-              Информация о запрашиваемой компании не найдена.
+              {error || 'Информация о запрашиваемой компании не найдена.'}
             </p>
             <button
               onClick={() => navigate('/about/structure')}
@@ -87,7 +125,7 @@ const SubsidiaryDetail = () => {
             <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span className="text-slate-700 font-medium">Вернуться к структуре</span>
+            <span className="text-slate-700 font-medium">{t('structure.subsidiaries.backToStructure')}</span>
           </button>
         </motion.div>
 
@@ -101,7 +139,7 @@ const SubsidiaryDetail = () => {
           <div className="relative bg-gradient-to-r from-blue-600 to-cyan-600 px-8 md:px-12 py-32 text-white overflow-hidden">
             {/* Большое фото компании по центру */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-80 h-80 md:w-96 md:h-96 bg-white bg-opacity-10 rounded-full flex items-center justify-center shadow-2xl overflow-hidden backdrop-blur-sm">
+              <div className="w-80 h-80 md:w-96 md:h-96 bg-white bg-opacity-10 flex items-center justify-center shadow-2xl overflow-hidden backdrop-blur-sm">
                 <img 
                   src={subsidiary.logo} 
                   alt={subsidiary.name} 
@@ -113,57 +151,25 @@ const SubsidiaryDetail = () => {
             {/* Оверлей для текста */}
             <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 via-transparent to-cyan-900/70"></div>
             
-            <div className="relative z-10 text-center flex flex-col items-center justify-center min-h-full">
-              <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-2xl text-white">
-                {subsidiary.name}
-              </h1>
-              {subsidiary.founded_year && (
-                <p className="text-xl md:text-2xl text-blue-100 drop-shadow-lg">
-                  Основана в {subsidiary.founded_year}
-                </p>
-              )}
-            </div>
+            
           </div>
 
           <div className="px-8 md:px-12 py-12">
+            <div className="relative z-10 flex flex-col min-h-full">
+              <h1 className="text-2xl md:text-4xl font-bold mb-4 drop-shadow-2xl text-black">
+                {subsidiary.name}
+              </h1>
+            </div>
             {/* Описание */}
             <motion.div
               variants={itemVariants}
               className="mb-12"
             >
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">О компании</h2>
-              <p className="text-lg text-slate-700 leading-relaxed">
-                {subsidiary.description}
-              </p>
+              <div 
+                className="text-lg text-slate-700 leading-relaxed prose prose-slate max-w-none"
+                dangerouslySetInnerHTML={{ __html: subsidiary.description }}
+              />
             </motion.div>
-
-            {/* Достижения */}
-            {subsidiary.achievements && subsidiary.achievements.length > 0 && (
-              <motion.div
-                variants={itemVariants}
-                className="mb-12"
-              >
-                <h2 className="text-2xl font-bold text-slate-900 mb-8">Достижения</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {subsidiary.achievements.map((achievement, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-center space-x-4 p-6 bg-gradient-to-r from-slate-50 to-slate-100 rounded-2xl border border-slate-200"
-                    >
-                      <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <span className="text-slate-700 font-medium">{achievement}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
 
             {/* Контактная информация */}
             {(subsidiary.address || subsidiary.contacts || subsidiary.email || subsidiary.phone) && (
@@ -171,7 +177,7 @@ const SubsidiaryDetail = () => {
                 variants={itemVariants}
                 className="mb-12"
               >
-                <h2 className="text-2xl font-bold text-slate-900 mb-8">Контакты</h2>
+                <h2 className="text-2xl font-bold text-slate-900 mb-8">{t('structure.subsidiaries.contacts')}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {subsidiary.address && (
                     <div className="flex items-start space-x-4 p-6 bg-slate-50 rounded-2xl border border-slate-200">
@@ -182,7 +188,7 @@ const SubsidiaryDetail = () => {
                         </svg>
                       </div>
                       <div>
-                        <div className="font-semibold text-slate-900 mb-1">Адрес</div>
+                        <div className="font-semibold text-slate-900 mb-1">{t('structure.subsidiaries.address')}</div>
                         <div className="text-slate-600">{subsidiary.address}</div>
                       </div>
                     </div>
@@ -195,7 +201,7 @@ const SubsidiaryDetail = () => {
                         </svg>
                       </div>
                       <div>
-                        <div className="font-semibold text-slate-900 mb-1">Email</div>
+                        <div className="font-semibold text-slate-900 mb-1">{t('structure.subsidiaries.email')}</div>
                         <div className="text-slate-600">{subsidiary.email}</div>
                       </div>
                     </div>
@@ -208,7 +214,7 @@ const SubsidiaryDetail = () => {
                         </svg>
                       </div>
                       <div>
-                        <div className="font-semibold text-slate-900 mb-1">Телефон</div>
+                        <div className="font-semibold text-slate-900 mb-1">{t('structure.subsidiaries.phone')}</div>
                         <div className="text-slate-600">{subsidiary.phone}</div>
                       </div>
                     </div>
@@ -221,7 +227,7 @@ const SubsidiaryDetail = () => {
                         </svg>
                       </div>
                       <div>
-                        <div className="font-semibold text-slate-900 mb-1">Контакты</div>
+                        <div className="font-semibold text-slate-900 mb-1">{t('structure.subsidiaries.contactsField')}</div>
                         <div className="text-slate-600">{subsidiary.contacts}</div>
                       </div>
                     </div>
@@ -242,7 +248,7 @@ const SubsidiaryDetail = () => {
                   rel="noopener noreferrer"
                   className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl font-semibold hover:shadow-lg transition-all duration-300 shadow-md inline-flex items-center justify-center space-x-3"
                 >
-                  <span>Перейти на сайт</span>
+                  <span>{t('structure.subsidiaries.website')}</span>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
@@ -252,7 +258,7 @@ const SubsidiaryDetail = () => {
                 onClick={() => navigate('/about/structure')}
                 className={`${subsidiary.website ? '' : 'flex-1'} px-8 py-4 bg-slate-100 text-slate-700 rounded-2xl font-semibold hover:bg-slate-200 transition-all duration-300`}
               >
-                Вернуться к структуре
+                {t('structure.subsidiaries.backToStructure')}
               </button>
             </motion.div>
           </div>

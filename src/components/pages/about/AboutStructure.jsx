@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { apiRequest } from '../../../api';
 
 const AboutStructure = () => {
   const ref = useRef(null);
@@ -27,13 +28,15 @@ const AboutStructure = () => {
       try {
         setLoading(true);
         const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
-        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/about-us/structure/?lang=${lang}`);
-        const data = await response.json();
-        
+        console.log('Current i18n.language:', i18n.language, 'Using lang param:', lang);
+        console.log('Fetching subsidiaries with lang:', lang);
+        const data = await apiRequest(`about-us/structure/?lang=${lang}`);
+        console.log('Received subsidiaries:', data);
         // Сортируем по order
         const sortedData = data.sort((a, b) => a.order - b.order);
         setSubsidiaries(sortedData);
       } catch (error) {
+        console.error('Error fetching subsidiaries:', error);
         // Error handled silently
       } finally {
         setLoading(false);
@@ -516,7 +519,7 @@ const AboutStructure = () => {
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-              <span className="ml-3 text-slate-600">Загрузка дочерних компаний...</span>
+              <span className="ml-3 text-slate-600">{t('structure.subsidiaries.loading')}</span>
             </div>
           ) : (
             <motion.div
@@ -552,9 +555,6 @@ const AboutStructure = () => {
                       <h4 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-900 transition-colors duration-300">
                         {subsidiary.name}
                       </h4>
-                      <p className="text-slate-600 leading-relaxed mb-6 text-sm">
-                        {subsidiary.short_description}
-                      </p>
                       
                       {/* Кнопка */}
                       <motion.button
@@ -563,7 +563,7 @@ const AboutStructure = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
-                        <span>Подробнее</span>
+                        <span>{t('structure.subsidiaries.learnMore')}</span>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
