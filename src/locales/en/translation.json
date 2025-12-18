@@ -1000,226 +1000,73 @@
     }
   },
   "education": {
-    "modal": {
-      "close": "Close",
-      "about": "About Program", 
-      "details": "Full Description",
-      "apply": "Apply",
-      "requirements": "Requirements",
-      "benefits": "Benefits",
-      "achievements": "Achievements"
+    "badge": "Education",
+    "title": "Education - opportunities for everyone",
+    "subtitle": "At \"Dordoi\" we create conditions for high-quality education - from school to international programs.",
+    "intro": "The \"Dordoi\" Association actively invests in education, creates educational institutions, develops projects and supports youth in acquiring the knowledge and skills necessary for successful life and career in the modern world.",
+    "includes": {
+      "title": "What the \"Education\" direction includes",
+      "schools": "Comprehensive schools",
+      "universities": "Higher education institutions",
+      "international": "International educational initiatives",
+      "specialists": "Training specialists in IT, business, medicine and other in-demand fields"
     },
-    "badge": "Education and Science",
-    "title": "Education and Science",
-    "lead": "The Dordoi Association plays a key role in the development of education and science in Kyrgyzstan. For many years, the organization has been supporting projects that help young people grow, develop, and find new opportunities for the future.",
-    "more": "More",
-    "less": "Collapse",
-    "tabs": {
-      "education": "Education",
-      "science": "Science",
-      "talents": "Talents", 
-      "centers": "Centers"
+    "university": {
+      "title": "Salyembekov University - higher education at international level",
+      "description": "This university was founded with the support of the \"Dordoi\" Association and the charitable foundation of Askar Salyembekov with the aim of providing affordable and high-quality higher education with international standards.",
+      "featuresTitle": "Main features:",
+      "feature1": "Training is conducted in Russian and English",
+      "feature2": "There are programs in IT, business, and medicine",
+      "feature3": "International educational standards are integrated",
+      "feature4": "Joint programs with foreign partners are implemented, for example with Lincoln University (Malaysia)",
+      "tagline": "This makes the university attractive for students from Kyrgyzstan and other countries.",
+      "website": "Website"
     },
-    "sections": {
-      "education": {
-        "title": "Education Support",
-        "description": "The association promotes the development of educational institutions throughout the country. It helps schools and educational centers strengthen their material base, improve learning conditions, and modernize the educational process. Thanks to such initiatives, young people gain access to quality and modern education."
+    "international": {
+      "title": "International collaborations and colleges",
+      "description": "The \"Dordoi\" Association actively develops international educational projects - for example, the International College of IT and Business, which operates together with Salymbekov University and foreign partners, including Lincoln University (Malaysia). Students receive double diplomas of Kyrgyz and international standards and are prepared for the labor market with a high level of skills."
+    },
+    "practical": {
+      "title": "Practical benefits for students",
+      "benefit1": "Training specialists in in-demand professions",
+      "benefit2": "Participation in international programs",
+      "benefit3": "Access to modern educational materials and laboratories",
+      "benefit4": "Opportunity to obtain international diplomas and certificates"
+    },
+    "future": {
+      "title": "Why education is an investment in the future",
+      "description": "The \"Dordoi\" Association considers education as a strategic direction for sustainable development of society. Thanks to educational projects:",
+      "impact1": "Youth acquire modern skills",
+      "impact2": "The level of professionalism in key industries increases",
+      "impact3": "Opportunities for career growth within the country and abroad are created"
+    },
+    "benefits": {
+      "title": "Benefits for you",
+      "students": {
+        "title": "For students and applicants",
+        "benefit1": "Access to universities with international programs",
+        "benefit2": "Opportunity to study in Russian and English",
+        "benefit3": "Practical preparation for real work"
       },
-      "science": {
-        "title": "Scientific Projects and Research",
-        "description": "With the support of the association, books, monographs, and scientific research are published. This expands access to knowledge, strengthens the country's scientific potential, and creates conditions for the development of research culture."
+      "parents": {
+        "title": "For parents",
+        "benefit1": "Children can receive quality education close to home",
+        "benefit2": ""
       },
-      "talents": {
-        "title": "Talent Development", 
-        "description": "The association pays great attention to young talents. It supports initiatives aimed at personal growth, leadership, and professional development. Young people from all regions participate in educational programs, projects, and trainings that help them unlock their potential and move forward confidently."
-      },
-      "centers": {
-        "title": "Educational Centers Creation",
-        "description": "On the initiative of the association, modern educational centers are opening, making quality knowledge accessible in different regions of the country. These centers become platforms for learning, meetings, and intellectual growth of youth."
+      "partners": {
+        "title": "For partners and employers",
+        "benefit1": "Trained personnel with modern skills",
+        "benefit2": "Cooperation with educational institutions"
       }
     },
-    "programs": {
-      "educationSupport": {
-        "title": "Education Support",
-        "description": "Development of educational institutions and improvement of learning conditions throughout the country",
-        "stats": "150+ educational institutions", 
-        "fullDescription": "The program aims to strengthen the material base of schools and educational centers, modernize the educational process, and ensure access to quality education for young people from all regions of Kyrgyzstan.",
-        "achievements": [
-          "Equipping schools with modern equipment",
-          "Repair and modernization of educational premises",
-          "Training and retraining of teachers",
-          "Implementation of digital educational technologies", 
-          "Creation of libraries and resource centers"
-        ],
-        "details": [
-          "Support for schools in 7 regions of Kyrgyzstan",
-          "Equipment with computer classes and laboratories",
-          "Teacher professional development programs",
-          "Implementation of interactive teaching methods",
-          "Creating conditions for inclusive education"
-        ]
-      },
-      "scienceProjects": {
-        "title": "Scientific Projects",
-        "description": "Support for scientific research and publication of scientific works",
-        "stats": "50+ research projects",
-        "fullDescription": "The program supports scientific initiatives, research projects, and developments of scientists. Thanks to such support, an active scientific community is being formed that can solve current problems and move the country forward.",
-        "achievements": [
-          "Publication of scientific monographs and collections",
-          "Support for participation in international conferences",
-          "Funding of research projects",
-          "Creation of scientific laboratories", 
-          "Publication of results in peer-reviewed journals"
-        ],
-        "details": [
-          "Grants for young scientists",
-          "Support for scientific expeditions",
-          "Organization of scientific seminars and symposia",
-          "Cooperation with international scientific centers",
-          "Popularization of science among youth"
-        ]
-      },
-      "talentDevelopment": {
-        "title": "Talent Development",
-        "description": "Support for young talents and leadership initiatives", 
-        "stats": "5000+ participants",
-        "fullDescription": "The program is aimed at identifying and supporting gifted youth, developing leadership qualities and professional skills. Participants get the opportunity to participate in educational programs, projects, and trainings throughout the country.",
-        "achievements": [
-          "Educational grants for gifted youth",
-          "Leadership programs and trainings",
-          "International internships and exchanges",
-          "Support for youth projects and startups",
-          "Professional mentoring"
-        ],
-        "details": [
-          "Programs for schoolchildren and students",
-          "Regional educational camps",
-          "Competitions and olympiads in various fields",
-          "Career guidance events",
-          "Support for creative and sports talents"
-        ]
-      },
-      "educationCenters": {
-        "title": "Educational Centers",
-        "description": "Creation of modern educational centers in regions",
-        "stats": "25+ centers",
-        "fullDescription": "The program provides for the creation and development of a network of modern educational centers in different regions of Kyrgyzstan. These centers become platforms for learning, intellectual growth, and professional development of youth.",
-        "achievements": [
-          "Centers in 6 regions of the country",
-          "Equipment with advanced technology",
-          "Additional education programs",
-          "Professional retraining courses",
-          "Research and project laboratories"
-        ],
-        "details": [
-          "IT centers and programming",
-          "Robotics and engineering centers", 
-          "Language and cultural centers",
-          "Entrepreneurial incubators",
-          "Soft skills development centers"
-        ]
-      }
-    },
-    "publications": {
-      "title": "Scientific Publications",
-      "details": {
-        "date": "Date",
-        "author": "Author"
-      },
-      "research1": {
-        "title": "Innovations in Education of Kyrgyzstan",
-        "author": "Collective of authors",
-        "year": "2023",
-        "type": "Monograph",
-        "pages": "280 pages", 
-        "description": "Comprehensive study of modern trends and innovative approaches in the education system of Kyrgyzstan",
-        "download": "Download PDF"
-      },
-      "monograph1": {
-        "title": "Sustainable Development of Kyrgyzstan's Regions",
-        "author": "A.K. Aliev",
-        "year": "2022",
-        "type": "Scientific Monograph",
-        "pages": "320 pages",
-        "description": "Analysis of sustainable development practices and their adaptation to the conditions of Kyrgyzstan's regions",
-        "download": "Download PDF"
-      },
-      "book1": {
-        "title": "Future Technologies for Kyrgyzstan", 
-        "author": "S.M. Mamatov",
-        "year": "2023",
-        "type": "Research",
-        "pages": "215 pages",
-        "description": "Technology development forecast and recommendations for their implementation in various sectors of Kyrgyzstan's economy",
-        "download": "Download PDF"
-      },
-      "research2": {
-        "title": "Social Entrepreneurship in Kyrgyzstan",
-        "author": "M.Zh. Zhusupov",
-        "year": "2021",
-        "type": "Scientific Research",
-        "pages": "190 pages",
-        "description": "Study of social entrepreneurship models and their potential for solving social problems in Kyrgyzstan",
-        "download": "Download PDF"
-      }
-    },
-    "stories": {
-      "title": "Success Stories",
-      "centersTitle": "Educational Centers", 
-      "locationLabel": "Location",
-      "studentsLabel": "Students",
-      "achievementsLabel": "Achievements",
-      "improvementsLabel": "Improvements",
-      "improvementsTitle": "Implemented Improvements",
-      "school1": {
-        "name": "Bilim Innovative Education Center",
-        "location": "Bishkek",
-        "students": "500+",
-        "achievements": "30+ projects", 
-        "description": "Modern educational center equipped with advanced equipment and offering additional education programs for schoolchildren and students from all over Kyrgyzstan.",
-        "improvements": [
-          "Digital laboratories and computer classes",
-          "Interactive educational platforms",
-          "Programming and artificial intelligence",
-          "Robotics and engineering",
-          "Language courses and cross-cultural communications"
-        ]
-      },
-      "scientist1": {
-        "name": "Dr. Aigul Satymova",
-        "position": "Leading Research Fellow",
-        "story": "Thanks to the association's support, she was able to conduct fundamental research in the field of biotechnology, the results of which were published in international scientific journals.",
-        "quote": "The association's support allowed me to implement an ambitious scientific project and contribute to the development of biotechnology in Kyrgyzstan.",
-        "achievements": [
-          "Publications in international scientific journals",
-          "Development of new analysis methods",
-          "Participation in international scientific conferences",
-          "Patents for scientific developments",
-          "Creation of a research group"
-        ]
-      },
-      "student1": {
-        "name": "Aibek Tashiev",
-        "position": "Student Programmer",
-        "story": "Participant in the talent development program, received an educational grant and completed an internship at a leading IT company. Currently developing his own startup in the field of educational technologies.",
-        "quote": "The program gave me not only knowledge but also confidence in my abilities. Now I can implement projects that truly change people's lives.",
-        "achievements": [
-          "Development of an educational application",
-          "Winning a national startup competition",
-          "Internship at an international IT company",
-          "Participation in hackathons and IT events",
-          "Mentoring for younger students"
-        ]
-      }
-    },
-    "cta": {
-      "title": "Become Part of Our Educational Programs",
-      "description": "Join our initiatives and get the opportunity to realize your potential in education and science",
-      "button": "Apply for Participation", 
-      "contact": "Contact Us",
-      "deadline": "Applications accepted year-round"
+    "faq": {
+      "title": "Frequently Asked Questions (FAQ)",
+      "question1": "Where can I study within the educational projects of \"Dordoi\"?",
+      "answer1": "At Salymbekov University and the International College of IT and Business, as well as at partner universities.",
+      "question2": "Can I get an international diploma?",
+      "answer2": "Yes - through programs with foreign partners of the college."
     }
-  },
+},
   "finance": {
     "completion": "Completion in %",
     "capacity": "Capacity",
@@ -1675,357 +1522,280 @@
     }
   },
   "sports": {
-    "badge": "Sports and Culture",
-    "title": "Sports and Culture",
-    "subtitle": "Supporting sports as a tool for education and national pride; development of cinema and cultural infrastructure",
-    "buttons": {
-      "close": "Close",
-      "about": "About Program",
-      "more": "Learn More",
-      "less": "Collapse",
-      "visit": "Visit",
-      "buyTickets": "Buy Tickets"
+    "badge": "Sport",
+    "title": "Sport",
+    "subtitle": "Supporting sports, health and strong generation",
+    "intro": "The Dordoi Association has been actively supporting sports development in Kyrgyzstan for many years. For Dordoi, sports is not only about achievements and victories, but also a contribution to public health, youth education and strong character formation.",
+    
+    "directions": {
+      "title": "What does the \"Sport\" direction include",
+      "subtitle": "Dordoi's sports activities cover:",
+      "professionalSports": "Professional and mass sports",
+      "professionalSportsDesc": "Support for both professional athletes and amateur competitions",
+      "clubSupport": "Support for sports clubs and federations",
+      "clubSupportDesc": "Financial and organizational assistance to sports organizations",
+      "youthSports": "Youth sports development",
+      "youthSportsDesc": "Creating conditions for sports development of children and teenagers",
+      "infrastructure": "Creation and support of sports infrastructure",
+      "infrastructureDesc": "Construction and maintenance of sports facilities",
+      "healthyLifestyle": "Promotion of healthy lifestyle",
+      "healthyLifestyleDesc": "Promotion of sports and healthy habits in society"
     },
-    "tabs": {
-      "dordoi": "FC «Dordoi»",
-      "kokboru": "Kök-börü",
-      "infrastructure": "Infrastructure",
-      "cinema": "Cinema and Culture"
+    
+    "fc": {
+      "title": "Football Club \"Dordoi\"",
+      "description": "The central place in sports activities is occupied by Football Club \"Dordoi\" - one of the most titled and famous clubs in Kyrgyzstan.",
+      "website": "Official website",
+      "achievementsTitle": "Club achievements",
+      "symbol": "FC \"Dordoi\" has become a symbol of stability, discipline and sports professionalism",
+      "symbolDescription": "The club demonstrates the highest level of organization and becomes an example for other sports organizations in the country"
     },
-    "dordoi": {
-      "title": "Football Club «Dordoi»",
-      "stadiumImage": "«Dordoi» Stadium",
-      "trophies": "20+",
-      "trophiesLabel": "Trophies",
-      "history": "Legendary club with rich history, founded in 1997. One of the most successful football clubs in Kyrgyzstan, multiple national champion.",
-      "achievements": "The club has repeatedly represented Kyrgyzstan internationally, participating in prestigious Asian tournaments and demonstrating high level of play.",
-      "achievementsTitle": "Key Achievements",
-      "stats": {
-        "title": "Club Statistics",
-        "items": [
-          {
-            "value": "13",
-            "label": "Championships"
-          },
-          {
-            "value": "8",
-            "label": "Cups"
-          },
-          {
-            "value": "250+",
-            "label": "International matches"
-          },
-          {
-            "value": "50+",
-            "label": "Academy graduates"
-          }
-        ]
-      },
-      "academy": {
-        "title": "Football Academy",
-        "description": "Professional system for training young footballers, ensuring generational continuity and talent development",
-        "groups": "18",
-        "groupsLabel": "Training groups",
-        "children": "360",
-        "childrenLabel": "Young footballers"
-      },
-      "supportedClubs": {
-        "title": "Supported Clubs",
-        "description": "3 clubs at professional level, ensuring football development at all career stages",
-        "list": [
-          "FC «Dordoi» (main team)",
-          "FC «Dordoi-2» (youth team)",
-          "FC «Dordoi-Zhashtyk» (junior team)"
-        ]
-      },
-      "achievementsList": [
-        {
-          "year": "2004",
-          "title": "First entry to AFC Cup group stage",
-          "description": "Historic achievement for Kyrgyz football - first entry to international tournament group stage"
-        },
-        {
-          "year": "2006-2009",
-          "title": "Four consecutive championships",
-          "description": "Setting record for consecutive championships in Kyrgyzstan Premier League"
-        },
-        {
-          "year": "2011",
-          "title": "Football academy creation",
-          "description": "Opening of modern academy for systematic training of young footballers"
-        },
-        {
-          "year": "2019",
-          "title": "Stadium reconstruction",
-          "description": "Large-scale reconstruction of home arena with pitch heating system installation"
-        }
-      ]
+    
+    "achievements": {
+      "multipleChampion": "Multiple champion of Kyrgyzstan",
+      "nationalTournaments": "Winner and prize-winner of national tournaments",
+      "internationalParticipation": "Participant in international competitions",
+      "talentDevelopment": "Talent forge for the national team"
     },
-    "infrastructure": {
-      "historyTitle": "Sports Infrastructure Development History",
-      "title": "Sports Infrastructure",
-      "description": "Construction and modernization of sports complexes, swimming pools and stadiums for mass sports development",
-      "investment": ">130 million soms",
-      "investmentLabel": "Invested in sports facilities",
-      "featuresTitle": "Main Features",
-      "stadiums": [
-        {
-          "name": "«Dordoi» Sports Complex",
-          "capacity": "Capacity: 10,000 spectators",
-          "stats": "15+ international matches per year",
-          "history": "Built in 2012, reconstructed in 2019 with pitch heating system and modern lighting installation",
-          "features": [
-            "Football pitch with heating",
-            "Modern running tracks",
-            "Gym facilities",
-            "European-level locker rooms"
-          ]
-        },
-        {
-          "name": "«Ala-Too» Swimming Pool",
-          "capacity": "Olympic standard 50m",
-          "stats": "5000+ visitors monthly",
-          "history": "Opened in 2015 as first indoor Olympic pool in the country",
-          "features": [
-            "8 Olympic standard lanes",
-            "Children's pool with slides",
-            "500-seat stands",
-            "Modern filtration system"
-          ]
-        },
-        {
-          "name": "«Spartak» Stadium",
-          "capacity": "Capacity: 23,000 spectators",
-          "stats": "Main arena of Kyrgyzstan national team",
-          "history": "Historic stadium, completely reconstructed in 2018 for international competitions",
-          "features": [
-            "Country's main sports arena",
-            "Athletics complex",
-            "VIP boxes and press center",
-            "Video surveillance system"
-          ]
-        }
-      ]
-    },
-    "cinema": {
-      "technologyTitle": "Modern Cinema Technologies",
-      "title": "Cinema and Culture",
-      "imagePlaceholder": "Cinema Network",
-      "description": "Development of film industry and cultural infrastructure to ensure accessibility of quality leisure for population.",
-      "featuresTitle": "Services and Equipment",
-      "network": {
-        "title": "«Cinematika» Network",
-        "description": "6+ modern cinemas nationwide, equipped with latest generation equipment",
-        "stats": [
-          {
-            "value": "25+",
-            "label": "Screens"
-          },
-          {
-            "value": "4000+",
-            "label": "Seats"
-          },
-          {
-            "value": "1.5 million",
-            "label": "Viewers annually"
-          },
-          {
-            "value": "50+",
-            "label": "Employees"
-          }
-        ]
-      },
-      "theaters": [
-        {
-          "name": "«Cinematika 1»",
-          "location": "Bishkek, center",
-          "capacity": "8 halls, 1200 seats",
-          "technology": "IMAX and Dolby Atmos system, 4K projection",
-          "features": [
-            "IMAX hall",
-            "Dolby Atmos sound",
-            "VIP halls with leather seats",
-            "Cafe and lounge zones"
-          ]
-        },
-        {
-          "name": "«Cinematika 2»",
-          "location": "Osh city",
-          "capacity": "6 halls, 800 seats",
-          "technology": "Laser projection, 7.1 surround sound",
-          "features": [
-            "Laser projectors",
-            "7.1 surround sound",
-            "Children's play areas",
-            "Conference hall"
-          ]
-        },
-        {
-          "name": "«Cinematika 3»",
-          "location": "Jalal-Abad city",
-          "capacity": "4 halls, 500 seats",
-          "technology": "4K projection, modern seats",
-          "features": [
-            "4K projection",
-            "Comfortable seats",
-            "Cafeteria",
-            "Parking"
-          ]
-        },
-        {
-          "name": "«Cinematika 4»",
-          "location": "Kara-Balta city",
-          "capacity": "3 halls, 400 seats",
-          "technology": "Full HD projection, digital sound",
-          "features": [
-            "Full HD quality",
-            "Digital sound",
-            "Popcorn bar",
-            "Accessible environment"
-          ]
-        }
+    
+    "youth": {
+      "title": "Youth and mass sports",
+      "description": "The Dordoi Association pays special attention to the development of children's and youth sports. Through sports schools, sections and tournaments, conditions are created for:",
+      "points": [
+        "Early involvement of children in sports",
+        "Physical and personal development",
+        "Formation of healthy habits",
+        "Identification of sports talents"
       ],
-      "festivals": {
-        "title": "Cultural Projects and Festivals",
-        "description": "Organization of international film festivals, cultural events and educational programs for creative potential development",
-        "events": [
-          {
-            "name": "International Film Festival",
-            "description": "Annual festival with participation of directors from 20+ countries"
-          },
-          {
-            "name": "National Film Festival",
-            "description": "Support and promotion of Kyrgyz filmmakers"
-          },
-          {
-            "name": "Educational Programs",
-            "description": "Master classes and courses for young filmmakers"
-          }
-        ]
+      "massSports": "Mass sports",
+      "massSportsDesc": "Mass sports helps to educate an active and healthy generation"
+    },
+    
+    "events": {
+      "title": "Support for sports events and federations",
+      "description": "Dordoi regularly supports various sports events, contributing to the development of sports culture in the country",
+      "supported": [
+        "City and republican tournaments",
+        "Sports federations",
+        "Youth competitions",
+        "Amateur and professional championships"
+      ]
+    },
+    
+    "infrastructure": {
+      "title": "Sports infrastructure",
+      "description": "As part of its activities, Dordoi participates in the creation and support of sports infrastructure:",
+      "items": [
+        "Football fields",
+        "Training bases",
+        "Sports halls",
+        "Venues for mass events"
+      ],
+      "benefitsTitle": "Infrastructure allows",
+      "benefits": "Athletes to train in comfortable conditions, and spectators to attend sports events"
+    },
+    
+    "socialResponsibility": {
+      "title": "Sport as social responsibility",
+      "description": "For the Dordoi Association, sport is part of the social mission. Investments in sports help:",
+      "health": "Strengthen public health",
+      "risks": "Reduce social risks",
+      "discipline": "Educate discipline and team spirit",
+      "example": "Form a positive example for youth"
+    },
+    
+    "benefits": {
+      "title": "Benefits for society",
+      "subtitle": "Dordoi's sports initiatives benefit different groups of society",
+      "youth": {
+        "title": "For youth",
+        "sportOpportunities": "Opportunity to play sports",
+        "sportOpportunitiesDesc": "Accessible sports sections and training",
+        "development": "Development of strength, endurance and confidence",
+        "developmentDesc": "Physical and psychological development through sports",
+        "career": "Chance to build a sports career",
+        "careerDesc": "Professional growth and achieving heights in sports"
+      },
+      "family": {
+        "title": "For families",
+        "events": "Access to sports events",
+        "eventsDesc": "Attending matches and competitions",
+        "participation": "Participation in mass events",
+        "participationDesc": "Sports holidays and family tournaments",
+        "lifestyle": "Example of an active lifestyle",
+        "lifestyleDesc": "Cultivating healthy habits in the family"
+      },
+      "partners": {
+        "title": "For partners",
+        "projects": "Participation in social projects",
+        "projectsDesc": "Joint charitable and social initiatives",
+        "support": "Support of national sports",
+        "supportDesc": "Contribution to the development of country's sports",
+        "initiatives": "Joint initiatives and tournaments",
+        "initiativesDesc": "Organization of joint sports events"
       }
     },
-    "cta": {
-      "title": "Become Part of Our Team",
-      "description": "Support sports and culture development in Kyrgyzstan - invest in future generations",
-      "supportButton": "Support Academy",
-      "ticketsButton": "Buy Ticket",
-      "sponsorshipButton": "Apply for Sponsorship"
+    
+    "faq": {
+      "title": "Frequently Asked Questions (FAQ)",
+      "subtitle": "Answers to popular questions about Dordoi's sports activities",
+      "1": {
+        "question": "Is children's sports supported?",
+        "answer": "Yes, the Dordoi Association pays great attention to youth and mass sports programs, creating conditions for the sports development of children and teenagers."
+      },
+      "2": {
+        "question": "Is it possible to become a partner of sports projects?",
+        "answer": "Yes, cooperation is possible in agreement with the administration of the Dordoi Association. We are open to partnership in the implementation of sports and social projects."
+      }
+    },
+    
+    "links": {
+      "title": "Useful links",
+      "fcOfficial": "FC \"Dordoi\" (official website)",
+      "fcHistory": "History of FC \"Dordoi\""
     }
   },
   "culture": {
-    "badge": "Culture",
-    "title": "Cultural",
-    "titleHighlight": "Initiatives",
-    "lead": "Preserving cultural heritage and supporting contemporary artistic practices for developing nation's creative potential",
-    "categories": {
-      "all": "All Projects",
-      "events": "Events",
-      "heritage": "Heritage",
-      "arts": "Arts",
-      "publications": "Publications"
+    "hero": {
+      "badge": "Dordoi",
+      "title": "Culture and Leisure"
     },
-    "stats": {
+    
+    "subtitle": "Spaces for life, traditions, creativity, and leisure",
+    
+    "intro": "Dordoi Association pays special attention to the development of culture and creating conditions for quality leisure time. We support cultural initiatives, preserve national traditions, and create modern spaces where people can relax, socialize, and spend time with family.",
+    
+    "introConclusion": "Culture and leisure are an important part of sustainable societal development and quality of life.",
+    
+    "directionsTitle": "What does the 'Culture and Leisure' direction include",
+    "directionsDescription": "Dordoi's activities in this direction cover:",
+    
+    "directions": [
+      "Cultural and social events",
+      "Support for national traditions and art",
+      "Creation of public and recreational spaces",
+      "Development of trade and entertainment complexes",
+      "Organization of family and urban leisure"
+    ],
+    
+    "mainDirections": "Main Directions",
+    "mainDirectionsDescription": "Key areas of activity in culture and leisure",
+    
+    "activities": {
       "events": {
-        "value": "50+",
-        "label": "Cultural events annually",
-        "description": "Compared to previous year"
+        "title": "Cultural Events and Projects",
+        "description": "Dordoi regularly supports and organizes cultural events aimed at preserving and popularizing the history, traditions, and values of the Kyrgyz people.",
+        "features": [
+          "Festivals and folk holidays",
+          "Exhibitions and fairs",
+          "Concerts and creative evenings",
+          "Cultural and educational events"
+        ]
       },
-      "participants": {
-        "value": "10,000+",
-        "label": "Program participants",
-        "description": "Active community engagement"
+      "traditions": {
+        "title": "Preservation of Traditions and National Heritage",
+        "description": "One of the priorities is supporting national culture and spiritual values through cultural projects and public initiatives.",
+        "features": [
+          "Kyrgyz customs and traditions",
+          "Folk art and crafts",
+          "Historical memory and cultural identity"
+        ]
       },
-      "projects": {
-        "value": "25+",
-        "label": "Implemented projects",
-        "description": "New initiatives this year"
+      "spaces": {
+        "title": "Public Spaces and Recreation Areas",
+        "description": "Comfortable recreation spaces are created on Dordoi's premises and related projects.",
+        "features": [
+          "Pedestrian zones",
+          "Meeting and socializing places",
+          "Family leisure zones",
+          "Well-maintained areas"
+        ]
       },
-      "regions": {
-        "value": "7",
-        "label": "Regions covered",
-        "description": "Expanding geographical coverage"
+      "entertainment": {
+        "title": "Shopping and Entertainment Centers as Leisure Places",
+        "description": "Modern shopping and entertainment complexes that combine shopping, restaurants, and entertainment.",
+        "features": [
+          "Shopping and restaurants",
+          "Cafes and relaxation zones",
+          "Entertainment for children",
+          "Spaces for adults"
+        ]
       }
     },
-    "status": {
-      "active": "Active",
-      "completed": "Completed",
-      "planning": "Planned"
+    
+    "centersTitle": "Shopping and Entertainment Centers",
+    "centersDescription": "Modern spaces for leisure and recreation",
+    
+    "centers": {
+      "plaza": "Shopping and entertainment center No. 1 in Kyrgyzstan",
+      "plaza2": "Multifunctional complex with area over 70,000 m²"
     },
-    "projects": {
-      "festival": {
-        "title": "International Arts Festival",
-        "description": "Annual festival uniting artists, musicians and performers from around the world for cultural exchange",
-        "fullDescription": "Annual festival uniting artists, musicians and performers from around the world for cultural exchange and creation of unique collaborations.",
-        "stats": "3 days, 100+ participants",
-        "impact": "Strengthening international cultural ties"
+    
+    "learnMore": "Learn more",
+    
+    "impactsTitle": "The Importance of Culture and Leisure for Society",
+    "impactsDescription": "Development of culture and leisure creates the foundation for harmonious societal development",
+    
+    "impacts": [
+      "Strengthens social connections",
+      "Improves quality of life",
+      "Forms a positive urban environment",
+      "Contributes to spiritual and emotional development"
+    ],
+    
+    "socialResponsibility": "Dordoi Association views culture and leisure as an important part of corporate social responsibility.",
+    
+    "benefitsTitle": "Benefits for Visitors",
+    "benefitsDescription": "Advantages for different categories of participants",
+    
+    "benefits": {
+      "visitors": {
+        "title": "For Residents and Guests",
+        "items": [
+          "Access to cultural events",
+          "Comfortable places for relaxation",
+          "Variety of leisure forms"
+        ]
       },
-      "museum": {
-        "title": "Historical Museum Restoration",
-        "description": "Comprehensive restoration and modernization of regional museum with creation of interactive exhibitions",
-        "fullDescription": "Comprehensive restoration and modernization of regional museum with creation of interactive exhibitions and digital solutions.",
-        "stats": "5000+ exhibits",
-        "impact": "Preserving historical heritage"
+      "artists": {
+        "title": "For Creative Collectives",
+        "items": [
+          "Venues for performances and events",
+          "Support for cultural initiatives",
+          "Opportunity for creative expression"
+        ]
       },
-      "gallery": {
-        "title": "Contemporary Art Gallery",
-        "description": "Space for contemporary artists' exhibitions and art educational programs",
-        "fullDescription": "Modern exhibition space for young artists with educational programs and master classes.",
-        "stats": "12 exhibitions per year",
-        "impact": "Supporting contemporary art"
-      },
-      "library": {
-        "title": "Digital Library",
-        "description": "Digitization of rare editions and creation of accessible online cultural heritage library",
-        "fullDescription": "Creating accessible digital platform for preserving and disseminating cultural heritage through digitization of rare editions.",
-        "stats": "10,000+ digitized books",
-        "impact": "Digital knowledge accessibility"
-      },
-      "theater": {
-        "title": "Support for Young Directors",
-        "description": "Grant program and residencies for beginning theater directors and playwrights",
-        "fullDescription": "Program supporting young theater directors through grants, master classes and international residencies.",
-        "stats": "15 staged performances",
-        "impact": "Developing theater art"
-      },
-      "folklore": {
-        "title": "Preserving Folklore Traditions",
-        "description": "Documenting and popularizing folk crafts, music and dance traditions",
-        "fullDescription": "Comprehensive program for documenting, preserving and popularizing folk traditions, music and crafts.",
-        "stats": "8 ethnic groups",
-        "impact": "Preserving cultural diversity"
+      "partners": {
+        "title": "For Partners",
+        "items": [
+          "Participation in socially significant projects",
+          "Joint implementation of cultural programs",
+          "Partnership in infrastructure development"
+        ]
       }
     },
-    "testimonials": {
-      "title": "Participant Testimonials",
-      "subtitle": "What people involved in our cultural projects say",
-      "0": {
-        "name": "Aigul Satybaldieva",
-        "role": "Participating Artist",
-        "content": "Thanks to the support program, I was able to realize my first personal project and find international partners."
+    
+    "faqTitle": "Frequently Asked Questions",
+    "faqDescription": "Answers to popular questions about cultural events and leisure",
+    
+    "faq": {
+      "events": {
+        "question": "What cultural events does Dordoi support?",
+        "answer": "Festivals, exhibitions, concerts, and public events aimed at developing culture and traditions."
       },
-      "1": {
-        "name": "Marat Zhumaliev",
-        "role": "Museum Curator",
-        "content": "Museum restoration allowed us to implement modern technologies and attract young audience."
+      "family": {
+        "question": "Are there places for family leisure?",
+        "answer": "Yes, shopping and entertainment complexes and public spaces are suitable for family leisure."
+      },
+      "organization": {
+        "question": "Can cultural events be organized at Dordoi venues?",
+        "answer": "Yes, in coordination with the administration."
       }
     },
-    "modal": {
-      "details": "Project Details",
-      "location": "Location",
-      "duration": "Duration",
-      "participants": "Participants",
-      "partners": "Partners",
-      "supportProject": "Support Project",
-      "shareProject": "Share"
-    },
-    "imagePlaceholder": "Cultural Project",
-    "learnMore": "Learn More",
-    "cta": {
-      "title": "Become Part of Our Cultural Programs",
-      "description": "Join our initiatives or propose your own project for cultural development support",
-      "contact": "Contact Us",
-      "brochure": "Download Brochure"
-    }
+    
+    "ctaTitle": "Join the Cultural Life of Dordoi",
+    "ctaDescription": "Learn more about our cultural programs and leisure opportunities",
+    "ctaButton": "Learn more"
   },
   "missionAbout": {
     "badge": "Our Mission",
@@ -5242,5 +5012,166 @@
     "developedBy": "Website development —",
     "company": "SU Solutions",
     "scrollToTop": "Back to top"
+  },
+  "business": {
+    "supplierCountries": [
+      "China",
+      "Turkey",
+      "Russia",
+      "Korea",
+      "EU",
+      "Uzbekistan"
+    ],
+  "title": "Business and Trade — Dordoi Opportunities",
+  "subtitle": "Largest trade hub in Central Asia — markets, wholesale, logistics and business support.",
+  
+  "hero": {
+    "title": "Dordoi — Market Where Businesses Are Born",
+    "subtitle": "A unique ecosystem for entrepreneurs: from retail spaces to wholesale supplies and export support.",
+    "introduction": "Since 1991, Dordoi has united trade, wholesale and services — a place where entrepreneurs find goods, partners, and infrastructure for growth.",
+    "yearText": "Dordoi 30 years"
+  },
+  
+  "buttons": {
+    "rent": "Rent a Space",
+    "brochure": "Download Brochure (PDF)"
+  },
+  
+  "navigation": {
+    "title": "Quick Navigation",
+    "retail": {
+      "title": "Retail and Wholesale",
+      "description": "Clothing, food, specialized markets."
+    },
+    "wholesale": {
+      "title": "Wholesale Directions",
+      "description": "Auto parts, textiles, household appliances."
+    },
+    "services": {
+      "title": "Services and Warehouses",
+      "description": "Rental, logistics, vehicle fleet."
+    },
+    "finance": {
+      "title": "Finance and Support",
+      "description": "Banks, microfinance, insurance."
+    }
+  },
+  
+  "description": {
+    "title": "What is 'Business and Trade'",
+    "short": "Dordoi is not just a market: it's a large ecosystem for trade and business where everything is sold — from clothing and electronics to auto parts and food. Buyers come from neighboring countries, and entrepreneurs work directly with foreign suppliers.",
+    "long": "Dordoi started operations in 1991 and over several decades has transformed into an international trade and market hub. On its territory there are clothing, wholesale, retail and food markets; warehouse and vehicle fleet complexes operate, entrepreneurs from Kyrgyzstan and neighboring countries buy and bring goods at affordable prices.\n\nThe structure includes unique wholesale platforms (e.g., 'Dordoi-Auto Parts'), where goods come directly from manufacturers in China, Turkey, Russia, Korea and Europe, allowing to reduce prices for end customers.\n\nThe complex is accompanied by developed infrastructure: rental of trading spaces and warehouses, bank service points, electronic payments, 24/7 security and logistics park. All this makes Dordoi a convenient center for trade and export."
+  },
+  
+  "stats": {
+    "title": "Statistics and Facts",
+    "founded": "Founded",
+    "years": "years in the market",
+    "jobs": "jobs created",
+    "countries": "partner countries",
+    "footnote": "Creates jobs and entrepreneurial school for several generations of businessmen."
+  },
+  
+  "tabs": {
+    "wholesale": "Wholesale Trade",
+    "finance": "Finance and Payments",
+    "support": "Entrepreneurship Support",
+    "export": "Export and International Clients"
+  },
+  
+  "wholesale": {
+    "title": "Wholesale Trade and International Supplies",
+    "description": "Wholesalers work directly with manufacturers (China, Turkey, Russia, Korea, EU). This provides competitive prices and wide assortment.",
+    "suppliers": "Supplier Countries"
+  },
+  
+  "categories": {
+    "autoparts": "Auto Parts",
+    "clothing": "Clothing",
+    "electronics": "Electronics",
+    "chemicals": "Household Chemicals",
+    "food": "Food Products",
+    "textiles": "Textiles"
+  },
+  
+  "stories": {
+    "title": "Success Stories",
+    "tailor": {
+      "title": "Tailor Shop Grown into Exporter",
+      "description": "How the market helped find foreign partners."
+    },
+    "autoparts": {
+      "title": "Small Auto Parts Supplier Became Wholesaler",
+      "description": "Through 'Dordoi-Auto Parts'."
+    },
+    "wholesaler": {
+      "title": "From Small Kiosk to Major Supplier",
+      "description": "Business growth story on the Dordoi platform."
+    }
+  },
+  
+  "rental": {
+    "title": "For Tenants",
+    "steps": "How to rent a space (3 steps):",
+    "step1": "Choose zone",
+    "step2": "Submit application",
+    "step3": "Sign contract"
+  },
+  
+  "form": {
+    "name": "Your name",
+    "phone": "Phone",
+    "email": "Email",
+    "selectZone": "Select zone",
+    "soldOut": "sold out",
+    "message": "Your message",
+    "submit": "Submit application",
+    "success": "Application successfully sent!"
+  },
+  
+  "zones": {
+    "title": "Available Trading Zones",
+    "fashion": "Clothing and Accessories",
+    "autoparts": "Auto Parts",
+    "electronics": "Electronics and Appliances",
+    "food": "Food Products",
+    "wholesale": "Wholesale Trade",
+    "available": "Available",
+    "soldOut": "Sold Out"
+  },
+  
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "rent": {
+      "question": "How to rent a trading space?",
+      "answer": "1. Choose suitable zone on the website or in person. 2. Fill out rental application. 3. Provide necessary documents. 4. Sign contract and pay deposit."
+    },
+    "documents": {
+      "question": "What documents are needed for wholesale?",
+      "answer": "For wholesale trade you need: business registration certificate (Sole Proprietor/LLC), licenses for certain types of goods, quality certificates, import documents."
+    },
+    "export": {
+      "question": "Is there export support?",
+      "answer": "Yes, Dordoi has an international relations department that helps with export operations, customs clearance and finding foreign partners."
+    },
+    "payment": {
+      "question": "How to pay rent/services?",
+      "answer": "Payment is available through bank cash desks on site, bank transfers, electronic terminals and online payments."
+    }
+  },
+  
+  "cta": {
+    "title": "Start Your Business at Dordoi Today!",
+    "subtitle": "Join thousands of successful entrepreneurs",
+    "primary": "Become a tenant — submit application",
+    "secondary": "Download full brochure (PDF)",
+    "downloads": "downloads"
+  },
+  
+  "loading": "Loading data...",
+  "error": {
+    "loading": "Failed to load data",
+    "form": "Error submitting form"
+  }
   }
 }
