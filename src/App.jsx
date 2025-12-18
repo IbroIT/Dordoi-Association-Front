@@ -20,13 +20,11 @@ import AboutFacts from './components/pages/about/AboutFacts';
 import SubsidiaryDetail from './components/pages/about/SubsidiaryDetail';
 
 // Подразделы Activities
-import ActivitiesTrade from './components/pages/activities/ActivitiesTrade';
-import ActivitiesFinance from './components/pages/activities/ActivitiesFinance';
+import CultureLeisure from './components/pages/activities/culture_leisure';
 import ActivitiesEducation from './components/pages/activities/ActivitiesEducation';
-import ActivitiesMedicine from './components/pages/activities/ActivitiesMedicine';
+import BusinessAndTrade from './components/pages/activities/business_trade';
+import Infrastructure from './components/pages/activities/infrastructure';
 import ActivitiesSports from './components/pages/activities/ActivitiesSports';
-import ActivitiesCulture from './components/pages/activities/ActivitiesCulture';
-import ActivitiesSocial from './components/pages/activities/ActivitiesSocial';
 
 // Подразделы Press
 import PressNews from './components/pages/press/PressNews';
@@ -98,14 +96,12 @@ function App() {
             <Route path="/about/facts" element={<AboutFacts />} />
 
             {/* Страницы Activities */}
+            <Route path="/activities/culture-leisure" element={<CultureLeisure />} />
+            <Route path="/activities/infrastructure" element={<Infrastructure />} />
+            <Route path="/activities/business-trade" element={<BusinessAndTrade />} />
             <Route path="/activities" element={<ActivitiesPage />} />
-            <Route path="/activities/trade" element={<ActivitiesTrade />} />
-            {/* <Route path="/activities/finance" element={<ActivitiesFinance />} /> */}
             <Route path="/activities/education" element={<ActivitiesEducation />} />
-            <Route path="/activities/medicine" element={<ActivitiesMedicine />} />
             <Route path="/activities/sports" element={<ActivitiesSports />} />
-            <Route path="/activities/culture" element={<ActivitiesCulture />} />
-            {/* <Route path="/activities/social" element={<ActivitiesSocial />} /> */}
 
             {/* Страницы Press */}
             <Route path="/press" element={<PressPage />} />
