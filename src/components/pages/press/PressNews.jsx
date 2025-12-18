@@ -15,6 +15,25 @@ const PressNews = () => {
   const [newsData, setNewsData] = useState([]);
   const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
+  // Функция для получения CSS классов на основе aspect_ratio
+  const getAspectRatioClasses = (aspectRatio) => {
+    const baseClasses = "w-full bg-gradient-to-r from-blue-50 to-cyan-50 flex items-center justify-center";
+    
+    switch (aspectRatio) {
+      case 'square':
+        return `${baseClasses} aspect-square`;
+      case 'portrait':
+        return `${baseClasses} aspect-[3/4]`;
+      case 'landscape':
+        return `${baseClasses} aspect-[4/3]`;
+      case 'wide':
+        return `${baseClasses} aspect-[16/9]`;
+      case 'tall':
+        return `${baseClasses} aspect-[9/16]`;
+      default:
+        return `${baseClasses} h-48`;
+    }
+  };
 
   // Загрузка данных
   useEffect(() => {
@@ -53,6 +72,7 @@ const PressNews = () => {
           category: item.category?.id?.toString() || item.category_id?.toString() || '1',
           category_name: item.category?.title || 'General',
           image_url: item.image || null,
+          aspect_ratio: item.aspect_ratio || 'landscape',
           description: item.short_description || item.description?.substring(0, 200) + '...' || '',
           full_description: item.description,
           // Используем is_recommended из API, а не индекс
@@ -355,25 +375,28 @@ const PressNews = () => {
               <span className="text-gray-500">{regularNews.length} {t('press.items', 'новостей')}</span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
               {regularNews.map((news, index) => (
                 <motion.div
                   key={news.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="group bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                  className="group bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col h-full min-h-[400px]"
                   onClick={() => handleReadMore(news.id)}
                 >
-                  <div className="relative overflow-hidden h-48">
+                  <div className="relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 z-10" />
                     {news.image_url ? (
-                      <div
-                        className="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700"
-                        style={{ backgroundImage: `url(${news.image_url})` }}
-                      />
+                      <div className={getAspectRatioClasses(news.aspect_ratio)}>
+                        <img
+                          src={news.image_url}
+                          alt={news.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      </div>
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-r from-blue-50 to-cyan-50 flex items-center justify-center">
+                      <div className={getAspectRatioClasses(news.aspect_ratio || 'landscape')}>
                         <svg className="w-16 h-16 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                         </svg>
@@ -381,7 +404,7 @@ const PressNews = () => {
                     )}
                   </div>
 
-                  <div className="p-6">
+                  <div className="p-6 flex flex-col flex-grow">
                     <div className="flex items-center justify-between mb-3">
                       <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
                         {news.category_name}
@@ -391,15 +414,15 @@ const PressNews = () => {
                       </span>
                     </div>
 
-                    <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                    <h3 className="font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors leading-tight">
                       {news.title}
                     </h3>
 
-                    <p className="text-gray-600 text-sm line-clamp-2 mb-4">{news.description}</p>
+                    <p className="text-gray-600 text-sm line-clamp-3 mb-4 flex-grow">{news.description}</p>
 
-                    <div className="flex items-center text-blue-600 text-sm font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                      {t('press.readMore', 'Подробнее')}
-                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="flex items-center justify-between text-blue-600 text-sm font-semibold group-hover:translate-x-2 transition-transform duration-300 mt-auto pt-4 border-t border-gray-100">
+                      <span>{t('press.readMore', 'Подробнее')}</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
