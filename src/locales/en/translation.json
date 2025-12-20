@@ -4594,6 +4594,9 @@
       "error": "Error sharing content"
     },
     "related": "Related News",
+    "gallery": {
+      "title": "Photo Gallery"
+    },
     "author": "Author",
     "publishedDate": "Published",
     "category": "Category",

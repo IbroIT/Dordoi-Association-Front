@@ -63,14 +63,41 @@ const NewsDetailPage = () => {
         // Формируем массив изображений
         const galleryImages = [];
         
+        // Основное изображение новости всегда первое
         if (newsItem.image) {
           galleryImages.push({
             url: newsItem.image,
+            order: -1, // Основное изображение идёт первым
             isMain: true,
           });
         }
         
-        if (newsItem.gallery_images && Array.isArray(newsItem.gallery_images)) {
+        // Обработка photos из нового API (приоритет)
+        if (newsItem.photos && Array.isArray(newsItem.photos)) {
+          newsItem.photos.forEach((photo) => {
+            if (photo.image) {
+              galleryImages.push({
+                url: photo.image,
+                order: photo.order || 0,
+                isMain: false,
+              });
+            }
+          });
+        }
+        // Обработка галереи из вложенного объекта gallery (fallback)
+        else if (newsItem.gallery && newsItem.gallery.photos && Array.isArray(newsItem.gallery.photos)) {
+          newsItem.gallery.photos.forEach((photo) => {
+            if (photo.image) {
+              galleryImages.push({
+                url: photo.image,
+                order: photo.order || 0,
+                isMain: false,
+              });
+            }
+          });
+        }
+        // Для обратной совместимости - старое поле gallery_images
+        else if (newsItem.gallery_images && Array.isArray(newsItem.gallery_images)) {
           newsItem.gallery_images.forEach((img) => {
             if (img.image) {
               galleryImages.push({
@@ -82,8 +109,8 @@ const NewsDetailPage = () => {
           });
         }
         
-        // Сортируем по порядку
-        galleryImages.sort((a, b) => a.order - b.order);
+        // Сортируем по порядку (основное изображение будет первым из-за order: -1)
+        galleryImages.sort((a, b) => (a.order || 0) - (b.order || 0));
         newsItem.images_url = galleryImages.map(img => img.url);
         
         setNewsData(newsItem);
