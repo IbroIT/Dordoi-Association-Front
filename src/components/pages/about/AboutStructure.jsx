@@ -541,7 +541,7 @@ const AboutStructure = () => {
                   <div className="relative z-10">
                     {/* Фото компании */}
                     <div className="mb-6">
-                      <div className="w-full h-48 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-xl transition-all duration-500 overflow-hidden">
+                      <div className="w-full h-48 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-xl transition-all duration-500 overflow-hidden">
                         <img 
                           src={subsidiary.logo} 
                           alt={subsidiary.name} 

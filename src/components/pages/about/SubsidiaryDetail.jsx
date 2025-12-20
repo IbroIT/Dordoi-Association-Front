@@ -110,7 +110,7 @@ const SubsidiaryDetail = () => {
         />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Кнопка назад */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -136,23 +136,53 @@ const SubsidiaryDetail = () => {
           className="bg-white rounded-3xl shadow-2xl overflow-hidden"
         >
           {/* Заголовок */}
-          <div className="relative bg-gradient-to-r from-blue-600 to-cyan-600 px-8 md:px-12 py-32 text-white overflow-hidden">
-            {/* Большое фото компании по центру */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-80 h-80 md:w-96 md:h-96 bg-white bg-opacity-10 flex items-center justify-center shadow-2xl overflow-hidden backdrop-blur-sm">
-                <img 
-                  src={subsidiary.logo} 
-                  alt={subsidiary.name} 
-                  className="w-full h-full object-contain" 
-                />
-              </div>
-            </div>
-            
-            {/* Оверлей для текста */}
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 via-transparent to-cyan-900/70"></div>
-            
-            
-          </div>
+          <div className="relative h-[55vh] md:h-[50vh] bg-gradient-to-r from-blue-600 to-cyan-600 text-white overflow-hidden">
+
+  {/* Фон */}
+  <img
+    src={subsidiary.logo}
+    alt={subsidiary.name}
+    className="
+      absolute inset-0 
+      w-full h-full 
+      object-cover
+      scale-105
+      blur-[1px]
+      opacity-60
+    "
+  />
+
+  {/* Градиент */}
+  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-800/40 to-cyan-900/70"></div>
+
+  {/* Центральная фотка с краями */}
+  <div className="relative z-10 flex items-center justify-center h-full">
+    <div className="
+      p-3
+      rounded-3xl
+      bg-white/10
+      backdrop-blur-xl
+      border border-white/30
+      shadow-[0_25px_70px_rgba(0,0,0,0.45)]
+    ">
+      <img
+        src={subsidiary.logo}
+        alt={subsidiary.name}
+        className="
+          w-[65vw] md:w-[40vw]
+          max-h-[75%]
+          object-contain
+          rounded-2xl
+          bg-white
+          p-6
+          drop-shadow-[0_15px_40px_rgba(0,0,0,0.5)]
+        "
+      />
+    </div>
+  </div>
+
+</div>
+
 
           <div className="px-8 md:px-12 py-12">
             <div className="relative z-10 flex flex-col min-h-full">
@@ -166,7 +196,7 @@ const SubsidiaryDetail = () => {
               className="mb-12"
             >
               <div 
-                className="text-lg text-slate-700 leading-relaxed prose prose-slate max-w-none"
+                className="text-lg text-slate-700 leading-relaxed prose prose-slate max-w-none w-full"
                 dangerouslySetInnerHTML={{ __html: subsidiary.description }}
               />
             </motion.div>
