@@ -1,90 +1,63 @@
-import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { apiRequest } from '../../../api';
 
 const NewsAndEventsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.2 });
-  const [activeCategory, setActiveCategory] = useState('all');
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const news = [
-    {
-      id: 1,
-      title: t('news.items.0.title'),
-      description: t('news.items.0.description'),
-      date: t('news.items.0.date'),
-      category: "sport",
-      categoryName: t('news.categories.sport'),
-      image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      path: "/press/news/football-championship-2025"
-    },
-    {
-      id: 2,
-      title: t('news.items.1.title'),
-      description: t('news.items.1.description'),
-      date: t('news.items.1.date'),
-      category: "education",
-      categoryName: t('news.categories.education'),
-      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      path: "/press/news/educational-center-osh"
-    },
-    {
-      id: 3,
-      title: t('news.items.2.title'),
-      description: t('news.items.2.description'),
-      date: t('news.items.2.date'),
-      category: "international",
-      categoryName: t('news.categories.international'),
-      image: "https://images.unsplash.com/photo-1551135049-8a33b4273818?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      path: "/press/news/turkey-cooperation"
-    },
-    {
-      id: 4,
-      title: t('news.items.3.title'),
-      description: t('news.items.3.description'),
-      date: t('news.items.3.date'),
-      category: "social",
-      categoryName: t('news.categories.social'),
-      image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      path: "/press/news/batken-charity"
-    },
-    {
-      id: 5,
-      title: t('news.items.4.title'),
-      description: t('news.items.4.description'),
-      date: t('news.items.4.date'),
-      category: "anniversary",
-      categoryName: t('news.categories.anniversary'),
-      image: "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      path: "/press/news/30-years-anniversary"
-    },
-    {
-      id: 6,
-      title: t('news.items.5.title'),
-      description: t('news.items.5.description'),
-      date: t('news.items.5.date'),
-      category: "culture",
-      categoryName: t('news.categories.culture'),
-      image: "https://images.unsplash.com/photo-1489599809505-f2d4c65055d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
-      path: "/press/news/cinematika-premiere"
-    }
-  ];
+  // Загрузка новостей из API
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        setLoading(true);
+        const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
+        const data = await apiRequest(`presscentre/news/?lang=${lang}&limit=3`);
+        
+        const newsArray = data.results || data || [];
+        const transformedNews = newsArray.slice(0, 3).map(item => ({
+          id: item.id,
+          title: item.title,
+          description: item.short_description || item.description?.substring(0, 150) + '...' || '',
+          date: new Date(item.published_at || item.created_at).toLocaleDateString(lang, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+          }),
+          category: item.category?.id?.toString() || 'news',
+          categoryName: item.category?.title || t('news.categories.general', 'Новости'),
+          image: item.image || null,
+          path: `/press/news/${item.id}`
+        }));
+        
+        setNews(transformedNews);
+      } catch (error) {
+        console.error('Error fetching news:', error);
+        // Fallback data
+        setNews([
+          {
+            id: 1,
+            title: t('news.fallback.title', 'Новости компании'),
+            description: t('news.fallback.description', 'Актуальные новости и события компании Дордой'),
+            date: new Date().toLocaleDateString(i18n.language),
+            category: 'news',
+            categoryName: t('news.categories.general', 'Новости'),
+            image: null,
+            path: '/press/news'
+          }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const categories = [
-    { id: 'all', name: t('news.categories.all') },
-    { id: 'sport', name: t('news.categories.sport') },
-    { id: 'education', name: t('news.categories.education') },
-    { id: 'international', name: t('news.categories.international') },
-    { id: 'social', name: t('news.categories.social') },
-    { id: 'anniversary', name: t('news.categories.anniversary') },
-    { id: 'culture', name: t('news.categories.culture') }
-  ];
-
-  const filteredNews = activeCategory === 'all' 
-    ? news 
-    : news.filter(item => item.category === activeCategory);
+    fetchNews();
+  }, [i18n.language, t]);
 
   const categoryColors = {
     sport: { bg: 'bg-green-100', text: 'text-green-600', border: 'border-green-200' },
@@ -92,7 +65,8 @@ const NewsAndEventsSection = () => {
     international: { bg: 'bg-purple-100', text: 'text-purple-600', border: 'border-purple-200' },
     social: { bg: 'bg-orange-100', text: 'text-orange-600', border: 'border-orange-200' },
     anniversary: { bg: 'bg-yellow-100', text: 'text-yellow-600', border: 'border-yellow-200' },
-    culture: { bg: 'bg-pink-100', text: 'text-pink-600', border: 'border-pink-200' }
+    culture: { bg: 'bg-pink-100', text: 'text-pink-600', border: 'border-pink-200' },
+    news: { bg: 'bg-blue-100', text: 'text-blue-600', border: 'border-blue-200' }
   };
 
   const containerVariants = {
@@ -101,6 +75,13 @@ const NewsAndEventsSection = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.15
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.1,
+        staggerDirection: -1
       }
     }
   };
@@ -126,6 +107,15 @@ const NewsAndEventsSection = () => {
       transition: {
         duration: 0.5,
         ease: "easeOut"
+      }
+    },
+    exit: {
+      y: -30,
+      opacity: 0,
+      scale: 0.9,
+      transition: {
+        duration: 0.4,
+        ease: "easeIn"
       }
     }
   };
@@ -173,141 +163,171 @@ const NewsAndEventsSection = () => {
           </motion.p>
         </motion.div>
 
-        {/* Фильтры по категориям */}
+        {/* Сетка новостей */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={loading ? "loading" : "news"}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
+          >
+            {loading ? (
+              // Loading skeleton
+              Array.from({ length: 3 }).map((_, index) => (
+                <motion.div
+                  key={`skeleton-${index}`}
+                  variants={cardVariants}
+                  exit="exit"
+                  className="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200 animate-pulse"
+                >
+                  <div className="h-48 bg-slate-200"></div>
+                  <div className="p-6">
+                    <div className="h-4 bg-slate-200 rounded mb-3"></div>
+                    <div className="h-6 bg-slate-200 rounded mb-3"></div>
+                    <div className="h-4 bg-slate-200 rounded mb-4"></div>
+                    <div className="h-4 bg-slate-200 rounded w-1/2"></div>
+                  </div>
+                </motion.div>
+              ))
+            ) : (
+              news.slice(0, 3).map((newsItem) => {
+                const colors = categoryColors[newsItem.category] || categoryColors.news;
+                
+                return (
+                  <motion.article
+                    key={newsItem.id}
+                    variants={cardVariants}
+                    exit="exit"
+                    className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-200"
+                    whileHover={{ y: -8 }}
+                  >
+                  {/* Изображение */}
+                  <motion.div 
+                    className="relative h-48 overflow-hidden bg-gradient-to-br from-blue-50 to-cyan-50"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    {newsItem.image ? (
+                      <img
+                        src={newsItem.image}
+                        alt={newsItem.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-r from-blue-50 to-cyan-50 flex items-center justify-center">
+                        <svg className="w-16 h-16 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                        </svg>
+                      </div>
+                    )}
+                    
+                    {/* Градиентный оверлей */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    {/* Категория */}
+                    <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold ${colors.bg} ${colors.text} ${colors.border} backdrop-blur-sm shadow-lg`}>
+                      {newsItem.categoryName}
+                    </div>
+                    
+                    {/* Эффект свечения при наведении */}
+                    <div className="absolute inset-0 ring-1 ring-white/20 group-hover:ring-blue-300/50 transition-all duration-300 rounded-t-2xl" />
+                  </motion.div>
+
+                  {/* Контент */}
+                  <div className="p-6">
+                    {/* Дата */}
+                    <motion.p 
+                      className="text-slate-500 text-sm mb-3 flex items-center"
+                      initial={{ opacity: 0.7 }}
+                      whileHover={{ opacity: 1 }}
+                    >
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      {newsItem.date}
+                    </motion.p>
+
+                    {/* Заголовок */}
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors duration-300">
+                      {newsItem.title}
+                    </h3>
+
+                    {/* Описание */}
+                    <p className="text-slate-600 leading-relaxed mb-4 line-clamp-3">
+                      {newsItem.description}
+                    </p>
+
+                    {/* Кнопка подробнее */}
+                    <motion.div
+                      className="flex items-center justify-between pt-4 border-t border-slate-100"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      <Link
+                        to={newsItem.path}
+                        className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-300 group/btn"
+                      >
+                        <span>{t('news.learnMore')}</span>
+                        <motion.svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          animate={{ x: [0, 4, 0] }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </motion.svg>
+                      </Link>
+
+                      {/* Индикатор нового */}
+                      <motion.div
+                        className="w-2 h-2 bg-blue-500 rounded-full"
+                        animate={{ scale: [1, 1.5, 1] }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                    </motion.div>
+                  </div>
+
+                  {/* Акцентный элемент при наведении */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                  />
+                </motion.article>
+              );
+            })
+          )}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Кнопка "Все новости" */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          className="text-center"
         >
-          {categories.map((category) => (
-            <motion.button
-              key={category.id}
-              variants={itemVariants}
-              onClick={() => setActiveCategory(category.id)}
-              className={`px-4 py-2 rounded-full font-medium transition-all duration-300 ${
-                activeCategory === category.id
-                  ? 'bg-blue-600 text-white shadow-lg'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:border-blue-300 hover:text-blue-600'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {category.name}
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Сетка новостей */}
-        <motion.div
-          key={activeCategory}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
-        >
-          {filteredNews.slice(0, 3).map((newsItem) => {
-            const colors = categoryColors[newsItem.category];
-            
-            return (
-              <motion.article
-                key={newsItem.id}
-                variants={cardVariants}
-                className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-200"
-                whileHover={{ y: -8 }}
-              >
-                {/* Изображение */}
-                <motion.div 
-                  className="relative h-48 overflow-hidden"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <img
-                    src={newsItem.image}
-                    alt={newsItem.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  {/* Категория */}
-                  <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold ${colors.bg} ${colors.text} ${colors.border} backdrop-blur-sm`}>
-                    {newsItem.categoryName}
-                  </div>
-                </motion.div>
-
-                {/* Контент */}
-                <div className="p-6">
-                  {/* Дата */}
-                  <motion.p 
-                    className="text-slate-500 text-sm mb-3 flex items-center"
-                    initial={{ opacity: 0.7 }}
-                    whileHover={{ opacity: 1 }}
-                  >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    {newsItem.date}
-                  </motion.p>
-
-                  {/* Заголовок */}
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors duration-300">
-                    {newsItem.title}
-                  </h3>
-
-                  {/* Описание */}
-                  <p className="text-slate-600 leading-relaxed mb-4 line-clamp-3">
-                    {newsItem.description}
-                  </p>
-
-                  {/* Кнопка подробнее */}
-                  <motion.div
-                    className="flex items-center justify-between pt-4 border-t border-slate-100"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400 }}
-                  >
-                    <Link
-                      to={newsItem.path}
-                      className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-300 group/btn"
-                    >
-                      <span>{t('news.learnMore')}</span>
-                      <motion.svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        animate={{ x: [0, 4, 0] }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </motion.svg>
-                    </Link>
-
-                    {/* Индикатор нового */}
-                    <motion.div
-                      className="w-2 h-2 bg-blue-500 rounded-full"
-                      animate={{ scale: [1, 1.5, 1] }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-                  </motion.div>
-                </div>
-
-                {/* Акцентный элемент при наведении */}
-                <motion.div
-                  className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                />
-              </motion.article>
-            );
-          })}
+          <Link
+            to="/press/news"
+            className="inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl"
+          >
+            <span>{t('news.viewAll', 'Все новости')}</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
         </motion.div>
       </div>
     </section>

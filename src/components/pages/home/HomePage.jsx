@@ -12,10 +12,11 @@ function HomePage() {
     <div>
         <HeroSlider />
         <AboutSection />
+        <NewsAndEventsSection />
+
         <MissionAndValues />
         {/* <AchievementsSection /> */}
         <ActivitiesSection />
-        <NewsAndEventsSection />
         {/* <InternationalPartnersSection /> */}
     </div>
   )

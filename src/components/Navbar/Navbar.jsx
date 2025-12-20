@@ -230,7 +230,7 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 min-h-[56px]">
           {/* Логотип */}
           <div className="flex-shrink-0 flex items-center rounded-2xl">
             <Link 
@@ -239,13 +239,13 @@ const Navbar = () => {
               onClick={closeAllDropdowns}
             >
               <div className="relative rounded-2xl">
-                <div className="w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-white text-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
-                  <img src={Logo} alt="" className='rounded-xl' />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center font-bold text-white text-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
+                  <img src={Logo} alt="" className='w-full h-full rounded-xl object-cover' />
                 </div>
                 <div className="absolute -inset-1 bg-blue-500/20 rounded-xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="flex flex-col">
-                <span className="text-white text-lg font-semibold leading-tight"> «Дордой»</span>
+                <span className="text-white text-lg sm:text-xl font-semibold leading-tight"> «Дордой»</span>
               </div>
             </Link>
           </div>
@@ -264,14 +264,14 @@ const Navbar = () => {
             </div>
 
             {/* Мобильное меню - кнопка */}
-            <div className="lg:hidden flex items-center space-x-3">
-              <div className="sm:hidden">
+            <div className="lg:hidden flex items-center space-x-2">
+              <div className="hidden sm:block">
                 <LanguageSwitcher mobile={true} />
               </div>
               
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-white/90 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-all duration-200"
+                className="text-white/90 hover:text-white p-3 rounded-lg hover:bg-white/5 transition-all duration-200 min-h-[44px] min-w-[44px] flex items-center justify-center"
               >
                 {isOpen ? <CloseIcon /> : <MenuIcon />}
               </button>
@@ -292,7 +292,7 @@ const Navbar = () => {
                       <div>
                         <button
                           onClick={() => toggleDropdown(item.key)}
-                          className={`w-full text-left px-4 py-3 rounded-lg text-base font-medium flex items-center justify-between transition-all duration-200 ${
+                          className={`w-full text-left px-4 py-4 rounded-lg text-base font-medium flex items-center justify-between transition-all duration-200 min-h-[48px] ${
                             activeDropdown === item.key 
                               ? 'bg-white/10 text-white' 
                               : 'text-white/90 hover:text-white'
@@ -314,7 +314,7 @@ const Navbar = () => {
                                 key={subItem.key}
                                 to={subItem.path}
                                 onClick={closeAllDropdowns}
-                                className="block px-4 py-2.5 rounded-lg text-sm text-white/80 hover:text-white hover:bg-white/5 transition-all duration-200"
+                                className="flex items-center px-4 py-3 rounded-lg text-sm text-white/80 hover:text-white hover:bg-white/5 transition-all duration-200 min-h-[44px]"
                               >
                                 {subItem.label}
                               </Link>
@@ -326,7 +326,7 @@ const Navbar = () => {
                       <Link
                         to={item.path}
                         onClick={closeAllDropdowns}
-                        className="block px-4 py-3 rounded-lg text-base font-medium text-white/90 hover:text-white hover:bg-white/5 transition-all duration-200 flex items-center space-x-3"
+                        className="block px-4 py-4 rounded-lg text-base font-medium text-white/90 hover:text-white hover:bg-white/5 transition-all duration-200 flex items-center space-x-3 min-h-[48px]"
                       >
                         <IconComponent className="w-5 h-5" />
                         <span>{item.label}</span>
