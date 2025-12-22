@@ -361,8 +361,8 @@ const PressNews = () => {
         </div>
       )}
 
-      {/* Все остальные новости (карточки) */}
-      {regularNews.length > 0 && (
+      {/* Все новости (карточки) */}
+      {filteredNews.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -372,17 +372,19 @@ const PressNews = () => {
           >
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-3xl font-bold text-gray-800">{t('press.allNews', 'Все новости')}</h2>
-              <span className="text-gray-500">{regularNews.length} {t('press.items', 'новостей')}</span>
+              <span className="text-gray-500">{filteredNews.length} {t('press.items', 'новостей')}</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-              {regularNews.map((news, index) => (
+              {filteredNews.map((news, index) => (
                 <motion.div
                   key={news.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="group bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col h-full min-h-[400px]"
+                  className={`group bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col h-full min-h-[400px] ${
+                    news.is_recommended ? 'ring-2 ring-blue-500 ring-opacity-50' : ''
+                  }`}
                   onClick={() => handleReadMore(news.id)}
                 >
                   <div className="relative overflow-hidden">
