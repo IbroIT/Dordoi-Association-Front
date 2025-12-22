@@ -61,7 +61,8 @@ const PressMedia = () => {
           category: gallery.category.id.toString(),
           coverImage: gallery.photos.length > 0 ? gallery.photos[0].image : '/api/placeholder/600/400',
           photos: gallery.photos,
-          type: 'gallery' // тип галереи
+          type: 'gallery', // тип галереи
+          date: new Date() // галереи не имеют даты, используем текущую
         }));
         
         // Загрузка новостей
@@ -76,11 +77,15 @@ const PressMedia = () => {
           coverImage: news.image || '/api/placeholder/600/400',
           photos: news.image ? [{ image: news.image, title: news.title }] : [],
           type: 'news', // тип новости
-          newsData: news // сохраняем полные данные новости
+          newsData: news, // сохраняем полные данные новости
+          date: new Date(news.published_at || news.created_at) // дата новости
         }));
         
-        // Объединяем галереи и новости
-        setGalleries([...transformedGalleries, ...newsGalleries]);
+        // Объединяем галереи и новости и сортируем по дате (новые первыми)
+        const allItems = [...transformedGalleries, ...newsGalleries];
+        allItems.sort((a, b) => b.date - a.date);
+        
+        setGalleries(allItems);
       } catch (error) {
         console.error('Error fetching data:', error);
         // В случае ошибки устанавливаем пустой массив
