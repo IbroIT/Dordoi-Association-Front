@@ -1,13 +1,12 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { AnimatedActivities } from '../../ui/AnimatedActivities';
 
 const ActivitiesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.2 });
   const { t } = useTranslation();
-
   const activities = [
     {
       id: 1,
@@ -98,50 +97,14 @@ const ActivitiesSection = () => {
     }
   ];
 
-  const colorMap = {
-    blue: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-600', hover: 'hover:bg-blue-100' },
-    green: { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-600', hover: 'hover:bg-green-100' },
-    purple: { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-600', hover: 'hover:bg-purple-100' },
-    red: { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-600', hover: 'hover:bg-red-100' },
-    orange: { bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-600', hover: 'hover:bg-orange-100' },
-    indigo: { bg: 'bg-indigo-50', border: 'border-indigo-200', text: 'text-indigo-600', hover: 'hover:bg-indigo-100' },
-    teal: { bg: 'bg-teal-50', border: 'border-teal-200', text: 'text-teal-600', hover: 'hover:bg-teal-100' }
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { y: 50, opacity: 0, scale: 0.9 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const textVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
-  };
+  // Данные для анимированных карточек
+  const animatedActivitiesData = activities.map(activity => ({
+    name: activity.title,
+    image: 'https://via.placeholder.com/48x48?text=' + activity.id, // Плейсхолдер
+    description: activity.description,
+    handle: activity.path,
+    icon: activity.icon
+  }));
 
   return (
     <section ref={ref} className="relative py-20 bg-white overflow-hidden">
@@ -151,145 +114,51 @@ const ActivitiesSection = () => {
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-yellow-200 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="">
         {/* Заголовок секции */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}шщщшощшоашофткащуа
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
           <motion.div
-            variants={textVariants}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 border border-blue-200 mb-6"
           >
             <span className="text-blue-600 text-sm font-semibold">{t('activities.badge')}</span>
           </motion.div>
 
           <motion.h2
-            variants={textVariants}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6"
           >
             {t('activities.title')}
           </motion.h2>
 
           <motion.div
-            variants={textVariants}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
             className="w-24 h-1 bg-gradient-to-r from-blue-500 to-yellow-400 rounded-full mx-auto mb-8"
           />
 
           <motion.p
-            variants={textVariants}
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
             className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
           >
             {t('activities.subtitle')}
           </motion.p>
         </motion.div>
 
-        {/* Сетка карточек */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-        >
-          {activities.map((activity, index) => {
-            const colors = colorMap[activity.color];
-            
-            return (
-              <motion.div
-                key={activity.id}
-                variants={cardVariants}
-                className="group relative"
-              >
-                {/* Основная карточка */}
-                <motion.div
-                  className={`relative bg-white rounded-2xl p-6 border-2 ${colors.border} shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col ${colors.hover}`}
-                  whileHover={{ 
-                    y: -8,
-                    scale: 1.02
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {/* Верхний акцентный элемент */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-yellow-400 rounded-t-2xl" />
-
-                  {/* Иконка */}
-                  <motion.div
-                    className={`w-16 h-16 ${colors.bg} rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}
-                    whileHover={{ 
-                      scale: 1.1,
-                      rotate: 5
-                    }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <div className={colors.text}>
-                      {activity.icon}
-                    </div>
-                  </motion.div>
-
-                  {/* Заголовок */}
-                  <h3 className={`text-xl font-bold ${colors.text} mb-3 group-hover:text-slate-800 transition-colors duration-300`}>
-                    {activity.title}
-                  </h3>
-
-                  {/* Описание */}
-                  <p className="text-slate-600 leading-relaxed mb-6 flex-grow">
-                    {activity.description}
-                  </p>
-
-                  {/* Кнопка */}
-                  <motion.div
-                    className="mt-auto"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400 }}
-                  >
-                    <Link
-                      to={activity.path}
-                      className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-300 group/btn"
-                    >
-                      <span>{t('activities.learnMore')}</span>
-                      <motion.svg
-                        className="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        animate={{ x: [0, 4, 0] }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </motion.svg>
-                    </Link>
-                  </motion.div>
-
-                  {/* Декоративный элемент при наведении */}
-                  <motion.div
-                    className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-yellow-400 rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10"
-                    whileHover={{ opacity: 0.2 }}
-                  />
-                </motion.div>
-
-                {/* Плавающий номер */}
-                <motion.div
-                  className="absolute -top-3 -right-3 w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg"
-                  initial={{ scale: 0, rotate: -180 }}
-                  animate={isInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
-                  transition={{ 
-                    delay: 0.3 + index * 0.1,
-                    type: "spring", 
-                    stiffness: 200 
-                  }}
-                >
-                  <span className="text-slate-900 text-sm font-bold">{activity.id}</span>
-                </motion.div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+        {/* Анимированные карточки */}
+        <AnimatedActivities data={animatedActivitiesData} />
       </div>
     </section>
   );

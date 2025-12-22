@@ -1,1 +1,85 @@
 @import "tailwindcss";
+
+@keyframes canopy-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes canopy-y {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.animate-canopy-horizontal {
+  animation: canopy-x var(--duration) infinite linear;
+}
+
+.animate-canopy-vertical {
+  animation: canopy-y var(--duration) linear infinite;
+}
+
+.group:hover .animate-canopy-horizontal {
+  animation-play-state: paused;
+}
+
+.group:hover .animate-canopy-vertical {
+  animation-play-state: paused;
+}
+
+/* New scroll animations for AnimatedActivities */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 4));
+  }
+}
+
+@keyframes scroll-vertical {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-100% / 4));
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll var(--duration) linear infinite;
+}
+
+.animate-scroll-vertical {
+  animation: scroll-vertical var(--duration) linear infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Hover pause for scroll animations */
+.group:hover .animate-scroll {
+  animation-play-state: paused;
+}
+
+.group:hover .animate-scroll-vertical {
+  animation-play-state: paused;
+}
+
