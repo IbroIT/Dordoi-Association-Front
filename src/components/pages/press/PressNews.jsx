@@ -80,6 +80,9 @@ const PressNews = () => {
           created_at: item.published_at || item.created_at
         })) : [];
 
+        // Сортировка новостей по дате (новые первыми)
+        transformedNews.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
         setCategories(transformedCategories);
         setNewsData(transformedNews);
       } catch (err) {
@@ -106,16 +109,16 @@ const PressNews = () => {
           {
             id: 2,
             title: t('press.demo.title2', 'Открытие нового офиса в Европе'),
-            date: new Date().toLocaleDateString(i18n.language),
+            date: new Date(Date.now() - 86400000).toLocaleDateString(i18n.language), // вчера
             category: '1',
             category_name: 'Пресс-релизы',
             image_url: null,
             description: t('press.demo.description2', 'Компания открывает новый офис в Берлине для расширения присутствия на европейском рынке.'),
             full_description: t('press.demo.fullText2', 'Полный текст новости о новом офисе.'),
             is_recommended: false,
-            created_at: new Date().toISOString()
+            created_at: new Date(Date.now() - 86400000).toISOString() // вчера
           }
-        ]);
+        ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
       } finally {
         setLoading(false);
       }
