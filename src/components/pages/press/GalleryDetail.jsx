@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { CameraIcon, TrophyIcon, GlobeIcon, HandshakeIcon, BriefcaseIcon } from '../../icons';
+import { apiRequest } from '../../../api';
 
 const GalleryDetail = () => {
   const { id } = useParams();
@@ -13,48 +14,128 @@ const GalleryDetail = () => {
   const [gallery, setGallery] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Загрузка данных галереи из API
+  // Загрузка данных галереи или новости из API
   useEffect(() => {
-    const fetchGallery = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
         const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
-        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/gallery/galleries/${id}/?language=${lang}`);
-        const data = await response.json();
         
-        // Преобразуем данные для компонента
-        const transformedGallery = {
-          id: data.id,
-          title: data[`title_${lang}`] || data.title_ru,
-          category: data.category.id.toString(),
-          categoryName: data.category[`name_${lang}`] || data.category.name_ru,
-          images: data.photos.map((photo, index) => ({
-            id: photo.id,
-            src: photo.image,
-            thumbnail: photo.image,
-            title: `Фото ${index + 1}`,
-            description: '',
-            date: new Date().toLocaleDateString(),
-            photographer: 'Dordoi Association',
-            tags: [],
-            resolution: '4000x3000',
-            size: '8.0 MB',
-            license: 'Editorial Use'
-          }))
-        };
-        
-        setGallery(transformedGallery);
+        // Проверяем, является ли ID новостью
+        if (id && id.startsWith('news-')) {
+          // Загружаем данные конкретной новости
+          const newsId = id.replace('news-', '');
+          const newsData = await apiRequest(`presscentre/news/${newsId}/?lang=${lang}`);
+          
+          // Создаем галерею из изображения новости
+          // Если у новости есть дополнительные изображения, добавляем их
+          const images = [];
+          
+          // Основное изображение новости
+          if (newsData.image) {
+            images.push({
+              id: newsData.id,
+              src: newsData.image,
+              thumbnail: newsData.image,
+              title: newsData.title,
+              description: newsData.short_description || newsData.description?.substring(0, 200) + '...' || '',
+              date: new Date(newsData.published_at || newsData.created_at).toLocaleDateString(lang === 'en' ? 'en-US' : lang === 'kg' ? 'ky' : 'ru-RU'),
+              photographer: 'Dordoi Association',
+              tags: ['новость'],
+              resolution: '1920x1080',
+              size: '2.5 MB',
+              license: 'Editorial Use'
+            });
+          }
+          
+          // Дополнительные изображения из поля photos
+          if (newsData.photos && Array.isArray(newsData.photos)) {
+            newsData.photos.forEach((photo, index) => {
+              images.push({
+                id: photo.id,
+                src: photo.image,
+                thumbnail: photo.image,
+                title: `${newsData.title} - Фото ${index + 1}`,
+                description: newsData.short_description || '',
+                date: new Date(newsData.published_at || newsData.created_at).toLocaleDateString(lang === 'en' ? 'en-US' : lang === 'kg' ? 'ky' : 'ru-RU'),
+                photographer: 'Dordoi Association',
+                tags: ['новость'],
+                resolution: '1920x1080',
+                size: '2.5 MB',
+                license: 'Editorial Use'
+              });
+            });
+          }
+          
+          const transformedGallery = {
+            id: `news-${newsData.id}`,
+            title: newsData.title,
+            category: newsData.category?.id?.toString() || 'news',
+            categoryName: 'Новости',
+            images: images
+          };
+          
+          setGallery(transformedGallery);
+        } else {
+          // Загружаем обычную галерею
+          const data = await apiRequest(`gallery/galleries/${id}/?language=${lang}`);
+          
+          // Преобразуем данные для компонента
+          const transformedGallery = {
+            id: data.id,
+            title: data[`title_${lang}`] || data.title_ru,
+            category: data.category.id.toString(),
+            categoryName: data.category[`name_${lang}`] || data.category.name_ru,
+            images: data.photos.map((photo, index) => ({
+              id: photo.id,
+              src: photo.image,
+              thumbnail: photo.image,
+              title: `Фото ${index + 1}`,
+              description: '',
+              date: new Date().toLocaleDateString(),
+              photographer: 'Dordoi Association',
+              tags: [],
+              resolution: '4000x3000',
+              size: '8.0 MB',
+              license: 'Editorial Use'
+            }))
+          };
+          
+          setGallery(transformedGallery);
+        }
       } catch (error) {
-        console.error('Error fetching gallery:', error);
+        console.error('Error fetching data:', error);
+        // Fallback для демонстрации
+        setGallery({
+          id: 1,
+          title: t('media.galleries.anniversary.title'),
+          category: 'anniversary',
+          categoryName: 'Юбилей',
+          images: [
+            {
+              id: 1,
+              src: '/api/placeholder/1200/800',
+              thumbnail: '/api/placeholder/300/200',
+              title: t('media.galleries.anniversary.images.0.title'),
+              description: t('media.galleries.anniversary.images.0.description'),
+              date: '15.01.2024',
+              photographer: t('media.galleries.anniversary.images.0.photographer'),
+              tags: ['юбилей', 'торжество', 'награждение'],
+              resolution: '4000x3000',
+              size: '8.2 MB',
+              license: 'Editorial Use'
+            }
+          ]
+        });
       } finally {
         setLoading(false);
       }
     };
 
     if (id) {
-      fetchGallery();
+      fetchData();
     }
-  }, [id, i18n.language]);
+  }, [id, i18n.language, t]);
 
   // Данные галерей (в реальном приложении будут приходить из API)
   const galleries = [

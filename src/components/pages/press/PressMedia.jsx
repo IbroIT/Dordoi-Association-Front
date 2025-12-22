@@ -3,6 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { CameraIcon, TrophyIcon, GlobeIcon, HandshakeIcon, BriefcaseIcon } from '../../icons';
+import { apiRequest } from '../../../api';
 
 const PressMedia = () => {
   const ref = useRef(null);
@@ -18,50 +19,76 @@ const PressMedia = () => {
     const fetchCategories = async () => {
       try {
         const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
-        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/gallery/categories/?language=${lang}`);
-        const data = await response.json();
+        const data = await apiRequest(`gallery/categories/?language=${lang}`);
         
-        // Добавляем категорию "all" в начало
+        // Добавляем категорию "all" в начало и категорию "news" для новостей
         const allCategory = { id: 'all', label: t('media.categories.all'), icon: <CameraIcon className="w-5 h-5" /> };
+        const newsCategory = { id: 'news', label: t('media.categories.news', 'Новости'), icon: <GlobeIcon className="w-5 h-5" /> };
         const apiCategories = data.map((category, index) => ({
           id: category.id.toString(),
           label: category[`name_${lang}`] || category.name_ru,
           icon: getCategoryIcon(index)
         }));
         
-        setCategories([allCategory, ...apiCategories]);
+        setCategories([allCategory, newsCategory, ...apiCategories]);
       } catch (error) {
         console.error('Error fetching categories:', error);
+        // Fallback categories
+        setCategories([
+          { id: 'all', label: t('media.categories.all'), icon: <CameraIcon className="w-5 h-5" /> },
+          { id: 'news', label: t('media.categories.news', 'Новости'), icon: <GlobeIcon className="w-5 h-5" /> }
+        ]);
       }
     };
 
     fetchCategories();
   }, [i18n.language, t]);
 
-  // Загрузка галерей из API
+  // Загрузка галерей и новостей из API
   useEffect(() => {
-    const fetchGalleries = async () => {
+    const fetchData = async () => {
       try {
         const lang = i18n.language === 'kg' ? 'kg' : i18n.language === 'en' ? 'en' : 'ru';
-        const response = await fetch(`https://dordoi-backend-f6584db3b47e.herokuapp.com/api/gallery/galleries/?language=${lang}`);
-        const data = await response.json();
         
-        // Преобразуем данные для компонента
-        const transformedGalleries = data.map(gallery => ({
+        // Загрузка галерей
+        const galleriesResponse = await apiRequest(`gallery/galleries/?language=${lang}`);
+        const galleriesData = galleriesResponse.results || galleriesResponse;
+        
+        // Преобразуем данные галерей
+        const transformedGalleries = galleriesData.map(gallery => ({
           id: gallery.id,
           title: gallery[`title_${lang}`] || gallery.title_ru,
           category: gallery.category.id.toString(),
           coverImage: gallery.photos.length > 0 ? gallery.photos[0].image : '/api/placeholder/600/400',
-          photos: gallery.photos
+          photos: gallery.photos,
+          type: 'gallery' // тип галереи
         }));
         
-        setGalleries(transformedGalleries);
+        // Загрузка новостей
+        const newsResponse = await apiRequest(`presscentre/news/?lang=${lang}`);
+        const newsData = newsResponse.results || newsResponse;
+        
+        // Преобразуем новости в формат галерей
+        const newsGalleries = newsData.map(news => ({
+          id: `news-${news.id}`,
+          title: news.title,
+          category: news.category?.id?.toString() || 'news',
+          coverImage: news.image || '/api/placeholder/600/400',
+          photos: news.image ? [{ image: news.image, title: news.title }] : [],
+          type: 'news', // тип новости
+          newsData: news // сохраняем полные данные новости
+        }));
+        
+        // Объединяем галереи и новости
+        setGalleries([...transformedGalleries, ...newsGalleries]);
       } catch (error) {
-        console.error('Error fetching galleries:', error);
+        console.error('Error fetching data:', error);
+        // В случае ошибки устанавливаем пустой массив
+        setGalleries([]);
       }
     };
 
-    fetchGalleries();
+    fetchData();
   }, [i18n.language]);
 
   // Функция для получения иконки категории
@@ -225,12 +252,40 @@ const PressMedia = () => {
 
                 {/* Информация о галерее */}
                 <div className="p-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                      gallery.type === 'news' 
+                        ? 'bg-green-100 text-green-700' 
+                        : 'bg-blue-100 text-blue-700'
+                    }`}>
+                      {gallery.type === 'news' ? t('media.type.news', 'Новость') : t('media.type.gallery', 'Галерея')}
+                    </span>
+                    {gallery.type === 'news' && gallery.newsData && (
+                      <span className="text-gray-500 text-xs">
+                        {new Date(gallery.newsData.published_at || gallery.newsData.created_at).toLocaleDateString(i18n.language === 'en' ? 'en-US' : i18n.language === 'kg' ? 'ky' : 'ru-RU', {
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric'
+                        })}
+                      </span>
+                    )}
+                  </div>
+                  
                   <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
                     {gallery.title}
                   </h3>
                   
                   <motion.button
-                    onClick={() => navigate(`/press/gallery/${gallery.id}`)}
+                    onClick={() => {
+                      if (gallery.type === 'news') {
+                        // Для новостей открываем галерею с их изображениями
+                        const newsId = gallery.id.replace('news-', '');
+                        navigate(`/press/gallery/news-${newsId}`);
+                      } else {
+                        // Для галерей переходим на страницу галереи
+                        navigate(`/press/gallery/${gallery.id}`);
+                      }
+                    }}
                     className="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300 w-full"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
