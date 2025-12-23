@@ -163,18 +163,18 @@
     "stats": {
       "projects": "50+",
       "projectsLabel": "Projects",
-      "specialists": "100+",
+      "specialists": "1000+",
       "specialistsLabel": "Specialists"
     },
     "description": {
       "0": {
-        "highlight": "Our association unites specialists and like-minded people",
-        "rest": " to develop cooperation, exchange experience, and promote common interests."
+        "highlight": "For three and a half decades since its founding, the Dordoi Association has become a symbol of stability, sustainable development and trust.",
+        "rest": " By uniting business, creating jobs and contributing to the country's economic development, the Association consistently strengthens the positions of domestic entrepreneurship."
       },
       "1": {
-        "prefix": "We strive to ",
-        "highlight": "strengthen the professional community",
-        "suffix": " and create conditions for sustainable development in our field."
+        "prefix": "",
+        "highlight": "35 years is a path of responsibility and dynamic movement forward,",
+        "suffix": " based on the values of creation and development."
       }
     },
     "advantages": [
@@ -614,8 +614,8 @@
     "details": "Details",
     "close": "Close",
     "badge": "Facts",
-    "title": "Numbers",
-    "titleHighlight": "and Achievements",
+    "title": "Interesting facts",
+    "titleHighlight": "about the Dordoy Association",
     "subtitle": "Key indicators demonstrating our contribution to the economy and development",
     "more": "More",
     "less": "Collapse",
