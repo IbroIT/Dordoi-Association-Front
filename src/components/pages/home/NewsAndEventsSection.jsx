@@ -20,7 +20,15 @@ const NewsAndEventsSection = () => {
         const data = await apiRequest(`presscentre/news/?lang=${lang}&limit=3`);
         
         const newsArray = data.results || data || [];
-        const transformedNews = newsArray.slice(0, 3).map(item => ({
+        
+        // Sort by date (most recent first)
+        const sortedNews = newsArray.sort((a, b) => {
+          const dateA = new Date(a.published_at || a.created_at);
+          const dateB = new Date(b.published_at || b.created_at);
+          return dateB - dateA; // Most recent first
+        });
+        
+        const transformedNews = sortedNews.slice(0, 3).map(item => ({
           id: item.id,
           title: item.title,
           description: item.short_description || item.description?.substring(0, 150) + '...' || '',
