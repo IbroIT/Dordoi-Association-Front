@@ -102,7 +102,6 @@ const ActivitiesSection = () => {
     name: activity.title,
     image: 'https://via.placeholder.com/48x48?text=' + activity.id, // Плейсхолдер
     description: activity.description,
-    handle: activity.path,
     icon: activity.icon
   }));
 

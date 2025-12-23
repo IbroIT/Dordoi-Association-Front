@@ -158,9 +158,6 @@ const ActivityCard = ({
               <span className="text-lg font-bold text-white">
                 {activity.name}
               </span>
-              <span className="text-sm text-blue-300 font-medium">
-                {activity.handle}
-              </span>
             </div>
           </div>
           
