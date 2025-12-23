@@ -932,52 +932,6 @@
         }
       ]
     },
-    "partners": {
-      "title": "Our Partners",
-      "subtitle": "Major companies trusting our complex",
-      "items": [
-        {
-          "icon": "🏪",
-          "name": "Globus",
-          "type": "Retail Network"
-        },
-        {
-          "icon": "🚚",
-          "name": "DHL",
-          "type": "Logistics"
-        },
-        {
-          "icon": "🏦",
-          "name": "Kazkommertsbank",
-          "type": "Banking Services"
-        },
-        {
-          "icon": "🛡️",
-          "name": "Alfa-Insurance",
-          "type": "Insurance"
-        },
-        {
-          "icon": "📦",
-          "name": "FedEx",
-          "type": "Courier Services"
-        },
-        {
-          "icon": "🏢",
-          "name": "EMA",
-          "type": "Commercial Real Estate"
-        },
-        {
-          "icon": "🌐",
-          "name": "Alibaba",
-          "type": "International Trade"
-        },
-        {
-          "icon": "💳",
-          "name": "Visa",
-          "type": "Payment Systems"
-        }
-      ]
-    },
     "caseStudy": {
       "title": "Success Story",
       "quote": "Started with one stall at Dordoi 15 years ago. Today I have a network of 5 stores and my own warehouse. Dordoi became a real business school!",
@@ -1076,6 +1030,81 @@
       "answer2": "Yes - through programs with foreign partners of the college."
     }
 },
+"partners": {
+      "title": "Our Partners",
+      "subtitle": "Major companies trusting our complex",
+      "items": [
+        {
+          "icon": "🏪",
+          "name": "Globus",
+          "type": "Retail Network"
+        },
+        {
+          "icon": "🚚",
+          "name": "DHL",
+          "type": "Logistics"
+        },
+        {
+          "icon": "🏦",
+          "name": "Kazkommertsbank",
+          "type": "Banking Services"
+        },
+        {
+          "icon": "🛡️",
+          "name": "Alfa-Insurance",
+          "type": "Insurance"
+        },
+        {
+          "icon": "📦",
+          "name": "FedEx",
+          "type": "Courier Services"
+        },
+        {
+          "icon": "🏢",
+          "name": "EMA",
+          "type": "Commercial Real Estate"
+        },
+        {
+          "icon": "🌐",
+          "name": "Alibaba",
+          "type": "International Trade"
+        },
+        {
+          "icon": "💳",
+          "name": "Visa",
+          "type": "Payment Systems"
+        }
+      ],
+      "badge": "Partners",
+      "sectionTitle": "Our Partners",
+      "sectionSubtitle": "We collaborate with leading organizations to achieve common goals and regional development",
+      "sectionItems": [
+        {
+          "title": "International Partners",
+          "description": "Cooperation with leading international organizations"
+        },
+        {
+          "title": "Business Partners",
+          "description": "Joint projects with leading companies"
+        },
+        {
+          "title": "Conferences and Forums",
+          "description": "Participation in international events"
+        },
+        {
+          "title": "Projects and Initiatives",
+          "description": "Joint regional development projects"
+        },
+        {
+          "title": "Regional Partners",
+          "description": "Cooperation with local organizations"
+        },
+        {
+          "title": "Technology Partners",
+          "description": "Modern technologies and innovations"
+        }
+      ]
+    },
   "finance": {
     "completion": "Completion in %",
     "capacity": "Capacity",
@@ -3033,99 +3062,6 @@
       "registered": "registered",
       "seatsAvailable": "seats available",
       "share": "Share"
-    }
-  },
-  "partners": {
-    "badge": "Strategic Partnerships",
-    "title": "Our Partners",
-    "subtitle": "Collaborating with industry pioneers to drive innovation and create exceptional digital experiences",
-    "ourPartners": "Our Partners",
-    "location": "Headquarters",
-    "industry": "Industry",
-    "founded": "Founded",
-    "yearsOfCooperation": "Years Together",
-    "successfulProjects": "Projects",
-    "employees": "Team",
-    "satisfaction": "Satisfaction",
-    "aboutCompany": "About Company",
-    "keyServices": "Key Services",
-    "achievements": "Key Achievements",
-    "ourCollaboration": "Our Collaboration",
-    "visitWebsite": "Visit Official Website",
-    "partnershipStatus": "Partnership Status",
-    "activeCollaboration": "Active collaboration since 2020",
-    "partnershipBenefits": "Partnership Benefits",
-    "jointProjects": "Joint project development and implementation",
-    "technicalSupport": "Priority technical support and consulting",
-    "knowledgeSharing": "Regular knowledge sharing sessions",
-    "marketingSupport": "Joint marketing and promotional activities",
-    "techcorp": {
-      "benefit1": "Joint innovative projects",
-      "benefit2": "Access to cutting-edge technologies",
-      "benefit3": "Exclusive training programs",
-      "description": "Leading technology company providing advanced software solutions and digital transformation services to enterprises worldwide.",
-      "location": "Silicon Valley, USA",
-      "industry": "Enterprise Software and Cloud Solutions",
-      "founded": "2012",
-      "achievement1": "Recognized as Top Innovator 2023 by TechReview",
-      "achievement2": "Serves 50+ Fortune 500 companies",
-      "achievement3": "Global expansion to 15+ countries with local offices",
-      "collaboration": "Strategic partnership focused on enterprise digital transformation and cloud migration for our mutual clients.",
-      "details": "TechCorp is a global leader in enterprise software solutions with over a decade of experience in digital transformation. They specialize in creating scalable, secure, and innovative technology solutions that drive business growth and operational efficiency across various industries including finance, healthcare, and manufacturing.",
-      "service1": "Enterprise Software Development",
-      "service2": "Cloud Migration and Infrastructure",
-      "service3": "Digital Transformation Consulting"
-    },
-    "innovatelab": {
-      "benefit1": "Access to advanced research and development",
-      "benefit2": "Joint innovation initiatives",
-      "benefit3": "Knowledge sharing and technical expertise",
-      "description": "Pioneering research institution focused on breakthrough technologies and scientific achievements shaping the future.",
-      "location": "Boston, USA",
-      "industry": "Research and Development",
-      "founded": "2018",
-      "achievement1": "Filed 15+ patents in AI and machine learning in 2023",
-      "achievement2": "Established partnerships with 5 leading universities",
-      "achievement3": "Received AI Research Excellence Award 2023",
-      "collaboration": "Joint R&D initiatives in artificial intelligence and next-generation technology prototypes for innovative product development.",
-      "details": "InnovateLab is at the forefront of technological research and development, bridging academic research with practical applications. Their team of scientists and engineers works on cutting-edge projects that redefine industry standards in AI, robotics, and sustainable technologies.",
-      "service1": "AI and Machine Learning Research",
-      "service2": "Technology Prototyping and Testing",
-      "service3": "Academia-Industry Partnerships"
-    },
-    "globalsolutions": {
-      "benefit1": "Global expertise and localized strategies",
-      "benefit2": "Access to international markets",
-      "benefit3": "Comprehensive consulting services",
-      "description": "Powerful consulting company helping businesses navigate complex global markets and digital transformation.",
-      "location": "London, UK",
-      "industry": "Business Consulting",
-      "founded": "2010",
-      "achievement1": "Trusted by 30+ Fortune 500 companies",
-      "achievement2": "Successful global expansion projects in 25+ countries",
-      "achievement3": "Digital Transformation Excellence Award 2023",
-      "collaboration": "Global expansion strategies and digital transformation consulting services for international business growth.",
-      "details": "GlobalSolutions provides comprehensive consulting services for businesses seeking international expansion and digital transformation. With offices in 12 countries, they offer localized expertise with global perspective, helping clients navigate cultural, regulatory, and market challenges.",
-      "service1": "International Market Expansion",
-      "service2": "Digital Business Transformation",
-      "service3": "Strategic Business Consulting"
-    },
-    "futuretech": {
-      "benefit1": "Access to advanced AI and automation technologies",
-      "benefit2": "Joint development and solution implementation",
-      "benefit3": "Technical support and training",
-      "description": "Promising company at the forefront of AI and automation technologies, creating intelligent solutions for tomorrow's challenges.",
-      "location": "Berlin, Germany",
-      "industry": "AI and Automation",
-      "founded": "2019",
-      "achievement1": "AI Innovation Award 2023 for industrial automation",
-      "achievement2": "Industry 4.0 solutions implemented at 50+ factories",
-      "achievement3": "Smart factory solutions deployed across Europe",
-      "collaboration": "AI-based automation solutions and smart system implementation for industrial clients and manufacturing partners.",
-      "details": "FutureTech specializes in artificial intelligence and automation technologies that revolutionize industrial processes. Their solutions help businesses achieve unprecedented levels of efficiency and innovation through smart technology integration, IoT implementation, and predictive maintenance systems.",
-      "service1": "AI-based Industrial Solutions",
-      "service2": "Smart Factory Implementation",
-      "service3": "Automation System Integration"
     }
   },
   "partnersProjects": {
