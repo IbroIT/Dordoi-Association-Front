@@ -169,7 +169,7 @@ const SubsidiaryDetail = () => {
         src={subsidiary.logo}
         alt={subsidiary.name}
         className="
-          w-[65vw] md:w-[40vw]
+          w-[60vw] md:w-[30vw]
           max-h-[75%]
           object-contain
           rounded-2xl
@@ -196,7 +196,6 @@ const SubsidiaryDetail = () => {
               className="mb-12"
             >
               <div 
-                className="text-lg text-slate-700 leading-relaxed prose prose-slate max-w-none w-full"
                 dangerouslySetInnerHTML={{ __html: subsidiary.description }}
               />
             </motion.div>
