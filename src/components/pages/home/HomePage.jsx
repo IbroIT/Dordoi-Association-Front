@@ -7,12 +7,15 @@ import ActivitiesSection from './ActivitiesSection'
 import NewsAndEventsSection from './NewsAndEventsSection'
 import InternationalPartnersSection from './InternationalPartnersSection'
 import PartnersSection from './PartnersSection'
+import StructurePreview from './StructurePreview'
+
 function HomePage() {
   return (
     <div>
         <HeroSlider />
         <AboutSection />
         <NewsAndEventsSection />
+        <StructurePreview />
 
         <MissionAndValues />
         {/* <AchievementsSection /> */}

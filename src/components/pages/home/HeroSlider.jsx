@@ -5,7 +5,35 @@ import { useTranslation } from 'react-i18next';
 const HeroSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slides, setSlides] = useState([]);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
   const { t, i18n } = useTranslation();
+
+  // Минимальное расстояние для свайпа
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    }
+    if (isRightSwipe) {
+      prevSlide();
+    }
+  };
 
   useEffect(() => {
     const fetchBanners = async () => {
@@ -90,7 +118,12 @@ const HeroSlider = () => {
   };
 
   return (
-    <div className="relative h-screen bg-gradient-to-r from-blue-900 via-blue-800 to-slate-900 overflow-hidden">
+    <div 
+      className="relative h-screen md:h-screen bg-gradient-to-r from-blue-900 via-blue-800 to-slate-900 overflow-hidden"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
       {/* Слайды */}
       {slides.map((slide, index) => {
         const buttonElement = slide.buttonLink ? (
@@ -99,14 +132,14 @@ const HeroSlider = () => {
               href={slide.buttonLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-6 px-8 py-3 bg-yellow-400 text-slate-900 font-semibold rounded-lg hover:bg-yellow-300 transition-colors duration-300"
+              className="inline-block mt-4 md:mt-6 px-6 py-2 md:px-8 md:py-3 text-sm md:text-base bg-yellow-400 text-slate-900 font-semibold rounded-lg hover:bg-yellow-300 transition-colors duration-300"
             >
               {slide.buttonText}
             </a>
           ) : (
             <Link
               to={slide.buttonLink}
-              className="inline-block mt-6 px-8 py-3 bg-yellow-400 text-slate-900 font-semibold rounded-lg hover:bg-yellow-300 transition-colors duration-300"
+              className="inline-block mt-4 md:mt-6 px-6 py-2 md:px-8 md:py-3 text-sm md:text-base bg-yellow-400 text-slate-900 font-semibold rounded-lg hover:bg-yellow-300 transition-colors duration-300"
             >
               {slide.buttonText}
             </Link>
@@ -134,15 +167,15 @@ const HeroSlider = () => {
             {/* Контент */}
             <div className="relative h-full flex items-center">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                <div className="max-w-6xl">
-                  <div className="space-y-6">
+                <div className="max-w-4xl md:max-w-6xl">
+                  <div className="space-y-3 md:space-y-6">
                     {/* Заголовок */}
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-white leading-tight">
                       {slide.title}
                     </h1>
                     
                     {/* Подзаголовок */}
-                    <p className="text-xl md:text-2xl text-yellow-300 font-semibold">
+                    <p className="text-lg sm:text-xl md:text-2xl text-yellow-300 font-semibold max-w-2xl">
                       {slide.subtitle}
                     </p>
                     
@@ -159,31 +192,31 @@ const HeroSlider = () => {
       {/* Навигационные стрелки */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm z-10"
+        className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 md:p-3 rounded-full transition-all duration-300 backdrop-blur-sm z-10 min-w-[44px] min-h-[44px] flex items-center justify-center"
         aria-label={t('hero.previousSlide')}
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
       </button>
       
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm z-10"
+        className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 md:p-3 rounded-full transition-all duration-300 backdrop-blur-sm z-10 min-w-[44px] min-h-[44px] flex items-center justify-center"
         aria-label={t('hero.nextSlide')}
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
       </button>
 
       {/* Индикаторы слайдов */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
+      <div className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 md:space-x-3 z-10">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`w-4 h-4 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
               index === currentSlide
                 ? 'bg-yellow-400 scale-125'
                 : 'bg-white/50 hover:bg-white/70'
@@ -194,7 +227,7 @@ const HeroSlider = () => {
       </div>
 
       {/* Градиент снизу */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-900/50 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-16 md:h-32 bg-gradient-to-t from-slate-900/50 to-transparent" />
     </div>
   );
 };

@@ -3364,6 +3364,7 @@
       "close": "Close"
     },
     "noData": "No data available",
+    "noDataDescription": "Structure information is temporarily unavailable. Please try refreshing the page later.",
     "loading": "Loading...",
     "error": "Loading error",
     "search": {
