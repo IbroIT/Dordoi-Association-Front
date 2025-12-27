@@ -83,3 +83,11 @@
   animation-play-state: paused;
 }
 
+.ck-content p {
+  margin: revert;
+}
+
+.ck-content ul,
+.ck-content ol {
+  padding-left: 1.5rem;
+}

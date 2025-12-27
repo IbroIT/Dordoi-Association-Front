@@ -42,7 +42,6 @@ const AboutStructure = () => {
         setLoading(false);
       }
     };
-
     fetchSubsidiaries();
   }, [i18n.language]);
 

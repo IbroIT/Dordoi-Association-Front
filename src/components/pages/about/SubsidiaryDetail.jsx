@@ -195,10 +195,12 @@ const SubsidiaryDetail = () => {
               variants={itemVariants}
               className="mb-12"
             >
-              <div 
+              <div
+                className="ck-content"
                 dangerouslySetInnerHTML={{ __html: subsidiary.description }}
               />
             </motion.div>
+
 
             {/* Контактная информация */}
             {(subsidiary.address || subsidiary.contacts || subsidiary.email || subsidiary.phone) && (

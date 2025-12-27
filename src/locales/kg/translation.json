@@ -2988,7 +2988,9 @@
       "registered": "катталды",
       "seatsAvailable": "орун жеткиликтүү",
       "share": "Бөлүшүү"
-    }
+    },
+    "document": "Документ",
+    "openLink": "Шилтемени ачуу"
   },
    "partners": {
       "title": "Биздин өнөктөштөр",

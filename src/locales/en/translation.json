@@ -2845,7 +2845,9 @@
       "description": "Contact us for comments or accreditation requests for events",
       "comment": "Leave Comment",
       "accreditation": "Request Accreditation"
-    }
+    },
+    "document": "Document",
+    "openLink": "Open Link"
   },
   "pressEvents": {
     "searchPlaceholder": "Search events...",
