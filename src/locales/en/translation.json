@@ -611,6 +611,7 @@
     ]
   },
   "facts": {
+    "readMore": "Read More",
     "details": "Details",
     "close": "Close",
     "badge": "Facts",

@@ -11,7 +11,8 @@ const AboutFacts = () => {
   const [counterValues, setCounterValues] = useState({});
   const [facts, setFacts] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [expandedFact, setExpandedFact] = useState(null);
+  const [modalFact, setModalFact] = useState(null)
   // Маппинг ID фактов к дополнительным данным
   const factMapping = {
     1: { // forbes
@@ -379,7 +380,19 @@ const AboutFacts = () => {
                     
                     {/* Декоративный уголок */}
                     <div className={`absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 ${colors.border} rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+                    {fact.photo && (
+                      <div className="relative mb-6 overflow-hidden rounded-2xl">
+                        <img
+                          src={fact.photo}
+                          alt={fact.title}
+                          className="w-full h-78 object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
 
+                        {/* затемняющий градиент для читаемости */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
+                      </div>
+                    )}
                     <div className="flex-1 min-w-0">
                       <h3 className={`text-2xl font-bold mb-3 ${colors.text}`}>
                         {fact.title}
@@ -388,9 +401,20 @@ const AboutFacts = () => {
                       
                     </div>
                     
-                    <p className="text-slate-600 leading-relaxed flex-grow text-lg font-light">
+                    <p className="mt-3 text-slate-600 text-lg leading-relaxed line-clamp-4">
                       {fact.description}
                     </p>
+
+                    <button
+                      onClick={() => setModalFact(fact)}
+                      className="mt-4 self-start text-sm font-semibold text-blue-600 hover:text-blue-800 transition"
+                    >
+                      {t('facts.readMore')}
+                    </button>
+
+
+                    
+
 
                     {/* Декоративный элемент при наведении */}
                     <motion.div
@@ -406,6 +430,56 @@ const AboutFacts = () => {
           </motion.div>
         )}
       </div>
+
+      {modalFact && (
+  <motion.div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    onClick={() => setModalFact(null)}
+  >
+    <motion.div
+      className="relative bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+      initial={{ scale: 0.9, y: 40 }}
+      animate={{ scale: 1, y: 0 }}
+      exit={{ scale: 0.9, y: 40 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Кнопка закрытия */}
+      <button
+        onClick={() => setModalFact(null)}
+        className="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-xl"
+      >
+        ✕
+      </button>
+
+      {/* Фото */}
+      {modalFact.photo && (
+        <div className="overflow-hidden rounded-t-3xl">
+          <img
+            src={modalFact.photo}
+            alt={modalFact.title}
+            className="w-full h-124 object-cover"
+          />
+        </div>
+      )}
+
+      {/* Контент */}
+      <div className="p-8">
+        <h3 className="text-3xl font-bold text-slate-900 mb-4">
+          {modalFact.title}
+        </h3>
+
+        <p className="text-slate-700 text-lg leading-relaxed whitespace-pre-line">
+          {modalFact.description}
+        </p>
+      </div>
+    </motion.div>
+  </motion.div>
+)}
+
     </section>
   );
 };
