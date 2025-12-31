@@ -447,6 +447,7 @@ const AboutFacts = () => {
       transition={{ duration: 0.3, ease: 'easeOut' }}
       onClick={(e) => e.stopPropagation()}
     >
+      
       {/* Кнопка закрытия */}
       <button
         onClick={() => setModalFact(null)}
