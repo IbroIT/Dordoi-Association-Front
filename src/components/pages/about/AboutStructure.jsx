@@ -540,7 +540,7 @@ const AboutStructure = () => {
                   <div className="relative z-10">
                     {/* Фото компании */}
                     <div className="mb-6">
-                      <div className="w-full h-48 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-xl transition-all duration-500 overflow-hidden">
+                      <div className="w-full h-full bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-xl transition-all duration-500 overflow-hidden">
                         <img 
                           src={subsidiary.logo} 
                           alt={subsidiary.name} 
@@ -574,27 +574,6 @@ const AboutStructure = () => {
                   <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full opacity-10 group-hover:opacity-20 transition-opacity duration-300" />
                 </motion.div>
               ))}
-            </motion.div>
-          )}
-
-          {/* Кнопка просмотра всех компаний */}
-          {!loading && (
-            <motion.div
-              variants={itemVariants}
-              initial="hidden"
-              animate={hasAnimated ? "visible" : "hidden"}
-              className="text-center mt-16"
-            >
-              <motion.button
-                className="bg-slate-900 text-white px-10 py-4 rounded-2xl font-semibold hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center space-x-3 text-lg"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span>{t('structure.subsidiaries.viewAll')}</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </motion.button>
             </motion.div>
           )}
         </motion.div>
