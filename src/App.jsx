@@ -82,7 +82,6 @@ function App() {
             <Route path="/home" element={<HomePage />} />
 
             {/* Страницы About */}
-            <Route path="/about" element={<AboutPage />} />
             <Route path="/about/history" element={<AboutHistory />} />
             <Route path="/about/mission" element={<AboutMission />} />
             <Route path="/about/leadership" element={<AboutLeadership />} />
@@ -94,12 +93,10 @@ function App() {
             <Route path="/activities/culture-leisure" element={<CultureLeisure />} />
             <Route path="/activities/infrastructure" element={<Infrastructure />} />
             <Route path="/activities/business-trade" element={<BusinessAndTrade />} />
-            <Route path="/activities" element={<ActivitiesPage />} />
             <Route path="/activities/education" element={<ActivitiesEducation />} />
             <Route path="/activities/sports" element={<ActivitiesSports />} />
 
             {/* Страницы Press */}
-            <Route path="/press" element={<PressPage />} />
             <Route path="/press/news" element={<PressNews />} />
             <Route path="/press/news/:id" element={<Details />} />
             <Route path="/press/media" element={<PressMedia />} />
@@ -110,7 +107,6 @@ function App() {
             {/* <Route path="/press/releases" element={<PressReleases />} /> */}
 
             {/* Страницы Partners */}
-            <Route path="/partners" element={<PartnersPage />} />
             <Route path="/partners/our" element={<PartnersOur />} />
             <Route path="/partners/international" element={<PartnersInternational />} />
             <Route path="/partners/projects" element={<PartnersProjects />} />
@@ -118,7 +114,6 @@ function App() {
             <Route path="/partners/role" element={<PartnersRole />} />
 
             {/* Страницы Contacts */}
-            <Route path="/contacts" element={<ContactsPage />} />
             <Route path="/contacts/address" element={<ContactsAddress />} />
             <Route path="/contacts/info" element={<ContactsInfo />} />
             <Route path="/contacts/social" element={<ContactsSocial />} />
