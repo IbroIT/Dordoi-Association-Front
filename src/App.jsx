@@ -5,11 +5,6 @@ import './App.css';
 
 // Главные страницы
 import HomePage from './components/pages/home/HomePage';
-import AboutPage from './components/pages/home/AboutPage';
-import ActivitiesPage from './components/pages/home/ActivitiesPage';
-import PressPage from './components/pages/home/PressPage';
-import PartnersPage from './components/pages/home/PartnersPage';
-import ContactsPage from './components/pages/home/ContactsPage';
 
 // Подразделы About
 import AboutHistory from './components/pages/about/AboutHistory';
