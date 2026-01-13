@@ -225,6 +225,7 @@
     ]
   },
   "news": {
+    "viewAll": "View All News",
     "badge": "Current Events",
     "title": "News",
     "subtitle": "Current achievements, initiatives, and projects of the Dordoi Association",
@@ -611,6 +612,9 @@
     ]
   },
   "facts": {
+    "learnMore": "Learn More",
+    "viewAll": "View All Facts",
+    "subtitleHighlight": "Interesting Facts",
     "readMore": "Read More",
     "details": "Details",
     "close": "Close",
