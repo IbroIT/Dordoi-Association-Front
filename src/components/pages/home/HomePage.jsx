@@ -8,20 +8,19 @@ import NewsAndEventsSection from './NewsAndEventsSection'
 import InternationalPartnersSection from './InternationalPartnersSection'
 import PartnersSection from './PartnersSection'
 import StructurePreview from './StructurePreview'
-
+import HomeFacts from './HomeFacts'
 function HomePage() {
   return (
     <div>
         <HeroSlider />
         <AboutSection />
         <NewsAndEventsSection />
+        <HomeFacts />
         <StructurePreview />
-
         <MissionAndValues />
         {/* <AchievementsSection /> */}
         <ActivitiesSection />
         <PartnersSection />
-
         {/* <InternationalPartnersSection /> */}
     </div>
   )
