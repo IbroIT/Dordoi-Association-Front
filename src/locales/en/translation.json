@@ -427,6 +427,9 @@
       }
     },
     "subsidiaries": {
+      "gallery": "Gallery",
+      "photos": "Photos",
+      "viewAllPhotos": "View All Photos",
       "title": "Subsidiaries",
       "subtitle": "Explore the profiles of our subsidiaries and their specializations",
       "learnMore": "Learn More",
